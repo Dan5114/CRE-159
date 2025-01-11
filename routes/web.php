@@ -1,0 +1,39 @@
+<?php
+
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ResearcherController;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+
+Route::get('/', function () {
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
+
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::resources([
+        'researcher' => ResearcherController::class
+    ]);
+    Route::post('/researcher/file/upload', [ResearcherController::class, 'file_uplolad_store'])->name('researcher.upload.files');
+    Route::get('/file/download/{id}', [ResearcherController::class, 'file_download'])->name('researcher.file.download');
+    Route::post('/researcher/update/status', [ResearcherController::class, 'update_application_status'])->name('researcher.update.status');
+    Route::post('/researcher/submit/application', [ResearcherController::class, 'submit_application'])->name('researcher.submit.application');
+    Route::post('/researcher/submit/panels', [ResearcherController::class, 'submit_panels'])->name('researcher.submit.panels');
+    Route::post('/researcher/scheduled/meeting', [ResearcherController::class, 'scheduled_meeting'])->name('researcher.scheduled.meeting');
+
+});
+
+require __DIR__.'/auth.php';
