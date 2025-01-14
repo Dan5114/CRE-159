@@ -15,6 +15,7 @@ dayjs.extend(localizedFormat);
 export default function View(props) {
 
     const notyf = new Notyf();
+    const step_status = props.step_status;
     const research_data = props.research;
     const files = props.frp;
     const research_logs = props.research_logs;
@@ -55,7 +56,7 @@ export default function View(props) {
                           <h5 class="p-2 rounded-md bg-[#198754] text-xl text-white font-extrabold leading-none tracking-tight md:text-xl dark:text-white">Application and Review Process </h5>
                             <div class="flex items-center justify-between vertical-scrollbar rounded-none rounded-scrollbar card max-h-screen w-full mb-4 p-4">
                            
-                            <Steps research_logs={research_logs} />
+                            <Steps research_logs={research_logs} step_status={step_status} />
                             </div>
                             
                             </div>

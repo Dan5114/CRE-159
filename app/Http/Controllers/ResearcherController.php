@@ -18,6 +18,8 @@ use App\Models\File;
 use App\Models\ResearchLog;
 use App\Models\CreMeeting;
 use App\Models\CrePanelMember;
+use App\Models\CreApplicationStatus;
+use Carbon\Carbon;
 
 class ResearcherController extends Controller
 {
@@ -84,13 +86,20 @@ class ResearcherController extends Controller
 
     public function update_application_status(Request $request)
     {
+        $current = Carbon::now();
+        $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "1")->first();
+        CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current]);
+        $this->cre_application_status($request->research_id, "2", "Technical Committee & Schedule Presentation", $current, $end = null, "Pending");
+
         Research::where('id', $request->research_id)->update(['status'=>'REC']);
         return redirect()->back()->with('message', 'Updated Status Successfully');
     }
 
     public function submit_application(Request $request)
     {
+        $current = Carbon::now();
         Research::where('id', $request->research_id)->update(['status'=>'S']);
+        $this->cre_application_status($request->research_id, "1", "Submit Application", $current, $end = null, "Submitted");
         return redirect()->back()->with('message', 'Submitted Successfully');
     }
 
@@ -269,10 +278,6 @@ class ResearcherController extends Controller
                 $sub_docs_remarks = "Submitted CV for Researchers";
                 $this->research_data_log($request->research_id, "1", $sub_docs_remarks);
             }
-
-            
-
-            // return redirect()->back()->with('message', 'Uploaded File Successfully');
   
         } catch (Exception $e) {
             Log::debug($e->getMessage());
@@ -288,19 +293,25 @@ class ResearcherController extends Controller
         $research = ($value) ? $value : null;
 
         if($value){
-            $file_FRP = collect(File::where('research_id', $value->id)->where('document_for', "FRP")->orderBy('created_at', 'desc')->first(['file_id','file_name','file_path','file_url','document_for','created_at']));
-            $file_CP = collect(File::where('research_id', $value->id)->where('document_for', "CP")->orderBy('created_at', 'desc')->first(['file_id','file_name','file_path','file_url','document_for','created_at']));
-            $file_EL = collect(File::where('research_id', $value->id)->where('document_for', "EL")->orderBy('created_at', 'desc')->first(['file_id','file_name','file_path','file_url','document_for','created_at']));
-            $file_WPGC = collect(File::where('research_id', $value->id)->where('document_for', "WPGC")->orderBy('created_at', 'desc')->first(['file_id','file_name','file_path','file_url','document_for','created_at']));
-            $file_BRBP = collect(File::where('research_id', $value->id)->where('document_for', "BRBP")->orderBy('created_at', 'desc')->first(['file_id','file_name','file_path','file_url','document_for','created_at']));
-            $file_VGII = collect(File::where('research_id', $value->id)->where('document_for', "VGII")->orderBy('created_at', 'desc')->first(['file_id','file_name','file_path','file_url','document_for','created_at']));
-            $file_CVR = collect(File::where('research_id', $value->id)->where('document_for', "CVR")->orderBy('created_at', 'desc')->first(['file_id','file_name','file_path','file_url','document_for','created_at']));
+            $file_FRP = collect(File::where('research_id', $value->id)->where('document_for', "FRP")->orderBy('created_at', 'desc')->first(['id','file_name','file_path','document_for','created_at']));
+            $file_CP = collect(File::where('research_id', $value->id)->where('document_for', "CP")->orderBy('created_at', 'desc')->first(['id','file_name','file_path','document_for','created_at']));
+            $file_EL = collect(File::where('research_id', $value->id)->where('document_for', "EL")->orderBy('created_at', 'desc')->first(['id','file_name','file_path','document_for','created_at']));
+            $file_WPGC = collect(File::where('research_id', $value->id)->where('document_for', "WPGC")->orderBy('created_at', 'desc')->first(['id','file_name','file_path','document_for','created_at']));
+            $file_BRBP = collect(File::where('research_id', $value->id)->where('document_for', "BRBP")->orderBy('created_at', 'desc')->first(['id','file_name','file_path','document_for','created_at']));
+            $file_VGII = collect(File::where('research_id', $value->id)->where('document_for', "VGII")->orderBy('created_at', 'desc')->first(['id','file_name','file_path','document_for','created_at']));
+            $file_CVR = collect(File::where('research_id', $value->id)->where('document_for', "CVR")->orderBy('created_at', 'desc')->first(['id','file_name','file_path','document_for','created_at']));
             
             $rlogs = ResearchLog::where('research_id', $value->id)->where('steps', 1)->orderBy('created_at', 'ASC')->get();
             $panels = CrePanelMember::where('research_id', $value->id)->get();
 
+            $step_status = [
+                "step1" => $this->getStepStatus($value->id, "1"),
+                "step2" => $this->getStepStatus($value->id, "2")
+            ];
+
             $author = explode(",", $value->members);
         }else{
+            $step_status = null;
             $rlogs = null;
             $panels = null;
             $files = null;
@@ -321,6 +332,7 @@ class ResearcherController extends Controller
         
 
         return Inertia::render('Researcher/View', [
+            'step_status' => $step_status,
             'research' => $research,
             'frp' => $doc_file,
             'research_logs' => $rlogs,
@@ -331,8 +343,20 @@ class ResearcherController extends Controller
 
     public function file_download($file_id)
     {
-       $file = File::where('file_id', $file_id)->first();
+       $file = File::where('id', $file_id)->first();
        return response()->download("storage/uploads/" . $file->file_name, $file->file_name);
+    }
+
+    public function getStepStatus($research_id, $steps){
+       $application_status = CreApplicationStatus::where('research_id', $research_id)->where('steps', $steps)->first();
+
+        if($application_status){
+            $value = $application_status;
+        }else{
+            $value = null;
+        }
+
+        return $value;
     }
 
     public function research_data_log($research_id, $steps, $remarks){
@@ -343,6 +367,19 @@ class ResearcherController extends Controller
         ];
 
         ResearchLog::create($research_data_log);
+    }
+
+    public function cre_application_status($research_id, $steps, $name, $start = null, $end = null, $status){
+        $application_status_log = [
+            "research_id" => $research_id,
+            "steps" => $steps,
+            "name" => $name,
+            "start" => $start,
+            "end" => $end,
+            "status" => $status
+        ];
+
+        CreApplicationStatus::create($application_status_log);
     }
 
     /**

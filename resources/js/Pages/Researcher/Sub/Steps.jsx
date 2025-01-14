@@ -4,7 +4,10 @@ dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 
-export default function StepperForm({research_logs}) {
+export default function StepperForm({research_logs, step_status}) {
+
+  const status_step1 = step_status.step1;
+
      return (
         <>
             <ul class="relative flex h-full flex-col gap-y-2">
@@ -25,14 +28,24 @@ export default function StepperForm({research_logs}) {
              <p class="font-bold font-serif italic">Submit Application</p>
              <div class="text-sm">
              <div class="text-xs flex items-center gap-1.5">Status :
-   <span class="badge badge-success size-2 p-0"></span>
-   Submitted
+   
+   {(status_step1 ? 
+    <>
+      <span class="badge badge-success size-2 p-0"></span>
+      {status_step1.status} 
+    </>
+    : 
+    <>
+    <span class="badge badge-warning size-2 p-0"></span>
+    Pending
+    </>
+    )}
  </div>
  <div class="text-xs flex items-center gap-1.5">Start Date :
-   1/5/25
+ &nbsp; {(status_step1) ? status_step1.start : ""}
  </div>
  <div class="text-xs flex items-center gap-1.5">End Date :
-  1/9/25
+ &nbsp; {(status_step1) ? status_step1.end : ""}
  </div>
              </div>
              </div>
@@ -59,14 +72,14 @@ export default function StepperForm({research_logs}) {
              <p class="font-bold font-serif italic">Technical Committee & Schedule</p>
              <div class="text-sm">
              <div class="text-xs flex items-center gap-1.5">Status :
-   <span class="badge badge-success size-2 p-0"></span>
-   Scheduled
+   <span class="badge badge-warning size-2 p-0"></span>
+   
  </div>
  <div class="text-xs flex items-center gap-1.5">Start Date :
-   1/9/25
+   
  </div>
  <div class="text-xs flex items-center gap-1.5">End Date :
-  1/15/25
+  
  </div>
              </div>
              </div>
@@ -93,14 +106,14 @@ export default function StepperForm({research_logs}) {
              <p class="font-bold font-serif italic">Techinical Review Report</p>
              <div class="text-sm">
              <div class="text-xs flex items-center gap-1.5">Status :
-   <span class="badge badge-info size-2 p-0"></span>
-   On Process
+   <span class="badge badge-warning size-2 p-0"></span>
+   
  </div>
  <div class="text-xs flex items-center gap-1.5">Start Date :
- 1/15/25
+
  </div>
  <div class="text-xs flex items-center gap-1.5">End Date :
-  --/--/--
+  
  </div>
              </div>
              </div>
@@ -131,10 +144,10 @@ export default function StepperForm({research_logs}) {
    Pending
  </div>
  <div class="text-xs flex items-center gap-1.5">Start Date :
- --/--/--
+
  </div>
  <div class="text-xs flex items-center gap-1.5">End Date :
-  --/--/--
+
  </div>
              </div>
              </div>
@@ -165,10 +178,10 @@ export default function StepperForm({research_logs}) {
    Pending
  </div>
  <div class="text-xs flex items-center gap-1.5">Start Date :
- --/--/--
+
  </div>
  <div class="text-xs flex items-center gap-1.5">End Date :
-  --/--/--
+ 
  </div>
              </div>
              </div>
@@ -199,10 +212,10 @@ export default function StepperForm({research_logs}) {
    Pending
  </div>
  <div class="text-xs flex items-center gap-1.5">Start Date :
- --/--/--
+
  </div>
  <div class="text-xs flex items-center gap-1.5">End Date :
-  --/--/--
+  
  </div>
              </div>
              </div>
@@ -233,10 +246,10 @@ export default function StepperForm({research_logs}) {
    Pending
  </div>
  <div class="text-xs flex items-center gap-1.5">Start Date :
- --/--/--
+
  </div>
  <div class="text-xs flex items-center gap-1.5">End Date :
-  --/--/--
+
  </div>
              </div>
              </div>
@@ -267,10 +280,10 @@ export default function StepperForm({research_logs}) {
    Pending
  </div>
  <div class="text-xs flex items-center gap-1.5">Start Date :
- --/--/--
+ 
  </div>
  <div class="text-xs flex items-center gap-1.5">End Date :
-  --/--/--
+ 
  </div>
              </div>
              </div>
