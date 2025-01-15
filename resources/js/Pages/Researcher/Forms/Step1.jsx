@@ -74,6 +74,17 @@ export default function Step1({research, files, user}) {
         });
        }
 
+       const creApproveApplication = () => {
+        post(route('researcher.update.status'), {
+          onSuccess: (page) =>  {
+            notyf.success(page.props.flash.message)
+          },
+          onFinish: () =>  {
+              console.log("Finishing update status");
+          },
+        });
+       }
+
   return (
     <>
 
@@ -81,7 +92,7 @@ export default function Step1({research, files, user}) {
       <div class="mt-6 border-t border-base-content/25">
           <div class="grid grid-cols-1 gap-6 md:grid-cols-2 m-3">
             <div>
-              <label class="text-base-content text-lg font-semibold" for="firstName"> 1. Full Research Proposal </label>
+              <label class="text-base-content text-lg font-semibold" for="firstName"> 1. Research Proposal </label>
            
             </div>
             <div>
@@ -345,10 +356,13 @@ export default function Step1({research, files, user}) {
       (research.status != "D") ?
       
       <>
-      <div class="alert alert-info flex items-center gap-4" role="alert">
-  <span class="icon-[tabler--circle-check] size-6"></span>
-  <p><span class="text-lg font-semibold">Info:</span> Already Submitted Application.
-  </p>
+      <div class="alert alert-soft alert-primary flex items-start gap-4">
+  <span class="icon-[tabler--check] size-6"></span>
+  <div class="flex flex-col gap-1">
+    <h5 class="text-lg font-semibold">Application Submitted</h5>
+    <p>Waiting for approval of CRE and we appreciate your patience.
+    </p>
+  </div>
 </div>
       </>
       

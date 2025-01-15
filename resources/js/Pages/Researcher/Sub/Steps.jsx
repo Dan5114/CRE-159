@@ -7,6 +7,7 @@ dayjs.extend(localizedFormat);
 export default function StepperForm({research_logs, step_status}) {
 
   const status_step1 = step_status.step1;
+  const status_step2 = step_status.step2;
 
      return (
         <>
@@ -72,14 +73,24 @@ export default function StepperForm({research_logs, step_status}) {
              <p class="font-bold font-serif italic">Technical Committee & Schedule</p>
              <div class="text-sm">
              <div class="text-xs flex items-center gap-1.5">Status :
-   <span class="badge badge-warning size-2 p-0"></span>
+             {(status_step2 ? 
+    <>
+      <span class="badge badge-info size-2 p-0"></span>
+      {status_step2.status} 
+    </>
+    : 
+    <>
+    <span class="badge badge-info size-2 p-0"></span>
+    Pending
+    </>
+    )}
    
  </div>
  <div class="text-xs flex items-center gap-1.5">Start Date :
-   
+ &nbsp; {(status_step2) ? status_step2.start : ""}
  </div>
  <div class="text-xs flex items-center gap-1.5">End Date :
-  
+ &nbsp; {(status_step2) ? status_step2.end : ""}
  </div>
              </div>
              </div>

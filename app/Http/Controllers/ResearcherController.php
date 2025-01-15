@@ -89,7 +89,7 @@ class ResearcherController extends Controller
         $current = Carbon::now();
         $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "1")->first();
         CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current]);
-        $this->cre_application_status($request->research_id, "2", "Technical Committee & Schedule Presentation", $current, $end = null, "Pending");
+        $this->cre_application_status($request->research_id, "2", "Technical Committee & Schedule Presentation", $current, $end = null, "On Process");
 
         Research::where('id', $request->research_id)->update(['status'=>'REC']);
         return redirect()->back()->with('message', 'Updated Status Successfully');
