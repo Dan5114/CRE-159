@@ -334,10 +334,13 @@ export default function Step1({research, files, user}) {
      :
     
      <>
-     <div class="alert alert-success flex items-center gap-4" role="alert">
-  <span class="icon-[tabler--circle-check] size-6"></span>
-  <p><span class="text-lg font-semibold">Success alert:</span> Application is Accepted.
-  </p>
+     <div class="alert alert-soft alert-success flex items-start gap-4">
+  <span class="icon-[tabler--check] size-6"></span>
+  <div class="flex flex-col gap-1">
+    <h5 class="text-lg font-semibold">Application Accepted</h5>
+    <p>Application was accepted by CRE.
+    </p>
+  </div>
 </div>
      </>
     

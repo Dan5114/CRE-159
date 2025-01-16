@@ -105,39 +105,87 @@ class ResearcherController extends Controller
 
     public function scheduled_meeting(Request $request)
     {
+        $current = Carbon::now();
         CreMeeting::where('id', $request->meeting_id)->update(['status'=>'Success']);
+
+        $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "2")->first();
+        CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Scheduled"]);
+        $this->cre_application_status($request->research_id, "3", "Technical Review Report", $current, $end = null, "On Process");
+
         return redirect()->back()->with('message', 'Submitted Successfully');
     }
 
     public function submit_panels(Request $request)
     {
-       $panel1 = $request->panels1;
-       $panel2 = $request->panels2;
-       $panel3 = $request->panels3;
-
        CreMeeting::create([
         "research_id" => $request->research_id,
         "meeting_date" => $request->meeting_date,
         "status" => "Pending"
        ]);
 
-       CrePanelMember::create([
-        "research_id" => $request->research_id,
-        "name" => $request->panels1,
-        "role" => "member",
-       ]);
+        if($request->has('panels1')) {
+            CrePanelMember::create([
+            "research_id" => $request->research_id,
+            "name" => $request->panels1,
+            "role" => "member",
+            ]);
+        } 
 
-       CrePanelMember::create([
-        "research_id" => $request->research_id,
-        "name" => $request->panels2,
-        "role" => "member",
-       ]);
+        if($request->has('panels2')) {
+            CrePanelMember::create([
+            "research_id" => $request->research_id,
+            "name" => $request->panels2,
+            "role" => "member",
+            ]);
+        } 
 
-       CrePanelMember::create([
-        "research_id" => $request->research_id,
-        "name" => $request->panels3,
-        "role" => "member",
-       ]);
+        if($request->has('panels3')) {
+            CrePanelMember::create([
+            "research_id" => $request->research_id,
+            "name" => $request->panels3,
+            "role" => "member",
+            ]);
+        }
+
+        if($request->has('panels4')) {
+            CrePanelMember::create([
+            "research_id" => $request->research_id,
+            "name" => $request->panels4,
+            "role" => "member",
+            ]);
+        }
+
+        if($request->has('panels5')) {
+            CrePanelMember::create([
+            "research_id" => $request->research_id,
+            "name" => $request->panels5,
+            "role" => "member",
+            ]);
+        }
+
+        if($request->has('panels6')) {
+            CrePanelMember::create([
+            "research_id" => $request->research_id,
+            "name" => $request->panels6,
+            "role" => "member",
+            ]);
+        }
+
+        if($request->has('panels7')) {
+            CrePanelMember::create([
+            "research_id" => $request->research_id,
+            "name" => $request->panels7,
+            "role" => "member",
+            ]);
+        }
+
+        if($request->has('panels8')) {
+            CrePanelMember::create([
+            "research_id" => $request->research_id,
+            "name" => $request->panels8,
+            "role" => "member",
+            ]);
+        }
 
        return redirect()->back()->with('message', 'Saved Successfully');
     }
@@ -306,7 +354,8 @@ class ResearcherController extends Controller
 
             $step_status = [
                 "step1" => $this->getStepStatus($value->id, "1"),
-                "step2" => $this->getStepStatus($value->id, "2")
+                "step2" => $this->getStepStatus($value->id, "2"),
+                "step3" => $this->getStepStatus($value->id, "3")
             ];
 
             $author = explode(",", $value->members);

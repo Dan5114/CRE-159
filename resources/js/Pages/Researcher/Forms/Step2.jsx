@@ -19,6 +19,11 @@ export default function Step2({user, research, panels}) {
       panels1: "",
       panels2: "",
       panels3: "",
+      panels4: "",
+      panels5: "",
+      panels6: "",
+      panels7: "",
+      panels8: "",
       meeting_id: research.meeting.id,
     });
 
@@ -62,20 +67,14 @@ export default function Step2({user, research, panels}) {
 
  <form onSubmit={submitPanels}>
 
-<h4 class="text-2xl font-eight-bold">Schedule</h4>
-<div class="grid grid-cols-1 gap-6 md:grid-cols-2 mb-3">
+    <h4 class="text-2xl font-eight-bold">Schedule</h4>
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 mb-3">
         <div>
             <label class="label label-text" for="firstName">Meeting Date </label>
             <input type="date" placeholder="" onChange={(e) => setData('meeting_date', e.target.value)} class="input" id="firstName" />
           </div>
-
-         
-         
-         
         </div>
-
         <br/>
-
         <h4 class="text-2xl font-eight-bold">List of Panel Members</h4>
         <div class="grid grid-cols-2 gap-6 md:grid-cols-2">
         <div>
@@ -96,27 +95,27 @@ export default function Step2({user, research, panels}) {
 
           <div>
             <label class="label label-text" for="firstName">Panel Member 4 </label>
-            <input type="text" placeholder="" class="input" id="firstName"  />
+            <input type="text" placeholder="" class="input" id="firstName" onChange={(e) => setData('panels4', e.target.value)}  />
           </div>
 
           <div>
             <label class="label label-text" for="firstName">Panel Member 5 </label>
-            <input type="text" placeholder="" class="input" id="firstName"  />
+            <input type="text" placeholder="" class="input" id="firstName" onChange={(e) => setData('panels5', e.target.value)}  />
           </div>
 
           <div>
             <label class="label label-text" for="firstName">Panel Member 6 </label>
-            <input type="text" placeholder="" class="input" id="firstName"  />
+            <input type="text" placeholder="" class="input" id="firstName" onChange={(e) => setData('panels6', e.target.value)}  />
           </div>
 
           <div>
             <label class="label label-text" for="firstName">Panel Member 7 </label>
-            <input type="text" placeholder="" class="input" id="firstName"  />
+            <input type="text" placeholder="" class="input" id="firstName" onChange={(e) => setData('panels7', e.target.value)}  />
           </div>
 
           <div>
             <label class="label label-text" for="firstName">Panel Member 8 </label>
-            <input type="text" placeholder="" class="input" id="firstName"  />
+            <input type="text" placeholder="" class="input" id="firstName" onChange={(e) => setData('panels8', e.target.value)}  />
           </div>
 
         
