@@ -12,7 +12,7 @@ dayjs.extend(localizedFormat);
 
 export default function Step2({user, research, panels}) {
     const notyf = new Notyf();
-    const { data, setData, post, errors, reset, processing, progress, recentlySuccessful } =
+    const { data, setData, post,  delete: destroy, errors, reset, processing, progress, recentlySuccessful } =
     useForm({
       research_id : research.id,
       meeting_date: "",
@@ -31,12 +31,14 @@ export default function Step2({user, research, panels}) {
     const submitPanels = (e) => {
         e.preventDefault();
         post(route('researcher.submit.panels'), {
+          preserveScroll: true,
           onSuccess: (page) =>  {
             notyf.success(page.props.flash.message);
-            router.get(route('researcher.show', research.reference));
+            // router.get(route('researcher.show', research.reference));
           },
           onFinish: () =>  {
               console.log("Finishing inserting panels");
+              reset();
           },
         });
       }
@@ -49,6 +51,15 @@ export default function Step2({user, research, panels}) {
         onFinish: () =>  {
             console.log("Finishing update status");
         },
+    });
+    }
+
+    const deletePanel = (id) => {
+      destroy(route('researcher.delete.panel', id), {
+        preserveScroll: true,
+        onSuccess: (page) =>  notyf.success(page.props.flash.message),
+        onError: () => console.log("Error deleting"),
+        onFinish: () => reset(),
     });
     }
 
@@ -65,17 +76,23 @@ export default function Step2({user, research, panels}) {
           <p class="mt-1 max-w-full text-base-content/80">Please fill up the fields </p>
         </div>
 
+        <hr/>
+
  <form onSubmit={submitPanels}>
 
-    <h4 class="text-2xl font-eight-bold">Schedule</h4>
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 mb-3">
+    
+
+    <div class="grid grid-cols-2 gap-3">
+      <div class="card p-3">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+    
         <div>
             <label class="label label-text" for="firstName">Meeting Date </label>
             <input type="date" placeholder="" onChange={(e) => setData('meeting_date', e.target.value)} class="input" id="firstName" />
           </div>
         </div>
         <br/>
-        <h4 class="text-2xl font-eight-bold">List of Panel Members</h4>
+
         <div class="grid grid-cols-2 gap-6 md:grid-cols-2">
         <div>
             <label class="label label-text" for="firstName">Panel Member 1 </label>
@@ -87,7 +104,7 @@ export default function Step2({user, research, panels}) {
           </div>
          
         </div>
-        <div class="grid grid-cols-2 gap-6 md:grid-cols-2">
+        <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mt-3">
         <div>
             <label class="label label-text" for="firstName">Panel Member 3 </label>
             <input type="text" placeholder="" class="input" onChange={(e) => setData('panels3', e.target.value)} id="firstName"  />
@@ -121,15 +138,81 @@ export default function Step2({user, research, panels}) {
         
        
           </div>
-        <div class="flex justify-end gap-y-2 mt-3">
+          <div class="flex justify-end gap-y-2 mt-6">
         <button type="submit" class="btn btn-info rounded-full">
             Save Draft
        </button>
-       &nbsp;
+        </div>
+      </div>
+      <div class="">
+        <div class="alert alert-soft alert-primary flex items-start mb-6">
+          <span class="icon-[tabler--calendar] size-6"></span>
+          <div class="flex flex-col gap-1">
+            <h5 class="text-lg font-semibold">Meeting Date</h5>
+            <ul class="mt-1.5 list-inside list-disc">
+              <li>{ (research.meeting.meeting_date) ? dayjs(research.meeting.meeting_date).format("LLL") : "No date added yet"}</li>
+            </ul>
+          </div>
+        </div>
+
+        
+            <div class="bg-base-100 border text-base-content mt-3">
+            <label class="text-base-content flex justify-center text-lg font-semibold" for="firstName"> List of Panel Members </label>
+                <ul class="space-y-0.5">
+
+                { panels.map((panel, index) => (
+                                    <>
+                                       
+                                   
+                    <li class="flex items-center gap-2 px-4 py-2.5 border-t">
+                    <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png" alt="User Image" class="size-10 rounded-full" />
+                    <div class="flex grow items-center justify-between gap-y-1">
+                        <div class="user-info">
+                        <h6 class="text-base">{panel.name}</h6>
+                        <small class="text-base-content/80 text-xs">{panel.name}@usls.edu.ph</small>
+                        </div>
+                        <div class="flex flex-col items-end gap-x-2 gap-y-0.5">
+                        <span class="text-base-content/50 text-sm text-gray hover:cursor-pointer" onClick={() => deletePanel(panel.id)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z"/></svg>
+                        </span>
+                        </div>
+                    </div>
+                    </li>
+                    </>
+                                    ))}
+
+                </ul>
+                {panels.length === 0 ? (
+                       <>
+                        <div class="flex justify-center border-2 border-dotted border-gray-300 p-3">
+                        <div class="grid gap-4 w-80 justify-center">
+                        <img style={{ "width" : "200px" }} src="https://www.achieversacademyalwar.in/assets/images/no-record-found.png" />
+                      
+<div class="flex justify-center">
+
+</div>
+</div>
+                        </div>
+                       </>                 
+                      )
+                        :                               
+                       <></>                       
+                      }
+                </div>
+
+                <div class="flex justify-end gap-y-2 mt-6">
+       
         <button type="button" onClick={() => scheduledMeeting()} class="btn btn-success rounded-full">
             Schedule Appointment
        </button>
         </div>
+
+      </div>
+    </div>
+
+
+
+     
         </form>
       </div>
       :
@@ -189,14 +272,22 @@ export default function Step2({user, research, panels}) {
          </>
           :
           <>
-          <div class="alert alert-soft alert-warning flex items-start gap-4">
-  <span class="icon-[tabler--info-circle] size-6"></span>
-  <div class="flex flex-col gap-1">
-    <h5 class="text-lg font-semibold">Attention! </h5>
-    <p>No schedule provided yet from CRE.
-    </p>
-  </div>
+
+<div class="px-4 sm:px-0 mb-6">
+          <h3 class="text-2xl font-semibold text-base-content">Researcher Schedule & Panels </h3>
+          <p class="mt-1 max-w-full text-base-content/80">Please see the details below </p>
+        </div>
+
+        <hr/>
+           <div class="flex justify-center border-2 border-dotted border-gray-300 p-3">
+                        <div class="grid gap-4 w-80 justify-center">
+                        <img style={{ "width" : "400px" }} src="https://www.achieversacademyalwar.in/assets/images/no-record-found.png" />
+                      
+<div class="flex justify-center">
+
 </div>
+</div>
+                        </div>
           </>
         }
       </>

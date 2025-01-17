@@ -19,6 +19,7 @@ use App\Models\ResearchLog;
 use App\Models\CreMeeting;
 use App\Models\CrePanelMember;
 use App\Models\CreApplicationStatus;
+use App\Models\ResearchDoc;
 use Carbon\Carbon;
 
 class ResearcherController extends Controller
@@ -117,13 +118,16 @@ class ResearcherController extends Controller
 
     public function submit_panels(Request $request)
     {
-       CreMeeting::create([
-        "research_id" => $request->research_id,
-        "meeting_date" => $request->meeting_date,
-        "status" => "Pending"
-       ]);
 
-        if($request->has('panels1')) {
+        if($request->input('meeting_date') != null) {
+            CreMeeting::create([
+                "research_id" => $request->research_id,
+                "meeting_date" => $request->meeting_date,
+                "status" => "Pending"
+               ]);
+        }
+
+        if($request->input('panels1') != null) {
             CrePanelMember::create([
             "research_id" => $request->research_id,
             "name" => $request->panels1,
@@ -131,7 +135,7 @@ class ResearcherController extends Controller
             ]);
         } 
 
-        if($request->has('panels2')) {
+        if($request->input('panels2') != null) {
             CrePanelMember::create([
             "research_id" => $request->research_id,
             "name" => $request->panels2,
@@ -139,7 +143,7 @@ class ResearcherController extends Controller
             ]);
         } 
 
-        if($request->has('panels3')) {
+        if($request->input('panels3') != null) {
             CrePanelMember::create([
             "research_id" => $request->research_id,
             "name" => $request->panels3,
@@ -147,7 +151,7 @@ class ResearcherController extends Controller
             ]);
         }
 
-        if($request->has('panels4')) {
+        if($request->input('panels4') != null) {
             CrePanelMember::create([
             "research_id" => $request->research_id,
             "name" => $request->panels4,
@@ -155,7 +159,7 @@ class ResearcherController extends Controller
             ]);
         }
 
-        if($request->has('panels5')) {
+        if($request->input('panels5') != null) {
             CrePanelMember::create([
             "research_id" => $request->research_id,
             "name" => $request->panels5,
@@ -163,7 +167,7 @@ class ResearcherController extends Controller
             ]);
         }
 
-        if($request->has('panels6')) {
+        if($request->input('panels6') != null) {
             CrePanelMember::create([
             "research_id" => $request->research_id,
             "name" => $request->panels6,
@@ -171,7 +175,7 @@ class ResearcherController extends Controller
             ]);
         }
 
-        if($request->has('panels7')) {
+        if($request->input('panels7') != null) {
             CrePanelMember::create([
             "research_id" => $request->research_id,
             "name" => $request->panels7,
@@ -179,13 +183,15 @@ class ResearcherController extends Controller
             ]);
         }
 
-        if($request->has('panels8')) {
+        if($request->input('panels8') != null) {
             CrePanelMember::create([
             "research_id" => $request->research_id,
             "name" => $request->panels8,
             "role" => "member",
             ]);
         }
+
+       
 
        return redirect()->back()->with('message', 'Saved Successfully');
     }
@@ -351,6 +357,7 @@ class ResearcherController extends Controller
             
             $rlogs = ResearchLog::where('research_id', $value->id)->where('steps', 1)->orderBy('created_at', 'ASC')->get();
             $panels = CrePanelMember::where('research_id', $value->id)->get();
+            $technical_docs = ResearchDoc::where('research_id', $value->id)->get();
 
             $step_status = [
                 "step1" => $this->getStepStatus($value->id, "1"),
@@ -360,6 +367,7 @@ class ResearcherController extends Controller
 
             $author = explode(",", $value->members);
         }else{
+            $technical_docs = null;
             $step_status = null;
             $rlogs = null;
             $panels = null;
@@ -386,6 +394,7 @@ class ResearcherController extends Controller
             'frp' => $doc_file,
             'research_logs' => $rlogs,
             'panels' => $panels,
+            'technical_docs' => $technical_docs,
             'author' => $author[0]
         ]);
     }
@@ -394,6 +403,24 @@ class ResearcherController extends Controller
     {
        $file = File::where('id', $file_id)->first();
        return response()->download("storage/uploads/" . $file->file_name, $file->file_name);
+    }
+
+    public function technical_review_upload(Request $request)
+    {
+        if ($request->file('document_file')){
+            $document_file = $request->file('document_file');
+            $fileName_doc =   $document_file->getClientOriginalName(); 
+            $filePath_doc = 'docs/' . $document_file->getClientOriginalName();
+
+            $data = [
+                "research_id"  => $request->research_id,
+                "file_name"    => $fileName_doc,
+                "file_path"    => $filePath_doc
+            ];
+            ResearchDoc::create($data);
+            Storage::disk('public')->put($filePath_doc, file_get_contents($document_file));
+        }
+        return redirect()->back()->with('message', 'Successfully uploaded');
     }
 
     public function getStepStatus($research_id, $steps){
@@ -429,6 +456,12 @@ class ResearcherController extends Controller
         ];
 
         CreApplicationStatus::create($application_status_log);
+    }
+
+    public function delete_panel(string $id)
+    {
+       CrePanelMember::where('id', $id)->delete();
+       return redirect()->back()->with('message', 'Successfully Deleted');
     }
 
     /**

@@ -4,8 +4,9 @@ import { useRef, useState } from 'react';
 import EmptyFile from '../File/EmptyFile';
 import Step1 from "../Forms/Step1";
 import Step2 from "../Forms/Step2";
+import Step3 from "../Forms/Step3";
 
-export default function StepperForm({research, files, user, panels}) {
+export default function StepperForm({research, files, user, panels, technical_docs}) {
     
     const openLinkFile = (url) => {
       alert(url);
@@ -16,7 +17,7 @@ export default function StepperForm({research, files, user, panels}) {
     <div>
                         
   
-    <div data-stepper-content-item='{ "index": 1 }' class="vertical-scrollbar rounded-scrollbar  max-h-300 p-3">
+    <div data-stepper-content-item='{ "index": 1 }' class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
       <div>
         <div class="px-4 sm:px-0">
           <h3 class="text-2xl font-semibold text-base-content">Requirements for Application </h3>
@@ -28,101 +29,14 @@ export default function StepperForm({research, files, user, panels}) {
 
   {/* end of step1 */}
 
-   <div data-stepper-content-item='{ "index": 2 }' class="vertical-scrollbar rounded-scrollbar max-h-screen p-3">
+   <div data-stepper-content-item='{ "index": 2 }' class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
       <div>
-
-      
         <Step2 user={user} research={research} panels={panels}/>
-
       </div>
    </div>
    <div data-stepper-content-item='{ "index": 3 }' style={{"display" : "none"}}>
-     <div class="border-base-content/40 bg-base-200/50  rounded-xl border border-dashed m-3" >
-     {
-        (user.user_type == "cre") ? 
-        <>
-        <div>
-          
-        <div class="m-3">
-
-        <div class="grid grid-cols-2 gap-6 md:grid-cols-2 ">
-           <div>
-            <label class="label label-text" for="firstName">Document File </label>
-            <input type="file" placeholder="" onChange={(e) => setData('meeting_date', e.target.value)} class="input" id="firstName" />
-          </div>
-
-          <div class="flex justify-end gap-y-2 mt-7">
-     
-        <button type="button" class="btn btn-primary rounded-full">
-            Upload Document
-       </button>
-
-      
-
-        </div>
-        </div>
-
-        <table class="w-full border divide-y divide-gray-200 dark:divide-neutral-700 mt-3">
-            <thead class="bg-[#198754] dark:bg-neutral-700">
-              <tr>
-              <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Review</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">File</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Date Created</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Status</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Actions</th>
-                <th scope="col" class="px-3 py-3  text-end text-xs font-bolder text-white uppercase dark:text-neutral-500"></th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-              </tbody>
-              </table>
-              <div class="flex justify-center border-2 border-dotted border-gray-300 p-3">
-                        <div class="grid gap-4 w-80 justify-center">
-                        no files
-                      
-<div class="flex justify-center">
-
-</div>
-</div>
-                        </div>
-         
-         
-        </div>
-        </div>
-        </>
-        :
-        <>
-          <div>
-            
-          <table class="w-full border divide-y divide-gray-200 dark:divide-neutral-700">
-            <thead class="bg-[#198754] dark:bg-neutral-700">
-              <tr>
-              <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Review</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">File</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Date Created</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Status</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Actions</th>
-                <th scope="col" class="px-3 py-3  text-end text-xs font-bolder text-white uppercase dark:text-neutral-500"></th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-              </tbody>
-              </table>
-              <div class="flex justify-center border-2 border-dotted border-gray-300 p-3">
-                        <div class="grid gap-4 w-80 justify-center">
-                        no files
-                      
-<div class="flex justify-center">
-
-</div>
-</div>
-                        </div>
-
-          </div>
-        </>
-
-     }
-
+     <div>
+        <Step3 user={user} research={research} technical_docs={technical_docs}/>
      </div>
    </div>
 

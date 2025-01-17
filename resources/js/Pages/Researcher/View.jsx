@@ -20,6 +20,7 @@ export default function View(props) {
     const files = props.frp;
     const research_logs = props.research_logs;
     const panels = props.panels;
+    const technical_docs = props.technical_docs;
     const user = usePage().props.auth.user;
 
     return (
@@ -60,8 +61,8 @@ export default function View(props) {
                             </div>
                             
                             </div>
-                            <div class="col-span-2 card mb-3">
-                              <StepperForm files={files} research={research_data} user={user} panels={panels} />
+                            <div class="col-span-2 max-h-auto mb-3">
+                              <StepperForm files={files} research={research_data} user={user} panels={panels} technical_docs={technical_docs} />
                             </div>
                       </div>
                     </div>
