@@ -145,7 +145,7 @@ export default function Step2({user, research, panels}) {
         </div>
       </div>
       <div class="">
-        <div class="alert alert-soft alert-primary flex items-start mb-6">
+        <div class="p-3 shadow flex items-start">
           <span class="icon-[tabler--calendar] size-6"></span>
           <div class="flex flex-col gap-1">
             <h5 class="text-lg font-semibold">Meeting Date</h5>
@@ -156,8 +156,8 @@ export default function Step2({user, research, panels}) {
         </div>
 
         
-            <div class="bg-base-100 border text-base-content mt-3">
-            <label class="text-base-content flex justify-center text-lg font-semibold" for="firstName"> List of Panel Members </label>
+            <div class="bg-base-100 border text-base-content">
+            <label class="text-base-content flex justify-center m-3 text-lg font-semibold" for="firstName"> List of Panel Members </label>
                 <ul class="space-y-0.5">
 
                 { panels.map((panel, index) => (
@@ -231,7 +231,7 @@ export default function Step2({user, research, panels}) {
             <div class="">
             {/* <label class="text-base-content text-lg font-semibold" for="firstName"> Meeting Date </label>
             <div>{ dayjs(research.meeting.meeting_date).format("LLL")}</div> */}
-            <div class="alert alert-soft alert-primary flex items-start mb-6">
+            <div class="alert alert-soft alert-primary flex items-start">
   <span class="icon-[tabler--calendar] size-6"></span>
   <div class="flex flex-col gap-1">
     <h5 class="text-lg font-semibold">Meeting Date</h5>
@@ -241,8 +241,9 @@ export default function Step2({user, research, panels}) {
   </div>
 </div>
 
-<label class="text-base-content p-2 m-3 text-lg font-semibold mt-3" for="firstName"> List of Panel Members </label>
-            <div class="bg-base-100 text-base-content mt-3">
+
+            <div class="bg-base-100 border text-base-content">
+            <label class="text-base-content flex justify-center m-3 text-lg font-semibold" for="firstName"> List of Panel Members </label>
                 <ul class="space-y-0.5">
 
                 { panels.map((panel, index) => (
