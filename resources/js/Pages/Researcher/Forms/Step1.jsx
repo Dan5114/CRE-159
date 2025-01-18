@@ -106,11 +106,11 @@ export default function Step1({research, files, user}) {
                     <span class="icon-[tabler--paperclip] size-5 flex-shrink-0"></span>
                     <div class="ms-4 flex min-w-0 flex-1 gap-2">
                       <span class="truncate font-medium">{files.doc_frp.file_name}</span>
-                      <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(files.doc_frp.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(files.doc_cp.created_at), true)} ago</time>)</span>
+                      <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(files.doc_frp.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(files.doc_frp.created_at), true)} ago</time>)</span>
                     </div>
                   </div>
                   <div class="ms-4 flex-shrink-0">
-                    <a onClick={() => downloadFile(files.doc_frp)} class="link link-primary">Download</a>
+                  <span class="hover:cursor-pointer" onClick={() => downloadFile(files.doc_frp)}> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg></span>
                   </div>
                 </li>
               </ul>
@@ -173,7 +173,7 @@ export default function Step1({research, files, user}) {
                     <span class="icon-[tabler--paperclip] size-5 flex-shrink-0"></span>
                     <div class="ms-4 flex min-w-0 flex-1 gap-2">
                       <span class="truncate font-medium">{files.doc_el.file_name}</span>
-                      <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(files.doc_el.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(files.doc_cp.created_at), true)} ago</time>)</span>
+                      <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(files.doc_el.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(files.doc_el.created_at), true)} ago</time>)</span>
                     </div>
                   </div>
                   <div class="ms-4 flex-shrink-0">
@@ -206,7 +206,7 @@ export default function Step1({research, files, user}) {
                     <span class="icon-[tabler--paperclip] size-5 flex-shrink-0"></span>
                     <div class="ms-4 flex min-w-0 flex-1 gap-2">
                       <span class="truncate font-medium">{files.doc_wpgc.file_name}</span>
-                      <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(files.doc_wpgc.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(files.doc_cp.created_at), true)} ago</time>)</span>
+                      <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(files.doc_wpgc.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(files.doc_wpgc.created_at), true)} ago</time>)</span>
                     </div>
                   </div>
                   <div class="ms-4 flex-shrink-0">
@@ -239,7 +239,7 @@ export default function Step1({research, files, user}) {
                     <span class="icon-[tabler--paperclip] size-5 flex-shrink-0"></span>
                     <div class="ms-4 flex min-w-0 flex-1 gap-2">
                       <span class="truncate font-medium">{files.doc_brbp.file_name}</span>
-                      <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(files.doc_brbp.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(files.doc_cp.created_at), true)} ago</time>)</span>
+                      <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(files.doc_brbp.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(files.doc_brbp.created_at), true)} ago</time>)</span>
                     </div>
                   </div>
                   <div class="ms-4 flex-shrink-0">
@@ -272,7 +272,7 @@ export default function Step1({research, files, user}) {
                     <span class="icon-[tabler--paperclip] size-5 flex-shrink-0"></span>
                     <div class="ms-4 flex min-w-0 flex-1 gap-2">
                       <span class="truncate font-medium">{files.doc_vgii.file_name}</span>
-                      <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(files.doc_vgii.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(files.doc_cp.created_at), true)} ago</time>)</span>
+                      <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(files.doc_vgii.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(files.doc_vgii.created_at), true)} ago</time>)</span>
                     </div>
                   </div>
                   <div class="ms-4 flex-shrink-0">
@@ -305,7 +305,7 @@ export default function Step1({research, files, user}) {
                     <span class="icon-[tabler--paperclip] size-5 flex-shrink-0"></span>
                     <div class="ms-4 flex min-w-0 flex-1 gap-2">
                       <span class="truncate font-medium">{files.doc_cvr.file_name}</span>
-                      <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(files.doc_cvr.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(files.doc_cp.created_at), true)} ago</time>)</span>
+                      <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(files.doc_cvr.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(files.doc_cvr.created_at), true)} ago</time>)</span>
                     </div>
                   </div>
                   <div class="ms-4 flex-shrink-0">
@@ -359,7 +359,7 @@ export default function Step1({research, files, user}) {
       (research.status != "D") ?
       
       <>
-      <div class="alert alert-soft alert-primary flex items-start gap-4">
+      <div class="alert alert-soft alert-success flex items-start gap-4">
   <span class="icon-[tabler--check] size-6"></span>
   <div class="flex flex-col gap-1">
     <h5 class="text-lg font-semibold">Application Submitted</h5>

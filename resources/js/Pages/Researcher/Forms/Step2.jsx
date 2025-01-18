@@ -148,9 +148,9 @@ export default function Step2({user, research, panels}) {
         <div class="p-3 shadow flex items-start">
           <span class="icon-[tabler--calendar] size-6"></span>
           <div class="flex flex-col gap-1">
-            <h5 class="text-lg font-semibold">Meeting Date</h5>
+            <h5 class="text-lg font-semibold">&nbsp;Meeting Date</h5>
             <ul class="mt-1.5 list-inside list-disc">
-              <li>{ (research.meeting.meeting_date) ? dayjs(research.meeting.meeting_date).format("LLL") : "No date added yet"}</li>
+              <li>{ (research.meeting.meeting_date) ? dayjs(research.meeting.meeting_date).format("LLLL") : "No date added yet"}</li>
             </ul>
           </div>
         </div>
@@ -234,9 +234,9 @@ export default function Step2({user, research, panels}) {
             <div class="p-3 shadow flex items-start">
   <span class="icon-[tabler--calendar] size-6"></span>
   <div class="flex flex-col gap-1">
-    <h5 class="text-lg font-semibold">Meeting Date</h5>
+    <h5 class="text-lg font-semibold">&nbsp;Meeting Date</h5>
     <ul class="mt-1.5 list-inside list-disc">
-      <li>{ dayjs(research.meeting.meeting_date).format("LLL")}</li>
+      <li>{ dayjs(research.meeting.meeting_date).format("LLLL")}</li>
     </ul>
   </div>
 </div>
