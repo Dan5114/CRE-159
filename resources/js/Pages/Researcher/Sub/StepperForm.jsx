@@ -7,7 +7,7 @@ import Step2 from "../Forms/Step2";
 import Step3 from "../Forms/Step3";
 import Step4 from "../Forms/Step4";
 
-export default function StepperForm({research, files, user, panels, technical_docs}) {
+export default function StepperForm({research, files, user, panels, technical_docs, revised_docs}) {
     
     const openLinkFile = (url) => {
       alert(url);
@@ -43,7 +43,7 @@ export default function StepperForm({research, files, user, panels, technical_do
 
     <div data-stepper-content-item='{ "index": 4 }' style={{"display" : "none"}}>
       <div>
-        <Step4 user={user} research={research}/>
+        <Step4 user={user} research={research} revised_docs={revised_docs}/>
      </div>
    </div>
 

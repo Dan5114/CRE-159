@@ -231,7 +231,7 @@ export default function Step2({user, research, panels}) {
             <div class="">
             {/* <label class="text-base-content text-lg font-semibold" for="firstName"> Meeting Date </label>
             <div>{ dayjs(research.meeting.meeting_date).format("LLL")}</div> */}
-            <div class="alert alert-soft alert-primary flex items-start">
+            <div class="p-3 shadow flex items-start">
   <span class="icon-[tabler--calendar] size-6"></span>
   <div class="flex flex-col gap-1">
     <h5 class="text-lg font-semibold">Meeting Date</h5>

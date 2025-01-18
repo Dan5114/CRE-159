@@ -15,7 +15,8 @@ export default function Step3({user, research, technical_docs}) {
     useForm({
         research_id : research.id,
         report_date: "",
-        document_file: ""
+        document_file: "",
+        steps: "3"
     });
 
     const submitFiles = (e) => {
@@ -29,6 +30,35 @@ export default function Step3({user, research, technical_docs}) {
                 reset()
             },
         });
+    }
+
+    const downloadDoc = (file) => {
+      fetch(route('researcher.doc.download', file.id))
+       .then((response) => response.blob())
+       .then((blob) => {
+         const url = window.URL.createObjectURL(new Blob([blob]));
+         const link = document.createElement("a");
+         link.href = url;
+         link.download = file.file_name || "downloaded-file";
+         document.body.appendChild(link);
+ 
+         link.click();
+ 
+         document.body.removeChild(link);
+         window.URL.revokeObjectURL(url);
+       })
+       .catch((error) => {
+         console.error("Error fetching the file:", error);
+       });
+    }
+
+    const deleteFile = (id) => {
+      destroy(route('researcher.delete.doc', id), {
+        preserveScroll: true,
+        onSuccess: (page) =>  notyf.success(page.props.flash.message),
+        onError: () => console.log("Error deleting"),
+        onFinish: () => reset(),
+      });
     }
 
 
@@ -85,7 +115,7 @@ export default function Step3({user, research, technical_docs}) {
                                                   <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(technical_doc.created_at).format("LLL")}</td>
                                                   <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
                                                     
-                                                    <span class="hover:cursor-pointer">
+                                                    <span class="hover:cursor-pointer" onClick={() => deleteFile(technical_doc.id)}>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z"/></svg>
                                                     </span>
                                                   </td>
@@ -96,6 +126,23 @@ export default function Step3({user, research, technical_docs}) {
                 ))}
               </tbody>
               </table>
+
+              {technical_docs.length === 0 ? (
+                       <>
+                        <div class="flex justify-center border-2 border-dotted border-gray-300 p-3">
+                        <div class="grid gap-4 w-80 justify-center">
+                        <img style={{ "width" : "200px" }} src="https://www.achieversacademyalwar.in/assets/images/no-record-found.png" />
+                      
+<div class="flex justify-center">
+
+</div>
+</div>
+                        </div>
+                       </>                 
+                      )
+                        :                               
+                       <></>                       
+                      }
               
          
         </div>
@@ -127,7 +174,7 @@ export default function Step3({user, research, technical_docs}) {
                                                   <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{technical_doc.file_name}</td>
                                                   <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(technical_doc.created_at).format("LLL")}</td>
                                                   <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
-                                                 <span class="hover:cursor-pointer"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg></span>
+                                                 <span class="hover:cursor-pointer" onClick={() => downloadDoc(technical_doc)}> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg></span>
                                                   </td>
                                  
                                               </tr>          
@@ -136,6 +183,23 @@ export default function Step3({user, research, technical_docs}) {
                 ))}
               </tbody>
               </table>
+
+              {technical_docs.length === 0 ? (
+                       <>
+                        <div class="flex justify-center border-2 border-dotted border-gray-300 p-3">
+                        <div class="grid gap-4 w-80 justify-center">
+                        <img style={{ "width" : "200px" }} src="https://www.achieversacademyalwar.in/assets/images/no-record-found.png" />
+                      
+<div class="flex justify-center">
+
+</div>
+</div>
+                        </div>
+                       </>                 
+                      )
+                        :                               
+                       <></>                       
+                      }
        
           </div>
         </>

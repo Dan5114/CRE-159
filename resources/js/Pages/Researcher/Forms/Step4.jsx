@@ -9,7 +9,28 @@ dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 
-export default function Step4({user, research}) {
+export default function Step4({user, research, revised_docs}) {
+  const notyf = new Notyf();
+  const { data, setData, post,  delete: destroy, errors, reset, formState, processing, progress, recentlySuccessful } =
+  useForm({
+      research_id : research.id,
+      document_file: "",
+      steps: "4"
+  });
+
+  const submitFiles = (e) => {
+    e.preventDefault();
+    post(route('researcher.technical.review.files'), {
+        onSuccess: (page) =>  {
+            notyf.success(page.props.flash.message);
+        },
+        onFinish: () =>  {
+            console.log("Finishing uploading files");
+            reset()
+        },
+    });
+  }
+
   return (
     <>
              {
@@ -26,22 +47,23 @@ export default function Step4({user, research}) {
 
         <hr/>
 
-        <div class="grid grid-cols-2 gap-6 md:grid-cols-2 ">
-           <div>
+        <form onSubmit={submitFiles}>
+          <div class="grid grid-cols-2 gap-6 md:grid-cols-2 ">
+           
+          <div>
             <label class="label label-text" for="firstName">Document File </label>
-            <input type="file" placeholder="" onChange={(e) => setData('meeting_date', e.target.value)} class="input" id="firstName" />
+            <input type="file" placeholder="" onChange={(e) => setData('document_file', e.target.files[0])} class="input" id="firstName" />
           </div>
 
-          <div class="flex justify-end gap-y-2 mt-7">
-     
-        <button type="button" class="btn btn-primary rounded-full">
-            Upload Document
-       </button>
+            <div class="flex justify-end gap-y-2 mt-7">
+        
+              <button type="submit" class="btn btn-primary rounded-full">
+                  Upload Document
+              </button>
+            </div>
+          </div>
+        </form>
 
-      
-
-        </div>
-        </div>
 
         <table class="w-full border divide-y divide-gray-200 dark:divide-neutral-700 mt-3">
             <thead class="bg-[#198754] dark:bg-neutral-700">

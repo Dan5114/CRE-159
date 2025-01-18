@@ -10,6 +10,8 @@ class ResearchDoc extends Model
     
     protected $fillable = [
         'research_id',
+        'steps',
+        'report_date',
         'file_name',
         'file_path'
     ];

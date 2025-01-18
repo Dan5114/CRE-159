@@ -35,6 +35,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/researcher/scheduled/meeting', [ResearcherController::class, 'scheduled_meeting'])->name('researcher.scheduled.meeting');
     Route::delete('/researcher/delete/panel/{id}', [ResearcherController::class, 'delete_panel'])->name('researcher.delete.panel');
     Route::post('/researcher/technical/review/upload', [ResearcherController::class, 'technical_review_upload'])->name('researcher.technical.review.files');
+    Route::get('/doc/download/{id}', [ResearcherController::class, 'doc_download'])->name('researcher.doc.download');
+    Route::delete('/researcher/delete/doc/{id}', [ResearcherController::class, 'delete_doc'])->name('researcher.delete.doc');
+
 
 });
 

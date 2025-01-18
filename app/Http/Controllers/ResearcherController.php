@@ -357,7 +357,8 @@ class ResearcherController extends Controller
             
             $rlogs = ResearchLog::where('research_id', $value->id)->where('steps', 1)->orderBy('created_at', 'ASC')->get();
             $panels = CrePanelMember::where('research_id', $value->id)->get();
-            $technical_docs = ResearchDoc::where('research_id', $value->id)->get();
+            $technical_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '3')->get();
+            $revised_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '4')->get();
 
             $step_status = [
                 "step1" => $this->getStepStatus($value->id, "1"),
@@ -368,6 +369,7 @@ class ResearcherController extends Controller
             $author = explode(",", $value->members);
         }else{
             $technical_docs = null;
+            $revised_docs = null;
             $step_status = null;
             $rlogs = null;
             $panels = null;
@@ -385,9 +387,6 @@ class ResearcherController extends Controller
             "doc_cvr" => $file_CVR
         ];
 
-
-        
-
         return Inertia::render('Researcher/View', [
             'step_status' => $step_status,
             'research' => $research,
@@ -395,6 +394,7 @@ class ResearcherController extends Controller
             'research_logs' => $rlogs,
             'panels' => $panels,
             'technical_docs' => $technical_docs,
+            'revised_docs' => $revised_docs,
             'author' => $author[0]
         ]);
     }
@@ -405,21 +405,47 @@ class ResearcherController extends Controller
        return response()->download("storage/uploads/" . $file->file_name, $file->file_name);
     }
 
+    public function doc_download($file_id)
+    {
+       $file = ResearchDoc::where('id', $file_id)->first();
+       return response()->download("storage/docs/" . $file->file_name, $file->file_name);
+    }
+
     public function technical_review_upload(Request $request)
     {
-        if ($request->file('document_file')){
+        if ($request->file('document_file') && $request->steps == '3'){
             $document_file = $request->file('document_file');
             $fileName_doc =   $document_file->getClientOriginalName(); 
             $filePath_doc = 'docs/' . $document_file->getClientOriginalName();
 
             $data = [
                 "research_id"  => $request->research_id,
+                "report_date" => $request->report_date,
+                "steps" => $request->steps,
                 "file_name"    => $fileName_doc,
                 "file_path"    => $filePath_doc
             ];
+
             ResearchDoc::create($data);
             Storage::disk('public')->put($filePath_doc, file_get_contents($document_file));
         }
+
+        if ($request->file('document_file') && $request->steps == '4'){
+            $document_file = $request->file('document_file');
+            $fileName_doc =   $document_file->getClientOriginalName(); 
+            $filePath_doc = 'docs/' . $document_file->getClientOriginalName();
+
+            $data = [
+                "research_id"  => $request->research_id,
+                "steps" => $request->steps,
+                "file_name"    => $fileName_doc,
+                "file_path"    => $filePath_doc
+            ];
+
+            ResearchDoc::create($data);
+            Storage::disk('public')->put($filePath_doc, file_get_contents($document_file));
+        }
+
         return redirect()->back()->with('message', 'Successfully uploaded');
     }
 
@@ -462,6 +488,19 @@ class ResearcherController extends Controller
     {
        CrePanelMember::where('id', $id)->delete();
        return redirect()->back()->with('message', 'Successfully Deleted');
+    }
+
+    public function delete_doc(string $id)
+    {
+        try {
+            $file = ResearchDoc::where('id', $id)->first();
+            unlink("storage/" . $file->file_path);
+            $file->delete();
+
+            return redirect()->back()->with('message', 'Successfully deleted');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
     }
 
     /**
