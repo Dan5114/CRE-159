@@ -92,9 +92,9 @@ export default function Step3({user, research, technical_docs}) {
           </div>
 
           <div class="flex justify-end gap-y-2 mt-7">
-            <button type="submit" class="btn btn-primary rounded-full">
-                    Upload Document
-            </button>
+          <button type="submit" class="btn btn-default rounded-full">
+              <span class="icon-[tabler--upload] text-base-content/80 size-6"></span>Upload
+              </button>
           </div>
         </div>
         </form>

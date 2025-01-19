@@ -85,9 +85,8 @@ export default function Step6({user, research, budget_docs}) {
           </div>
 
             <div class="flex justify-end gap-y-2 mt-7">
-        
-              <button type="submit" class="btn btn-primary rounded-full">
-                  Upload Document
+              <button type="submit" class="btn btn-default rounded-full">
+              <span class="icon-[tabler--upload] text-base-content/80 size-6"></span>Upload
               </button>
             </div>
           </div>
@@ -151,7 +150,7 @@ export default function Step6({user, research, budget_docs}) {
 
         <hr/>
             
-          <table class="w-full border divide-y divide-gray-200 dark:divide-neutral-700">
+          <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700">
             <thead class="bg-[#198754] dark:bg-neutral-700">
             <tr>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">File</th>
