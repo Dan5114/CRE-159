@@ -24,6 +24,7 @@ export default function View(props) {
     const revised_docs = props.revised_docs;
     const ethics_docs = props.ethics_docs;
     const budget_docs = props.budget_docs;
+    const moa_docs = props.moa_docs;
     const user = usePage().props.auth.user;
 
     return (
@@ -65,7 +66,7 @@ export default function View(props) {
                             
                             </div>
                             <div class="col-span-2 max-h-auto mb-3">
-                              <StepperForm files={files} research={research_data} user={user} panels={panels} technical_docs={technical_docs} revised_docs={revised_docs} ethics_docs={ethics_docs} budget_docs={budget_docs}/>
+                              <StepperForm files={files} research={research_data} user={user} panels={panels} technical_docs={technical_docs} revised_docs={revised_docs} ethics_docs={ethics_docs} budget_docs={budget_docs} moa_docs={moa_docs} />
                             </div>
                       </div>
                     </div>

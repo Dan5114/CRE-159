@@ -103,26 +103,26 @@ export default function Step3({user, research, technical_docs}) {
             <thead class="bg-[#198754] dark:bg-neutral-700">
               <tr>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">File</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Report Date</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Date Created</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500"></th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
                 { technical_docs.map((technical_doc, index) => (
-                        <>
-                               <tr class={index % 2 !== 0 ? "bg-gray-50 dark:bg-gray-800 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-800 dark:border-gray-700"}>
-                                                  <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{technical_doc.file_name}</td>
-                                                  <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(technical_doc.created_at).format("LLL")}</td>
-                                                  <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
-                                                    
-                                                    <span class="hover:cursor-pointer" onClick={() => deleteFile(technical_doc.id)}>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z"/></svg>
-                                                    </span>
-                                                  </td>
-                                 
-                                              </tr>          
-                
-                        </>
+                  <>
+                  <tr class={index % 2 !== 0 ? "bg-gray-50 dark:bg-gray-800 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-800 dark:border-gray-700"}>
+                        <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{technical_doc.file_name}</td>
+                        <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(technical_doc.report_date).format("LLL")}</td>
+                        <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(technical_doc.created_at).format("LLL")}</td>
+                        <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
+                          
+                          <span class="hover:cursor-pointer" onClick={() => deleteFile(technical_doc.id)}>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z"/></svg>
+                          </span>
+                        </td>
+                    </tr>          
+                  </>
                 ))}
               </tbody>
               </table>
@@ -163,6 +163,7 @@ export default function Step3({user, research, technical_docs}) {
             <thead class="bg-[#198754] dark:bg-neutral-700">
               <tr>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">File</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Report Date</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Date Created</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500"></th>
               </tr>
@@ -172,6 +173,7 @@ export default function Step3({user, research, technical_docs}) {
                         <>
                                <tr class={index % 2 !== 0 ? "bg-gray-50 dark:bg-gray-800 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-800 dark:border-gray-700"}>
                                                   <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{technical_doc.file_name}</td>
+                                                  <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(technical_doc.report_date).format("LLL")}</td>
                                                   <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(technical_doc.created_at).format("LLL")}</td>
                                                   <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
                                                  <span class="hover:cursor-pointer" onClick={() => downloadDoc(technical_doc)}> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg></span>

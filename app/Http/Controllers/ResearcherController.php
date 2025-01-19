@@ -361,6 +361,7 @@ class ResearcherController extends Controller
             $revised_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '4')->get();
             $ethics_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '5')->get();
             $budget_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '6')->get();
+            $moa_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '8')->get();
 
             $step_status = [
                 "step1" => $this->getStepStatus($value->id, "1"),
@@ -374,6 +375,7 @@ class ResearcherController extends Controller
             $revised_docs = null;
             $ethics_docs = null;
             $budget_docs = null;
+            $moa_docs = null;
             $step_status = null;
             $rlogs = null;
             $panels = null;
@@ -401,6 +403,7 @@ class ResearcherController extends Controller
             'revised_docs' => $revised_docs,
             'ethics_docs' => $ethics_docs,
             'budget_docs' => $budget_docs,
+            'moa_docs' => $moa_docs,
             'author' => $author[0]
         ]);
     }
@@ -453,6 +456,38 @@ class ResearcherController extends Controller
         }
 
         if ($request->file('document_file') && $request->steps == '5'){
+            $document_file = $request->file('document_file');
+            $fileName_doc =   $document_file->getClientOriginalName(); 
+            $filePath_doc = 'docs/' . $document_file->getClientOriginalName();
+
+            $data = [
+                "research_id"  => $request->research_id,
+                "steps" => $request->steps,
+                "file_name"    => $fileName_doc,
+                "file_path"    => $filePath_doc
+            ];
+
+            ResearchDoc::create($data);
+            Storage::disk('public')->put($filePath_doc, file_get_contents($document_file));
+        }
+
+        if ($request->file('document_file') && $request->steps == '6'){
+            $document_file = $request->file('document_file');
+            $fileName_doc =   $document_file->getClientOriginalName(); 
+            $filePath_doc = 'docs/' . $document_file->getClientOriginalName();
+
+            $data = [
+                "research_id"  => $request->research_id,
+                "steps" => $request->steps,
+                "file_name"    => $fileName_doc,
+                "file_path"    => $filePath_doc
+            ];
+
+            ResearchDoc::create($data);
+            Storage::disk('public')->put($filePath_doc, file_get_contents($document_file));
+        }
+
+        if ($request->file('document_file') && $request->steps == '8'){
             $document_file = $request->file('document_file');
             $fileName_doc =   $document_file->getClientOriginalName(); 
             $filePath_doc = 'docs/' . $document_file->getClientOriginalName();
