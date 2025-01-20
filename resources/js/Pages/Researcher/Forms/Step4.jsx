@@ -95,17 +95,17 @@ export default function Step4({user, research, revised_docs}) {
 
 
         <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700 mt-3">
-            <thead class="bg-[#198754] dark:bg-neutral-700">
+            <thead class="bg-gray-300 dark:bg-neutral-700">
             <tr>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">File</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Date Created</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500"></th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">File</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Date Created</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500"></th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
                 { revised_docs.map((revised_doc, index) => (
                   <>
-                          <tr class={index % 2 !== 0 ? "bg-gray-50 dark:bg-gray-800 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-800 dark:border-gray-700"}>
+                         <tr>
                                             <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{revised_doc.file_name}</td>
                                             <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(revised_doc.created_at).format("LLL")}</td>
                                             <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
@@ -145,23 +145,23 @@ export default function Step4({user, research, revised_docs}) {
 
           <div class="px-4 sm:px-0 mb-6">
           <h3 class="text-2xl font-semibold text-base-content">Revised Documents </h3>
-          <p class="mt-1 max-w-full text-base-content/80">See details below</p>
+          <p class="mt-1 max-w-full text-base-content/80">Uploaded Files</p>
         </div>
 
         <hr/>
             
           <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700">
-            <thead class="bg-[#198754] dark:bg-neutral-700">
+            <thead class="bg-gray-300 dark:bg-neutral-700">
             <tr>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">File</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Date Created</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500"></th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">File</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Date Created</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500"></th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
             { revised_docs.map((revised_doc, index) => (
                   <>
-                          <tr class={index % 2 !== 0 ? "bg-gray-50 dark:bg-gray-800 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-800 dark:border-gray-700"}>
+                          <tr>
                                             <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{revised_doc.file_name}</td>
                                             <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(revised_doc.created_at).format("LLL")}</td>
                                             <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">

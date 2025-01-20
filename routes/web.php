@@ -38,6 +38,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/doc/download/{id}', [ResearcherController::class, 'doc_download'])->name('researcher.doc.download');
     Route::delete('/researcher/delete/doc/{id}', [ResearcherController::class, 'delete_doc'])->name('researcher.delete.doc');
     Route::post('/researcher/message/thread', [ResearcherController::class, 'send_message_thread'])->name('researcher.message.thread');
+    Route::patch('/researcher/mark/read/{id}', [ResearcherController::class, 'mark_read'])->name('researcher.mark.read');
 
 
 });

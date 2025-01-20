@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('research_id');
             $table->char('remarks', length: 200);
+            $table->char('seen_by', length: 200)->nullable();
             $table->char('read_status', length: 1);
             $table->char('steps', length: 1);
             $table->timestamps();

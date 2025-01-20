@@ -364,7 +364,7 @@ class ResearcherController extends Controller
             $budget_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '6')->get();
             $moa_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '8')->get();
 
-            $feedbacks_step1 = ResearchMessageThread::where('research_id', $value->id)->where('steps', '1')->get();
+            $feedbacks_step1 = ResearchMessageThread::where('research_id', $value->id)->where('steps', '1')->orderBy('created_at', 'desc')->get();
 
             $step_status = [
                 "step1" => $this->getStepStatus($value->id, "1"),
@@ -556,7 +556,7 @@ class ResearcherController extends Controller
     {
         try {
             $file = ResearchDoc::where('id', $id)->first();
-            unlink("storage/" . $file->file_path);
+            Storage::disk('public')->delete($file->file_path);
             $file->delete();
 
             return redirect()->back()->with('message', 'Successfully deleted');
@@ -577,6 +577,22 @@ class ResearcherController extends Controller
             ResearchMessageThread::create($data);
 
             return redirect()->back()->with('message', 'Successfully posted');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
+    }
+
+    public function mark_read(Request $request, string $id)
+    {
+        try {
+            $data = [
+                "seen_by" => $request->seen_by,
+                "read_status" => 1,
+                "updated_at" => Carbon::now()
+            ];
+            ResearchMessageThread::where('id', $id)->update($data);
+
+            return redirect()->back()->with('message', 'Successfully updated');
         } catch (Exception $e) {
             Log::debug($e->getMessage());
         }

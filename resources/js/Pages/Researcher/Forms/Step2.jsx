@@ -157,7 +157,7 @@ export default function Step2({user, research, panels}) {
 
         
             <div class="bg-base-100 border text-base-content">
-            <label class="text-base-content flex justify-center m-3 text-lg font-semibold" for="firstName"> List of Panel Members </label>
+            <label class="text-base-content bg-gray-300  flex justify-center p-1 text-lg font-semibold" for="firstName"> List of Panel Members </label>
                 <ul class="space-y-0.5">
 
                 { panels.map((panel, index) => (
@@ -243,7 +243,7 @@ export default function Step2({user, research, panels}) {
 
 
             <div class="bg-base-100 border text-base-content">
-            <label class="text-base-content flex justify-center m-3 text-lg font-semibold" for="firstName"> List of Panel Members </label>
+            <label class="text-base-content bg-gray-300  flex justify-center p-1 text-lg font-semibold" for="firstName"> List of Panel Members </label>
                 <ul class="space-y-0.5">
 
                 { panels.map((panel, index) => (

@@ -11,6 +11,7 @@ class ResearchMessageThread extends Model
     protected $fillable = [
         'research_id',
         'remarks',
+        'seen_by',
         'read_status',
         'steps'
     ];

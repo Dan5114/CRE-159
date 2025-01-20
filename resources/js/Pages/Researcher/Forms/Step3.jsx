@@ -72,7 +72,7 @@ export default function Step3({user, research, technical_docs}) {
         <div class="card p-3">
 
         <div class="px-4 sm:px-0 mb-6">
-          <h3 class="text-2xl font-semibold text-base-content">Technical Review Files </h3>
+          <h3 class="text-2xl font-semibold text-base-content">Technical Review  </h3>
           <p class="mt-1 max-w-full text-base-content/80">Fill up fields to upload document</p>
         </div>
 
@@ -100,18 +100,19 @@ export default function Step3({user, research, technical_docs}) {
         </form>
 
         <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700 mt-3">
-            <thead class="bg-[#198754] dark:bg-neutral-700">
+            <thead class="bg-gray-300 dark:bg-neutral-700">
               <tr>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">File</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Report Date</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Date Created</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500"></th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-base-content uppercase dark:text-neutral-500">File</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-base-content uppercase dark:text-neutral-500">Report Date</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-base-content uppercase dark:text-neutral-500">Date Created</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-base-content uppercase dark:text-neutral-500"></th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
                 { technical_docs.map((technical_doc, index) => (
                   <>
-                  <tr class={index % 2 !== 0 ? "bg-gray-50 dark:bg-gray-800 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-800 dark:border-gray-700"}>
+                  {/* <tr class={index % 2 !== 0 ? "bg-gray-50 dark:bg-gray-800 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-800 dark:border-gray-700"}> */}
+                       <tr>
                         <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{technical_doc.file_name}</td>
                         <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(technical_doc.report_date).format("LLL")}</td>
                         <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(technical_doc.created_at).format("LLL")}</td>
@@ -153,25 +154,25 @@ export default function Step3({user, research, technical_docs}) {
           <div class="card p-3">
 
           <div class="px-4 sm:px-0 mb-6">
-          <h3 class="text-2xl font-semibold text-base-content">Technical Review Files </h3>
-          <p class="mt-1 max-w-full text-base-content/80">See details below</p>
+          <h3 class="text-2xl font-semibold text-base-content">Technical Review </h3>
+          <p class="mt-1 max-w-full text-base-content/80">Uploaded Files</p>
         </div>
 
         <hr/>
-            
           <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700 mt-3">
-            <thead class="bg-[#198754] dark:bg-neutral-700">
+            
+            <thead class="bg-gray-300 dark:bg-neutral-700">
               <tr>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">File</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Report Date</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Date Created</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500"></th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-base-content uppercase dark:text-neutral-500">File</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-base-content uppercase dark:text-neutral-500">Report Date</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-base-content uppercase dark:text-neutral-500">Date Created</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-base-content uppercase dark:text-neutral-500"></th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
                 { technical_docs.map((technical_doc, index) => (
                         <>
-                               <tr class={index % 2 !== 0 ? "bg-gray-50 dark:bg-gray-800 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-800 dark:border-gray-700"}>
+                               <tr>
                                                   <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{technical_doc.file_name}</td>
                                                   <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(technical_doc.report_date).format("LLL")}</td>
                                                   <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(technical_doc.created_at).format("LLL")}</td>
