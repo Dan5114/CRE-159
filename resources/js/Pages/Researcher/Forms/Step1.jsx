@@ -7,9 +7,9 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
+import Feedback from '../Feedback/Feedback';
 
-export default function Step1({research, files, user}) {
-
+export default function Step1({research, files, user, feedbacks_step1}) {
     const notyf = new Notyf();
     const { data, setData, post, errors, reset, processing, progress, recentlySuccessful } =
     useForm({
@@ -88,7 +88,18 @@ export default function Step1({research, files, user}) {
   return (
     <>
 
-      <form onSubmit={submitFiles}>
+<nav class="tabs tabs-lifted mt-3" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
+  <button type="button" class="tab active-tab:tab-active active" id="tabs-lifted-item-1" data-tab="#tabs-lifted-1" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
+    Submission
+  </button>
+  <button type="button" class="tab active-tab:tab-active" id="tabs-lifted-item-2" data-tab="#tabs-lifted-2" aria-controls="tabs-lifted-2" role="tab" aria-selected="false">
+    Feedback
+  </button>
+</nav>
+
+<div class="mt-3">
+  <div id="tabs-lifted-1" role="tabpanel" aria-labelledby="tabs-lifted-item-1">
+  <form onSubmit={submitFiles}>
       <div class="mt-6 border-t border-base-content/25">
           <div class="grid grid-cols-1 gap-6 md:grid-cols-2 m-3">
             <div>
@@ -386,6 +397,13 @@ export default function Step1({research, files, user}) {
           
     </div>
     </form>
+  </div>
+  <div id="tabs-lifted-2" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-2">
+       <Feedback user={user} research={research} feedbacks_step1={feedbacks_step1} />
+  </div>
+</div>
+
+
     </>
   )
 }

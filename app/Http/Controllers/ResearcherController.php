@@ -20,6 +20,7 @@ use App\Models\CreMeeting;
 use App\Models\CrePanelMember;
 use App\Models\CreApplicationStatus;
 use App\Models\ResearchDoc;
+use App\Models\ResearchMessageThread;
 use Carbon\Carbon;
 
 class ResearcherController extends Controller
@@ -363,6 +364,8 @@ class ResearcherController extends Controller
             $budget_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '6')->get();
             $moa_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '8')->get();
 
+            $feedbacks_step1 = ResearchMessageThread::where('research_id', $value->id)->where('steps', '1')->get();
+
             $step_status = [
                 "step1" => $this->getStepStatus($value->id, "1"),
                 "step2" => $this->getStepStatus($value->id, "2"),
@@ -376,6 +379,7 @@ class ResearcherController extends Controller
             $ethics_docs = null;
             $budget_docs = null;
             $moa_docs = null;
+            $feedbacks_step1 = null;
             $step_status = null;
             $rlogs = null;
             $panels = null;
@@ -404,6 +408,7 @@ class ResearcherController extends Controller
             'ethics_docs' => $ethics_docs,
             'budget_docs' => $budget_docs,
             'moa_docs' => $moa_docs,
+            'feedbacks_step1' => $feedbacks_step1,
             'author' => $author[0]
         ]);
     }
@@ -555,6 +560,23 @@ class ResearcherController extends Controller
             $file->delete();
 
             return redirect()->back()->with('message', 'Successfully deleted');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
+    }
+
+    public function send_message_thread(Request $request)
+    {
+        try {
+            $data = [
+                "research_id" => $request->research_id,
+                "remarks" => $request->comment,
+                "read_status" => 0,
+                "steps" => $request->steps
+            ];
+            ResearchMessageThread::create($data);
+
+            return redirect()->back()->with('message', 'Successfully posted');
         } catch (Exception $e) {
             Log::debug($e->getMessage());
         }

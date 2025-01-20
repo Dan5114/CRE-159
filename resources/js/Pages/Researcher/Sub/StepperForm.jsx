@@ -10,7 +10,7 @@ import Step5 from "../Forms/Step5";
 import Step6 from "../Forms/Step6";
 import Step8 from "../Forms/Step8";
 
-export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, ethics_docs, budget_docs, moa_docs}) {
+export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, ethics_docs, budget_docs, moa_docs, feedbacks_step1}) {
     
     const openLinkFile = (url) => {
       alert(url);
@@ -27,7 +27,7 @@ export default function StepperForm({research, files, user, panels, technical_do
           <h3 class="text-2xl font-semibold text-base-content">Requirements for Application </h3>
           <p class="mt-1 max-w-full text-base-content/80">The requirements for application for research funding under the FRP as follows: </p>
         </div>
-        <Step1 research={research} files={files} user={user}/>
+        <Step1 research={research} files={files} user={user} feedbacks_step1={feedbacks_step1}/>
       </div>
     </div>
 
