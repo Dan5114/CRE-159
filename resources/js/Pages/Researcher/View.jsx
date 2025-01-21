@@ -26,6 +26,11 @@ export default function View(props) {
     const budget_docs = props.budget_docs;
     const moa_docs = props.moa_docs;
     const feedbacks_step1 = props.feedbacks_step1;
+    const feedbacks_step1_notif = props.feedbacks_step1_notif;
+    const feedbacks_step3 = props.feedbacks_step3;
+    const feedbacks_step3_notif = props.feedbacks_step3_notif;
+    const feedbacks_step4 = props.feedbacks_step4;
+    const feedbacks_step4_notif = props.feedbacks_step4_notif;
     const user = usePage().props.auth.user;
 
     return (
@@ -67,7 +72,7 @@ export default function View(props) {
                             
                             </div>
                             <div class="col-span-2 max-h-auto mb-3">
-                              <StepperForm files={files} research={research_data} user={user} panels={panels} technical_docs={technical_docs} revised_docs={revised_docs} ethics_docs={ethics_docs} budget_docs={budget_docs} moa_docs={moa_docs} feedbacks_step1={feedbacks_step1} />
+                              <StepperForm files={files} research={research_data} user={user} panels={panels} technical_docs={technical_docs} revised_docs={revised_docs} ethics_docs={ethics_docs} budget_docs={budget_docs} moa_docs={moa_docs} feedbacks_step1={feedbacks_step1} feedbacks_step1_notif={feedbacks_step1_notif} feedbacks_step3={feedbacks_step3} feedbacks_step3_notif={feedbacks_step3_notif} feedbacks_step4={feedbacks_step4} feedbacks_step4_notif={feedbacks_step4_notif} />
                             </div>
                       </div>
                     </div>

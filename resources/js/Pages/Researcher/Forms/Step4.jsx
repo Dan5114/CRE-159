@@ -8,8 +8,9 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
+import FeedbackStep4 from '../Feedback/FeedbackStep4';
 
-export default function Step4({user, research, revised_docs}) {
+export default function Step4({user, research, revised_docs, feedbacks_step4, feedbacks_step4_notif}) {
   const notyf = new Notyf();
   const { data, setData, post,  delete: destroy, errors, reset, formState, processing, progress, recentlySuccessful } =
   useForm({
@@ -62,20 +63,30 @@ export default function Step4({user, research, revised_docs}) {
 
   return (
     <>
-             {
+
+<nav class="tabs tabs-lifted bg-zinc-100 mt-3 p-2" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
+  <button type="button" class="tab active-tab:tab-active active" id="tabs-lifted-item-5" data-tab="#tabs-lifted-5" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
+    Files
+  </button>
+  <button type="button" class="tab active-tab:tab-active" id="tabs-lifted-item-6" data-tab="#tabs-lifted-6" aria-controls="tabs-lifted-2" role="tab" aria-selected="false">
+    Feedback
+    {
+      (feedbacks_step4_notif == 0) ? 
+      ""
+      :
+      <span class="badge bg-[#FF0000] text-white badge-sm ms-2 rounded-full">+{feedbacks_step4_notif}</span>
+    }
+  </button>
+</nav>
+
+<div class="mt-3">
+  <div id="tabs-lifted-5" role="tabpanel" aria-labelledby="tabs-lifted-item-5">
+  {
         (user.user_type == "researcher") ? 
         <>
         <div>
           
-        <div class="card p-3">
-
-        <div class="px-4 sm:px-0 mb-6">
-          <h3 class="text-2xl font-semibold text-base-content">Uploading Revised Documents </h3>
-          <p class="mt-1 max-w-full text-base-content/80">Fill up fields to upload document</p>
-        </div>
-
-        <hr/>
-
+        <div class="">
         <form onSubmit={submitFiles}>
           <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mb-3 mt-3">
            
@@ -141,14 +152,7 @@ export default function Step4({user, research, revised_docs}) {
         </>
         :
         <>
-          <div class="card p-3">
-
-          <div class="px-4 sm:px-0 mb-6">
-          <h3 class="text-2xl font-semibold text-base-content">Revised Documents </h3>
-          <p class="mt-1 max-w-full text-base-content/80">Uploaded Files</p>
-        </div>
-
-        <hr/>
+          <div class="">
             
           <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700">
             <thead class="bg-gray-300 dark:bg-neutral-700">
@@ -193,6 +197,13 @@ export default function Step4({user, research, revised_docs}) {
         </>
 
      }
+  </div>
+  <div id="tabs-lifted-6" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-6">
+       <FeedbackStep4 user={user} research={research} feedbacks_step4={feedbacks_step4} />
+  </div>
+</div>
+
+            
     </>
   )
 }

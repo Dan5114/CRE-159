@@ -365,6 +365,13 @@ class ResearcherController extends Controller
             $moa_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '8')->get();
 
             $feedbacks_step1 = ResearchMessageThread::where('research_id', $value->id)->where('steps', '1')->orderBy('created_at', 'desc')->get();
+            $feedbacks_step1_notif =ResearchMessageThread::where('research_id', $value->id)->where('steps', '1')->where('read_status', '0')->count();
+
+            $feedbacks_step3 = ResearchMessageThread::where('research_id', $value->id)->where('steps', '3')->orderBy('created_at', 'desc')->get();
+            $feedbacks_step3_notif =ResearchMessageThread::where('research_id', $value->id)->where('steps', '3')->where('read_status', '0')->count();
+
+            $feedbacks_step4 = ResearchMessageThread::where('research_id', $value->id)->where('steps', '4')->orderBy('created_at', 'desc')->get();
+            $feedbacks_step4_notif =ResearchMessageThread::where('research_id', $value->id)->where('steps', '4')->where('read_status', '0')->count();
 
             $step_status = [
                 "step1" => $this->getStepStatus($value->id, "1"),
@@ -380,6 +387,11 @@ class ResearcherController extends Controller
             $budget_docs = null;
             $moa_docs = null;
             $feedbacks_step1 = null;
+            $feedbacks_step1_notif = null;
+            $feedbacks_step3 = null;
+            $feedbacks_step3_notif = null;
+            $feedbacks_step4 = null;
+            $feedbacks_step4_notif = null;
             $step_status = null;
             $rlogs = null;
             $panels = null;
@@ -396,6 +408,7 @@ class ResearcherController extends Controller
             "doc_vgii" => $file_VGII,
             "doc_cvr" => $file_CVR
         ];
+        
 
         return Inertia::render('Researcher/View', [
             'step_status' => $step_status,
@@ -409,6 +422,11 @@ class ResearcherController extends Controller
             'budget_docs' => $budget_docs,
             'moa_docs' => $moa_docs,
             'feedbacks_step1' => $feedbacks_step1,
+            'feedbacks_step1_notif' => $feedbacks_step1_notif,
+            'feedbacks_step3' => $feedbacks_step3,
+            'feedbacks_step3_notif' => $feedbacks_step3_notif,
+            'feedbacks_step4' => $feedbacks_step4,
+            'feedbacks_step4_notif' => $feedbacks_step4_notif,
             'author' => $author[0]
         ]);
     }

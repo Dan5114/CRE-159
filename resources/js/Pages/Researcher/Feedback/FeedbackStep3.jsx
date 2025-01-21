@@ -8,14 +8,14 @@ dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 
-export default function Feedback({user, research, feedbacks_step1}) {
+export default function Feedback({user, research, feedbacks_step3}) {
     const notyf = new Notyf();
     const { data, setData, post,  delete: destroy, patch, errors, reset, formState, processing, progress, recentlySuccessful } =
     useForm({
         research_id : research.id,
         comment: "",
         seen_by: user.name,
-        steps: "1"
+        steps: "3"
     });
 
     const submitFiles = (e) => {
@@ -48,7 +48,7 @@ export default function Feedback({user, research, feedbacks_step1}) {
     <div class="mt-6 border-t border-base-content/25 mb-3"></div>
         <ul class="timeline timeline-vertical timeline-trimmed timeline-compact w-full">
 
-            { feedbacks_step1.map((feedback_step1, index) => (
+            { feedbacks_step3.map((feedback_step3, index) => (
                               <>
                               
                         
@@ -63,34 +63,39 @@ export default function Feedback({user, research, feedbacks_step1}) {
     </div>
     <div class="timeline-end mt-6 w-full">
       <div class="border-base-content/25 rounded-lg border p-3">
-        <div class="mb-3 flex w-full flex-wrap items-center justify-between gap-2">
-          <p>
-            CRE commented on <span class="link link-primary link-hover font-medium">{research.research_title}</span> requirements
-          </p>
-          <span class="text-base-content/50 text-nowrap text-sm">{dayjs(feedback_step1.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(feedback_step1.created_at), true)} ago</time>) &nbsp;
+      <span class="text-base-content/50 text-nowrap text-sm float-end m-2">{dayjs(feedback_step3.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(feedback_step3.created_at), true)} ago</time>) &nbsp;
          
           </span>
+        <div class="mb-3 flex w-full flex-wrap items-center justify-between gap-2">
+          <p>
+            CRE commented on <span class="link link-primary link-hover font-medium">{research.research_title}</span>&nbsp;<span class="badge badge-soft badge-secondary badge-sm rounded-full">Technical Review Report</span>
+          </p>
+          
 
                 {
                     (user.user_type == "researcher") ? 
                     <>
-                     <button type="button" class="btn btn-default btn-xs" onClick={() => markAsRead(feedback_step1.id)}>
-                        <span class="text-xs">
-                        Mark as read
-                        </span>
-                    </button>
+                    { (feedback_step3.read_status == 1) ?
+                      <></>
+                      :
+                      <button type="button" class="btn btn-default btn-xs" onClick={() => markAsRead(feedback_step3.id)}>
+                          <span class="text-xs">
+                          Mark as read
+                          </span>
+                      </button>
+                      }
                     </>
                     :
                     <></>
                 }
          
         </div>
-        <div class="border-base-content/25 bg-base-200/50 rounded-lg border p-3 text-xs font-normal italic">
-        {feedback_step1.remarks}
+        <div class="border-base-content/25 bg-base-200/50 rounded-lg border p-3 font-normal italic">
+        {feedback_step3.remarks}
         </div>
 
                 {
-                    (feedback_step1.read_status == 1) ?
+                    (feedback_step3.read_status == 1) ?
                     <>
                            
         <div class="flex gap-2 m-2">
@@ -101,9 +106,9 @@ export default function Feedback({user, research, feedbacks_step1}) {
             </div>
             </div>
             <div class="text-sm">
-            <p class="text-sm">{feedback_step1.seen_by}</p>
+            <p class="text-sm">{feedback_step3.seen_by}</p>
             <p class="text-xs font-bold">Researcher</p>
-            <p class="text-xs">{dayjs(feedback_step1.updated_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(feedback_step1.updated_at), true)} ago</time>)</p>
+            <p class="text-xs">{dayjs(feedback_step3.updated_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(feedback_step3.updated_at), true)} ago</time>)</p>
             </div>
         </div>
                     </>
@@ -120,7 +125,7 @@ export default function Feedback({user, research, feedbacks_step1}) {
                             ))}
         </ul>
 
-        {feedbacks_step1.length === 0 ? (
+        {feedbacks_step3.length === 0 ? (
                        <>
                         <div class="flex justify-center border-2 border-dotted border-gray-300 p-3">
                         <div class="grid gap-4 w-80 justify-center">
@@ -140,7 +145,7 @@ export default function Feedback({user, research, feedbacks_step1}) {
 {
           (user.user_type == "cre") ?
 
-<div class="mt-3">
+<div class="mt-1">
 <form onSubmit={submitFiles}>
   <div class=""><div class="w-full">
     <label class="label label-text" for="textareaLabel"> </label>

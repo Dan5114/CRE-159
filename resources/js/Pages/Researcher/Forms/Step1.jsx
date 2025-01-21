@@ -7,9 +7,9 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
-import Feedback from '../Feedback/Feedback';
+import FeedbackStep1 from '../Feedback/FeedbackStep1';
 
-export default function Step1({research, files, user, feedbacks_step1}) {
+export default function Step1({research, files, user, feedbacks_step1, feedbacks_step1_notif}) {
     const notyf = new Notyf();
     const { data, setData, post, errors, reset, processing, progress, recentlySuccessful } =
     useForm({
@@ -88,12 +88,19 @@ export default function Step1({research, files, user, feedbacks_step1}) {
   return (
     <>
 
-<nav class="tabs tabs-lifted mt-3" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
+<nav class="tabs tabs-lifted bg-zinc-100 mt-3 p-2" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
   <button type="button" class="tab active-tab:tab-active active" id="tabs-lifted-item-1" data-tab="#tabs-lifted-1" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
     Submission
   </button>
   <button type="button" class="tab active-tab:tab-active" id="tabs-lifted-item-2" data-tab="#tabs-lifted-2" aria-controls="tabs-lifted-2" role="tab" aria-selected="false">
     Feedback
+    {
+      (feedbacks_step1_notif == 0) ? 
+      ""
+      :
+      <span class="badge bg-[#FF0000] text-white badge-sm ms-2 rounded-full">+{feedbacks_step1_notif}</span>
+    }
+    
   </button>
 </nav>
 
@@ -399,7 +406,7 @@ export default function Step1({research, files, user, feedbacks_step1}) {
     </form>
   </div>
   <div id="tabs-lifted-2" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-2">
-       <Feedback user={user} research={research} feedbacks_step1={feedbacks_step1} />
+       <FeedbackStep1 user={user} research={research} feedbacks_step1={feedbacks_step1} />
   </div>
 </div>
 

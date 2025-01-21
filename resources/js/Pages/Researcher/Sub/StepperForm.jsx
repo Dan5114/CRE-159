@@ -10,7 +10,7 @@ import Step5 from "../Forms/Step5";
 import Step6 from "../Forms/Step6";
 import Step8 from "../Forms/Step8";
 
-export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, ethics_docs, budget_docs, moa_docs, feedbacks_step1}) {
+export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, ethics_docs, budget_docs, moa_docs, feedbacks_step1, feedbacks_step1_notif, feedbacks_step3, feedbacks_step3_notif, feedbacks_step4, feedbacks_step4_notif}) {
     
     const openLinkFile = (url) => {
       alert(url);
@@ -27,7 +27,7 @@ export default function StepperForm({research, files, user, panels, technical_do
           <h3 class="text-2xl font-semibold text-base-content">Requirements for Application </h3>
           <p class="mt-1 max-w-full text-base-content/80">The requirements for application for research funding under the FRP as follows: </p>
         </div>
-        <Step1 research={research} files={files} user={user} feedbacks_step1={feedbacks_step1}/>
+        <Step1 research={research} files={files} user={user} feedbacks_step1={feedbacks_step1} feedbacks_step1_notif={feedbacks_step1_notif}/>
       </div>
     </div>
 
@@ -38,15 +38,23 @@ export default function StepperForm({research, files, user, panels, technical_do
         <Step2 user={user} research={research} panels={panels}/>
       </div>
    </div>
-   <div data-stepper-content-item='{ "index": 3 }' style={{"display" : "none"}}>
+   <div data-stepper-content-item='{ "index": 3 }' class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
      <div>
-        <Step3 user={user} research={research} technical_docs={technical_docs}/>
+     <div class="px-4 sm:px-0 mb-6">
+          <h3 class="text-2xl font-semibold text-base-content">Technical Review Report </h3>
+          <p class="mt-1 max-w-full text-base-content/80">Fill up fields to upload document</p>
+        </div>
+        <Step3 user={user} research={research} technical_docs={technical_docs} feedbacks_step3={feedbacks_step3} feedbacks_step3_notif={feedbacks_step3_notif}/>
      </div>
    </div>
 
-    <div data-stepper-content-item='{ "index": 4 }' style={{"display" : "none"}}>
+    <div data-stepper-content-item='{ "index": 4 }' class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
       <div>
-        <Step4 user={user} research={research} revised_docs={revised_docs}/>
+      <div class="px-4 sm:px-0 mb-6">
+          <h3 class="text-2xl font-semibold text-base-content">Uploading Revised Documents </h3>
+          <p class="mt-1 max-w-full text-base-content/80">Fill up fields to upload document</p>
+        </div>
+        <Step4 user={user} research={research} revised_docs={revised_docs}  feedbacks_step4={feedbacks_step4} feedbacks_step4_notif={feedbacks_step4_notif}/>
      </div>
    </div>
 
