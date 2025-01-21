@@ -104,10 +104,16 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
           </div>
         </form>
 
-
+        <div class="flex justify-start mb-3">
+  <h5 class="text-base-content text-lg font-semibold">Note: </h5>&nbsp;
+  <p class="text-base-content/80 text-base text-error text-md">
+    Do not delete/remove previously uploaded documents for version bactracking.
+  </p>
+</div>
         <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700 mt-3">
             <thead class="bg-gray-300 dark:bg-neutral-700">
             <tr>
+              <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Version #</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">File</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Date Created</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500"></th>
@@ -117,19 +123,21 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
                 { revised_docs.map((revised_doc, index) => (
                   <>
                          <tr>
-                                            <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{revised_doc.file_name}</td>
-                                            <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(revised_doc.created_at).format("LLL")}</td>
-                                            <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
-                                              
-                                              <span class="hover:cursor-pointer" onClick={() => deleteFile(revised_doc.id)}>
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z"/></svg>
-                                              </span>
-                                            </td>
-                                        </tr>          
+                            <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">V{index+1}</td>
+                            <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{revised_doc.file_name}</td>                                         
+                            <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(revised_doc.created_at).format("LLL")}</td>
+                            <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
+                              
+                              <span class="hover:cursor-pointer" onClick={() => deleteFile(revised_doc.id)}>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z"/></svg>
+                              </span>
+                            </td>
+                        </tr>          
                   </>
                 ))}
             </tbody>
           </table>
+
           {revised_docs.length === 0 ? (
                        <>
                         <div class="flex justify-center border-2 border-dotted border-gray-300 p-3">
@@ -153,11 +161,17 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
         :
         <>
           <div class="">
-            
+          <div class="flex justify-start mb-3">
+  <h5 class="text-base-content text-lg font-semibold">Note: </h5>&nbsp;
+  <p class="text-base-content/80 text-base text-error text-md">
+    Do not delete/remove previously uploaded documents for version bactracking.
+  </p>
+</div>
           <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700">
             <thead class="bg-gray-300 dark:bg-neutral-700">
             <tr>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">File</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Version #</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">File</th>               
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Date Created</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500"></th>
               </tr>
@@ -166,13 +180,14 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
             { revised_docs.map((revised_doc, index) => (
                   <>
                           <tr>
-                                            <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{revised_doc.file_name}</td>
-                                            <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(revised_doc.created_at).format("LLL")}</td>
-                                            <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
-                                              
-                                            <span class="hover:cursor-pointer" onClick={() => downloadDoc(revised_doc)}> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg></span>
-                                            </td>
-                                        </tr>          
+                            <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">V{index+1}</td>
+                            <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{revised_doc.file_name}</td>                                         
+                            <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(revised_doc.created_at).format("LLL")}</td>
+                            <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
+                              
+                            <span class="hover:cursor-pointer" onClick={() => downloadDoc(revised_doc)}> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg></span>
+                            </td>
+                        </tr>          
                   </>
                 ))}
               </tbody>
@@ -197,6 +212,9 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
         </>
 
      }
+<hr/>
+
+
   </div>
   <div id="tabs-lifted-6" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-6">
        <FeedbackStep4 user={user} research={research} feedbacks_step4={feedbacks_step4} />

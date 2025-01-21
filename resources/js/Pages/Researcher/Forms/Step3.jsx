@@ -65,7 +65,7 @@ export default function Step3({user, research, technical_docs, feedbacks_step3, 
 
   return (
     <>
-         <nav class="tabs tabs-lifted mt-3 p-2" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
+         <nav class="tabs tabs-lifted bg-zinc-100 mt-3 p-2" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
         <button type="button" class="tab active-tab:tab-active active" id="tabs-lifted-item-3" data-tab="#tabs-lifted-3" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
           Files
         </button>

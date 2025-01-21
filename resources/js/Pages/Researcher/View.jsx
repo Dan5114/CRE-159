@@ -62,12 +62,12 @@ export default function View(props) {
 
                       <HeaderData author={props.author} research_data={research_data} />  
 
-                      <div class="mt-4 grid grid-cols-3 gap-4">
+                      <div data-stepper={(user.user_type != "tpl" ? '{ "currentIndex": 1 }' : '{ "currentIndex": 3 }')} class="mt-4 grid grid-cols-3 gap-4">
                           <div class="">
                           <h5 class="p-2 rounded-md bg-[#198754] text-xl text-white font-extrabold leading-none tracking-tight md:text-xl dark:text-white">Application and Review Process </h5>
                             <div class="flex items-center justify-between vertical-scrollbar rounded-none rounded-scrollbar card max-h-screen w-full mb-4 p-4">
                            
-                            <Steps research_logs={research_logs} step_status={step_status} />
+                            <Steps research_logs={research_logs} step_status={step_status} user={user} />
                             </div>
                             
                             </div>
