@@ -443,6 +443,20 @@ class ResearcherController extends Controller
        return response()->download("storage/docs/" . $file->file_name, $file->file_name);
     }
 
+    public function download_doc_status($file_id)
+    {
+       $file = ResearchDoc::where('id', $file_id)->first();
+       if($file->steps == 4){
+            $data = [
+                "seen_status" => 1,
+                "seen_date" => Carbon::now()
+            ];
+            ResearchDoc::where('id', $file_id)->update($data);
+       }
+
+       return redirect()->back()->with('message', 'Successfully downloaded');
+    }
+
     public function technical_review_upload(Request $request)
     {
         if ($request->file('document_file') && $request->steps == '3'){

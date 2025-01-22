@@ -11,6 +11,8 @@ class ResearchDoc extends Model
     protected $fillable = [
         'research_id',
         'steps',
+        'seen_status',
+        'seen_date',
         'report_date',
         'file_name',
         'file_path'

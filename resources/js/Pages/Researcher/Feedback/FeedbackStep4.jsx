@@ -93,13 +93,16 @@ export default function Feedback({user, research, feedbacks_step4}) {
         <div class="border-base-content/25 bg-base-200/50 rounded-lg border p-3 font-normal italic">
         {feedback_step4.remarks}
         </div>
+            <div class="chat-footer float-end m-2 text-base-content/50">
+        <div class="mt-3">Delivered</div>
+      </div>
 
                 {
                     (feedback_step4.read_status == 1) ?
                     <>
                            
         <div class="flex gap-2 m-2">
-        <p class="mb-2 text-xs mt-3">Seen by: </p>
+        <p class="mb-2 text-xs mt-3">Seen by: <span class="icon-[tabler--checks] text-success align-bottom"></span></p>
             <div class="avatar">
             <div class="size-8 rounded-full">
                 <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png" alt="User Avatar" />
@@ -143,7 +146,7 @@ export default function Feedback({user, research, feedbacks_step4}) {
                       }
 
 {
-          (user.user_type == "cre") ?
+          (user.user_type == "cre" || user.user_type == "tpl") ?
 
 <div class="mt-1">
 <form onSubmit={submitFiles}>

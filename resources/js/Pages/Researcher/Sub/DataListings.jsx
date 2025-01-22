@@ -21,7 +21,7 @@ const DataListings = ({researchs}) => {
   return (
     <>
          <table class="min-w-full border divide-y divide-gray-200 dark:divide-neutral-700">
-            <thead class="bg-[#198754] dark:bg-neutral-700">
+            <thead class="bg-gray-400 dark:bg-neutral-700">
               <tr>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Research Title</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Date Created</th>

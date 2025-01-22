@@ -93,13 +93,17 @@ export default function Feedback({user, research, feedbacks_step3}) {
         <div class="border-base-content/25 bg-base-200/50 rounded-lg border p-3 font-normal italic">
         {feedback_step3.remarks}
         </div>
+        <div class="chat-footer float-end text-base-content/50">
+    <div>Delivered</div>
+  </div>
+
 
                 {
                     (feedback_step3.read_status == 1) ?
                     <>
                            
         <div class="flex gap-2 m-2">
-        <p class="mb-2 text-xs mt-3">Seen by: </p>
+        <p class="mb-2 text-xs mt-3">Seen by:  <span class="icon-[tabler--checks] text-success align-bottom"></span></p>
             <div class="avatar">
             <div class="size-8 rounded-full">
                 <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png" alt="User Avatar" />

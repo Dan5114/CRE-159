@@ -8,16 +8,28 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
+import Modal from '@/Components/Modal';
 import FeedbackStep4 from '../Feedback/FeedbackStep4';
 
 export default function Step4({user, research, revised_docs, feedbacks_step4, feedbacks_step4_notif}) {
   const notyf = new Notyf();
-  const { data, setData, post,  delete: destroy, errors, reset, formState, processing, progress, recentlySuccessful } =
+  const [confirmingModal, setConfirmingModal] = useState(false);
+  const { data, setData, post,  delete: destroy, patch, errors, reset, formState, processing, progress, recentlySuccessful } =
   useForm({
       research_id : research.id,
       document_file: "",
       steps: "4"
   });
+
+  const confirmModalDisplay = () => {
+    setConfirmingModal(true);
+  };
+
+  const closeModal = () => {
+    setConfirmingModal(false);
+    clearErrors();
+    reset();
+  };
 
   const submitFiles = (e) => {
     e.preventDefault();
@@ -50,6 +62,16 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
      .catch((error) => {
        console.error("Error fetching the file:", error);
      });
+
+     patch(route('tpl.dowload.doc.status', file.id), {
+      onSuccess: (page) =>  {
+          notyf.success(page.props.flash.message);
+      },
+      onFinish: () =>  {
+          console.log("Finishing updating status");
+          reset()
+      },
+  });
   }
 
   const deleteFile = (id) => {
@@ -59,6 +81,10 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
       onError: () => console.log("Error deleting"),
       onFinish: () => reset(),
     });
+  }
+
+  const acceptApplication = () => {
+    alert("test");  
   }
 
   return (
@@ -79,7 +105,7 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
   </button>
 </nav>
 
-<div class="mt-3">
+<div class="mt-3 mb-3">
   <div id="tabs-lifted-5" role="tabpanel" aria-labelledby="tabs-lifted-item-5">
   {
         (user.user_type == "researcher") ? 
@@ -106,8 +132,8 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
 
         <div class="flex justify-start mb-3">
   <h5 class="text-base-content text-lg font-semibold">Note: </h5>&nbsp;
-  <p class="text-base-content/80 text-base text-error text-md">
-    Do not delete/remove previously uploaded documents for version bactracking.
+  <p class="text-[#FF0000] text-md">
+  <em> Do not delete/remove previously uploaded documents for version bactracking.</em>
   </p>
 </div>
         <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700 mt-3">
@@ -116,6 +142,7 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
               <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Version #</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">File</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Date Created</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500"></th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500"></th>
               </tr>
             </thead>
@@ -126,6 +153,17 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
                             <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">V{index+1}</td>
                             <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{revised_doc.file_name}</td>                                         
                             <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(revised_doc.created_at).format("LLL")}</td>
+                            <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{(revised_doc.seen_status == 1) ?
+                          <>
+                          <div class="chat-footer text-base-content/50">
+                           <span class="icon-[tabler--checks] text-success align-bottom"></span>&nbsp;
+                            Seen
+                            at <span>{dayjs(revised_doc.seen_date).format("LLL")}</span>
+                          </div>
+                          </>  
+                          :
+                          <></>
+                          }</td>
                             <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
                               
                               <span class="hover:cursor-pointer" onClick={() => deleteFile(revised_doc.id)}>
@@ -163,8 +201,8 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
           <div class="">
           <div class="flex justify-start mb-3">
   <h5 class="text-base-content text-lg font-semibold">Note: </h5>&nbsp;
-  <p class="text-base-content/80 text-base text-error text-md">
-    Do not delete/remove previously uploaded documents for version bactracking.
+  <p class="text-[#FF0000] text-md">
+   <em> Do not delete/remove previously uploaded documents for version bactracking.</em>
   </p>
 </div>
           <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700">
@@ -173,6 +211,7 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Version #</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">File</th>               
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Date Created</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500"></th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500"></th>
               </tr>
             </thead>
@@ -183,6 +222,18 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
                             <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">V{index+1}</td>
                             <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{revised_doc.file_name}</td>                                         
                             <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(revised_doc.created_at).format("LLL")}</td>
+                            <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{(revised_doc.seen_status == 1) ?
+                          <>
+                          <div class="chat-footer text-base-content/50">
+                           <span class="icon-[tabler--checks] text-success align-bottom"></span>&nbsp;
+                            Seen
+                            at <span>{dayjs(revised_doc.seen_date).format("LLL")}</span>
+                          </div>
+                          </>  
+                          :
+                          <>
+                          </>
+                          }</td>
                             <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
                               
                             <span class="hover:cursor-pointer" onClick={() => downloadDoc(revised_doc)}> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg></span>
@@ -192,6 +243,9 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
                 ))}
               </tbody>
               </table>
+
+             
+
               {revised_docs.length === 0 ? (
                        <>
                         <div class="flex justify-center border-2 border-dotted border-gray-300 p-3">
@@ -208,18 +262,55 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
                         :                               
                        <></>                       
                       }
+                      
           </div>
+          
         </>
 
      }
 <hr/>
 
+<div class="float-end mt-6">
+   {
+    (user.user_type == "tpl") ?
+    <>
+      <button type="button"  onClick={confirmModalDisplay} class="btn btn-success rounded-full">
+      Endorse Paper for Technical Clearance
+      </button>
+    </>
+    :
+    <></>
+   }
+</div>
 
   </div>
   <div id="tabs-lifted-6" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-6">
        <FeedbackStep4 user={user} research={research} feedbacks_step4={feedbacks_step4} />
   </div>
 </div>
+
+
+  <Modal show={confirmingModal} onClose={closeModal}>
+  <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Endorse Paper for Technical Clearance</h3>
+        <button type="button" onClick={closeModal} class="btn btn-text btn-circle btn-sm absolute end-3 top-3" aria-label="Close" data-overlay="#form-modal"><span class="icon-[tabler--x] size-4"></span></button>
+      </div>
+      <form>
+        <div class="modal-body pt-0">
+          <div class="mb-4">
+            <label class="label label-text" for="fullName"> Date of Endorsement </label>
+            <input type="date" placeholder="John Doe" class="input" id="fullName" />
+          </div>
+         
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-soft btn-secondary" onClick={closeModal} data-overlay="#form-modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </Modal>
 
             
     </>
