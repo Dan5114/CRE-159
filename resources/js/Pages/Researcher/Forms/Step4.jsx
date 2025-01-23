@@ -11,13 +11,15 @@ dayjs.extend(localizedFormat);
 import Modal from '@/Components/Modal';
 import FeedbackStep4 from '../Feedback/FeedbackStep4';
 
-export default function Step4({user, research, revised_docs, feedbacks_step4, feedbacks_step4_notif}) {
+export default function Step4({user, research, revised_docs, feedbacks_step4, feedbacks_step4_notif, endorsement_status, tech_doc}) {
   const notyf = new Notyf();
   const [confirmingModal, setConfirmingModal] = useState(false);
   const { data, setData, post,  delete: destroy, patch, errors, reset, formState, processing, progress, recentlySuccessful } =
   useForm({
       research_id : research.id,
       document_file: "",
+      tech_file: "",
+      t_steps: "tech",
       date_endorsement: "",
       steps: "4"
   });
@@ -113,6 +115,9 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
       <span class="badge bg-[#FF0000] text-white badge-sm ms-2 rounded-full">+{feedbacks_step4_notif}</span>
     }
   </button>
+  <button type="button" class="tab active-tab:tab-active" id="tabs-lifted-item-tech" data-tab="#tabs-lifted-tech" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
+  Tech Review Cert
+  </button>
 </nav>
 
 <div class="mt-3 mb-3">
@@ -140,10 +145,10 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
           </div>
         </form>
 
-        <div class="flex justify-start mb-3">
-  <h5 class="text-base-content text-lg font-semibold">Note: </h5>&nbsp;
-  <p class="text-[#FF0000] text-md">
-  <em> Do not delete/remove previously uploaded documents for version bactracking.</em>
+        <div class="flex">
+  <h5 class="text-base-content font-semibold">Note: </h5>&nbsp;
+  <p class="text-[#FF0000] text-xs mt-1">
+   <em> Do not delete/remove previously uploaded documents for version bactracking.</em>
   </p>
 </div>
         <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700 mt-3">
@@ -209,9 +214,9 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
         :
         <>
           <div class="">
-          <div class="flex justify-start mb-3">
-  <h5 class="text-base-content text-lg font-semibold">Note: </h5>&nbsp;
-  <p class="text-[#FF0000] text-md">
+          <div class="flex">
+  <h5 class="text-base-content font-semibold">Note: </h5>&nbsp;
+  <p class="text-[#FF0000] text-xs mt-1">
    <em> Do not delete/remove previously uploaded documents for version bactracking.</em>
   </p>
 </div>
@@ -284,9 +289,23 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
    {
     (user.user_type == "tpl") ?
     <>
-      <button type="button"  onClick={confirmModalDisplay} class="btn btn-success rounded-full">
+      {
+        (endorsement_status == null) ?
+        <button type="button"  onClick={confirmModalDisplay} class="btn btn-success rounded-full">
       Endorse Paper for Technical Clearance
       </button>
+      :
+      <>
+     <div class="alert alert-soft text-xs alert-success flex items-start gap-4">
+  <span class="icon-[tabler--check] size-6"></span>
+  <div class="flex flex-col gap-1">
+    <h5 class="text-lg font-semibold">Successully Endorsed Application</h5>
+    <p>Please wait for the CRE to upload a Technical Review Cert.
+    </p>
+  </div>
+</div>
+      </>
+      }
     </>
     :
     <></>
@@ -298,6 +317,109 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
       <div class="vertical-scrollbar rounded-scrollbar max-h-screen w-full p-4">
         <FeedbackStep4 user={user} research={research} feedbacks_step4={feedbacks_step4} />
        </div>
+  </div>
+
+  <div id="tabs-lifted-tech" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-tech">
+   {
+    (user.user_type != "cre" && endorsement_status != null) ?
+      <>
+       <div class="p-3 shadow flex items-start">
+          <span class="icon-[tabler--calendar] size-6"></span>
+          <div class="flex flex-col gap-1">
+            <h5 class="text-lg font-semibold">&nbsp;Endorsement Date</h5>
+            <ul class="mt-1.5 list-inside list-disc">
+              <li>{ dayjs(endorsement_status.date_endorse).format("LLLL")}</li>
+            </ul>
+          </div>
+        </div>
+       {
+          (tech_doc != null) ?
+         <>
+          <h5 class="text-lg font-semibold mt-3">&nbsp;Tech Review Cert</h5>
+          <ul role="list" class="divide-y text-sm divide-base-content/25 rounded-md border border-base-content/25 mt-3">
+          <li class="flex items-center justify-between py-2 ps-2 pe-2">
+              <div class="flex w-0 flex-1 items-center">
+                <span class="icon-[tabler--paperclip] size-5 flex-shrink-0"></span>
+                <div class="ms-4 flex min-w-0 flex-1 gap-2">
+                  <span class="truncate font-medium">{tech_doc.file_name}</span>
+                  <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(tech_doc.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(tech_doc.created_at), true)} ago</time>)</span>
+                </div>
+              </div>
+              <div class="ms-4 flex-shrink-0">
+                <a onClick={() => downloadDoc(tech_doc)} class="link link-primary">Download</a>
+              </div>
+            </li>
+          </ul>
+         </>
+          :
+          <>
+         
+        <div class="flex text-sm justify-center text-warning mt-3"><em>Waiting for CRE to upload Tech Review Cert</em></div>
+          </>
+        }
+        
+      </>
+      :
+      <>
+
+      {
+        (endorsement_status != null) ?
+        <>
+           <div class="p-3 shadow flex items-start">
+          <span class="icon-[tabler--calendar] size-6"></span>
+          <div class="flex flex-col gap-1">
+            <h5 class="text-lg font-semibold">&nbsp;Endorsement Date</h5>
+            <ul class="mt-1.5 list-inside list-disc">
+              <li>{ dayjs(endorsement_status.date_endorse).format("LLLL")}</li>
+            </ul>
+          </div>
+        </div>
+
+        <form onSubmit={submitFiles}>
+          <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mb-3 mt-3">
+           
+          <div>
+            <label class="label label-text" for="firstName">Document File </label>
+            <input type="file" placeholder="" onChange={(e) => setData('tech_file', e.target.files[0])} class="input" id="firstName" />
+          </div>
+
+            <div class="flex justify-end gap-y-2 mt-7">
+        
+            <button type="submit" class="btn btn-default rounded-full">
+              <span class="icon-[tabler--upload] text-base-content/80 size-6"></span>Upload
+              </button>
+            </div>
+          </div>
+        </form>
+        </>
+        :
+        <>
+          <div class="flex text-sm justify-center text-warning mt-3"><em>Waiting for Technical Panel to Endorsed Paper</em></div>
+        </>
+      }
+       
+
+        {
+          (tech_doc != null) ?
+          <ul role="list" class="divide-y text-sm divide-base-content/25 rounded-md border border-base-content/25 mt-6">
+          <li class="flex items-center justify-between py-2 ps-2 pe-2">
+              <div class="flex w-0 flex-1 items-center">
+                <span class="icon-[tabler--paperclip] size-5 flex-shrink-0"></span>
+                <div class="ms-4 flex min-w-0 flex-1 gap-2">
+                  <span class="truncate font-medium">{tech_doc.file_name}</span>
+                  <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(tech_doc.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(tech_doc.created_at), true)} ago</time>)</span>
+                </div>
+              </div>
+              <div class="ms-4 flex-shrink-0">
+                <a onClick={() => deleteFile(tech_doc.id)} class="link link-primary">Delete</a>
+              </div>
+            </li>
+          </ul>
+          :
+          <></>
+        }
+      </>
+   }
   </div>
 </div>
 

@@ -10,7 +10,7 @@ import Step5 from "../Forms/Step5";
 import Step6 from "../Forms/Step6";
 import Step8 from "../Forms/Step8";
 
-export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, ethics_docs, budget_docs, moa_docs, feedbacks_step1, feedbacks_step1_notif, feedbacks_step3, feedbacks_step3_notif, feedbacks_step4, feedbacks_step4_notif}) {
+export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, ethics_docs, budget_docs, moa_docs, feedbacks_step1, feedbacks_step1_notif, feedbacks_step3, feedbacks_step3_notif, feedbacks_step4, feedbacks_step4_notif, endorsement_status, tech_doc}) {
 
   const getCurrentIndex = (user.user_type != "tpl" ? 1 : 3);
     
@@ -68,7 +68,7 @@ export default function StepperForm({research, files, user, panels, technical_do
           <h3 class="text-2xl font-semibold text-base-content">Uploading Revised Documents </h3>
           <p class="mt-1 max-w-full text-base-content/80">Fill up fields to upload document</p>
         </div>
-        <Step4 user={user} research={research} revised_docs={revised_docs}  feedbacks_step4={feedbacks_step4} feedbacks_step4_notif={feedbacks_step4_notif}/>
+        <Step4 user={user} research={research} revised_docs={revised_docs}  feedbacks_step4={feedbacks_step4} feedbacks_step4_notif={feedbacks_step4_notif} endorsement_status={endorsement_status} tech_doc={tech_doc}/>
      </div>
    </div>
 

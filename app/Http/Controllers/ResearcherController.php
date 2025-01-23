@@ -21,6 +21,7 @@ use App\Models\CrePanelMember;
 use App\Models\CreApplicationStatus;
 use App\Models\ResearchDoc;
 use App\Models\ResearchMessageThread;
+use App\Models\TplEndorsementPaper;
 use Carbon\Carbon;
 
 class ResearcherController extends Controller
@@ -132,7 +133,7 @@ class ResearcherController extends Controller
             CrePanelMember::create([
             "research_id" => $request->research_id,
             "name" => $request->panels1,
-            "role" => "member",
+            "role" => ($request->leadPanel1 == false) ? "member" : "lead",
             ]);
         } 
 
@@ -344,7 +345,7 @@ class ResearcherController extends Controller
      */
     public function show(string $ref)
     {   
-        $value = Research::where('reference', $ref)->with('department')->with('meeting')->first();
+        $value = Research::where('reference', $ref)->with('author')->with('department')->with('meeting')->first();
         $research = ($value) ? $value : null;
 
         if($value){
@@ -373,6 +374,9 @@ class ResearcherController extends Controller
             $feedbacks_step4 = ResearchMessageThread::where('research_id', $value->id)->where('steps', '4')->orderBy('created_at', 'desc')->get();
             $feedbacks_step4_notif =ResearchMessageThread::where('research_id', $value->id)->where('steps', '4')->where('read_status', '0')->count();
 
+            $endorsement_status = TplEndorsementPaper::where('research_id', $value->id)->where('steps', '4')->first();
+            $tech_doc = ResearchDoc::where('research_id', $value->id)->where('steps', 'tech')->first();
+            
             $step_status = [
                 "step1" => $this->getStepStatus($value->id, "1"),
                 "step2" => $this->getStepStatus($value->id, "2"),
@@ -392,6 +396,8 @@ class ResearcherController extends Controller
             $feedbacks_step3_notif = null;
             $feedbacks_step4 = null;
             $feedbacks_step4_notif = null;
+            $endorsement_status = null;
+            $tech_doc = null;
             $step_status = null;
             $rlogs = null;
             $panels = null;
@@ -427,6 +433,8 @@ class ResearcherController extends Controller
             'feedbacks_step3_notif' => $feedbacks_step3_notif,
             'feedbacks_step4' => $feedbacks_step4,
             'feedbacks_step4_notif' => $feedbacks_step4_notif,
+            'endorsement_status' => $endorsement_status,
+            'tech_doc' => $tech_doc,
             'author' => $author[0]
         ]);
     }
@@ -459,7 +467,15 @@ class ResearcherController extends Controller
 
     public function tpl_endorse_application(Request $request)
     {
-        dd($request->date_endorsement);
+        $data = [
+            "date_endorse" =>  $request->date_endorsement,
+            "research_id" => $request->research_id,
+            "user_id" => auth()->user()->id,
+            "steps" => $request->steps
+        ];
+
+        TplEndorsementPaper::create($data);
+        return redirect()->back()->with('message', 'Success');
     }
 
     public function technical_review_upload(Request $request)
@@ -473,6 +489,23 @@ class ResearcherController extends Controller
                 "research_id"  => $request->research_id,
                 "report_date" => $request->report_date,
                 "steps" => $request->steps,
+                "file_name"    => $fileName_doc,
+                "file_path"    => $filePath_doc
+            ];
+
+            ResearchDoc::create($data);
+            Storage::disk('public')->put($filePath_doc, file_get_contents($document_file));
+        }
+
+        if ($request->file('tech_file') && $request->t_steps == 'tech'){
+            $document_file = $request->file('tech_file');
+            $fileName_doc =   $document_file->getClientOriginalName(); 
+            $filePath_doc = 'docs/' . $document_file->getClientOriginalName();
+
+            $data = [
+                "research_id"  => $request->research_id,
+                "report_date" => $request->report_date,
+                "steps" => $request->t_steps,
                 "file_name"    => $fileName_doc,
                 "file_path"    => $filePath_doc
             ];

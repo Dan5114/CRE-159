@@ -17,6 +17,7 @@ export default function Step2({user, research, panels}) {
       research_id : research.id,
       meeting_date: "",
       panels1: "",
+      leadPanel1: false,
       panels2: "",
       panels3: "",
       panels4: "",
@@ -96,6 +97,10 @@ export default function Step2({user, research, panels}) {
         <div>
             <label class="label label-text" for="firstName">Panel Member 1 </label>
             <input type="text" placeholder="" class="input" onChange={(e) => setData('panels1', e.target.value )} id="firstName"  />
+            <div class="flex items-center">
+  <input type="checkbox" class="checkbox checkbox-primary checkbox-xs" onChange={(e) => setData('leadPanel1', e.target.checked )} id="checkboxExtraSmall" />
+  <label class="label label-text text-xs" for="checkboxExtraSmall"> Lead Panel </label>
+</div>
           </div>
           <div>
             <label class="label label-text" for="firstName">Panel Member 2 </label>
@@ -168,7 +173,7 @@ export default function Step2({user, research, panels}) {
                     <div class="flex grow items-center justify-between gap-y-1">
                         <div class="user-info">
                         <h6 class="text-base">{panel.name}</h6>
-                        <small class="text-base-content/80 text-xs">{panel.name}@usls.edu.ph</small>
+                        <small class="text-base-content/80 text-xs">{panel.role}</small>
                         </div>
                         <div class="flex flex-col items-end gap-x-2 gap-y-0.5">
                         <span class="text-base-content/50 text-sm text-gray hover:cursor-pointer" onClick={() => deletePanel(panel.id)}>
@@ -254,10 +259,10 @@ export default function Step2({user, research, panels}) {
                     <div class="flex grow items-center justify-between gap-y-1">
                         <div class="user-info">
                         <h6 class="text-base">{panel.name}</h6>
-                        <small class="text-base-content/80 text-xs">{panel.name}@usls.edu.ph</small>
+                        <small class="text-base-content/80 text-xs">Technical Panel</small>
                         </div>
                         <div class="flex flex-col items-end gap-x-2 gap-y-0.5">
-                        <span class="text-base-content/50 text-sm text-gray">Panel</span>
+                        <span class="text-base-content/50 text-sm text-gray">{panel.role}</span>
                         </div>
                     </div>
                     </li>
