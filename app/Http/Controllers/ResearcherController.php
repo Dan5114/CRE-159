@@ -446,7 +446,7 @@ class ResearcherController extends Controller
     public function download_doc_status($file_id)
     {
        $file = ResearchDoc::where('id', $file_id)->first();
-       if($file->steps == 4){
+       if($file->steps == 4 && auth()->user()->user_type == "tpl"){
             $data = [
                 "seen_status" => 1,
                 "seen_date" => Carbon::now()
@@ -455,6 +455,11 @@ class ResearcherController extends Controller
        }
 
        return redirect()->back()->with('message', 'Successfully downloaded');
+    }
+
+    public function tpl_endorse_application(Request $request)
+    {
+        dd($request->date_endorsement);
     }
 
     public function technical_review_upload(Request $request)

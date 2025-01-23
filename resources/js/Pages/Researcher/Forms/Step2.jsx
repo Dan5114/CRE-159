@@ -76,7 +76,6 @@ export default function Step2({user, research, panels}) {
           <p class="mt-1 max-w-full text-base-content/80">Please fill up the fields </p>
         </div>
 
-        <hr/>
 
  <form onSubmit={submitPanels}>
 
@@ -279,7 +278,6 @@ export default function Step2({user, research, panels}) {
           <p class="mt-1 max-w-full text-base-content/80">Please see the details below </p>
         </div>
 
-        <hr/>
            <div class="flex justify-center border-2 border-dotted border-gray-300 p-3">
                         <div class="grid gap-4 w-80 justify-center">
                         <img style={{ "width" : "400px" }} src="https://www.achieversacademyalwar.in/assets/images/no-record-found.png" />

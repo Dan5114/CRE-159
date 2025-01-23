@@ -40,6 +40,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/researcher/message/thread', [ResearcherController::class, 'send_message_thread'])->name('researcher.message.thread');
     Route::patch('/researcher/mark/read/{id}', [ResearcherController::class, 'mark_read'])->name('researcher.mark.read');
     Route::patch('/tpl/download/doc/status/{id}', [ResearcherController::class, 'download_doc_status'])->name('tpl.dowload.doc.status');
+    Route::post('/tpl/endorse/application', [ResearcherController::class, 'tpl_endorse_application'])->name('tpl.endorse.application');
 
 
 });

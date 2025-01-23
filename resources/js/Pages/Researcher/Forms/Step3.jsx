@@ -214,7 +214,9 @@ export default function Step3({user, research, technical_docs, feedbacks_step3, 
      }
         </div>
         <div id="tabs-lifted-4" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-4">
+        <div class="vertical-scrollbar rounded-scrollbar max-h-screen w-full p-4">
           <FeedbackStep3 user={user} research={research} feedbacks_step3={feedbacks_step3} />
+        </div>
         </div>
       </div>
     </>

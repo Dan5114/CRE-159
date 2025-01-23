@@ -67,14 +67,7 @@ export default function Step5({user, research, ethics_docs}) {
         <>
         <div>
           
-        <div class="card p-3">
-
-        <div class="px-4 sm:px-0 mb-6">
-          <h3 class="text-2xl font-semibold text-base-content">Ethics Clearance </h3>
-          <p class="mt-1 max-w-full text-base-content/80">Fill up the fields below</p>
-        </div>
-
-        <hr/>
+        <div class="">
 
         <form onSubmit={submitFiles}>
           <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mb-3 mt-3">
@@ -140,15 +133,7 @@ export default function Step5({user, research, ethics_docs}) {
         </>
         :
         <>
-          <div class="card p-3">
-
-          <div class="px-4 sm:px-0 mb-6">
-          <h3 class="text-2xl font-semibold text-base-content">Ethics Clearance </h3>
-          <p class="mt-1 max-w-full text-base-content/80">See uploaded files below</p>
-        </div>
-
-        <hr/>
-            
+       
           <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700">
             <thead class="bg-gray-300 dark:bg-neutral-700">
             <tr>
@@ -188,7 +173,6 @@ export default function Step5({user, research, ethics_docs}) {
                         :                               
                        <></>                       
                       }
-          </div>
         </>
 
      }

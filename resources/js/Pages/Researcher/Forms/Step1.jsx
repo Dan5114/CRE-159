@@ -406,7 +406,9 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
     </form>
   </div>
   <div id="tabs-lifted-2" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-2">
+  <div class="vertical-scrollbar rounded-scrollbar max-h-screen w-full p-4">
        <FeedbackStep1 user={user} research={research} feedbacks_step1={feedbacks_step1} />
+  </div>
   </div>
 </div>
 

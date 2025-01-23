@@ -18,6 +18,7 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
   useForm({
       research_id : research.id,
       document_file: "",
+      date_endorsement: "",
       steps: "4"
   });
 
@@ -69,7 +70,6 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
       },
       onFinish: () =>  {
           console.log("Finishing updating status");
-          reset()
       },
   });
   }
@@ -83,8 +83,18 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
     });
   }
 
-  const acceptApplication = () => {
-    alert("test");  
+  const acceptApplication = (e) => {
+    e.preventDefault();
+    post(route('tpl.endorse.application'), {
+      onSuccess: (page) =>  {
+          notyf.success(page.props.flash.message);
+          closeModal();
+      },
+      onFinish: () =>  {
+          console.log("Finishing accept application");
+          reset()
+      },
+  });
   }
 
   return (
@@ -285,7 +295,9 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
 
   </div>
   <div id="tabs-lifted-6" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-6">
-       <FeedbackStep4 user={user} research={research} feedbacks_step4={feedbacks_step4} />
+      <div class="vertical-scrollbar rounded-scrollbar max-h-screen w-full p-4">
+        <FeedbackStep4 user={user} research={research} feedbacks_step4={feedbacks_step4} />
+       </div>
   </div>
 </div>
 
@@ -296,16 +308,16 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
         <h3 class="modal-title">Endorse Paper for Technical Clearance</h3>
         <button type="button" onClick={closeModal} class="btn btn-text btn-circle btn-sm absolute end-3 top-3" aria-label="Close" data-overlay="#form-modal"><span class="icon-[tabler--x] size-4"></span></button>
       </div>
-      <form>
+      <form onSubmit={acceptApplication}>
         <div class="modal-body pt-0">
           <div class="mb-4">
             <label class="label label-text" for="fullName"> Date of Endorsement </label>
-            <input type="date" placeholder="John Doe" class="input" id="fullName" />
+            <input type="date" placeholder="" onChange={(e) => setData('date_endorsement', e.target.value)} class="input" id="fullName" />
           </div>
          
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-soft btn-secondary" onClick={closeModal} data-overlay="#form-modal">Close</button>
+          <button type="button" class="btn btn-soft btn-secondary" onClick={closeModal} data-overlay="#form-modal">Cancel</button>
           <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
       </form>
