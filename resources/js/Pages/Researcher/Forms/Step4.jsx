@@ -332,6 +332,7 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
             </ul>
           </div>
         </div>
+        <div class="divider"></div>
        {
           (tech_doc != null) ?
          <>
