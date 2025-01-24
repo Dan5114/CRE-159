@@ -4,7 +4,7 @@ dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 
-export default function StepperForm({research_logs, step_status, user}) {
+export default function StepperForm({research_logs, step_status, user, tech_doc}) {
 
   const status_step1 = step_status.step1;
   const status_step2 = step_status.step2;
@@ -34,7 +34,7 @@ export default function StepperForm({research_logs, step_status, user}) {
                   <div class="text-sm">
                         <p class="font-bold font-serif italic">Submit Application</p>
                         <div class="text-sm">
-                        <div class="text-xs flex items-center gap-1.5">Status :
+                        <div class="text-xs flex items-center gap-1.5 mb-3">Status :
               
               {(status_step1 ? 
                 <>
@@ -88,7 +88,7 @@ export default function StepperForm({research_logs, step_status, user}) {
            <div class="text-sm">
                  <p class="font-bold font-serif italic">Technical Committee & Schedule</p>
                  <div class="text-sm">
-                 <div class="text-xs flex items-center gap-1.5">Status :
+                 <div class="text-xs flex items-center gap-1.5 mb-3">Status :
                  {(status_step2 ? 
         <>
           <span class="badge badge-success size-2 p-0"></span>
@@ -139,7 +139,7 @@ export default function StepperForm({research_logs, step_status, user}) {
        <div class="text-sm">
              <p class="font-bold font-serif italic">Techinical Review Report</p>
              <div class="text-sm">
-             <div class="text-xs flex items-center gap-1.5">Status :
+             <div class="text-xs flex items-center gap-1.5 mb-3">Status :
              {(status_step3 ? 
     <>
       <span class="badge badge-info size-2 p-0"></span>
@@ -183,9 +183,21 @@ export default function StepperForm({research_logs, step_status, user}) {
        <div class="text-sm">
              <p class="font-bold font-serif italic">Approval of Revised Docs</p>
              <div class="text-sm">
-             <div class="text-xs flex items-center gap-1.5">Status :
+             <div class="text-xs flex items-center gap-1.5 mb-3 flex">Status :
    <span class="badge badge-warning size-2 p-0"></span>
    Pending
+<span>|</span>
+   <div class="text-xs flex items-center gap-1.5">Tech Cert Uploaded : {(tech_doc != null) ? 
+<>
+<span class="icon-[tabler--circle-check] text-success size-4 align-bottom"></span>
+</> 
+:
+<>
+<span class="icon-[tabler--progress-down] size-4 text-warning align-bottom"></span>
+</>
+}
+
+ </div>
  </div>
  <div class="text-xs flex items-center gap-1.5">Start Date :
 
@@ -193,6 +205,8 @@ export default function StepperForm({research_logs, step_status, user}) {
  <div class="text-xs flex items-center gap-1.5">End Date :
 
  </div>
+
+
              </div>
              </div>
     </div>

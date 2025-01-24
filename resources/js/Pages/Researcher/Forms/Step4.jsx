@@ -296,7 +296,7 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
       </button>
       :
       <>
-     <div class="alert alert-soft text-xs alert-success flex items-start gap-4">
+     <div class="alert text-sm alert-success flex items-start gap-4">
   <span class="icon-[tabler--check] size-6"></span>
   <div class="flex flex-col gap-1">
     <h5 class="text-lg font-semibold">Successully Endorsed Application</h5>
@@ -335,7 +335,8 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
        {
           (tech_doc != null) ?
          <>
-          <h5 class="text-lg font-semibold mt-3">&nbsp;Tech Review Cert</h5>
+         <div class="card p-3 mt-3">
+         <h5 class="text-lg font-semibold mt-3 flex justify-start"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M11.25 1.75h-8.5v11.5h2.5m3.5-3.5l-.5 4.5l2.25-1l2.25 1l-.5-4.5"/><circle cx="10.5" cy="7.5" r="2.75"/></g></svg>&nbsp;Tech Review Cert</h5>
           <ul role="list" class="divide-y text-sm divide-base-content/25 rounded-md border border-base-content/25 mt-3">
           <li class="flex items-center justify-between py-2 ps-2 pe-2">
               <div class="flex w-0 flex-1 items-center">
@@ -346,10 +347,11 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
                 </div>
               </div>
               <div class="ms-4 flex-shrink-0">
-                <a onClick={() => downloadDoc(tech_doc)} class="link link-primary">Download</a>
+                <a onClick={() => downloadDoc(tech_doc)} class="link link-primary"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 48 48"><g fill="#1565c0"><path d="M24 37.1L13 24h22zM20 4h8v4h-8zm0 6h8v4h-8z"/><path d="M20 16h8v11h-8zM6 40h36v4H6z"/></g></svg></a>
               </div>
             </li>
           </ul>
+         </div>
          </>
           :
           <>
@@ -376,7 +378,7 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
         </div>
 
         <form onSubmit={submitFiles}>
-          <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mb-3 mt-3">
+          <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mb-3 mt-6">
            
           <div>
             <label class="label label-text" for="firstName">Document File </label>
@@ -411,7 +413,7 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
                 </div>
               </div>
               <div class="ms-4 flex-shrink-0">
-                <a onClick={() => deleteFile(tech_doc.id)} class="link link-primary">Delete</a>
+                <a onClick={() => deleteFile(tech_doc.id)} class="link link-primary"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="#ff001a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16m-10 4v6m4-6v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/></svg></a>
               </div>
             </li>
           </ul>

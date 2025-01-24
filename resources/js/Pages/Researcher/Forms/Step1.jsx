@@ -352,7 +352,7 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
      :
     
      <>
-     <div class="alert alert-soft alert-success flex items-start gap-4">
+     <div class="alert text-sm alert-success flex items-start gap-4">
   <span class="icon-[tabler--check] size-6"></span>
   <div class="flex flex-col gap-1">
     <h5 class="text-lg font-semibold">Application Accepted</h5>
@@ -377,7 +377,7 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
       (research.status != "D") ?
       
       <>
-      <div class="alert alert-soft alert-success flex items-start gap-4">
+      <div class="alert text-sm alert-success flex items-start gap-4">
   <span class="icon-[tabler--check] size-6"></span>
   <div class="flex flex-col gap-1">
     <h5 class="text-lg font-semibold">Application Submitted</h5>
