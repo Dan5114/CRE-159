@@ -235,7 +235,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
          <div class="text-sm">
                <p class="font-bold font-serif italic">Ethics Clearance</p>
                <div class="text-sm">
-               <div class="text-xs flex items-center gap-1.5">Status :
+               <div class="text-xs flex items-center gap-1.5 mb-3">Status :
      <span class="badge badge-warning size-2 p-0"></span>
      Pending
    </div>
@@ -278,7 +278,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
        <div class="text-sm">
              <p class="font-bold font-serif italic">Budget Proposal</p>
              <div class="text-sm">
-             <div class="text-xs flex items-center gap-1.5">Status :
+             <div class="text-xs flex items-center gap-1.5 mb-3">Status :
    <span class="badge badge-warning size-2 p-0"></span>
    Pending
  </div>
@@ -321,7 +321,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
        <div class="text-sm">
              <p class="font-bold font-serif italic">URB Approval</p>
              <div class="text-sm">
-             <div class="text-xs flex items-center gap-1.5">Status :
+             <div class="text-xs flex items-center gap-1.5 mb-3">Status :
    <span class="badge badge-warning size-2 p-0"></span>
    Pending
  </div>
@@ -364,7 +364,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
        <div class="text-sm">
              <p class="font-bold font-serif italic">MOA Signing</p>
              <div class="text-sm">
-             <div class="text-xs flex items-center gap-1.5">Status :
+             <div class="text-xs flex items-center gap-1.5 mb-3">Status :
    <span class="badge badge-warning size-2 p-0"></span>
    Pending
  </div>

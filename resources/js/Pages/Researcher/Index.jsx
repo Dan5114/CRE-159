@@ -62,7 +62,10 @@ export default function Index(props) {
                           <div class="p-1 min-w-full inline-block align-middle">
                             <div class="divide-gray-200 dark:border-neutral-700 dark:divide-neutral-700">
                               <div class="py-3">
-                                <div class="relative max-w-xs">
+
+                              <div class="grid grid-cols-2 gap-3">
+  <div class="">
+  <div class="relative max-w-xs">
                                   <label for="hs-table-search" class="sr-only">Search</label>
                                   <input type="search" onChange={onChange} name="hs-table-search" id="hs-table-search" class="py-2 px-3 ps-9 block w-full border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Search Research" />
                                   <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3">
@@ -72,6 +75,31 @@ export default function Index(props) {
                                     </svg>
                                   </div>
                                 </div>
+  </div>
+  <div class="">
+  <div class="float-end stats">
+  <div class="stat place-items-center">
+    <div class="stat-title">Total Sales</div>
+    <div class="stat-value">52K</div>
+    <div class="stat-desc">From Jan 1st to Feb 1st</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">Active Customers</div>
+    <div class="stat-value">8,350</div>
+    <div class="stat-desc">↗︎ 150 (1.8%)</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">New Signups</div>
+    <div class="stat-value">2,400</div>
+    <div class="stat-desc">↘︎ 180 (7%)</div>
+  </div>
+</div>
+  </div>
+</div>
+
+                               
                               </div>
                               <div class="overflow-hidden">
                                 <DataListings researchs={researchs}  />

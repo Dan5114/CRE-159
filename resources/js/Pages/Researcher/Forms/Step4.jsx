@@ -378,6 +378,8 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
           </div>
         </div>
 
+        <div class="divider"></div>
+
         <form onSubmit={submitFiles}>
           <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mb-3 mt-6">
            

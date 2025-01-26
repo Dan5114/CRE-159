@@ -192,7 +192,8 @@ export default function Step2({user, research, panels}) {
                 <div class="flex grow items-center justify-between gap-y-1">
                     <div class="user-info">
                     <h6 class="text-base">{panel.name}</h6>
-                    <small class="text-base-content/80 text-xs">{panel.role}</small>
+                    <a href="#"><span class="badge badge-xs badge-outline badge-accent">{panel.role}</span></a>
+                    
                     </div>
                     <div class="flex flex-col items-end gap-x-2 gap-y-0.5">
                     <span class="text-base-content/50 text-sm text-gray hover:cursor-pointer" onClick={() => deletePanel(panel.id)}>
@@ -279,7 +280,7 @@ export default function Step2({user, research, panels}) {
                         <small class="text-base-content/80 text-xs">Technical Panel</small>
                         </div>
                         <div class="flex flex-col items-end gap-x-2 gap-y-0.5">
-                        <span class="text-base-content/50 text-sm text-gray">{panel.role}</span>
+                        <a href="#"><span class="badge badge-xs badge-outline badge-accent">{panel.role}</span></a>
                         </div>
                     </div>
                     </li>

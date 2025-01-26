@@ -35,13 +35,13 @@ class ResearcherController extends Controller
         $search = $request->input('q');
 
         if($user_type == "researcher"){
-            $researchs = Research::when($search, function ($query, $search) {
+            $researchs = Research::with('department')->when($search, function ($query, $search) {
                 return $query->where('research_title', 'LIKE', "%{$search}%");
             })->orderBy('created_at', 'desc')
             ->where('user_id', auth()->user()->id)
             ->paginate(5);
         }else{
-            $researchs = Research::when($search, function ($query, $search) {
+            $researchs = Research::with('department')->when($search, function ($query, $search) {
                 return $query->where('research_title', 'LIKE', "%{$search}%");
             })->orderBy('created_at', 'desc')
             ->where('status', '!=', 'D')
