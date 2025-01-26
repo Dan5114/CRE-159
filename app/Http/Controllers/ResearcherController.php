@@ -23,6 +23,7 @@ use App\Models\ResearchDoc;
 use App\Models\ResearchMessageThread;
 use App\Models\TplEndorsementPaper;
 use Carbon\Carbon;
+use Illuminate\Validation\ValidationException;
 
 class ResearcherController extends Controller
 {
@@ -48,8 +49,6 @@ class ResearcherController extends Controller
             ->paginate(5);
         }
 
-       
-
         return Inertia::render('Researcher/Index', [
             'researchs' => $researchs
         ]);
@@ -72,19 +71,23 @@ class ResearcherController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'research_title' => 'required|unique:tbl_research|max:250',
-            'department' => 'required'
-        ]);
-
-        Research::create([
-            'reference' => (string) Str::uuid(),
-            'research_title' => $request->research_title,
-            'dept_id' => $request->department,
-            'user_id' => auth()->user()->id
-        ]);
-
-        return Redirect::route('researcher.index')->with('message', 'Research Successfully Added');
+        try {
+            $request->validate([
+                'research_title' => 'required|unique:tbl_research|max:250',
+                'department' => 'required'
+            ]);
+    
+            Research::create([
+                'reference' => (string) Str::uuid(),
+                'research_title' => $request->research_title,
+                'dept_id' => $request->department,
+                'user_id' => auth()->user()->id
+            ]);
+    
+            return Redirect::route('researcher.index')->with('message', 'Research Successfully Added');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());   
+        }
     }
 
     public function update_application_status(Request $request)
@@ -100,22 +103,30 @@ class ResearcherController extends Controller
 
     public function submit_application(Request $request)
     {
-        $current = Carbon::now();
-        Research::where('id', $request->research_id)->update(['status'=>'S']);
-        $this->cre_application_status($request->research_id, "1", "Submit Application", $current, $end = null, "Submitted");
-        return redirect()->back()->with('message', 'Submitted Successfully');
+        try {
+            $current = Carbon::now();
+            Research::where('id', $request->research_id)->update(['status'=>'S']);
+            $this->cre_application_status($request->research_id, "1", "Submit Application", $current, $end = null, "Submitted");
+            return redirect()->back()->with('message', 'Submitted Successfully');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
     }
 
     public function scheduled_meeting(Request $request)
     {
-        $current = Carbon::now();
-        CreMeeting::where('id', $request->meeting_id)->update(['status'=>'Success']);
+        try {
+            $current = Carbon::now();
+            CreMeeting::where('id', $request->meeting_id)->update(['status'=>'Success']);
 
-        $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "2")->first();
-        CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Scheduled"]);
-        $this->cre_application_status($request->research_id, "3", "Technical Review Report", $current, $end = null, "On Process");
+            $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "2")->first();
+            CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Scheduled"]);
+            $this->cre_application_status($request->research_id, "3", "Technical Review Report", $current, $end = null, "On Process");
 
-        return redirect()->back()->with('message', 'Submitted Successfully');
+            return redirect()->back()->with('message', 'Submitted Successfully');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
     }
 
     public function submit_panels(Request $request)
@@ -599,7 +610,6 @@ class ResearcherController extends Controller
             "steps" => $steps,
             "remarks" => $remarks
         ];
-
         ResearchLog::create($research_data_log);
     }
 
@@ -612,7 +622,6 @@ class ResearcherController extends Controller
             "end" => $end,
             "status" => $status
         ];
-
         CreApplicationStatus::create($application_status_log);
     }
 
@@ -649,6 +658,9 @@ class ResearcherController extends Controller
             return redirect()->back()->with('message', 'Successfully posted');
         } catch (Exception $e) {
             Log::debug($e->getMessage());
+            throw ValidationException::withMessages([
+                'message' => __('Ops Something went wrong. Try again posting feedback'),
+            ]);
         }
     }
 
@@ -665,6 +677,9 @@ class ResearcherController extends Controller
             return redirect()->back()->with('message', 'Successfully updated');
         } catch (Exception $e) {
             Log::debug($e->getMessage());
+            throw ValidationException::withMessages([
+                'message' => __('Ops Something went wrong. Try again marking feedback'),
+            ]);
         }
     }
 
