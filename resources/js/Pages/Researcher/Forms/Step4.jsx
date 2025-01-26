@@ -214,7 +214,7 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
         :
         <>
           <div class="">
-          <div class="flex">
+          <div class="flex mb-3">
   <h5 class="text-base-content font-semibold">Note: </h5>&nbsp;
   <p class="text-[#FF0000] text-xs mt-1">
    <em> Do not delete/remove previously uploaded documents for version bactracking.</em>

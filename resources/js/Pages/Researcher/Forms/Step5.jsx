@@ -85,7 +85,12 @@ export default function Step5({user, research, ethics_docs}) {
             </div>
           </div>
         </form>
-
+        <div class="flex">
+  <h5 class="text-base-content font-semibold">Note: </h5>&nbsp;
+  <p class="text-[#FF0000] text-xs mt-1">
+   <em> Do not delete/remove previously uploaded documents for version bactracking.</em>
+  </p>
+</div>
         <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700 mt-3">
             <thead class="bg-gray-300 dark:bg-neutral-700">
             <tr>
@@ -135,7 +140,12 @@ export default function Step5({user, research, ethics_docs}) {
         </>
         :
         <>
-       
+       <div class="flex mb-3">
+  <h5 class="text-base-content font-semibold">Note: </h5>&nbsp;
+  <p class="text-[#FF0000] text-xs mt-1">
+   <em> Do not delete/remove previously uploaded documents for version bactracking.</em>
+  </p>
+</div>
           <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700">
             <thead class="bg-gray-300 dark:bg-neutral-700">
             <tr>

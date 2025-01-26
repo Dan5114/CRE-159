@@ -74,7 +74,6 @@ export default function Step6({user, research, budget_docs}) {
           <p class="mt-1 max-w-full text-base-content/80">See details below</p>
         </div>
 
-        <hr/>
 
         <form onSubmit={submitFiles}>
           <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mb-3 mt-3">
@@ -91,10 +90,16 @@ export default function Step6({user, research, budget_docs}) {
             </div>
           </div>
         </form>
-
+        <div class="flex">
+  <h5 class="text-base-content font-semibold">Note: </h5>&nbsp;
+  <p class="text-[#FF0000] text-xs mt-1">
+   <em> Do not delete/remove previously uploaded documents for version bactracking.</em>
+  </p>
+</div>
         <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700 mt-3">
             <thead class="bg-gray-300 dark:bg-neutral-700">
             <tr>
+            <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Version #</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">File</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Date Created</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500"></th>
@@ -104,6 +109,7 @@ export default function Step6({user, research, budget_docs}) {
                  { budget_docs.map((budget_doc, index) => (
                                                   <>
                                                           <tr>
+                                                          <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">V{index+1}</td>
                                                                             <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{budget_doc.file_name}</td>
                                                                             <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(budget_doc.created_at).format("LLL")}</td>
                                                                             <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
@@ -148,11 +154,16 @@ export default function Step6({user, research, budget_docs}) {
           <p class="mt-1 max-w-full text-base-content/80">See details below</p>
         </div>
 
-        <hr/>
-            
+        <div class="flex mb-3 mt-3">
+  <h5 class="text-base-content font-semibold">Note: </h5>&nbsp;
+  <p class="text-[#FF0000] text-xs mt-1">
+   <em> Do not delete/remove previously uploaded documents for version bactracking.</em>
+  </p>
+</div>
           <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700">
             <thead class="bg-gray-300 dark:bg-neutral-700">
             <tr>
+            <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Version #</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">File</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Date Created</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500"></th>
@@ -162,6 +173,7 @@ export default function Step6({user, research, budget_docs}) {
                 { budget_docs.map((budget_doc, index) => (
                                                   <>
                                                          <tr>
+                                                         <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">V{index+1}</td>
                                                                             <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{budget_doc.file_name}</td>
                                                                             <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(budget_doc.created_at).format("LLL")}</td>
                                                                             <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
