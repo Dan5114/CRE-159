@@ -33,6 +33,7 @@ export default function View(props) {
     const feedbacks_step4_notif = props.feedbacks_step4_notif;
     const endorsement_status = props.endorsement_status;
     const tech_doc = props.tech_doc;
+    const authors = props.authors;
     const user = usePage().props.auth.user;
 
     return (
@@ -62,7 +63,7 @@ export default function View(props) {
                 (research_data != null) ?
                 <div data-stepper='{ "mode": "non-linear" }' class="w-full" >
 
-                      <HeaderData author={props.author} research_data={research_data} />  
+                      <HeaderData author={props.author} research_data={research_data} authors={authors} />  
 
                       <div data-stepper={(user.user_type != "tpl" ? '{ "currentIndex": 1 }' : '{ "currentIndex": 3 }')} class="mt-4 grid grid-cols-3 gap-4">
                           <div class="">

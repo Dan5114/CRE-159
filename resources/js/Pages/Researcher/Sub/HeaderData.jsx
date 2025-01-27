@@ -5,7 +5,14 @@ dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 
-const HeaderData = ({research_data, author}) => {
+const HeaderData = ({research_data, authors}) => {
+
+  function getFirstLetters(str) {
+    return str
+        .split(',')  // Split the string by spaces into an array of words
+        .map(word => word.charAt(0).toUpperCase())  // Map each word to its first letter, converted to uppercase
+        .join('');  // Join the letters into a single string
+  }
 
   const getResearchStatus = (status) => {
     switch (status) {
@@ -42,11 +49,11 @@ const HeaderData = ({research_data, author}) => {
                 
       </div>
 
-      <div class=" justify-end">
+      <div class="w-full justify-end">
 
       <p class="p-1 text-xs text-gray font-bold flex"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
 	<path fill="black" d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z" />
-</svg>&nbsp; {dayjs(research_data.created_at).format("LLLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(research_data.created_at), true)} ago</time>) </p>  <p class="p-1 text-xs flex"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 16 16"><path fill="#868585" fill-rule="evenodd" d="M7.999 1a.75.75 0 0 1 .715.521L12 11.79l1.286-4.018A.75.75 0 0 1 14 7.25h1.25a.75.75 0 0 1 0 1.5h-.703l-1.833 5.729a.75.75 0 0 1-1.428 0L8.005 4.226l-2.29 7.25a.75.75 0 0 1-1.42.03L3.031 8.03l-.07.208a.75.75 0 0 1-.711.513H.75a.75.75 0 0 1 0-1.5h.96l.578-1.737a.75.75 0 0 1 1.417-.02L4.95 8.919l2.335-7.394A.75.75 0 0 1 7.999 1" clip-rule="evenodd"/></svg>&nbsp; Status : &nbsp; {getResearchStatus(research_data.status)} </p>
+</svg>&nbsp; {dayjs(research_data.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(research_data.created_at), true)} ago</time>) </p>  <p class="p-1 text-xs flex"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 16 16"><path fill="#868585" fill-rule="evenodd" d="M7.999 1a.75.75 0 0 1 .715.521L12 11.79l1.286-4.018A.75.75 0 0 1 14 7.25h1.25a.75.75 0 0 1 0 1.5h-.703l-1.833 5.729a.75.75 0 0 1-1.428 0L8.005 4.226l-2.29 7.25a.75.75 0 0 1-1.42.03L3.031 8.03l-.07.208a.75.75 0 0 1-.711.513H.75a.75.75 0 0 1 0-1.5h.96l.578-1.737a.75.75 0 0 1 1.417-.02L4.95 8.919l2.335-7.394A.75.75 0 0 1 7.999 1" clip-rule="evenodd"/></svg>&nbsp; Status : &nbsp; {getResearchStatus(research_data.status)} </p>
 
  </div>
 
@@ -56,46 +63,29 @@ const HeaderData = ({research_data, author}) => {
      
 <div class="avatar-group pull-up -space-x-5 float-end rtl:space-x-reverse">
 <p class="p-1 text-xs flex mr-6">Members : </p>
+
+{ authors.map((author, index) => (
   <div class="tooltip">
     <div class="tooltip-toggle avatar">
       <div class="w-13">
-        <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png" alt="avatar" />
+        <img src={`https://cdn.flyonui.com/fy-assets/avatar/avatar-${index+1}.png`} alt="avatar" />
       </div>
     </div>
     <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
-      <span class="tooltip-body">Jhon Doe</span>
+      <span class="tooltip-body">{author.name}</span>
     </span>
   </div>
-  <div class="tooltip">
-    <div class="tooltip-toggle avatar">
-      <div class="w-13">
-        <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-10.png" alt="avatar" />
-      </div>
-    </div>
-    <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
-      <span class="tooltip-body">Elliot Chen</span>
-    </span>
-  </div>
-  <div class="tooltip">
-    <div class="tooltip-toggle avatar">
-      <div class="w-13">
-        <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-12.png" alt="avatar" />
-      </div>
-    </div>
-    <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
-      <span class="tooltip-body">Maya Singh</span>
-    </span>
-  </div>
-  <div class="tooltip">
-    <div class="tooltip-toggle avatar">
-      <div class="w-13">
-        <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-6.png" alt="avatar" />
-      </div>
-    </div>
-    <span class="tooltip-content tooltip-shown:opacity-100 tooltip-shown:visible" role="tooltip">
-      <span class="tooltip-body">Jasmine Rivera</span>
-    </span>
-  </div>
+
+))}
+
+{authors.length === 0 ? (
+                        <>
+                          <span class="p-1 text-xs text-gray font-bold flex text-error">No members</span>
+                        </>                  
+                      )
+                        :                               
+                        ""                 
+                      }
 </div>
  </div>
 

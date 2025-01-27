@@ -22,6 +22,7 @@ use App\Models\CreApplicationStatus;
 use App\Models\ResearchDoc;
 use App\Models\ResearchMessageThread;
 use App\Models\TplEndorsementPaper;
+use App\Models\ResearchMember;
 use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 
@@ -71,18 +72,29 @@ class ResearcherController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'research_title' => 'required|unique:tbl_research|max:250',
+            'department' => 'required'
+        ]);
+
         try {
-            $request->validate([
-                'research_title' => 'required|unique:tbl_research|max:250',
-                'department' => 'required'
-            ]);
-    
-            Research::create([
+            $research = Research::create([
                 'reference' => (string) Str::uuid(),
                 'research_title' => $request->research_title,
                 'dept_id' => $request->department,
                 'user_id' => auth()->user()->id
             ]);
+
+            $valuesArray = explode(",", $request->members);
+
+            foreach ($valuesArray as $value) {
+                $data = [
+                    "research_id" => $research->id,
+                    "name" => $value
+                ];
+                ResearchMember::create($data);
+            }
     
             return Redirect::route('researcher.index')->with('message', 'Research Successfully Added');
         } catch (Exception $e) {
@@ -387,6 +399,7 @@ class ResearcherController extends Controller
 
             $endorsement_status = TplEndorsementPaper::where('research_id', $value->id)->where('steps', '4')->first();
             $tech_doc = ResearchDoc::where('research_id', $value->id)->where('steps', 'tech')->first();
+
             
             $step_status = [
                 "step1" => $this->getStepStatus($value->id, "1"),
@@ -394,7 +407,7 @@ class ResearcherController extends Controller
                 "step3" => $this->getStepStatus($value->id, "3")
             ];
 
-            $author = explode(",", $value->members);
+            $author = ResearchMember::where('research_id', $value->id)->get();
         }else{
             $technical_docs = null;
             $revised_docs = null;
@@ -413,7 +426,7 @@ class ResearcherController extends Controller
             $rlogs = null;
             $panels = null;
             $files = null;
-            $author = "N/A";
+            $author = null;
         }
 
         $doc_file = [
@@ -446,7 +459,7 @@ class ResearcherController extends Controller
             'feedbacks_step4_notif' => $feedbacks_step4_notif,
             'endorsement_status' => $endorsement_status,
             'tech_doc' => $tech_doc,
-            'author' => $author[0]
+            'authors' => $author
         ]);
     }
 
