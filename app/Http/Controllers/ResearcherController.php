@@ -23,6 +23,7 @@ use App\Models\ResearchDoc;
 use App\Models\ResearchMessageThread;
 use App\Models\TplEndorsementPaper;
 use App\Models\ResearchMember;
+use App\Models\UrbApproval;
 use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 
@@ -399,6 +400,7 @@ class ResearcherController extends Controller
 
             $endorsement_status = TplEndorsementPaper::where('research_id', $value->id)->where('steps', '4')->first();
             $tech_doc = ResearchDoc::where('research_id', $value->id)->where('steps', 'tech')->first();
+            $urb_approval = UrbApproval::where('research_id', $value->id)->where('steps', '7')->first();
 
             
             $step_status = [
@@ -421,6 +423,7 @@ class ResearcherController extends Controller
             $feedbacks_step4 = null;
             $feedbacks_step4_notif = null;
             $endorsement_status = null;
+            $urb_approval = null;
             $tech_doc = null;
             $step_status = null;
             $rlogs = null;
@@ -458,6 +461,7 @@ class ResearcherController extends Controller
             'feedbacks_step4' => $feedbacks_step4,
             'feedbacks_step4_notif' => $feedbacks_step4_notif,
             'endorsement_status' => $endorsement_status,
+            'urb_approval' => $urb_approval,
             'tech_doc' => $tech_doc,
             'authors' => $author
         ]);
@@ -503,11 +507,29 @@ class ResearcherController extends Controller
     }
 
     public function urb_approved_application(Request $request){
-        dd($request->remarks_approved);
+        $data = [
+            "research_id" => $request->research_id,
+            "date_approved" => $request->date_approved,
+            "approved_by" => $request->approved_by,
+            "remarks" => $request->remarks_approved,
+            "steps" => $request->steps
+        ];
+
+        UrbApproval::create($data);
+        return redirect()->back()->with('message', 'Success');
     }
 
     public function urb_disapproved_application(Request $request){
-        dd($request->remarks_disapproved);
+        $data = [
+            "research_id" => $request->research_id,
+            "date_approved" => $request->date_approved,
+            "approved_by" => $request->approved_by,
+            "remarks" => $request->remarks_disapproved,
+            "steps" => $request->steps
+        ];
+
+        UrbApproval::create($data);
+        return redirect()->back()->with('message', 'Success');
     }
 
     public function technical_review_upload(Request $request)

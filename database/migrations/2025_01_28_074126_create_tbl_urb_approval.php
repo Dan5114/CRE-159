@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('research_id');
             $table->timestamp('date_approved')->nullable();
-            $table->foreignId('approved_by');
+            $table->char('approved_by', length: 150);
             $table->char('remarks', length: 150);
             $table->char('steps', length: 1);
             $table->timestamps();

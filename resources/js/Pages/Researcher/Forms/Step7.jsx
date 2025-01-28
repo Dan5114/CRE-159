@@ -9,7 +9,7 @@ dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 
-export default function Step7({user, research}) {
+export default function Step7({user, research, urb_approval}) {
     const notyf = new Notyf();
     const { data, setData, post, errors, reset, formState, processing, progress, recentlySuccessful } =
       useForm({
@@ -54,7 +54,10 @@ export default function Step7({user, research}) {
             <div>
                 <div class="card p-3">
 
-                <div class="text-center mb-8">
+                    {
+                        (urb_approval == null) ?
+                        <>
+                                        <div class="text-center mb-8">
       <h2 class="text-3xl font-semibold text-gray-800">URB Approval</h2>
       <p class="mt-2 text-gray-500">Please review the application and select whether it is approved or disapproved. Additionally, you can select a approval date for the next steps.</p>
     </div>
@@ -77,7 +80,7 @@ export default function Step7({user, research}) {
               <input type="date" onChange={(e) => setData('date_approved', e.target.value)} id="followup-date" name="followup-date" class="mt-1 block w-60 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
             </div>
 
-            <div class="mt-6 flex space-x-4">
+            <div class="mt-6 flex space-x-1">
               <button type="submit" class="inline-flex items-center btn btn-sm text-xs text-white bg-green-600 hover:bg-green-700 rounded-md shadow-md focus:outline-none">
                 Approve
               </button>
@@ -102,6 +105,12 @@ export default function Step7({user, research}) {
           </div>
         </div>
       </div>
+                        </>
+                        :
+                        <>
+                        <span>Appvoed</span>
+                        </>
+                    }
                     
                 
                 
@@ -112,7 +121,11 @@ export default function Step7({user, research}) {
             <>
               <div class="card p-3">
 
-              
+
+                    {
+                        (urb_approval == null) ?
+                        <>
+                                         
 <div class="text-center mb-8">
       <h2 class="text-3xl font-semibold text-gray-800">Waiting for URB Approval</h2>
       <p class="mt-2 text-gray-500">Your application has been submitted and is now waiting for the CRE (Committee for Review and Evaluation) to review it. Please be patient while the review process takes place.</p>
@@ -148,6 +161,14 @@ export default function Step7({user, research}) {
           </div>
         </div>
       </div>
+                        </>
+                        :
+                        <>
+                        <span>Appvred re</span>
+                        </>
+                    }
+
+                        
   
 
 
