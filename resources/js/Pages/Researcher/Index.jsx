@@ -76,27 +76,6 @@ export default function Index(props) {
                                   </div>
                                 </div>
   </div>
-  <div class="">
-  <div class="float-end stats">
-  <div class="stat place-items-center">
-    <div class="stat-title">Total Sales</div>
-    <div class="stat-value">52K</div>
-    <div class="stat-desc">From Jan 1st to Feb 1st</div>
-  </div>
-
-  <div class="stat place-items-center">
-    <div class="stat-title">Active Customers</div>
-    <div class="stat-value">8,350</div>
-    <div class="stat-desc">↗︎ 150 (1.8%)</div>
-  </div>
-
-  <div class="stat place-items-center">
-    <div class="stat-title">New Signups</div>
-    <div class="stat-value">2,400</div>
-    <div class="stat-desc">↘︎ 180 (7%)</div>
-  </div>
-</div>
-  </div>
 </div>
 
                                
@@ -110,7 +89,21 @@ export default function Index(props) {
                       </div>
 
                       {researchs.length === 0 ? (
-                        <EmptyData />                   
+                        <>
+                          <div class="bg-white p-6 shadow-lg border border-gray-200">
+  <div class="flex justify-center items-center">
+    <svg class="h-16 w-16 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 4V6H7V4H5v16h14V4h-2z"></path>
+    </svg>
+  </div>
+  
+  <div class="text-center mt-4">
+    <h3 class="text-xl font-semibold text-gray-800">Oops, no items found!</h3>
+    
+    <p class="mt-2 text-gray-500">It seems like the list is empty. Would you like to add new data or try again later?</p>
+  </div>
+</div>
+                        </>               
                       )
                         :                               
                         <Pagination data={props.researchs} />                        

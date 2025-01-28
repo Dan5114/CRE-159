@@ -101,8 +101,8 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
 
   return (
     <>
-
-<nav class="tabs tabs-lifted bg-zinc-100 mt-3 p-2" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
+    
+<nav class="tabs tabs-lifted mt-3 p-2" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
   <button type="button" class="tab active-tab:tab-active active" id="tabs-lifted-item-5" data-tab="#tabs-lifted-5" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
     Files
   </button>
@@ -116,7 +116,7 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
     }
   </button>
   <button type="button" class="tab active-tab:tab-active" id="tabs-lifted-item-tech" data-tab="#tabs-lifted-tech" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
-  Tech Review Cert
+  Tech Review
   </button>
 </nav>
 
@@ -193,15 +193,19 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
 
           {revised_docs.length === 0 ? (
                        <>
-                        <div class="flex justify-center border-2 border-dotted border-gray-300 p-3">
-                        <div class="grid gap-4 w-80 justify-center">
-                        <img style={{ "width" : "200px" }} src="https://www.achieversacademyalwar.in/assets/images/no-record-found.png" />
-                      
-<div class="flex justify-center">
-
+                        <div class="bg-white p-6 shadow-lg rounded-lg border border-gray-200">
+  <div class="flex justify-center items-center">
+    <svg class="h-16 w-16 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 4V6H7V4H5v16h14V4h-2z"></path>
+    </svg>
+  </div>
+  
+  <div class="text-center mt-4">
+    <h3 class="text-xl font-semibold text-gray-800">Oops, no items found!</h3>
+    
+    <p class="mt-2 text-gray-500">It seems like the list is empty. Would you like to add new data or try again later?</p>
+  </div>
 </div>
-</div>
-                        </div>
                        </>                 
                       )
                         :                               
@@ -263,15 +267,19 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
 
               {revised_docs.length === 0 ? (
                        <>
-                        <div class="flex justify-center border-2 border-dotted border-gray-300 p-3">
-                        <div class="grid gap-4 w-80 justify-center">
-                        <img style={{ "width" : "200px" }} src="https://www.achieversacademyalwar.in/assets/images/no-record-found.png" />
-                      
-<div class="flex justify-center">
-
+                        <div class="bg-white p-6 shadow-lg rounded-lg border border-gray-200">
+  <div class="flex justify-center items-center">
+    <svg class="h-16 w-16 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 4V6H7V4H5v16h14V4h-2z"></path>
+    </svg>
+  </div>
+  
+  <div class="text-center mt-4">
+    <h3 class="text-xl font-semibold text-gray-800">Oops, no items found!</h3>
+    
+    <p class="mt-2 text-gray-500">It seems like the list is empty. Would you like to add new data or try again later?</p>
+  </div>
 </div>
-</div>
-                        </div>
                        </>                 
                       )
                         :                               
@@ -283,9 +291,7 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
         </>
 
      }
-<hr/>
-
-<div class="float-end mt-6">
+<div class="mt-6">
    {
     (user.user_type == "tpl") ?
     <>
@@ -296,14 +302,29 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
       </button>
       :
       <>
-     <div class="alert text-sm alert-success flex items-start gap-4">
-  <span class="icon-[tabler--check] size-6"></span>
-  <div class="flex flex-col gap-1">
-    <h5 class="text-lg font-semibold">Successully Endorsed Application</h5>
-    <p>Please wait for the CRE to upload a Technical Review Cert.
-    </p>
-  </div>
-</div>
+        <div class="w-full">
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 shadow-md rounded-lg">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+          <div class="ml-4">
+            <h3 class="text-xl font-semibold text-gray-800">Your Application Has Been Endorsed!</h3>
+            <p class="mt-2 text-gray-600">We are pleased to inform you that your application has been successfully endorsed. You may now proceed with the next phase of the process.</p>
+            <p class="mt-2 text-gray-500">
+              <strong class="text-green-700">What’s next:</strong> You will receive further instructions shortly to complete the next steps.
+            </p>
+            <div class="mt-4">
+              <span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
+                Endorsement Complete
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
       </>
       }
     </>
@@ -323,20 +344,31 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
    {
     (user.user_type != "cre" && endorsement_status != null) ?
       <>
-       <div class="p-3 shadow flex items-start">
-          <span class="icon-[tabler--calendar] size-6"></span>
-          <div class="flex flex-col gap-1">
-            <h5 class="text-lg font-semibold">&nbsp;Endorsement Date</h5>
-            <ul class="mt-1.5 list-inside list-disc">
-              <li>{ dayjs(endorsement_status.date_endorse).format("LLLL")}</li>
-            </ul>
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 shadow-md rounded-lg">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg class="h-6 w-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0 0V3m0 5v3M9 12c-1.657 0-3 1.343-3 3s1.343 3 3 3s3-1.343 3-3-1.343-3-3-3zM12 8c1.657 0 3 1.343 3 3s-1.343 3-3 3zM12 8h-3"></path>
+            </svg>
+          </div>
+          <div class="ml-4">
+            <h3 class="text-xl font-semibold text-gray-800">Endorsement Scheduled</h3>
+            <p class="mt-2 text-gray-600">Your endorsement has been scheduled for the following date. Please upload the necessary documents for the endorsement.</p>
+            <p class="mt-2 text-gray-500">
+              <strong class="text-blue-700">Endorsement Date:</strong> <span class="text-gray-800">{ dayjs(endorsement_status.date_endorse).format("LLLL")}</span>
+            </p>
+            <div class="mt-4">
+              <span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
+                Scheduled
+              </span>
+            </div>
           </div>
         </div>
-        <div class="divider"></div>
+      </div>
        {
           (tech_doc != null) ?
          <>
-         <div class="card p-3 mt-3">
+         {/* <div class="card p-3 mt-3">
          <h5 class="text-lg font-semibold mt-3 flex justify-start"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M11.25 1.75h-8.5v11.5h2.5m3.5-3.5l-.5 4.5l2.25-1l2.25 1l-.5-4.5"/><circle cx="10.5" cy="7.5" r="2.75"/></g></svg>&nbsp;Tech Review Cert</h5>
           <ul role="list" class="divide-y text-sm divide-base-content/25 rounded-md border border-base-content/25 mt-3">
           <li class="flex items-center justify-between py-2 ps-2 pe-2">
@@ -352,12 +384,72 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
               </div>
             </li>
           </ul>
-         </div>
+         </div> */}
+
+<div class="bg-green-50 border-l-4 border-green-500 p-6 shadow-md rounded-lg mt-3">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+          </div>
+          <div class="ml-4">
+            <h3 class="text-xl font-semibold text-gray-800">Download Tech Review Certificate</h3>
+            <p class="mt-2 text-gray-600">Your certificate has been successfully generated. Click below to download the certificate file in PDF format.</p>
+            <div class="mt-4">
+            <ul role="list" class="divide-y text-sm divide-base-content/25 rounded-md border border-base-content/25 mt-3">
+          <li class="flex items-center justify-between py-2 ps-2 pe-2">
+              <div class="flex w-0 flex-1 items-center">
+                <span class="icon-[tabler--paperclip] size-5 flex-shrink-0"></span>
+                <div class="ms-4 flex min-w-0 flex-1 gap-2">
+                  <span class="truncate font-medium">{tech_doc.file_name}</span>
+                  <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(tech_doc.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(tech_doc.created_at), true)} ago</time>)</span>
+                </div>
+              </div>
+              <div class="ms-4 flex-shrink-0">
+                <a onClick={() => downloadDoc(tech_doc)} class="link link-primary"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 48 48"><g fill="#1565c0"><path d="M24 37.1L13 24h22zM20 4h8v4h-8zm0 6h8v4h-8z"/><path d="M20 16h8v11h-8zM6 40h36v4H6z"/></g></svg></a>
+              </div>
+            </li>
+          </ul>
+            </div>
+
+        
+          </div>
+        </div>
+      </div>
          </>
           :
           <>
          
-        <div class="flex text-sm justify-center text-warning mt-3"><em>Waiting for CRE to upload Tech Review Cert</em></div>
+        {/* <div class="flex text-sm justify-center text-warning mt-3"><em>Waiting for CRE to upload Tech Review Cert</em></div> */}
+
+        <div class="text-center mb-8 mt-6">
+      <h2 class="text-3xl font-semibold text-gray-800">Waiting for File Upload</h2>
+      <p class="mt-2 text-gray-500">You are currently waiting for CRE to upload a file. Please check back later.</p>
+    </div>
+
+    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 shadow-md rounded-lg">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg class="h-6 w-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 2l4 4m0 0l4-4m-4 4l-4 4M18 6v14a2 2 0 01-2 2H8a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2z"></path>
+            </svg>
+          </div>
+          <div class="ml-4">
+            <h3 class="text-xl font-semibold text-gray-800">Waiting for File Upload</h3>
+            <p class="mt-2 text-gray-600">You are currently waiting for another user to upload the required file. Please check back later or contact the user to proceed.</p>
+            <p class="mt-2 text-gray-500">
+              <strong class="text-yellow-700">Action Needed:</strong> Wait for the CRE to upload the file, then you can proceed with the next steps.
+            </p>
+            <div class="mt-4">
+              <span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-800">
+                Waiting
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
           </>
         }
         
@@ -368,15 +460,32 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
       {
         (endorsement_status != null) ?
         <>
-           <div class="p-3 shadow flex items-start">
-          <span class="icon-[tabler--calendar] size-6"></span>
-          <div class="flex flex-col gap-1">
-            <h5 class="text-lg font-semibold">&nbsp;Endorsement Date</h5>
-            <ul class="mt-1.5 list-inside list-disc">
-              <li>{ dayjs(endorsement_status.date_endorse).format("LLLL")}</li>
-            </ul>
+        <div class="text-center mb-8">
+      <h2 class="text-3xl font-semibold text-gray-800">Endorsement Date & File Upload</h2>
+      <p class="mt-2 text-gray-500">Your endorsement is scheduled, and you can upload any relevant documents.</p>
+    </div>
+      
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 shadow-md rounded-lg">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg class="h-6 w-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0 0V3m0 5v3M9 12c-1.657 0-3 1.343-3 3s1.343 3 3 3s3-1.343 3-3-1.343-3-3-3zM12 8c1.657 0 3 1.343 3 3s-1.343 3-3 3zM12 8h-3"></path>
+            </svg>
+          </div>
+          <div class="ml-4">
+            <h3 class="text-xl font-semibold text-gray-800">Endorsement Scheduled</h3>
+            <p class="mt-2 text-gray-600">Your endorsement has been scheduled for the following date. Please upload the necessary documents for the endorsement.</p>
+            <p class="mt-2 text-gray-500">
+              <strong class="text-blue-700">Endorsement Date:</strong> <span class="text-gray-800">{ dayjs(endorsement_status.date_endorse).format("LLLL")}</span>
+            </p>
+            <div class="mt-4">
+              <span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
+                Scheduled
+              </span>
+            </div>
           </div>
         </div>
+      </div>
 
         <div class="divider"></div>
 
@@ -399,14 +508,64 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
         </>
         :
         <>
-          <div class="flex text-sm justify-center text-warning mt-3"><em>Waiting for Technical Panel to Endorsed Paper</em></div>
+          {/* <div class="flex text-sm justify-center text-warning mt-3"><em>Waiting for Technical Panel to Endorsed Paper</em></div> */}
+
+          <div class="text-center mb-8">
+      <h2 class="text-3xl font-semibold text-gray-800">Waiting for Technical Panel Endorsement</h2>
+      <p class="mt-2 text-gray-500">Your paper is under review by the Technical Panel. Please be patient as the endorsement process takes place.</p>
+    </div>
+
+    <div class="bg-blue-50 border-l-4 border-blue-500 p-6 shadow-md rounded-lg">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg class="h-6 w-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0 0V3m0 5v3M9 12c-1.657 0-3 1.343-3 3s1.343 3 3 3s3-1.343 3-3-1.343-3-3-3zM12 8c1.657 0 3 1.343 3 3s-1.343 3-3 3zM12 8h-3"></path>
+            </svg>
+          </div>
+          <div class="ml-4">
+            <h3 class="text-xl font-semibold text-gray-800">Waiting for Technical Panel Endorsement</h3>
+            <p class="mt-2 text-gray-600">Your paper is currently under review by the Technical Panel. Please wait while they finalize their endorsement.</p>
+            <p class="mt-2 text-gray-500">
+              <strong class="text-blue-700">Action Needed:</strong> Await endorsement from the Technical Panel to proceed with the next steps.
+            </p>
+            <div class="mt-4">
+              <span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
+                Pending Endorsement
+              </span>
+            </div>
+
+            <div class="mt-6">
+              <p class="text-sm text-gray-700 font-semibold">Next Steps:</p>
+              <ul class="list-disc pl-5 space-y-2 mt-2">
+                <li class="text-gray-600">Monitor the endorsement process and wait for confirmation.</li>
+                <li class="text-gray-600">Once endorsed, you'll be notified about the next steps for submission.</li>
+                <li class="text-gray-600">If no response is received in time, please contact the panel for an update.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
         </>
       }
        
 
         {
           (tech_doc != null) ?
-          <ul role="list" class="divide-y text-sm divide-base-content/25 rounded-md border border-base-content/25 mt-6">
+
+          <>
+            <div class="bg-green-50 border-l-4 border-green-500 p-6 shadow-md rounded-lg mt-6">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+          </div>
+          <div class="ml-4">
+            <h3 class="text-xl font-semibold text-gray-800">Uploaded Tech Review Certificate</h3>
+            <p class="mt-2 text-gray-600">Your certificate has been successfully uploaded. Click below to delete the certificate file.</p>
+            <div class="mt-4">
+            <ul role="list" class="divide-y text-sm divide-base-content/25 rounded-md border border-base-content/25 mt-6">
           <li class="flex items-center justify-between py-2 ps-2 pe-2">
               <div class="flex w-0 flex-1 items-center">
                 <span class="icon-[tabler--paperclip] size-5 flex-shrink-0"></span>
@@ -420,6 +579,15 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
               </div>
             </li>
           </ul>
+            </div>
+
+        
+          </div>
+        </div>
+      </div>
+          </>
+
+         
           :
           <></>
         }

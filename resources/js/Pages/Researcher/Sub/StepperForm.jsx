@@ -8,6 +8,7 @@ import Step3 from "../Forms/Step3";
 import Step4 from "../Forms/Step4";
 import Step5 from "../Forms/Step5";
 import Step6 from "../Forms/Step6";
+import Step7 from "../Forms/Step7";
 import Step8 from "../Forms/Step8";
 
 export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, ethics_docs, budget_docs, moa_docs, feedbacks_step1, feedbacks_step1_notif, feedbacks_step3, feedbacks_step3_notif, feedbacks_step4, feedbacks_step4_notif, endorsement_status, tech_doc}) {
@@ -101,9 +102,9 @@ export default function StepperForm({research, files, user, panels, technical_do
     {
       (user.user_type != "tpl") ?
       <div data-stepper-content-item='{ "index": 7 }' style={{"display" : "none"}}>
-      <div class="border-base-content/40 bg-base-200/50 flex h-48 items-center justify-center rounded-xl border border-dashed m-3" >
-        <h3 class="text-base-content/50 text-2xl">Seventh content</h3>
-      </div>
+      <div>
+        <Step7 user={user} research={research}/>
+     </div>
     </div>
     :
     <></>

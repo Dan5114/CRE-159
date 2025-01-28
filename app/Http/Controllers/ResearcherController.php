@@ -502,6 +502,14 @@ class ResearcherController extends Controller
         return redirect()->back()->with('message', 'Success');
     }
 
+    public function urb_approved_application(Request $request){
+        dd($request->remarks_approved);
+    }
+
+    public function urb_disapproved_application(Request $request){
+        dd($request->remarks_disapproved);
+    }
+
     public function technical_review_upload(Request $request)
     {
         if ($request->file('document_file') && $request->steps == '3'){

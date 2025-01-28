@@ -87,8 +87,7 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
 
   return (
     <>
-
-<nav class="tabs tabs-lifted bg-zinc-100 mt-3 p-2" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
+<nav class="tabs tabs-lifted mt-3 p-2" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
   <button type="button" class="tab active-tab:tab-active active" id="tabs-lifted-item-1" data-tab="#tabs-lifted-1" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
     Submission
   </button>
@@ -127,8 +126,10 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
                       <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(files.doc_frp.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(files.doc_frp.created_at), true)} ago</time>)</span>
                     </div>
                   </div>
-                  <div class="ms-4 flex-shrink-0">
+                  <div class="ms-4 flex gap-2 justify-center">
                   <span class="hover:cursor-pointer" onClick={() => downloadFile(files.doc_frp)}> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg></span>
+
+                  <span class="hover:cursor-pointer"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z"/></svg></span>
                   </div>
                 </li>
               </ul>
@@ -338,8 +339,7 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
           </div>
         </div>  
     
-        <div class="divider"></div>
-        <div class="flex justify-end">
+        <div class="w-full">
       
       
        {
@@ -352,19 +352,31 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
      :
     
      <>
-     <div class="alert text-sm alert-success flex items-start gap-4">
-  <span class="icon-[tabler--check] size-6"></span>
-  <div class="flex flex-col gap-1">
-    <h5 class="text-lg font-semibold">Application Accepted</h5>
-    <p>Application was accepted by CRE.
-    </p>
-  </div>
-</div>
+         <div class="bg-green-50 border-l-4 border-green-500 p-6 shadow-md rounded-lg">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M5 12l2 2 4-4m7 4h2a2 2 0 002-2V5a2 2 0 00-2-2h-2a2 2 0 00-2 2v9a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <div class="ml-4">
+            <h3 class="text-xl font-semibold text-gray-800">Application Accepted</h3>
+            <p class="mt-2 text-gray-600">Application has been accepted! You can now proceed with the next steps.</p>
+            <div class="mt-4">
+              <span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
+                Accepted
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
      </>
     
        :
     <>
-    {
+  
+  <div class="">
+  {
     (research.status == "D") ?
     <button type="submit" disabled={processing} class="btn btn-primary rounded-full">{(processing) ?<span class="loading loading-spinner loading-md"></span> : "Upload Document"} 
          
@@ -377,14 +389,50 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
       (research.status != "D") ?
       
       <>
-      <div class="alert text-sm alert-success flex items-start gap-4">
-  <span class="icon-[tabler--check] size-6"></span>
-  <div class="flex flex-col gap-1">
-    <h5 class="text-lg font-semibold">Application Submitted</h5>
-    <p>Waiting for approval of CRE and we appreciate your patience.
-    </p>
-  </div>
-</div>
+      {
+        (research.status == "REC") ?
+        <>
+          <div class="bg-green-50 border-l-4 border-green-500 p-6 shadow-md rounded-lg">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M5 12l2 2 4-4m7 4h2a2 2 0 002-2V5a2 2 0 00-2-2h-2a2 2 0 00-2 2v9a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <div class="ml-4">
+            <h3 class="text-xl font-semibold text-gray-800">Application Accepted</h3>
+            <p class="mt-2 text-gray-600">Your application has been accepted! You can now proceed with the next steps.</p>
+            <div class="mt-4">
+              <span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
+                Accepted
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+        </>
+        :
+        <>
+    <div class="bg-blue-50 border-l-4 border-blue-500 p-6 shadow-md rounded-lg">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg class="h-6 w-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2 2m0 0l2-2m-2 2l2-2m-6 0l2 2m2-2l2 2m-2-2l2-2m4-6h2a2 2 0 012 2v9a2 2 0 01-2 2h-2a2 2 0 01-2-2V5a2 2 0 012-2z"></path>
+            </svg>
+          </div>
+          <div class="ml-4">
+            <h3 class="text-xl font-semibold text-gray-800">Application Submitted</h3>
+            <p class="mt-2 text-gray-600">Your application has been successfully submitted and is awaiting approval. We will notify you once it is reviewed.</p>
+            <div class="mt-4">
+              <span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
+                Pending Accepted
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+        </>
+      }
       </>
       
       :
@@ -392,6 +440,7 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
             Submit Application
        </button>
     }
+  </div>
          
     </>
        }

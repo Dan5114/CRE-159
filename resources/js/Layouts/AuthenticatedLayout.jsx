@@ -10,7 +10,7 @@ export default function AuthenticatedLayout({ header, children }) {
 
             {header && (
                 <header className="bg-[#198754]">
-                    <div className="mx-auto px-4 py-4 sm:px-6 lg:px-8">
+                    <div className="p-3">
                         {header}
                     </div>
                 </header>

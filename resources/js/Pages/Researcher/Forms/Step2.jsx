@@ -77,7 +77,7 @@ export default function Step2({user, research, panels}) {
           <p class="mt-1 max-w-full text-base-content/80">Please fill up the fields </p>
         </div>
 
-        <nav class="tabs tabs-lifted bg-zinc-100 mt-3 p-2" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
+        <nav class="tabs tabs-lifted mt-3 p-2" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
   <button type="button" class="tab active-tab:tab-active active" id="tabs-lifted-item-11" data-tab="#tabs-lifted-11" aria-controls="tabs-lifted-11" role="tab" aria-selected="true">
     Assigning
   </button>
@@ -94,7 +94,7 @@ export default function Step2({user, research, panels}) {
     
 
 <div class="">
-  <div class="">
+  <div class="border shadow p-3">
   <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 
     <div>
@@ -244,34 +244,46 @@ export default function Step2({user, research, panels}) {
           (research.meeting.status == "Success") ?
           
          <>
-         <div class="px-4 sm:px-0 mb-6">
-          <h3 class="text-2xl font-semibold text-base-content">Researcher Schedule & Panels </h3>
-          {/* <p class="mt-1 max-w-full text-base-content/80">The requirements for application for research funding under the FRP as follows: </p> */}
-        </div>
+      
 
         <div class="">
             <div class="">
-            {/* <label class="text-base-content text-lg font-semibold" for="firstName"> Meeting Date </label>
-            <div>{ dayjs(research.meeting.meeting_date).format("LLL")}</div> */}
-            <div class="p-3 shadow flex items-start">
-  <span class="icon-[tabler--calendar] size-6"></span>
-  <div class="flex flex-col gap-1">
-    <h5 class="text-lg font-semibold">&nbsp;Meeting Date</h5>
-    <ul class="mt-1.5 list-inside list-disc">
-      <li>{ dayjs(research.meeting.meeting_date).format("LLLL")}</li>
-    </ul>
-  </div>
-</div>
 
+<div class="text-center mb-8">
+      <h2 class="text-3xl font-semibold text-gray-800">Your Upcoming Meeting & Available Panels</h2>
+      <p class="mt-2 text-gray-500">You have a scheduled meeting. Here are the details and panels you can access.</p>
+    </div>
 
-            <div class="bg-base-100 border text-base-content">
-            <label class="text-base-content bg-gray-300  flex justify-center p-1 text-lg font-semibold" for="firstName"> List of Panel Members </label>
-                <ul class="space-y-0.5">
+    <div class="bg-blue-50 border-l-4 border-blue-500 p-6 shadow-md rounded-lg">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg class="h-6 w-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0 0V3m0 5v3M9 12c-1.657 0-3 1.343-3 3s1.343 3 3 3s3-1.343 3-3-1.343-3-3-3zM12 8c1.657 0 3 1.343 3 3s-1.343 3-3 3zM12 8h-3"></path>
+            </svg>
+          </div>
+          <div class="ml-4">
+            <h3 class="text-xl font-semibold text-gray-800">Meeting Scheduled</h3>
+            <p class="mt-2 text-gray-600">You have a meeting scheduled with your team. Here are the details:</p>
+            <p class="mt-2 text-gray-500">
+              <strong class="text-blue-700">Date & Time:</strong> <span class="text-gray-800">{ dayjs(research.meeting.meeting_date).format("LLLL")}</span>
+            </p>
+            <div class="mt-4">
+              <span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
+                Scheduled
+              </span>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6">
+              <p class="text-lg text-gray-700 font-semibold">Panel Members:</p>
+              <ul class="list-disc pl-5 space-y-2 mt-2">
 
                 { panels.map((panel, index) => (
                                     <>
                                        
-                                   
                     <li class="flex items-center gap-2 px-4 py-2.5 border-t">
                     <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png" alt="User Image" class="size-10 rounded-full" />
                     <div class="flex grow items-center justify-between gap-y-1">
@@ -288,7 +300,10 @@ export default function Step2({user, research, panels}) {
                                     ))}
 
                 </ul>
-                </div>
+            </div>
+
+
+         
             </div>
            
         </div>
@@ -296,20 +311,35 @@ export default function Step2({user, research, panels}) {
           :
           <>
 
-<div class="px-4 sm:px-0 mb-6">
-          <h3 class="text-2xl font-semibold text-base-content">Researcher Schedule & Panels </h3>
-          <p class="mt-1 max-w-full text-base-content/80">Please see the details below </p>
+<div class="text-center mb-8">
+      <h2 class="text-3xl font-semibold text-gray-800">No Meeting Scheduled Yet & Available Panels</h2>
+      <p class="mt-2 text-gray-500">It looks like you haven't scheduled a meeting yet. Here are the panels you can access in the meantime.</p>
+    </div>
+
+    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 shadow-md rounded-lg">
+        <div class="flex items-start">
+          <div class="flex-shrink-0">
+            <svg class="h-6 w-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4v6h4V4H3zm0 6V4l7 7-7 7V10h6l5 5m3 3l-7-7M3 4l7 7 7-7M5 4h2v2H5z"></path>
+            </svg>
+          </div>
+          <div class="ml-4">
+            <h3 class="text-xl font-semibold text-gray-800">Meeting Not Scheduled Yet</h3>
+            <p class="mt-2 text-gray-600">You haven’t scheduled a meeting yet. Please schedule a meeting at your earliest convenience.</p>
+            <p class="mt-2 text-gray-500">
+              <strong class="text-yellow-700">Action Needed:</strong> Waiting for CRE to the scheduling panel to set a time for your meeting.
+            </p>
+            <div class="mt-4">
+              <span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-800">
+                Pending
+              </span>
+            </div>
+            
+            
+          </div>
         </div>
-
-           <div class="flex justify-center border-2 border-dotted border-gray-300 p-3">
-                        <div class="grid gap-4 w-80 justify-center">
-                        <img style={{ "width" : "400px" }} src="https://www.achieversacademyalwar.in/assets/images/no-record-found.png" />
-                      
-<div class="flex justify-center">
-
-</div>
-</div>
-                        </div>
+      </div>
+          
           </>
         }
       </>

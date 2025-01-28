@@ -65,7 +65,7 @@ export default function Step3({user, research, technical_docs, feedbacks_step3, 
 
   return (
     <>
-         <nav class="tabs tabs-lifted bg-zinc-100 mt-3 p-2" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
+         <nav class="tabs tabs-lifted mt-3 p-2" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
         <button type="button" class="tab active-tab:tab-active active" id="tabs-lifted-item-3" data-tab="#tabs-lifted-3" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
           Files
         </button>
@@ -111,9 +111,17 @@ export default function Step3({user, research, technical_docs, feedbacks_step3, 
         </div>
         </form>
 
+        <div class="flex mb-3">
+  <h5 class="text-base-content font-semibold">Note: </h5>&nbsp;
+  <p class="text-[#FF0000] text-xs mt-1">
+   <em> Do not delete/remove previously uploaded documents for version bactracking.</em>
+  </p>
+</div>
+
         <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700 mt-3">
             <thead class="bg-gray-300 dark:bg-neutral-700">
               <tr>
+              <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Version #</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-base-content uppercase dark:text-neutral-500">File</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-base-content uppercase dark:text-neutral-500">Report Date</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-base-content uppercase dark:text-neutral-500">Date Created</th>
@@ -125,6 +133,7 @@ export default function Step3({user, research, technical_docs, feedbacks_step3, 
                   <>
                   {/* <tr class={index % 2 !== 0 ? "bg-gray-50 dark:bg-gray-800 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-800 dark:border-gray-700"}> */}
                        <tr>
+                       <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">V{index+1}</td>
                         <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{technical_doc.file_name}</td>
                         <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(technical_doc.report_date).format("LLL")}</td>
                         <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(technical_doc.created_at).format("LLL")}</td>
@@ -163,10 +172,19 @@ export default function Step3({user, research, technical_docs, feedbacks_step3, 
         :
         <>
           <div class="">
+        
+          <div class="flex mb-3">
+            <h5 class="text-base-content font-semibold">Note: </h5>&nbsp;
+            <p class="text-[#FF0000] text-xs mt-1">
+            <em> Do not delete/remove previously uploaded documents for version bactracking.</em>
+            </p>
+          </div>
+
           <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700 mt-3">
             
             <thead class="bg-gray-300 dark:bg-neutral-700">
               <tr>
+              <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Version #</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-base-content uppercase dark:text-neutral-500">File</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-base-content uppercase dark:text-neutral-500">Report Date</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-base-content uppercase dark:text-neutral-500">Date Created</th>
@@ -177,6 +195,7 @@ export default function Step3({user, research, technical_docs, feedbacks_step3, 
                 { technical_docs.map((technical_doc, index) => (
                         <>
                                <tr>
+                               <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">V{index+1}</td>
                                                   <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{technical_doc.file_name}</td>
                                                   <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(technical_doc.report_date).format("LLL")}</td>
                                                   <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(technical_doc.created_at).format("LLL")}</td>
@@ -193,15 +212,19 @@ export default function Step3({user, research, technical_docs, feedbacks_step3, 
 
               {technical_docs.length === 0 ? (
                        <>
-                        <div class="flex justify-center border-2 border-dotted border-gray-300 p-3">
-                        <div class="grid gap-4 w-80 justify-center">
-                        <img style={{ "width" : "200px" }} src="https://www.achieversacademyalwar.in/assets/images/no-record-found.png" />
-                      
-<div class="flex justify-center">
-
+                        <div class="bg-white p-6 shadow-lg rounded-lg border border-gray-200">
+  <div class="flex justify-center items-center">
+    <svg class="h-16 w-16 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 4V6H7V4H5v16h14V4h-2z"></path>
+    </svg>
+  </div>
+  
+  <div class="text-center mt-4">
+    <h3 class="text-xl font-semibold text-gray-800">Oops, no items found!</h3>
+    
+    <p class="mt-2 text-gray-500">It seems like the list is empty. Would you like to add new data or try again later?</p>
+  </div>
 </div>
-</div>
-                        </div>
                        </>                 
                       )
                         :                               

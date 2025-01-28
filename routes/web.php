@@ -41,6 +41,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/researcher/mark/read/{id}', [ResearcherController::class, 'mark_read'])->name('researcher.mark.read');
     Route::patch('/tpl/download/doc/status/{id}', [ResearcherController::class, 'download_doc_status'])->name('tpl.dowload.doc.status');
     Route::post('/tpl/endorse/application', [ResearcherController::class, 'tpl_endorse_application'])->name('tpl.endorse.application');
+    Route::post('/urb/approved/application', [ResearcherController::class, 'urb_approved_application'])->name('urb.approved.application');
+    Route::post('/urb/disapproved/application', [ResearcherController::class, 'urb_disapproved_application'])->name('urb.disapproved.application');
 
 
 });
