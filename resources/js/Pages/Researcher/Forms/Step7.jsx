@@ -108,7 +108,67 @@ export default function Step7({user, research, urb_approval}) {
                         </>
                         :
                         <>
-                        <span>Appvoed</span>
+                         
+                        {
+                          (urb_approval.remarks == "Approved") ?
+                          <>
+                          <div class="text-center mb-8">
+      <h2 class="text-3xl font-semibold text-gray-800">URB Approval Status</h2>
+      <p class="mt-2 text-gray-500">Your application is under review by the CRE. Please be patient as the approval status process takes place.</p>
+    </div>
+                              <div class="bg-green-50 border-l-4 border-green-500 p-6 shadow-md rounded-lg">
+                         <div class="flex items-start">
+    <div class="flex-shrink-0">
+      <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </div>
+    <div class="ml-4 flex-1">
+      <h3 class="text-xl font-semibold text-gray-800">Your Application Has Been Approved!</h3>
+      <p class="mt-2 text-gray-600">Congratulations! Your application has been successfully approved. You can now proceed to the next steps.</p>
+      <div class="mt-4">
+        <span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
+          Approved
+        </span>
+      </div>
+
+      <p class="mt-6 text-gray-500">
+                   <strong class="text-green-700">Approval Date:</strong> <span class="text-gray-800">{ dayjs(urb_approval.date_approved).format("LLLL")}</span>
+                 </p>
+    </div>
+  </div>
+</div>
+                          </> 
+                          :
+                          <>
+                          <div class="text-center mb-8">
+      <h2 class="text-3xl font-semibold text-gray-800">URB Approval Status</h2>
+      <p class="mt-2 text-gray-500">Your application is under review by the CRE. Please be patient as the approval status process takes place.</p>
+    </div>
+                            <div class="bg-red-50 border-l-4 border-red-500 p-6 shadow-md rounded-lg">
+                         <div class="flex items-start">
+    <div class="flex-shrink-0">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16"><path fill="none" stroke="#ec041c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 4.75l-6.5 6.5m0-6.5l6.5 6.5"/></svg>
+    </div>
+    <div class="ml-4 flex-1">
+      <h3 class="text-xl font-semibold text-gray-800">Your Application Has Been Declined!</h3>
+      <p>Your application has been declined by CRE. Unfortunately, we cannot proceed with your request at this time. If you have any questions, feel free to contact us.</p>
+      <div class="mt-4">
+        <span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800">
+          Declined
+        </span>
+      </div>
+
+      <p class="mt-6 text-gray-500">
+                   <strong class="text-red-700">Declined Date:</strong> <span class="text-gray-800">{ dayjs(urb_approval.date_approved).format("LLLL")}</span>
+                 </p>
+    </div>
+  </div>
+</div>
+
+                          </>
+                        }
+
                         </>
                     }
                     
@@ -164,7 +224,67 @@ export default function Step7({user, research, urb_approval}) {
                         </>
                         :
                         <>
-                        <span>Appvred re</span>
+                         
+                         {
+                          (urb_approval.remarks == "Approved") ?
+                          <>
+                          <div class="text-center mb-8">
+      <h2 class="text-3xl font-semibold text-gray-800">URB Approval Status</h2>
+      <p class="mt-2 text-gray-500">Your application is under review by the CRE. Please be patient as the approval status process takes place.</p>
+    </div>
+                              <div class="bg-green-50 border-l-4 border-green-500 p-6 shadow-md rounded-lg">
+                         <div class="flex items-start">
+    <div class="flex-shrink-0">
+      <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+      </svg>
+    </div>
+    <div class="ml-4 flex-1">
+      <h3 class="text-xl font-semibold text-gray-800">Your Application Has Been Approved!</h3>
+      <p class="mt-2 text-gray-600">Congratulations! Your application has been successfully approved. You can now proceed to the next steps.</p>
+      <div class="mt-4">
+        <span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
+          Approved
+        </span>
+      </div>
+
+      <p class="mt-6 text-gray-500">
+                   <strong class="text-green-700">Approval Date:</strong> <span class="text-gray-800">{ dayjs(urb_approval.date_approved).format("LLLL")}</span>
+                 </p>
+    </div>
+  </div>
+</div>
+                          </> 
+                          :
+                          <>
+
+<div class="text-center mb-8">
+      <h2 class="text-3xl font-semibold text-gray-800">URB Approval Status</h2>
+      <p class="mt-2 text-gray-500">Your application is under review by the CRE. Please be patient as the approval status process takes place.</p>
+    </div>
+                            <div class="bg-red-50 border-l-4 border-red-500 p-6 shadow-md rounded-lg">
+                         <div class="flex items-start">
+    <div class="flex-shrink-0">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16"><path fill="none" stroke="#ec041c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.25 4.75l-6.5 6.5m0-6.5l6.5 6.5"/></svg>
+    </div>
+    <div class="ml-4 flex-1">
+      <h3 class="text-xl font-semibold text-gray-800">Your Application Has Been Declined!</h3>
+      <p>Your application has been declined by CRE. Unfortunately, we cannot proceed with your request at this time. If you have any questions, feel free to contact us.</p>
+      <div class="mt-4">
+        <span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-red-100 text-red-800">
+          Declined
+        </span>
+      </div>
+
+      <p class="mt-6 text-gray-500">
+                   <strong class="text-red-700">Declined Date:</strong> <span class="text-gray-800">{ dayjs(urb_approval.date_approved).format("LLLL")}</span>
+                 </p>
+    </div>
+  </div>
+</div>
+
+                          </>
+                        }
                         </>
                     }
 
