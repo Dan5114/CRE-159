@@ -10,7 +10,14 @@ class ProgressReportDetail extends Model
 
     protected $fillable = [
         'progress_report_head_id',
-        'file_id'
+        'file_id',
+        'type'
     ];
+
+    public function files()
+    {
+        return $this->belongsTo(ResearchDoc::class, 'file_id', 'id')->select('id', 'file_name');
+    }
+   
 }
 

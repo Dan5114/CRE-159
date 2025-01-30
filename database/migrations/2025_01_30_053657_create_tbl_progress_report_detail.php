@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('progress_report_head_id');
             $table->foreignId('file_id');
+            $table->char('type', length: 1);
             $table->timestamps();
         });
     }

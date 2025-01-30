@@ -143,13 +143,35 @@ class ResearcherController extends Controller
     }
 
     public function researcher_progress_upload(Request $request){
-        $data = [
-            "type" => $request->type,
-            "id" => $request->id,
-            "document_file" => $request->document_file,
-        ];
 
-        dd($data);
+        try {
+            if ($request->file('document_file') && $request->steps == '9'){
+                $document_file = $request->file('document_file');
+                $fileName_doc =   $document_file->getClientOriginalName(); 
+                $filePath_doc = 'docs/' . $document_file->getClientOriginalName();
+    
+                $data = [
+                    "research_id"  => $request->research_id,
+                    "steps" => $request->steps,
+                    "file_name"    => $fileName_doc,
+                    "file_path"    => $filePath_doc
+                ];
+    
+                $doc = ResearchDoc::create($data);
+                Storage::disk('public')->put($filePath_doc, file_get_contents($document_file));
+            }
+    
+            $progressdata = [
+                "type" => $request->type,
+                "progress_report_head_id" => $request->id,
+                "file_id" => $doc->id,
+            ];
+            ProgressReportDetail::create($progressdata);
+
+            return redirect()->back()->with('message', 'Submitted Successfully');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
     }
 
     public function scheduled_meeting(Request $request)
@@ -428,7 +450,9 @@ class ResearcherController extends Controller
             $tech_doc = ResearchDoc::where('research_id', $value->id)->where('steps', 'tech')->first();
             $urb_approval = UrbApproval::where('research_id', $value->id)->where('steps', '7')->first();
 
-            $progress_report = CreProgressReportHeader::where('research_id', $value->id)->where('steps', '9')->get();
+            $progress_report = CreProgressReportHeader::where('research_id', $value->id)->where('steps', '9')->with('details')->with('details.files')->get();
+
+            // dd($progress_report);
 
             
             $step_status = [

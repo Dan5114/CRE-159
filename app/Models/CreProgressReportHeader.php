@@ -13,4 +13,11 @@ class CreProgressReportHeader extends Model
         'date_scheduled',
         'steps'
     ];
+
+    public function details()
+    {
+        return $this->hasMany(ProgressReportDetail::class, 'progress_report_head_id', 'id');
+    }
+
+    
 }

@@ -101,6 +101,21 @@ export default function Step9({user, research, progress_report}) {
                 
                 </div>
                 </div>
+
+                { report.details.map((report_detail, indexes) => (
+                   <div id="listings-1" class="mt-6 space-y-4">
+                   <div class="border-l-4 border-green-400 pl-4 py-3 bg-white rounded-md shadow-md p-3">
+                       <div class="flex items-center justify-between">
+                           <h4 class="font-semibold text-gray-800">{(report_detail.type == "1") ? "Progress Report" : "Liquidation Report"} </h4>
+                           <span class="text-sm text-gray-500">
+                            {dayjs(report_detail.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(report_detail.created_at), true)} ago</time>)
+                           </span>
+                       </div>
+                       <p class="text-gray-600">{report_detail.files.file_name}</p>
+                   </div>
+               </div>
+                ))}
+
             </div>
         ))}
         </div>
@@ -127,7 +142,7 @@ export default function Step9({user, research, progress_report}) {
             </div>
             
             { progress_report.map((report, index) => (
-                <div class="p-6 rounded-lg shadow-lg border border-gray-200">
+                <div class="p-6 mb-3 border-t-2 border-blue-500 rounded-lg shadow-lg">
                     <div class="flex items-center justify-between">
                     <div class="text-xl font-medium text-gray-700"> Progress Report {index+1} - { dayjs(report.date_scheduled).format("LL")}
                     
@@ -165,6 +180,21 @@ export default function Step9({user, research, progress_report}) {
           </div>
         </div>
         </form>
+
+
+        { report.details.map((report_detail, indexes) => (
+                   <div id="listings-1" class="mt-6 space-y-4">
+                   <div class="border-l-4 border-green-400 pl-4 py-3 bg-white rounded-md shadow-md p-3">
+                       <div class="flex items-center justify-between">
+                           <h4 class="font-semibold text-gray-800">{(report_detail.type == "1") ? "Progress Report" : "Liquidation Report"} </h4>
+                           <span class="text-sm text-gray-500">
+                            {dayjs(report_detail.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(report_detail.created_at), true)} ago</time>)
+                           </span>
+                       </div>
+                       <p class="text-gray-600">{report_detail.files.file_name}</p>
+                   </div>
+               </div>
+                ))}
                 </div>
             ))}
        
