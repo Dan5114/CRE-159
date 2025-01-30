@@ -57,7 +57,7 @@ export default function Step7({user, research, urb_approval}) {
                     {
                         (urb_approval == null) ?
                         <>
-                                        <div class="text-center mb-8">
+                                        <div class="mb-8">
       <h2 class="text-3xl font-semibold text-gray-800">URB Approval</h2>
       <p class="mt-2 text-gray-500">Please review the application and select whether it is approved or disapproved. Additionally, you can select a approval date for the next steps.</p>
     </div>
@@ -112,7 +112,7 @@ export default function Step7({user, research, urb_approval}) {
                         {
                           (urb_approval.remarks == "Approved") ?
                           <>
-                          <div class="text-center mb-8">
+                          <div class="mb-8">
       <h2 class="text-3xl font-semibold text-gray-800">URB Approval Status</h2>
       <p class="mt-2 text-gray-500">Your application is under review by the CRE. Please be patient as the approval status process takes place.</p>
     </div>
@@ -141,7 +141,7 @@ export default function Step7({user, research, urb_approval}) {
                           </> 
                           :
                           <>
-                          <div class="text-center mb-8">
+                          <div class="mb-8">
       <h2 class="text-3xl font-semibold text-gray-800">URB Approval Status</h2>
       <p class="mt-2 text-gray-500">Your application is under review by the CRE. Please be patient as the approval status process takes place.</p>
     </div>
@@ -186,7 +186,7 @@ export default function Step7({user, research, urb_approval}) {
                         (urb_approval == null) ?
                         <>
                                          
-<div class="text-center mb-8">
+<div class="mb-8">
       <h2 class="text-3xl font-semibold text-gray-800">Waiting for URB Approval</h2>
       <p class="mt-2 text-gray-500">Your application has been submitted and is now waiting for the CRE (Committee for Review and Evaluation) to review it. Please be patient while the review process takes place.</p>
     </div>
@@ -228,7 +228,7 @@ export default function Step7({user, research, urb_approval}) {
                          {
                           (urb_approval.remarks == "Approved") ?
                           <>
-                          <div class="text-center mb-8">
+                          <div class="mb-8">
       <h2 class="text-3xl font-semibold text-gray-800">URB Approval Status</h2>
       <p class="mt-2 text-gray-500">Your application is under review by the CRE. Please be patient as the approval status process takes place.</p>
     </div>
@@ -258,7 +258,7 @@ export default function Step7({user, research, urb_approval}) {
                           :
                           <>
 
-<div class="text-center mb-8">
+<div class="mb-8">
       <h2 class="text-3xl font-semibold text-gray-800">URB Approval Status</h2>
       <p class="mt-2 text-gray-500">Your application is under review by the CRE. Please be patient as the approval status process takes place.</p>
     </div>

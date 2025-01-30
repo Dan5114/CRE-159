@@ -10,8 +10,9 @@ import Step5 from "../Forms/Step5";
 import Step6 from "../Forms/Step6";
 import Step7 from "../Forms/Step7";
 import Step8 from "../Forms/Step8";
+import Step9 from "../Forms/Step9";
 
-export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, ethics_docs, budget_docs, moa_docs, feedbacks_step1, feedbacks_step1_notif, feedbacks_step3, feedbacks_step3_notif, feedbacks_step4, feedbacks_step4_notif, endorsement_status, tech_doc , urb_approval}) {
+export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, ethics_docs, budget_docs, moa_docs, feedbacks_step1, feedbacks_step1_notif, feedbacks_step3, feedbacks_step3_notif, feedbacks_step4, feedbacks_step4_notif, endorsement_status, tech_doc , urb_approval, progress_report}) {
 
   const getCurrentIndex = (user.user_type != "tpl" ? 1 : 3);
     
@@ -55,20 +56,21 @@ export default function StepperForm({research, files, user, panels, technical_do
 
    <div data-stepper-content-item='{ "index": 3 }'  class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
      <div>
-     <div class="px-4 sm:px-0 mb-6">
-          <h3 class="text-2xl font-semibold text-base-content">Technical Review Report</h3>
-          <p class="mt-1 max-w-full text-base-content/80">Fill up fields to upload document</p>
-        </div>
+    
+        <div class="mb-4">
+        <h1 class="text-3xl font-bold text-gray-900">Technical Review Report</h1>
+        <p class="mt-2 text-gray-600 text-sm">Fill up fields to upload document</p>
+    </div>
         <Step3 user={user} research={research} technical_docs={technical_docs} feedbacks_step3={feedbacks_step3} feedbacks_step3_notif={feedbacks_step3_notif}/>
      </div>
    </div>
 
     <div data-stepper-content-item='{ "index": 4 }' class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
       <div>
-      <div class="px-4 sm:px-0 mb-6">
-          <h3 class="text-2xl font-semibold text-base-content">Uploading Revised Documents </h3>
-          <p class="mt-1 max-w-full text-base-content/80">Fill up fields to upload document</p>
-        </div>
+      <div class="mb-4">
+        <h1 class="text-3xl font-bold text-gray-900">Uploading Revised Documents</h1>
+        <p class="mt-2 text-gray-600 text-sm">Fill up fields to upload document</p>
+    </div>
         <Step4 user={user} research={research} revised_docs={revised_docs}  feedbacks_step4={feedbacks_step4} feedbacks_step4_notif={feedbacks_step4_notif} endorsement_status={endorsement_status} tech_doc={tech_doc}/>
      </div>
    </div>
@@ -77,10 +79,10 @@ export default function StepperForm({research, files, user, panels, technical_do
       (user.user_type != "tpl") ?
       <div data-stepper-content-item='{ "index": 5 }' class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
      <div>
-     <div class="px-4 sm:px-0 mb-6">
-          <h3 class="text-2xl font-semibold text-base-content">Ethics Clearance </h3>
-          <p class="mt-1 max-w-full text-base-content/80">See details below</p>
-        </div>
+        <div class="mb-4">
+        <h1 class="text-3xl font-bold text-gray-900">Ethics Clearance</h1>
+        <p class="mt-2 text-gray-600 text-sm">See details below</p>
+    </div>
         <Step5 user={user} research={research} ethics_docs={ethics_docs}/>
      </div>
    </div>
@@ -115,6 +117,17 @@ export default function StepperForm({research, files, user, panels, technical_do
       <div data-stepper-content-item='{ "index": 8 }' style={{"display" : "none"}}>
       <div>
         <Step8 user={user} research={research} moa_docs={moa_docs}/>
+     </div>
+   </div>
+   :
+   <></>
+    }
+
+{
+      (user.user_type != "tpl") ?
+      <div data-stepper-content-item='{ "index": 9 }' style={{"display" : "none"}}>
+      <div>
+        <Step9 user={user} research={research} progress_report={progress_report}/>
      </div>
    </div>
    :

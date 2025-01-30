@@ -24,6 +24,8 @@ use App\Models\ResearchMessageThread;
 use App\Models\TplEndorsementPaper;
 use App\Models\ResearchMember;
 use App\Models\UrbApproval;
+use App\Models\CreProgressReportHeader;
+use App\Models\ProgressReportDetail;
 use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 
@@ -124,6 +126,30 @@ class ResearcherController extends Controller
         } catch (Exception $e) {
             Log::debug($e->getMessage());
         }
+    }
+
+    public function schedule_progress_report(Request $request){
+        try {
+            $data = [
+                "research_id" => $request->research_id,
+                "date_scheduled" => $request->date_scheduled,
+                "steps" => $request->steps
+            ];
+            CreProgressReportHeader::create($data);
+            return redirect()->back()->with('message', 'Submitted Successfully');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
+    }
+
+    public function researcher_progress_upload(Request $request){
+        $data = [
+            "type" => $request->type,
+            "id" => $request->id,
+            "document_file" => $request->document_file,
+        ];
+
+        dd($data);
     }
 
     public function scheduled_meeting(Request $request)
@@ -402,6 +428,8 @@ class ResearcherController extends Controller
             $tech_doc = ResearchDoc::where('research_id', $value->id)->where('steps', 'tech')->first();
             $urb_approval = UrbApproval::where('research_id', $value->id)->where('steps', '7')->first();
 
+            $progress_report = CreProgressReportHeader::where('research_id', $value->id)->where('steps', '9')->get();
+
             
             $step_status = [
                 "step1" => $this->getStepStatus($value->id, "1"),
@@ -424,6 +452,7 @@ class ResearcherController extends Controller
             $feedbacks_step4_notif = null;
             $endorsement_status = null;
             $urb_approval = null;
+            $progress_report = null;
             $tech_doc = null;
             $step_status = null;
             $rlogs = null;
@@ -462,6 +491,7 @@ class ResearcherController extends Controller
             'feedbacks_step4_notif' => $feedbacks_step4_notif,
             'endorsement_status' => $endorsement_status,
             'urb_approval' => $urb_approval,
+            'progress_report' => $progress_report,
             'tech_doc' => $tech_doc,
             'authors' => $author
         ]);

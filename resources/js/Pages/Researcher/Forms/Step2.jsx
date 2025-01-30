@@ -249,7 +249,7 @@ export default function Step2({user, research, panels}) {
         <div class="">
             <div class="">
 
-<div class="text-center mb-8">
+<div class="mb-8">
       <h2 class="text-3xl font-semibold text-gray-800">Your Upcoming Meeting & Available Panels</h2>
       <p class="mt-2 text-gray-500">You have a scheduled meeting. Here are the details and panels you can access.</p>
     </div>

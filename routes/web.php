@@ -43,6 +43,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/tpl/endorse/application', [ResearcherController::class, 'tpl_endorse_application'])->name('tpl.endorse.application');
     Route::post('/urb/approved/application', [ResearcherController::class, 'urb_approved_application'])->name('urb.approved.application');
     Route::post('/urb/disapproved/application', [ResearcherController::class, 'urb_disapproved_application'])->name('urb.disapproved.application');
+    Route::post('/cre/progress/report/date', [ResearcherController::class, 'schedule_progress_report'])->name('cre.progress.report.date');
+    Route::post('/researcher/progress/report/upload', [ResearcherController::class, 'researcher_progress_upload'])->name('researcher.progress.report.files');
 
 
 });

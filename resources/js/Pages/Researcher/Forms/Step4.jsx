@@ -129,7 +129,7 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
           
         <div class="">
         <form onSubmit={submitFiles}>
-          <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mb-3 mt-3">
+          <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mb-6 mt-3">
            
           <div>
             <label class="label label-text" for="firstName">Document File </label>
@@ -144,15 +144,12 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
             </div>
           </div>
         </form>
-
-        <div class="flex">
-  <h5 class="text-base-content font-semibold">Note: </h5>&nbsp;
-  <p class="text-[#FF0000] text-xs mt-1">
-   <em> Do not delete/remove previously uploaded documents for version bactracking.</em>
-  </p>
-</div>
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 mt-3 rounded-md">
+        <strong class="font-semibold">Important:</strong> 
+        &nbsp;Please <span class="font-semibold">do not delete or remove any previously uploaded documents</span> as they are crucial for version tracking.
+    </div>
         <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700 mt-3">
-            <thead class="bg-gray-300 dark:bg-neutral-700">
+            <thead class="bg-gray-100 dark:bg-neutral-700">
             <tr>
               <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Version #</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">File</th>
@@ -164,7 +161,7 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
             <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
                 { revised_docs.map((revised_doc, index) => (
                   <>
-                         <tr>
+                         <tr class="border-b hover:bg-gray-50">
                             <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">V{index+1}</td>
                             <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{revised_doc.file_name}</td>                                         
                             <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(revised_doc.created_at).format("LLL")}</td>
@@ -218,14 +215,12 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
         :
         <>
           <div class="">
-          <div class="flex mb-3">
-  <h5 class="text-base-content font-semibold">Note: </h5>&nbsp;
-  <p class="text-[#FF0000] text-xs mt-1">
-   <em> Do not delete/remove previously uploaded documents for version bactracking.</em>
-  </p>
-</div>
+          <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 mt-3 rounded-md">
+        <strong class="font-semibold">Important:</strong> 
+        &nbsp;Please <span class="font-semibold">do not delete or remove any previously uploaded documents</span> as they are crucial for version tracking.
+    </div>
           <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700">
-            <thead class="bg-gray-300 dark:bg-neutral-700">
+            <thead class="bg-gray-100 dark:bg-neutral-700">
             <tr>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Version #</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">File</th>               
@@ -237,7 +232,7 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
             <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
             { revised_docs.map((revised_doc, index) => (
                   <>
-                          <tr>
+                          <tr class="border-b hover:bg-gray-50">
                             <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">V{index+1}</td>
                             <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{revised_doc.file_name}</td>                                         
                             <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(revised_doc.created_at).format("LLL")}</td>
@@ -368,24 +363,6 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
        {
           (tech_doc != null) ?
          <>
-         {/* <div class="card p-3 mt-3">
-         <h5 class="text-lg font-semibold mt-3 flex justify-start"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M11.25 1.75h-8.5v11.5h2.5m3.5-3.5l-.5 4.5l2.25-1l2.25 1l-.5-4.5"/><circle cx="10.5" cy="7.5" r="2.75"/></g></svg>&nbsp;Tech Review Cert</h5>
-          <ul role="list" class="divide-y text-sm divide-base-content/25 rounded-md border border-base-content/25 mt-3">
-          <li class="flex items-center justify-between py-2 ps-2 pe-2">
-              <div class="flex w-0 flex-1 items-center">
-                <span class="icon-[tabler--paperclip] size-5 flex-shrink-0"></span>
-                <div class="ms-4 flex min-w-0 flex-1 gap-2">
-                  <span class="truncate font-medium">{tech_doc.file_name}</span>
-                  <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(tech_doc.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(tech_doc.created_at), true)} ago</time>)</span>
-                </div>
-              </div>
-              <div class="ms-4 flex-shrink-0">
-                <a onClick={() => downloadDoc(tech_doc)} class="link link-primary"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 48 48"><g fill="#1565c0"><path d="M24 37.1L13 24h22zM20 4h8v4h-8zm0 6h8v4h-8z"/><path d="M20 16h8v11h-8zM6 40h36v4H6z"/></g></svg></a>
-              </div>
-            </li>
-          </ul>
-         </div> */}
-
 <div class="bg-green-50 border-l-4 border-green-500 p-6 shadow-md rounded-lg mt-3">
         <div class="flex items-start">
           <div class="flex-shrink-0">

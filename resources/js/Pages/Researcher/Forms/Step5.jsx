@@ -70,7 +70,7 @@ export default function Step5({user, research, ethics_docs}) {
         <div class="">
 
         <form onSubmit={submitFiles}>
-          <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mb-3 mt-3">
+          <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mb-6 mt-3">
            
           <div>
             <label class="label label-text" for="firstName">Document File </label>
@@ -85,14 +85,12 @@ export default function Step5({user, research, ethics_docs}) {
             </div>
           </div>
         </form>
-        <div class="flex">
-  <h5 class="text-base-content font-semibold">Note: </h5>&nbsp;
-  <p class="text-[#FF0000] text-xs mt-1">
-   <em> Do not delete/remove previously uploaded documents for version bactracking.</em>
-  </p>
-</div>
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 mt-3 rounded-md">
+        <strong class="font-semibold">Important:</strong> 
+        &nbsp;Please <span class="font-semibold">do not delete or remove any previously uploaded documents</span> as they are crucial for version tracking.
+    </div>
         <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700 mt-3">
-            <thead class="bg-gray-300 dark:bg-neutral-700">
+            <thead class="bg-gray-100 dark:bg-neutral-700">
             <tr>
             <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Version #</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">File</th>
@@ -103,7 +101,7 @@ export default function Step5({user, research, ethics_docs}) {
             <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
                 { ethics_docs.map((ethics_doc, index) => (
                                   <>
-                                         <tr>
+                                         <tr class="border-b hover:bg-gray-50">
                                          <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">V{index+1}</td>
                                                             <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{ethics_doc.file_name}</td>
                                                             <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(ethics_doc.created_at).format("LLL")}</td>
@@ -144,14 +142,12 @@ export default function Step5({user, research, ethics_docs}) {
         </>
         :
         <>
-       <div class="flex mb-3">
-  <h5 class="text-base-content font-semibold">Note: </h5>&nbsp;
-  <p class="text-[#FF0000] text-xs mt-1">
-   <em> Do not delete/remove previously uploaded documents for version bactracking.</em>
-  </p>
-</div>
+    <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 mt-3 rounded-md">
+        <strong class="font-semibold">Important:</strong> 
+        &nbsp;Please <span class="font-semibold">do not delete or remove any previously uploaded documents</span> as they are crucial for version tracking.
+    </div>
           <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700">
-            <thead class="bg-gray-300 dark:bg-neutral-700">
+            <thead class="bg-gray-100 dark:bg-neutral-700">
             <tr>
             <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Version #</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">File</th>
@@ -162,7 +158,7 @@ export default function Step5({user, research, ethics_docs}) {
             <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
                 { ethics_docs.map((ethics_doc, index) => (
                                   <>
-                                          <tr>
+                                          <tr class="border-b hover:bg-gray-50">
                                           <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">V{index+1}</td>
                                                             <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{ethics_doc.file_name}</td>
                                                             <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(ethics_doc.created_at).format("LLL")}</td>
