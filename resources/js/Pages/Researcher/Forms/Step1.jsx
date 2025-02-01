@@ -9,9 +9,9 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 import FeedbackStep1 from '../Feedback/FeedbackStep1';
 
-export default function Step1({research, files, user, feedbacks_step1, feedbacks_step1_notif}) {
+export default function Step1({research, files, user, feedbacks_step1, feedbacks_step1_notif, turnitin_docs}) {
     const notyf = new Notyf();
-    const { data, setData, post, errors, reset, processing, progress, recentlySuccessful } =
+    const { data, setData, post, delete: destroy, errors, reset, processing, progress, recentlySuccessful } =
     useForm({
       research_id : research.id,
       step1: "",
@@ -28,6 +28,8 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
       step6_url: "",
       step7: "",
       step7_url: "",
+      document_file: "",
+      steps: "turnitin"
     });
 
     const submitFiles = (e) => {
@@ -42,6 +44,19 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
             },
         });
     }
+
+    const submitFilesTurnitin = (e) => {
+      e.preventDefault();
+      post(route('researcher.technical.review.files'), {
+          onSuccess: (page) =>  {
+              notyf.success(page.props.flash.message);
+          },
+          onFinish: () =>  {
+              console.log("Finishing uploading files");
+              reset()
+          },
+      });
+  }
 
     const downloadFile = (file) => {
         fetch(route('researcher.file.download', file.id))
@@ -85,6 +100,15 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
         });
        }
 
+       const deleteFile = (id) => {
+        destroy(route('researcher.delete.doc', id), {
+          preserveScroll: true,
+          onSuccess: (page) =>  notyf.success(page.props.flash.message),
+          onError: () => console.log("Error deleting"),
+          onFinish: () => reset(),
+        });
+      }
+
   return (
     <>
 <nav class="tabs tabs-lifted mt-3 p-2" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
@@ -115,7 +139,10 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
             </div>
             <div>
             <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0">
-              <input class="input mb-3" type="file" onChange={(e) => setData('step1', e.target.files[0])} />
+              <input class="input" type="file" onChange={(e) => setData('step1', e.target.files[0])} />
+              <div className="mb-4 mt-1 text-xs text-gray-500">
+              <p>You can upload PDF, DOC, or DOCX files</p>
+            </div>
               {
                                           (files.doc_frp.file_name) ?
               <ul role="list" class="divide-y text-sm divide-base-content/25 rounded-md border border-base-content/25">
@@ -151,7 +178,10 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
             </div>
             <div>
             <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0 mb-2">
-            <input class="input mb-3" type="file" onChange={(e) => setData('step2', e.target.files[0])} />
+            <input class="input" type="file" onChange={(e) => setData('step2', e.target.files[0])} />
+            <div className="mb-4 mt-1 text-xs text-gray-500">
+              <p>You can upload PDF, DOC, or DOCX files</p>
+            </div>
               {
                                           (files.doc_cp.file_name) ?
               <ul role="list" class="divide-y text-sm divide-base-content/25 rounded-md border border-base-content/25">
@@ -184,7 +214,10 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
             </div>
             <div>
             <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0 mb-2">
-            <input class="input mb-3" type="file" onChange={(e) => setData('step3', e.target.files[0])} />
+            <input class="input" type="file" onChange={(e) => setData('step3', e.target.files[0])} />
+            <div className="mb-4 mt-1 text-xs text-gray-500">
+              <p>You can upload PDF, DOC, or DOCX files</p>
+            </div>
               {
                                           (files.doc_el.file_name) ?
               <ul role="list" class="divide-y text-sm divide-base-content/25 rounded-md border border-base-content/25">
@@ -217,7 +250,10 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
             </div>
             <div>
             <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0 mb-2">
-            <input class="input mb-3" type="file" onChange={(e) => setData('step4', e.target.files[0])} />
+            <input class="input" type="file" onChange={(e) => setData('step4', e.target.files[0])} />
+            <div className="mb-4 mt-1 text-xs text-gray-500">
+              <p>You can upload PDF, DOC, or DOCX files</p>
+            </div>
               {
                                           (files.doc_wpgc.file_name) ?
               <ul role="list" class="divide-y text-sm divide-base-content/25 rounded-md border border-base-content/25">
@@ -250,7 +286,10 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
           </div>
           <div>
           <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0 mb-2">
-          <input class="input mb-3" type="file" onChange={(e) => setData('step5', e.target.files[0])} />
+          <input class="input" type="file" onChange={(e) => setData('step5', e.target.files[0])} />
+          <div className="mb-4 mt-1 text-xs text-gray-500">
+              <p>You can upload PDF, DOC, or DOCX files</p>
+            </div>
               {
                                           (files.doc_brbp.file_name) ?
               <ul role="list" class="divide-y text-sm divide-base-content/25 rounded-md border border-base-content/25">
@@ -283,7 +322,10 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
           </div>
           <div>
           <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0 mb-2">
-          <input class="input mb-3" type="file" onChange={(e) => setData('step6', e.target.files[0])} />
+          <input class="input" type="file" onChange={(e) => setData('step6', e.target.files[0])} />
+          <div className="mb-4 mt-1 text-xs text-gray-500">
+              <p>You can upload PDF, DOC, or DOCX files</p>
+            </div>
               {
                                           (files.doc_vgii.file_name) ?
               <ul role="list" class="divide-y text-sm divide-base-content/25 rounded-md border border-base-content/25">
@@ -316,7 +358,10 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
           </div>
           <div>
           <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0 mb-2">
-          <input class="input mb-3" type="file" onChange={(e) => setData('step7', e.target.files[0])} />
+          <input class="input" type="file" onChange={(e) => setData('step7', e.target.files[0])} />
+          <div className="mb-4 mt-1 text-xs text-gray-500">
+              <p>You can upload PDF, DOC, or DOCX files</p>
+            </div>
               {
                                           (files.doc_cvr.file_name) ?
               <ul role="list" class="divide-y text-sm divide-base-content/25 rounded-md border border-base-content/25">
@@ -454,9 +499,17 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
           
     </div>
     </form>
+
+
+
+    <div class="p-2 mt-5">
+        <h3 class="text-2xl font-semibold text-gray-900">Turnitin Uploading</h3>
+        <p class="text-gray-700 mt-2">Turnitin's CRE (Content Review Engine) helps in detecting potential plagiarism and ensures originality in academic writing. It is widely used by institutions to verify the authenticity of submitted content.</p>
+    </div>
+
       
-    <form>
-          <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mb-3 mt-6">
+    <form onSubmit={submitFilesTurnitin}>
+          <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mb-3">
            
           <div>
             <label class="label label-text" for="firstName">Document File </label>
@@ -490,8 +543,27 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500"></th>
               </tr>
             </thead>
+             <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
+                            { turnitin_docs.map((turnitin_doc, index) => (
+                              <>
+                              <tr class="border-b hover:bg-gray-50">
+                                   <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">V{index+1}</td>
+                                    <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{turnitin_doc.file_name}</td>
+                                    <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(turnitin_doc.created_at).format("LLL")}</td>
+                                    <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
+                                      
+                                      <span class="hover:cursor-pointer" onClick={() => deleteFile(turnitin_doc.id)}>
+                                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z"/></svg>
+                                      </span>
+                                    </td>
+                                </tr>          
+                              </>
+                            ))}
+                          </tbody>
             </table>
-            <div class="bg-white p-6 shadow-lg rounded-lg border border-gray-200">
+            {turnitin_docs.length === 0 ? (
+                       <>
+                        <div class="bg-white p-6 shadow-lg rounded-lg border border-gray-200">
   <div class="flex justify-center items-center">
     <svg class="h-16 w-16 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 4V6H7V4H5v16h14V4h-2z"></path>
@@ -504,6 +576,11 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
     <p class="mt-2 text-gray-500">It seems like the list is empty. Would you like to add new data or try again later?</p>
   </div>
 </div>
+                       </>                 
+                      )
+                        :                               
+                       <></>                       
+                      }
   </div>
 
 

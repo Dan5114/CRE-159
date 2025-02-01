@@ -12,7 +12,7 @@ import Step7 from "../Forms/Step7";
 import Step8 from "../Forms/Step8";
 import Step9 from "../Forms/Step9";
 
-export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, ethics_docs, budget_docs, moa_docs, feedbacks_step1, feedbacks_step1_notif, feedbacks_step3, feedbacks_step3_notif, feedbacks_step4, feedbacks_step4_notif, endorsement_status, tech_doc , urb_approval, progress_report}) {
+export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, ethics_docs, budget_docs, moa_docs, feedbacks_step1, feedbacks_step1_notif, feedbacks_step3, feedbacks_step3_notif, feedbacks_step4, feedbacks_step4_notif, endorsement_status, tech_doc , urb_approval, progress_report, turnitin_docs}) {
 
   const getCurrentIndex = (user.user_type != "tpl" ? 1 : 3);
     
@@ -33,7 +33,7 @@ export default function StepperForm({research, files, user, panels, technical_do
           <h3 class="text-2xl font-semibold text-base-content">Requirements for Application </h3>
           <p class="mt-1 max-w-full text-base-content/80">The requirements for application for research funding under the FRP as follows: </p>
         </div>
-        <Step1 research={research} files={files} user={user} feedbacks_step1={feedbacks_step1} feedbacks_step1_notif={feedbacks_step1_notif}/>
+        <Step1 research={research} files={files} user={user} feedbacks_step1={feedbacks_step1} feedbacks_step1_notif={feedbacks_step1_notif} turnitin_docs={turnitin_docs}/>
       </div>
     </div>
     :

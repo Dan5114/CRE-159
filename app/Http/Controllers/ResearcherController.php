@@ -448,6 +448,7 @@ class ResearcherController extends Controller
 
             $endorsement_status = TplEndorsementPaper::where('research_id', $value->id)->where('steps', '4')->first();
             $tech_doc = ResearchDoc::where('research_id', $value->id)->where('steps', 'tech')->first();
+            $turnitin_docs = ResearchDoc::where('research_id', $value->id)->where('steps', 'turnitin')->get();
             $urb_approval = UrbApproval::where('research_id', $value->id)->where('steps', '7')->first();
 
             $progress_report = CreProgressReportHeader::where('research_id', $value->id)->where('steps', '9')->with('details')->with('details.files')->get();
@@ -463,6 +464,7 @@ class ResearcherController extends Controller
 
             $author = ResearchMember::where('research_id', $value->id)->get();
         }else{
+            $turnitin_docs = null;
             $technical_docs = null;
             $revised_docs = null;
             $ethics_docs = null;
@@ -517,6 +519,7 @@ class ResearcherController extends Controller
             'urb_approval' => $urb_approval,
             'progress_report' => $progress_report,
             'tech_doc' => $tech_doc,
+            'turnitin_docs' => $turnitin_docs,
             'authors' => $author
         ]);
     }
@@ -612,8 +615,23 @@ class ResearcherController extends Controller
 
             $data = [
                 "research_id"  => $request->research_id,
-                "report_date" => $request->report_date,
                 "steps" => $request->t_steps,
+                "file_name"    => $fileName_doc,
+                "file_path"    => $filePath_doc
+            ];
+
+            ResearchDoc::create($data);
+            Storage::disk('public')->put($filePath_doc, file_get_contents($document_file));
+        }
+
+        if ($request->file('document_file') && $request->steps == 'turnitin'){
+            $document_file = $request->file('document_file');
+            $fileName_doc =   $document_file->getClientOriginalName(); 
+            $filePath_doc = 'docs/' . $document_file->getClientOriginalName();
+
+            $data = [
+                "research_id"  => $request->research_id,
+                "steps" => $request->steps,
                 "file_name"    => $fileName_doc,
                 "file_path"    => $filePath_doc
             ];
@@ -734,7 +752,7 @@ class ResearcherController extends Controller
             $file = ResearchDoc::where('id', $id)->first();
             Storage::disk('public')->delete($file->file_path);
             $file->delete();
-
+            
             return redirect()->back()->with('message', 'Successfully deleted');
         } catch (Exception $e) {
             Log::debug($e->getMessage());
