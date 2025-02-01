@@ -103,8 +103,9 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
   </button>
 </nav>
 
-<div class="mt-3">
+<div class="">
   <div id="tabs-lifted-1" role="tabpanel" aria-labelledby="tabs-lifted-item-1">
+  <div class="vertical-scrollbar rounded-scrollbar max-h-screen w-full p-4">
   <form onSubmit={submitFiles}>
       <div class="mt-6 border-t border-base-content/25">
           <div class="grid grid-cols-1 gap-6 md:grid-cols-2 m-3">
@@ -453,6 +454,59 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
           
     </div>
     </form>
+      
+    <form>
+          <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mb-3 mt-6">
+           
+          <div>
+            <label class="label label-text" for="firstName">Document File </label>
+            <input type="file" placeholder="" onChange={(e) => setData('document_file', e.target.files[0])} class="input" id="firstName" />
+            <div className="mb-4 mt-1 text-xs text-gray-500">
+              <p>You can upload PDF, DOC, or DOCX files</p>
+            </div>
+          </div>
+
+            <div class="flex justify-end gap-y-2 mt-7">
+        
+            <button type="submit" class="btn btn-default rounded-full">
+              <span class="icon-[tabler--upload] text-base-content/80 size-6"></span>Upload
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 mt-3 rounded-md">
+        <strong class="font-semibold">Important:</strong> 
+        &nbsp;Please <span class="font-semibold">do not delete or remove any previously uploaded documents</span> as they are crucial for version tracking.
+    </div>
+
+
+    <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700 mt-3">
+            <thead class="bg-gray-100 dark:bg-neutral-700">
+            <tr>
+            <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Version #</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">File</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Date Created</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500"></th>
+              </tr>
+            </thead>
+            </table>
+            <div class="bg-white p-6 shadow-lg rounded-lg border border-gray-200">
+  <div class="flex justify-center items-center">
+    <svg class="h-16 w-16 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 4V6H7V4H5v16h14V4h-2z"></path>
+    </svg>
+  </div>
+  
+  <div class="text-center mt-4">
+    <h3 class="text-xl font-semibold text-gray-800">Oops, no items found!</h3>
+    
+    <p class="mt-2 text-gray-500">It seems like the list is empty. Would you like to add new data or try again later?</p>
+  </div>
+</div>
+  </div>
+
+
   </div>
   <div id="tabs-lifted-2" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-2">
   <div class="vertical-scrollbar rounded-scrollbar max-h-screen w-full p-4">

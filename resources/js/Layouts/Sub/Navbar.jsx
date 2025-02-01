@@ -59,7 +59,7 @@ const Navbar = () => {
 
         <li class="dropdown relative inline-flex [--auto-close:inside] [--offset:9] [--placement:bottom-end] max-sm:[--placement:bottom]">
           <button id="dropdown-end" type="button" class="dropdown-toggle dropdown-open:bg-base-content/10 dropdown-open:text-base-content max-sm:px-2" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
-            Rero
+            Reports
             <span class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"></span>
           </button>
           <ul class="dropdown-menu dropdown-open:opacity-100 hidden" role="menu" aria-orientation="vertical" aria-labelledby="nested-dropdown">

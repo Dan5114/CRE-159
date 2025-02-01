@@ -134,6 +134,9 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
           <div>
             <label class="label label-text" for="firstName">Document File </label>
             <input type="file" placeholder="" onChange={(e) => setData('document_file', e.target.files[0])} class="input" id="firstName" />
+            <div className="mb-4 mt-1 text-xs text-gray-500">
+              <p>You can upload PDF, DOC, or DOCX files</p>
+            </div>
           </div>
 
             <div class="flex justify-end gap-y-2 mt-7">
@@ -472,6 +475,9 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
           <div>
             <label class="label label-text" for="firstName">Document File </label>
             <input type="file" placeholder="" onChange={(e) => setData('tech_file', e.target.files[0])} class="input" id="firstName" />
+            <div className="mb-4 mt-1 text-xs text-gray-500">
+              <p>You can upload PDF, DOC, or DOCX files</p>
+            </div>
           </div>
 
             <div class="flex justify-end gap-y-2 mt-7">

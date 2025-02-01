@@ -50,6 +50,27 @@ export default function Step9({user, research, progress_report}) {
         });
     }
 
+    const downloadFile = (file) => {
+      fetch(route('researcher.file.download', file.id))
+       .then((response) => response.blob())
+       .then((blob) => {
+         const url = window.URL.createObjectURL(new Blob([blob]));
+         const link = document.createElement("a");
+         link.href = url;
+         link.download = file.file_name || "downloaded-file";
+         document.body.appendChild(link);
+ 
+         link.click();
+ 
+         document.body.removeChild(link);
+         window.URL.revokeObjectURL(url);
+       })
+       .catch((error) => {
+         console.error("Error fetching the file:", error);
+       });
+  }
+
+
   return (
     <>
       {
@@ -102,19 +123,53 @@ export default function Step9({user, research, progress_report}) {
                 </div>
                 </div>
 
-                { report.details.map((report_detail, indexes) => (
-                   <div id="listings-1" class="mt-6 space-y-4">
+{ report.details.map((report_detail, indexes) => (
+                   <div id="listings-1" class="mt-2 space-y-4">
                    <div class="border-l-4 border-green-400 pl-4 py-3 bg-white rounded-md shadow-md p-3">
                        <div class="flex items-center justify-between">
                            <h4 class="font-semibold text-gray-800">{(report_detail.type == "1") ? "Progress Report" : "Liquidation Report"} </h4>
-                           <span class="text-sm text-gray-500">
-                            {dayjs(report_detail.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(report_detail.created_at), true)} ago</time>)
-                           </span>
+                           <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(report_detail.files.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(report_detail.files.created_at), true)} ago</time>)</span>
                        </div>
-                       <p class="text-gray-600">{report_detail.files.file_name}</p>
+                       <ul role="list" class="divide-y mt-2 text-sm divide-base-content/25 rounded-md border border-base-content/25">
+                                     <li class="flex items-center justify-between py-2 ps-2 pe-2">
+                                         <div class="flex w-0 flex-1 items-center">
+                                           <span class="icon-[tabler--paperclip] size-5 flex-shrink-0"></span>
+                                           <div class="ms-4 flex min-w-0 flex-1 gap-2">
+                                             <span class="truncate font-medium">{report_detail.files.file_name}</span>
+                                            
+                                           </div>
+                                         </div>
+                                         <div class="ms-4 flex-shrink-0">
+                                         <a href="#" onClick={() => downloadFile(report_detail.files)} class="link link-primary">
+                                           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg>
+                                           </a>
+                                         </div>
+                                       </li>
+                                     </ul>
                    </div>
                </div>
                 ))}
+
+{report.details.length === 0 ? (
+                       <>
+                        <div class="bg-white p-6 mt-3 shadow-lg rounded-lg border border-gray-200">
+  <div class="flex justify-center items-center">
+    <svg class="h-16 w-16 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 4V6H7V4H5v16h14V4h-2z"></path>
+    </svg>
+  </div>
+  
+  <div class="text-center mt-4">
+    <h3 class="text-xl font-semibold text-gray-800">Oops, no items found!</h3>
+    
+    <p class="mt-2 text-gray-500">It seems like the list is empty. Would you like to add new data or try again later?</p>
+  </div>
+</div>
+                       </>                 
+                      )
+                        :                               
+                       <></>                       
+                      }
 
             </div>
         ))}
@@ -169,6 +224,9 @@ export default function Step9({user, research, progress_report}) {
             <input type="file" placeholder="" onChange={(e) => {
                 setState(report.id);
                 setData('document_file', e.target.files[0]);}} class="input" id="firstName" />
+                 <div className="mb-4 mt-1 text-xs text-gray-500">
+              <p>You can upload PDF, DOC, or DOCX files</p>
+            </div>
           </div>
 
           <div class="flex justify-end gap-y-2 mt-7">
@@ -183,18 +241,52 @@ export default function Step9({user, research, progress_report}) {
 
 
         { report.details.map((report_detail, indexes) => (
-                   <div id="listings-1" class="mt-6 space-y-4">
+                   <div id="listings-1" class="mt-2 space-y-4">
                    <div class="border-l-4 border-green-400 pl-4 py-3 bg-white rounded-md shadow-md p-3">
                        <div class="flex items-center justify-between">
                            <h4 class="font-semibold text-gray-800">{(report_detail.type == "1") ? "Progress Report" : "Liquidation Report"} </h4>
-                           <span class="text-sm text-gray-500">
-                            {dayjs(report_detail.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(report_detail.created_at), true)} ago</time>)
-                           </span>
+                           <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(report_detail.files.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(report_detail.files.created_at), true)} ago</time>)</span>
                        </div>
-                       <p class="text-gray-600">{report_detail.files.file_name}</p>
+                       <ul role="list" class="divide-y mt-2 text-sm divide-base-content/25 rounded-md border border-base-content/25">
+                                     <li class="flex items-center justify-between py-2 ps-2 pe-2">
+                                         <div class="flex w-0 flex-1 items-center">
+                                           <span class="icon-[tabler--paperclip] size-5 flex-shrink-0"></span>
+                                           <div class="ms-4 flex min-w-0 flex-1 gap-2">
+                                             <span class="truncate font-medium">{report_detail.files.file_name}</span>
+                                            
+                                           </div>
+                                         </div>
+                                         <div class="ms-4 flex-shrink-0">
+                                         {/* Delete */}
+                                         </div>
+                                       </li>
+                                     </ul>
                    </div>
                </div>
                 ))}
+
+
+{report.details.length === 0 ? (
+                       <>
+                        <div class="bg-white p-6 shadow-lg rounded-lg border border-gray-200">
+  <div class="flex justify-center items-center">
+    <svg class="h-16 w-16 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 4V6H7V4H5v16h14V4h-2z"></path>
+    </svg>
+  </div>
+  
+  <div class="text-center mt-4">
+    <h3 class="text-xl font-semibold text-gray-800">Oops, no items found!</h3>
+    
+    <p class="mt-2 text-gray-500">It seems like the list is empty. Would you like to add new data or try again later?</p>
+  </div>
+</div>
+                       </>                 
+                      )
+                        :                               
+                       <></>                       
+                      }
+
                 </div>
             ))}
        
