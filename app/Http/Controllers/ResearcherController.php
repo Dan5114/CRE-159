@@ -459,7 +459,13 @@ class ResearcherController extends Controller
             $step_status = [
                 "step1" => $this->getStepStatus($value->id, "1"),
                 "step2" => $this->getStepStatus($value->id, "2"),
-                "step3" => $this->getStepStatus($value->id, "3")
+                "step3" => $this->getStepStatus($value->id, "3"),
+                "step4" => $this->getStepStatus($value->id, "4"),
+                "step5" => $this->getStepStatus($value->id, "5"),
+                "step6" => $this->getStepStatus($value->id, "6"),
+                "step7" => $this->getStepStatus($value->id, "7"),
+                "step8" => $this->getStepStatus($value->id, "8"),
+                "step9" => $this->getStepStatus($value->id, "9")
             ];
 
             $author = ResearchMember::where('research_id', $value->id)->get();
@@ -573,6 +579,11 @@ class ResearcherController extends Controller
         ];
 
         UrbApproval::create($data);
+
+        $current = Carbon::now();
+        $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "7")->first();
+        CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Completed"]);
+        $this->cre_application_status($request->research_id, "8", "MOA Signing", $current, $end = null, "On Process");
         return redirect()->back()->with('message', 'Success');
     }
 
@@ -586,6 +597,10 @@ class ResearcherController extends Controller
         ];
 
         UrbApproval::create($data);
+        $current = Carbon::now();
+        $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "7")->first();
+        CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Completed"]);
+        $this->cre_application_status($request->research_id, "8", "MOA Signing", $current, $end = null, "On Process");
         return redirect()->back()->with('message', 'Success');
     }
 
@@ -606,6 +621,11 @@ class ResearcherController extends Controller
 
             ResearchDoc::create($data);
             Storage::disk('public')->put($filePath_doc, file_get_contents($document_file));
+
+            $current = Carbon::now();
+            $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "3")->first();
+            CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Completed"]);
+            $this->cre_application_status($request->research_id, "4", "Approval of Revised Docs", $current, $end = null, "On Process");
         }
 
         if ($request->file('tech_file') && $request->t_steps == 'tech'){
@@ -654,6 +674,11 @@ class ResearcherController extends Controller
 
             ResearchDoc::create($data);
             Storage::disk('public')->put($filePath_doc, file_get_contents($document_file));
+
+            $current = Carbon::now();
+            $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "4")->first();
+            CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Completed"]);
+            $this->cre_application_status($request->research_id, "5", "Ethics Clearance", $current, $end = null, "On Process");
         }
 
         if ($request->file('document_file') && $request->steps == '5'){
@@ -670,6 +695,11 @@ class ResearcherController extends Controller
 
             ResearchDoc::create($data);
             Storage::disk('public')->put($filePath_doc, file_get_contents($document_file));
+
+            $current = Carbon::now();
+            $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "5")->first();
+            CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Completed"]);
+            $this->cre_application_status($request->research_id, "6", "Budget Proposal", $current, $end = null, "On Process");
         }
 
         if ($request->file('document_file') && $request->steps == '6'){
@@ -686,6 +716,10 @@ class ResearcherController extends Controller
 
             ResearchDoc::create($data);
             Storage::disk('public')->put($filePath_doc, file_get_contents($document_file));
+            $current = Carbon::now();
+            $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "6")->first();
+            CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Completed"]);
+            $this->cre_application_status($request->research_id, "7", "URB Approval", $current, $end = null, "On Process");
         }
 
         if ($request->file('document_file') && $request->steps == '8'){
@@ -702,6 +736,11 @@ class ResearcherController extends Controller
 
             ResearchDoc::create($data);
             Storage::disk('public')->put($filePath_doc, file_get_contents($document_file));
+
+            $current = Carbon::now();
+            $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "8")->first();
+            CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Completed"]);
+            $this->cre_application_status($request->research_id, "9", "Progress Report", $current, $end = null, "On Process");
         }
 
         return redirect()->back()->with('message', 'Successfully uploaded');
@@ -742,8 +781,12 @@ class ResearcherController extends Controller
 
     public function delete_panel(string $id)
     {
-       CrePanelMember::where('id', $id)->delete();
-       return redirect()->back()->with('message', 'Successfully Deleted');
+        try {
+            CrePanelMember::where('id', $id)->delete();
+            return redirect()->back()->with('message', 'Successfully Deleted');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
     }
 
     public function delete_doc(string $id)

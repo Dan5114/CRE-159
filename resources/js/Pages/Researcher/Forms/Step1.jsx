@@ -537,7 +537,8 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
     <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700 mt-3">
             <thead class="bg-gray-100 dark:bg-neutral-700">
             <tr>
-            <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Version #</th>
+                <th></th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Version #</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">File</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Date Created</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500"></th>
@@ -547,6 +548,12 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
                             { turnitin_docs.map((turnitin_doc, index) => (
                               <>
                               <tr class="border-b hover:bg-gray-50">
+                                  <td>
+                                  <div class="flex items-center">
+  <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" id="checkboxExtraSmall" />
+  <label class="label label-text text-sm" for="checkboxExtraSmall"> Turnitin </label>
+</div>
+                                  </td>
                                    <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">V{index+1}</td>
                                     <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{turnitin_doc.file_name}</td>
                                     <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(turnitin_doc.created_at).format("LLL")}</td>
