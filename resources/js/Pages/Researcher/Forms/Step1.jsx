@@ -9,7 +9,7 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 import FeedbackStep1 from '../Feedback/FeedbackStep1';
 
-export default function Step1({research, files, user, feedbacks_step1, feedbacks_step1_notif, turnitin_docs}) {
+export default function Step1({research, files, user, feedbacks_step1, feedbacks_step1_notif, revisions_docs}) {
     const notyf = new Notyf();
     const { data, setData, post, delete: destroy, errors, reset, processing, progress, recentlySuccessful } =
     useForm({
@@ -29,7 +29,7 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
       step7: "",
       step7_url: "",
       document_file: "",
-      steps: "turnitin"
+      steps: "revisions"
     });
 
     const submitFiles = (e) => {
@@ -45,7 +45,7 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
         });
     }
 
-    const submitFilesTurnitin = (e) => {
+    const submitFilesRevisions = (e) => {
       e.preventDefault();
       post(route('researcher.technical.review.files'), {
           onSuccess: (page) =>  {
@@ -502,14 +502,14 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
 
 
 
-    <div class="p-2 mt-5">
+    {/* <div class="p-2 mt-5">
         <h3 class="text-2xl font-semibold text-gray-900">Turnitin Uploading</h3>
         <p class="text-gray-700 mt-2">Turnitin's CRE (Content Review Engine) helps in detecting potential plagiarism and ensures originality in academic writing. It is widely used by institutions to verify the authenticity of submitted content.</p>
-    </div>
+    </div> */}
 
       
-    <form onSubmit={submitFilesTurnitin}>
-          <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mb-3">
+    <form onSubmit={submitFilesRevisions}>
+          <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mb-3 mt-6">
            
           <div>
             <label class="label label-text" for="firstName">Document File </label>
@@ -537,7 +537,7 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
     <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700 mt-3">
             <thead class="bg-gray-100 dark:bg-neutral-700">
             <tr>
-                <th></th>
+                {/* <th></th> */}
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Version #</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">File</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Date Created</th>
@@ -545,21 +545,21 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
               </tr>
             </thead>
              <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-                            { turnitin_docs.map((turnitin_doc, index) => (
+                            { revisions_docs.map((revisions_doc, index) => (
                               <>
                               <tr class="border-b hover:bg-gray-50">
-                                  <td>
+                                  {/* <td>
                                   <div class="flex items-center">
   <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" id="checkboxExtraSmall" />
   <label class="label label-text text-sm" for="checkboxExtraSmall"> Turnitin </label>
 </div>
-                                  </td>
+                                  </td> */}
                                    <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">V{index+1}</td>
-                                    <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{turnitin_doc.file_name}</td>
-                                    <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(turnitin_doc.created_at).format("LLL")}</td>
+                                    <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{revisions_doc.file_name}</td>
+                                    <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(revisions_doc.created_at).format("LLL")}</td>
                                     <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
                                       
-                                      <span class="hover:cursor-pointer" onClick={() => deleteFile(turnitin_doc.id)}>
+                                      <span class="hover:cursor-pointer" onClick={() => deleteFile(revisions_doc.id)}>
                                       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z"/></svg>
                                       </span>
                                     </td>
@@ -568,7 +568,7 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
                             ))}
                           </tbody>
             </table>
-            {turnitin_docs.length === 0 ? (
+            {revisions_docs.length === 0 ? (
                        <>
                         <div class="bg-white p-6 shadow-lg rounded-lg border border-gray-200">
   <div class="flex justify-center items-center">

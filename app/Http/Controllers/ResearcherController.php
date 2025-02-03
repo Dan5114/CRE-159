@@ -159,6 +159,11 @@ class ResearcherController extends Controller
     
                 $doc = ResearchDoc::create($data);
                 Storage::disk('public')->put($filePath_doc, file_get_contents($document_file));
+
+                $current = Carbon::now();
+                $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "9")->first();
+                CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Completed"]);
+                $this->cre_application_status($request->research_id, "turnitin", "Turnitin", $current, $end = null, "On Process");
             }
     
             $progressdata = [
@@ -448,13 +453,11 @@ class ResearcherController extends Controller
 
             $endorsement_status = TplEndorsementPaper::where('research_id', $value->id)->where('steps', '4')->first();
             $tech_doc = ResearchDoc::where('research_id', $value->id)->where('steps', 'tech')->first();
+            $revisions_docs = ResearchDoc::where('research_id', $value->id)->where('steps', 'revisions')->get();
             $turnitin_docs = ResearchDoc::where('research_id', $value->id)->where('steps', 'turnitin')->get();
             $urb_approval = UrbApproval::where('research_id', $value->id)->where('steps', '7')->first();
 
             $progress_report = CreProgressReportHeader::where('research_id', $value->id)->where('steps', '9')->with('details')->with('details.files')->get();
-
-            // dd($progress_report);
-
             
             $step_status = [
                 "step1" => $this->getStepStatus($value->id, "1"),
@@ -465,11 +468,13 @@ class ResearcherController extends Controller
                 "step6" => $this->getStepStatus($value->id, "6"),
                 "step7" => $this->getStepStatus($value->id, "7"),
                 "step8" => $this->getStepStatus($value->id, "8"),
-                "step9" => $this->getStepStatus($value->id, "9")
+                "step9" => $this->getStepStatus($value->id, "9"),
+                "step10" => $this->getStepStatus($value->id, "10")
             ];
 
             $author = ResearchMember::where('research_id', $value->id)->get();
         }else{
+            $revisions_docs = null;
             $turnitin_docs = null;
             $technical_docs = null;
             $revised_docs = null;
@@ -525,6 +530,7 @@ class ResearcherController extends Controller
             'urb_approval' => $urb_approval,
             'progress_report' => $progress_report,
             'tech_doc' => $tech_doc,
+            'revisions_docs' => $revisions_docs,
             'turnitin_docs' => $turnitin_docs,
             'authors' => $author
         ]);
@@ -645,6 +651,22 @@ class ResearcherController extends Controller
         }
 
         if ($request->file('document_file') && $request->steps == 'turnitin'){
+            $document_file = $request->file('document_file');
+            $fileName_doc =   $document_file->getClientOriginalName(); 
+            $filePath_doc = 'docs/' . $document_file->getClientOriginalName();
+
+            $data = [
+                "research_id"  => $request->research_id,
+                "steps" => $request->steps,
+                "file_name"    => $fileName_doc,
+                "file_path"    => $filePath_doc
+            ];
+
+            ResearchDoc::create($data);
+            Storage::disk('public')->put($filePath_doc, file_get_contents($document_file));
+        }
+
+        if ($request->file('document_file') && $request->steps == 'revisions'){
             $document_file = $request->file('document_file');
             $fileName_doc =   $document_file->getClientOriginalName(); 
             $filePath_doc = 'docs/' . $document_file->getClientOriginalName();

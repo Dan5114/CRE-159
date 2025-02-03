@@ -15,6 +15,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
   const status_step7 = step_status.step7;
   const status_step8 = step_status.step8;
   const status_step9 = step_status.step9;
+  const status_step10 = step_status.step10;
 
      return (
         <>
@@ -333,7 +334,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
              <p class="font-bold font-serif italic">Budget Proposal</p>
              <div class="text-sm">
              <div class="text-xs flex items-center gap-1.5 mb-3">Status :
-             {(status_step6 ? 
+  {(status_step6 ? 
     <>
      {
         (status_step6.status == "Completed") ?
@@ -546,6 +547,68 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
  </div>
  <div class="text-xs flex items-center gap-1.5">End Date :
  &nbsp; {(status_step9) ? status_step9.end : ""}
+ </div>
+             </div>
+             </div>
+    </div>
+      
+    </div>
+    <div class="bg-neutral/20 ms-3.5 mt-2 h-full w-px justify-self-start group-last:hidden"></div>
+  </li>
+    </>
+    :
+    <></>
+  }
+
+{
+    (user.user_type != "tpl") ?
+    <>
+
+  <hr />
+  <li class="group flex flex-1 shrink basis-0 flex-col" data-stepper-nav-item='{ "index": 10 }'>
+    <div class="flex items-center rounded text-sm">
+    <span class="min-h-7.5 min-w-7.5 group inline-flex items-center align-middle text-sm">
+            <span class={(status_step10 && status_step10.status == "Completed") ? "stepper-active:bg-primary stepper-active:text-primary-content stepper-success bg-success stepper-active:shadow stepper-success:shadow stepper-success:text-primary-content stepper-error:bg-error stepper-error:text-error-content stepper-completed:bg-success stepper-completed:group-focus:bg-success size-7.5 bg-neutral/20 text-base-content/90 group-focus:bg-base-content/20 flex flex-shrink-0 items-center justify-center rounded-full font-medium" : "stepper-active:bg-primary stepper-active:text-primary-content stepper-success:bg-success stepper-active:shadow stepper-success:shadow stepper-success:text-primary-content stepper-error:bg-error stepper-error:text-error-content stepper-completed:bg-success stepper-completed:group-focus:bg-success size-7.5 bg-neutral/20 text-base-content/90 group-focus:bg-base-content/20 flex flex-shrink-0 items-center justify-center rounded-full font-medium"} >
+            <span class="stepper-success:hidden stepper-completed:hidden">{(status_step10 && status_step10.status == "Completed") ? "" : "10"}</span>
+            <span class={(status_step10 && status_step10.status == "Completed") ? 'icon-[tabler--check] stepper-success:block  size-4 flex-shrink-0' : 'icon-[tabler--check] stepper-success:block hidden size-5 flex-shrink-0'}></span>
+            </span>
+            <span class="text-base-content/90 ms-2 max-sm:hidden">Step 10</span>
+            
+          </span>
+
+      <div class="ml-6">
+       
+       <div class="text-sm">
+             <p class="font-bold font-serif italic">Turnitin</p>
+             <div class="text-sm">
+             <div class="text-xs flex items-center gap-1.5 mb-3">Status :
+             {(status_step10 ? 
+    <>
+     {
+        (status_step10.status == "Completed") ?
+        <>
+            <span class="badge badge-success size-2 p-0"></span>
+            {status_step10.status} 
+        </>
+        :
+        <>
+          <span class="badge badge-info size-2 p-0"></span>
+          {status_step10.status} 
+        </>
+      }
+    </>
+    : 
+    <>
+    <span class="badge badge-warning size-2 p-0"></span>
+    Pending
+    </>
+    )}
+ </div>
+ <div class="text-xs flex items-center gap-1.5">Start Date :
+ &nbsp; {(status_step10) ? status_step10.start : ""}
+ </div>
+ <div class="text-xs flex items-center gap-1.5">End Date :
+ &nbsp; {(status_step10) ? status_step10.end : ""}
  </div>
              </div>
              </div>

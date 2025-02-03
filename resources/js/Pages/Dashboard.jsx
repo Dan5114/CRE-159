@@ -30,85 +30,63 @@ export default function Dashboard() {
             <Head title="Dashboard" />
 
             <div className="py-2">
-            <div class="max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-8">
-      <h2 class="text-3xl font-semibold text-gray-800">Research Proposals Dashboard</h2>
-      <p class="mt-2 text-gray-500">Manage and track the status of research proposals.</p>
-    </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      
-      <div class="bg-white p-6 text-xs shadow-lg rounded-lg border-l-4 border-blue-500">
-        <div class="flex items-center">
-          <svg class="h-8 w-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 0l2-2m-2 2l-2-2m-5 8h14a2 2 0 002-2v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2z"></path>
-          </svg>
-          <div class="ml-4">
-            <h3 class="text-xl font-semibold text-gray-800">Pending Proposals</h3>
-            <p class="text-gray-500">Proposals awaiting review and approval.</p>
-          </div>
-        </div>
-        <div class="mt-4 text-center">
-          <h4 class="text-3xl font-bold text-blue-600">12</h4>
-          <p class="text-gray-500">Pending</p>
-        </div>
-      </div>
-
-      <div class="bg-white p-6 text-xs shadow-lg rounded-lg border-l-4 border-green-500">
-        <div class="flex items-center">
-          <svg class="h-8 w-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-          </svg>
-          <div class="ml-4">
-            <h3 class="text-xl font-semibold text-gray-800">Approved Proposals</h3>
-            <p class="text-gray-500">Proposals that have been approved.</p>
-          </div>
-        </div>
-        <div class="mt-4 text-center">
-          <h4 class="text-3xl font-bold text-green-600">25</h4>
-          <p class="text-gray-500">Approved</p>
-        </div>
-      </div>
-
-      <div class="bg-white p-6 text-xs shadow-lg rounded-lg border-l-4 border-red-500">
-        <div class="flex items-center">
-          <svg class="h-8 w-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"></path>
-          </svg>
-          <div class="ml-4">
-            <h3 class="text-xl font-semibold text-gray-800">Rejected Proposals</h3>
-            <p class="text-gray-500">Proposals that have been rejected.</p>
-          </div>
-        </div>
-        <div class="mt-4 text-center">
-          <h4 class="text-3xl font-bold text-red-600">5</h4>
-          <p class="text-gray-500">Rejected</p>
-        </div>
-      </div>
-
-      <div class="bg-white p-6 text-xs shadow-lg rounded-lg border-l-4 border-yellow-500">
-        <div class="flex items-center">
-          <svg class="h-8 w-8 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v20m-8-8h16"></path>
-          </svg>
-          <div class="ml-4">
-            <h3 class="text-xl font-semibold text-gray-800">Ongoing Reviews</h3>
-            <p class="text-gray-500">Proposals that are currently under review.</p>
-          </div>
-        </div>
-        <div class="mt-4 text-center">
-          <h4 class="text-3xl font-bold text-yellow-600">8</h4>
-          <p class="text-gray-500">Ongoing</p>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      
+            <div class="max-w-7xl mx-auto py-2 px-2 sm:px-6 lg:px-8">
    
+            <div class="p-6 bg-gray-100 min-h-screen">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+      
+      <div class="space-y-6">
+        <div class="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">Total Research Papers</h3>
+          <div class="text-3xl font-bold text-gray-800">1,250</div>
+          <div class="mt-4 flex items-center">
+            <span class="text-sm text-green-500">+15%</span>
+            <span class="ml-2 text-sm text-gray-500">Since last month</span>
+          </div>
+        </div>
 
-    </div>    
+        <div class="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">Average Citations</h3>
+          <div class="text-3xl font-bold text-gray-800">35</div>
+          <div class="mt-4 flex items-center">
+            <span class="text-sm text-blue-500">+10%</span>
+            <span class="ml-2 text-sm text-gray-500">Since last year</span>
+          </div>
+        </div>
+
+        <div class="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">New Papers This Month</h3>
+          <div class="text-3xl font-bold text-gray-800">45</div>
+          <div class="mt-4 flex items-center">
+            <span class="text-sm text-yellow-500">+5%</span>
+            <span class="ml-2 text-sm text-gray-500">Compared to last month</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <div class="bg-white shadow-lg rounded-lg p-6">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">Recent Research</h3>
+          <ul class="space-y-2">
+            <li class="p-2 bg-gray-50 rounded-md flex justify-between items-center">
+              <span class="text-sm text-gray-600">Research Paper 1</span>
+              <span class="text-sm text-gray-400">12/04/2025</span>
+            </li>
+            <li class="p-2 bg-gray-50 rounded-md flex justify-between items-center">
+              <span class="text-sm text-gray-600">Research Paper 2</span>
+              <span class="text-sm text-gray-400">11/23/2025</span>
+            </li>
+          </ul>
+          <button class="text-blue-600 hover:underline text-sm mt-4">View More</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
     
     {/* <main class="container mx-auto p-6 space-y-8">
            

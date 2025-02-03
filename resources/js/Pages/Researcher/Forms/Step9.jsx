@@ -89,24 +89,23 @@ export default function Step9({user, research, progress_report}) {
         <div class="flex items-start">
         
           <div class="flex-shrink-0">
-            <svg class="h-6 w-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m6-6H6"></path>
-            </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="currentColor" d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
           </div>
           <div class="ml-4">
             <h3 class="text-xl font-semibold text-gray-800">Set Progress Report Schedule</h3>
            
             
             <form onSubmit={submitFiles}>
-            <div class="mt-6">
+            <div class="mt-6 flex space-x-3">
               <label for="followup-date" class="block text-sm font-medium text-gray-700">Scheduled Date</label>
-              <input type="date" id="followup-date" onChange={(e) => setData('date_scheduled', e.target.value)} name="followup-date" class="mt-1 block w-60 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+              <input type="date" id="followup-date" onChange={(e) => setData('date_scheduled', e.target.value)} name="followup-date" class="block w-60 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+              <button type="submit" class="btn text-sm text-white bg-green-600 hover:bg-green-700 rounded-md shadow-md focus:outline-none">
+                Scheduled
+              </button>
             </div>
 
             <div class="mt-6 flex space-x-1">
-              <button type="submit" class="inline-flex items-center btn btn-sm text-xs text-white bg-green-600 hover:bg-green-700 rounded-md shadow-md focus:outline-none">
-                Scheduled
-              </button>
+             
 
             </div>
             </form>
