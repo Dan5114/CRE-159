@@ -73,7 +73,9 @@ export default function Step6({user, research, budget_docs}) {
 
         <div class="mb-4">
         <h1 class="text-3xl font-bold text-gray-900">Budget Proposal</h1>
-        <p class="mt-2 text-gray-600 text-sm">See details below</p>
+        <p class="text-gray-600 mt-3">
+        A detailed breakdown of the projected costs and funding required for the proposed research project.
+      </p>
     </div>
 
 
@@ -158,7 +160,9 @@ export default function Step6({user, research, budget_docs}) {
 
           <div class="mb-4">
         <h1 class="text-3xl font-bold text-gray-900">Budget Proposal</h1>
-        <p class="mt-2 text-gray-600 text-sm">See details below</p>
+        <p class="text-gray-600 mt-3">
+        A detailed breakdown of the projected costs and funding required for the proposed research project.
+      </p>
     </div>
 
         <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 mt-3 rounded-md">

@@ -82,7 +82,7 @@ export default function Step9({user, research, progress_report}) {
   
             <div class="mb-4">
                 <h1 class="text-3xl font-bold text-gray-900">Schedule Progress Report</h1>
-                <p class="mt-2 text-gray-600 text-sm">See details below</p>
+                <p class="text-gray-500 mt-2">An overview of the ongoing research and key progress milestones.</p>
             </div>
 
             <div class="bg-blue-50 border-l-4 border-blue-500 p-6 shadow-md rounded-lg">
@@ -213,7 +213,7 @@ export default function Step9({user, research, progress_report}) {
   
             <div class="mb-4">
                 <h1 class="text-3xl font-bold text-gray-900">Progress Report</h1>
-                <p class="mt-2 text-gray-600 text-sm">See details below</p>
+                <p class="text-gray-500 mt-2">An overview of the ongoing research and key progress milestones.</p>
             </div>
 
             <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 mt-3 rounded-md">

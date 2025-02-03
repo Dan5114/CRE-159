@@ -32,8 +32,10 @@ export default function StepperForm({research, files, user, panels, technical_do
       <div data-stepper-content-item='{ "index": 1 }' class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
       <div>
         <div class="px-4 sm:px-0">
-          <h3 class="text-2xl font-semibold text-base-content">Requirements for Application </h3>
-          <p class="mt-1 max-w-full text-base-content/80">The requirements for application for research funding under the FRP as follows: </p>
+        <h1 class="text-3xl font-bold text-gray-900">Requirements for Application</h1>
+        <p class="text-gray-600 mt-3">
+        The requirements for application for research funding under the FRP as follows:
+      </p>
         </div>
         <Step1 research={research} files={files} user={user} feedbacks_step1={feedbacks_step1} feedbacks_step1_notif={feedbacks_step1_notif} revisions_docs={revisions_docs}/>
       </div>
@@ -61,7 +63,9 @@ export default function StepperForm({research, files, user, panels, technical_do
     
         <div class="mb-4">
         <h1 class="text-3xl font-bold text-gray-900">Technical Review Report</h1>
-        <p class="mt-2 text-gray-600 text-sm">Fill up fields to upload document</p>
+        <p class="text-gray-600 mt-3">
+        A detailed analysis of the technical aspects of the project, including design, implementation, and quality assurance.
+      </p>
     </div>
         <Step3 user={user} research={research} technical_docs={technical_docs} feedbacks_step3={feedbacks_step3} feedbacks_step3_notif={feedbacks_step3_notif}/>
      </div>
@@ -71,7 +75,9 @@ export default function StepperForm({research, files, user, panels, technical_do
       <div>
       <div class="mb-4">
         <h1 class="text-3xl font-bold text-gray-900">Uploading Revised Documents</h1>
-        <p class="mt-2 text-gray-600 text-sm">Fill up fields to upload document</p>
+        <p class="text-gray-600 mt-3">
+        Formal approval for the revised versions of documents, ensuring they meet all required standards and revisions.
+      </p>
     </div>
         <Step4 user={user} research={research} revised_docs={revised_docs}  feedbacks_step4={feedbacks_step4} feedbacks_step4_notif={feedbacks_step4_notif} endorsement_status={endorsement_status} tech_doc={tech_doc}/>
      </div>
@@ -83,7 +89,9 @@ export default function StepperForm({research, files, user, panels, technical_do
      <div>
         <div class="mb-4">
         <h1 class="text-3xl font-bold text-gray-900">Ethics Clearance</h1>
-        <p class="mt-2 text-gray-600 text-sm">See details below</p>
+        <p class="text-gray-600 mt-3">
+        Approval to conduct research in accordance with ethical guidelines, ensuring the protection of participants and integrity of the study.
+      </p>
     </div>
         <Step5 user={user} research={research} ethics_docs={ethics_docs}/>
      </div>

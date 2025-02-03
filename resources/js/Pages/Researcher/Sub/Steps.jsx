@@ -56,10 +56,10 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
                 )}
             </div>
             <div class="text-xs flex items-center gap-1.5">Start Date :
-            &nbsp; {(status_step1) ? status_step1.start : ""}
+            &nbsp; {(status_step1) ? dayjs(status_step1.start).format("LLL") : ""}
             </div>
             <div class="text-xs flex items-center gap-1.5">End Date :
-            &nbsp; {(status_step1) ? status_step1.end : ""}
+            &nbsp; {(status_step1) ? dayjs(status_step1.end).format("LLL") : ""}
             </div>
                         </div>
                         </div>
@@ -110,10 +110,10 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
        
      </div>
      <div class="text-xs flex items-center gap-1.5">Start Date :
-     &nbsp; {(status_step2) ? status_step2.start : ""}
+     &nbsp; {(status_step2) ? dayjs(status_step2.start).format("LLL") : ""}
      </div>
      <div class="text-xs flex items-center gap-1.5">End Date :
-     &nbsp; {(status_step2) ? status_step2.end : ""}
+     &nbsp; {(status_step2) ? dayjs(status_step2.end).format("LLL") : ""}
      </div>
                  </div>
                  </div>
@@ -171,10 +171,10 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
    
  </div>
  <div class="text-xs flex items-center gap-1.5">Start Date :
- &nbsp; {(status_step3) ? status_step3.start : ""}
+ &nbsp; {(status_step3) ? dayjs(status_step3.start).format("LLL") : ""}
  </div>
  <div class="text-xs flex items-center gap-1.5">End Date :
- &nbsp; {(status_step3) ? status_step3.end : ""}
+ &nbsp; {(status_step3) ? dayjs(status_step3.end).format("LLL") : ""}
  </div>
              </div>
              </div>
@@ -236,10 +236,10 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
  </div>
  </div>
  <div class="text-xs flex items-center gap-1.5">Start Date :
- &nbsp; {(status_step4) ? status_step4.start : ""}
+ &nbsp; {(status_step4) ? dayjs(status_step4.start).format("LLL") : ""}
  </div>
  <div class="text-xs flex items-center gap-1.5">End Date :
- &nbsp; {(status_step4) ? status_step4.end : ""}
+ &nbsp; {(status_step4) ? dayjs(status_step4.end).format("LLL") : ""}
  </div>
 
 
@@ -295,10 +295,10 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
     )}
    </div>
    <div class="text-xs flex items-center gap-1.5">Start Date :
- &nbsp; {(status_step5) ? status_step5.start : ""}
+ &nbsp; {(status_step5) ? dayjs(status_step5.start).format("LLL") : ""}
  </div>
  <div class="text-xs flex items-center gap-1.5">End Date :
- &nbsp; {(status_step5) ? status_step5.end : ""}
+ &nbsp; {(status_step5) ? dayjs(status_step5.end).format("LLL") : ""}
  </div>
                </div>
                </div>
@@ -357,10 +357,10 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
     )}
  </div>
  <div class="text-xs flex items-center gap-1.5">Start Date :
- &nbsp; {(status_step6) ? status_step6.start : ""}
+ &nbsp; {(status_step6) ? dayjs(status_step6.start).format("LLL") : ""}
  </div>
  <div class="text-xs flex items-center gap-1.5">End Date :
- &nbsp; {(status_step6) ? status_step6.end : ""}
+ &nbsp; {(status_step6) ? dayjs(status_step6.end).format("LLL") : ""}
  </div>
              </div>
              </div>
@@ -419,10 +419,10 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
     )}
  </div>
  <div class="text-xs flex items-center gap-1.5">Start Date :
- &nbsp; {(status_step7) ? status_step7.start : ""}
+ &nbsp; {(status_step7) ? dayjs(status_step7.start).format("LLL") : ""}
  </div>
  <div class="text-xs flex items-center gap-1.5">End Date :
- &nbsp; {(status_step7) ? status_step7.end : ""}
+ &nbsp; {(status_step7) ? dayjs(status_step7.end).format("LLL") : ""}
  </div>
              </div>
              </div>
@@ -481,10 +481,10 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
     )}
  </div>
  <div class="text-xs flex items-center gap-1.5">Start Date :
- &nbsp; {(status_step8) ? status_step8.start : ""}
+ &nbsp; {(status_step8) ? dayjs(status_step8.start).format("LLL") : ""}
  </div>
  <div class="text-xs flex items-center gap-1.5">End Date :
- &nbsp; {(status_step8) ? status_step8.end : ""}
+ &nbsp; {(status_step8) ? dayjs(status_step8.end).format("LLL") : ""}
  </div>
              </div>
              </div>
@@ -543,10 +543,10 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
     )}
  </div>
  <div class="text-xs flex items-center gap-1.5">Start Date :
- &nbsp; {(status_step9) ? status_step9.start : ""}
+ &nbsp; {(status_step9) ? dayjs(status_step9.start).format("LLL") : ""}
  </div>
  <div class="text-xs flex items-center gap-1.5">End Date :
- &nbsp; {(status_step9) ? status_step9.end : ""}
+ &nbsp; {(status_step9) ? dayjs(status_step9.end).format("LLL") : ""}
  </div>
              </div>
              </div>
@@ -605,10 +605,10 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
     )}
  </div>
  <div class="text-xs flex items-center gap-1.5">Start Date :
- &nbsp; {(status_step10) ? status_step10.start : ""}
+ &nbsp; {(status_step10) ? dayjs(status_step10.start).format("LLL") : ""}
  </div>
  <div class="text-xs flex items-center gap-1.5">End Date :
- &nbsp; {(status_step10) ? status_step10.end : ""}
+ &nbsp; {(status_step10) ? dayjs(status_step10.end).format("LLL") : ""}
  </div>
              </div>
              </div>

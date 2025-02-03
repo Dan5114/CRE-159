@@ -71,7 +71,9 @@ export default function Step8({user, research, moa_docs}) {
 
         <div class="mb-4">
         <h1 class="text-3xl font-bold text-gray-900">MOA</h1>
-        <p class="mt-2 text-gray-600 text-sm">See details below</p>
+        <p class="text-gray-500 mt-2">
+       Digital process for your documents and agreements.
+      </p>
     </div>
 
         <form onSubmit={submitFiles}>
@@ -155,7 +157,9 @@ export default function Step8({user, research, moa_docs}) {
 
           <div class="mb-4">
         <h1 class="text-3xl font-bold text-gray-900">MOA</h1>
-        <p class="mt-2 text-gray-600 text-sm">See details below</p>
+        <p class="text-gray-500 mt-2">
+       Digital process for your documents and agreements.
+      </p>
     </div>
 
         <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 mt-3 rounded-md">

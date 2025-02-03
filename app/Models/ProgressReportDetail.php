@@ -16,7 +16,7 @@ class ProgressReportDetail extends Model
 
     public function files()
     {
-        return $this->belongsTo(ResearchDoc::class, 'file_id', 'id')->select('id', 'file_name');
+        return $this->belongsTo(ResearchDoc::class, 'file_id', 'id')->select('id', 'file_name', 'created_at');
     }
    
 }
