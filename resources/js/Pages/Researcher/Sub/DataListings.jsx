@@ -20,6 +20,24 @@ const getResearchStatus = (status) => {
 const DataListings = ({researchs}) => {
   return (
     <>
+    <div class="flex justify-end space-x-4 mb-4">
+      <div>
+        <label for="roleFilter" class="mr-2 text-lg">Filter by Status:</label>
+        <select id="roleFilter" class="px-4 py-2 border rounded-md shadow-sm">
+          <option value="">All</option>
+          <option value="Draft">Draft</option>
+          <option value="Submitted">Submitted</option>
+          <option value="Received">Received</option>
+        </select>
+      </div>
+      <div>
+        <label for="roleFilter" class="mr-2 text-lg">Filter by Department:</label>
+        <select id="roleFilter" class="px-4 py-2 border rounded-md shadow-sm">
+          <option value="">All</option>
+          <option value="">College of Education</option>
+        </select>
+      </div>
+    </div>
          <table class="min-w-full border divide-y divide-gray-200 dark:divide-neutral-700">
             <thead class="bg-gray-400 dark:bg-neutral-700">
               <tr>
