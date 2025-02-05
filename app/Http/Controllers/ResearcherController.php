@@ -44,17 +44,19 @@ class ResearcherController extends Controller
                 return $query->where('research_title', 'LIKE', "%{$search}%");
             })->orderBy('created_at', 'desc')
             ->where('user_id', auth()->user()->id)
-            ->paginate(5);
+            ->paginate(8);
         }else{
             $researchs = Research::with('department')->when($search, function ($query, $search) {
                 return $query->where('research_title', 'LIKE', "%{$search}%");
             })->orderBy('created_at', 'desc')
             ->where('status', '!=', 'D')
-            ->paginate(5);
+            ->paginate(8);
         }
+        $departments = Department::all();
 
         return Inertia::render('Researcher/Index', [
-            'researchs' => $researchs
+            'researchs' => $researchs,
+            'departments' => $departments
         ]);
     }
 

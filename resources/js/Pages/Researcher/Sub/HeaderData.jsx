@@ -29,8 +29,8 @@ const HeaderData = ({research_data, authors}) => {
     //bg-no-repeat bg-cover style={{"background-image" : "url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwbVHHEULBHjawgCxawIX1C8NmqhT-SzFa4w&s)"}}
     <>
             <div class="p-3 mt-3 shadow-lg w-full h-auto card bg-gray-100 rounded-xl overflow-hidden mb-1" >
-            <div class="grid grid-cols-5 gap-3">
-      <div class="col-span-2">
+            <div class="grid grid-cols-6 gap-3">
+      <div class="col-span-3">
       <h2 class="mb-3 text-xl text-pretty px-2 border-l-4 font-sans font-extrabold border-teal-600 text-neutral-700  dark:text-gray-200">
                     {research_data.research_title.toUpperCase()}
                   </h2>

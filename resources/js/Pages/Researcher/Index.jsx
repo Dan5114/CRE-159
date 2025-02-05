@@ -11,16 +11,7 @@ import DataListings from './Sub/DataListings';
 export default function Index(props) {
     const notyf = new Notyf();
     const {data: researchs, links, meta} = props.researchs;
-    console.log(meta);
-
     const [query, setQuery] = useState("initial");
-
-    function getParameterByName(name) {
-        const uri = window.location.search;
-        const match = RegExp("[?&]" + name + "=([^&]*)").exec(uri);
-        return match && decodeURIComponent(match[1].replace(/\+/g, " "));
-    }
-    const search = getParameterByName("q") || "";
 
     const sendRequest = useCallback((value) => {
         console.log("Changed value:", value);
@@ -32,7 +23,7 @@ export default function Index(props) {
     }, []);
 
     const debouncedSendRequest = useMemo(() => {
-        return debounce(sendRequest, 1000);
+        return debounce(sendRequest, 500);
     }, [sendRequest]);
 
     const onChange = (e) => {
@@ -81,7 +72,7 @@ export default function Index(props) {
                                
                               </div>
                               <div class="overflow-hidden">
-                                <DataListings researchs={researchs}  />
+                                <DataListings researchs={researchs} departments={props.departments}  />
                               </div>
                             </div>
                           </div>

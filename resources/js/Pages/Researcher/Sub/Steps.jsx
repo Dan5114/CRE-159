@@ -39,7 +39,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
                   <div class="ml-6">
                   
                   <div class="text-sm">
-                        <p class="font-bold font-serif italic">Submit Application</p>
+                        <p class="font-sans font-bold text-lg">Submit Application</p>
                         <div class="text-sm">
                         <div class="text-xs flex items-center gap-1.5 mb-3">Status :
               
@@ -93,7 +93,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
           <div class="ml-6">
            
            <div class="text-sm">
-                 <p class="font-bold font-serif italic">Technical Committee & Schedule</p>
+                 <p class="font-sans font-bold text-lg">Technical Committee & Schedule</p>
                  <div class="text-sm">
                  <div class="text-xs flex items-center gap-1.5 mb-3">Status :
                  {(status_step2 ? 
@@ -144,7 +144,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
       <div class="ml-6">
        
        <div class="text-sm">
-             <p class="font-bold font-serif italic">Techinical Review Report</p>
+             <p class="font-sans font-bold text-lg">Techinical Review Report</p>
              <div class="text-sm">
              <div class="text-xs flex items-center gap-1.5 mb-3">Status :
              {(status_step3 ? 
@@ -198,7 +198,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
       <div class="ml-6">
        
        <div class="text-sm">
-             <p class="font-bold font-serif italic">Approval of Revised Docs</p>
+             <p class="font-sans font-bold text-lg">Approval of Revised Docs</p>
              <div class="text-sm">
              <div class="text-xs flex items-center gap-1.5 mb-3 flex">Status :
              {(status_step4 ? 
@@ -223,13 +223,13 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
     </>
     )}
 <span>|</span>
-   <div class="text-xs flex items-center gap-1.5">Tech Cert Uploaded : {(tech_doc != null) ? 
+   <div class="text-xs flex items-center gap-1.5">Tech Cert : {(tech_doc != null) ? 
 <>
-<span class="icon-[tabler--circle-check] text-success size-4 align-bottom"></span>
+<span class="badge badge-sucess size-2 p-0"></span> Uploaded
 </> 
 :
 <>
-<span class="icon-[tabler--progress-down] size-4 text-warning align-bottom"></span>
+<span class="badge badge-warning size-2 p-0"></span> Pending
 </>
 }
 
@@ -269,7 +269,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
         <div class="ml-6">
          
          <div class="text-sm">
-               <p class="font-bold font-serif italic">Ethics Clearance</p>
+               <p class="font-sans font-bold text-lg">Ethics Clearance</p>
                <div class="text-sm">
                <div class="text-xs flex items-center gap-1.5 mb-3">Status :
                {(status_step5 ? 
@@ -331,7 +331,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
       <div class="ml-6">
        
        <div class="text-sm">
-             <p class="font-bold font-serif italic">Budget Proposal</p>
+             <p class="font-sans font-bold text-lg">Budget Proposal</p>
              <div class="text-sm">
              <div class="text-xs flex items-center gap-1.5 mb-3">Status :
   {(status_step6 ? 
@@ -393,7 +393,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
       <div class="ml-6">
        
        <div class="text-sm">
-             <p class="font-bold font-serif italic">URB Approval</p>
+             <p class="font-sans font-bold text-lg">URB Approval</p>
              <div class="text-sm">
              <div class="text-xs flex items-center gap-1.5 mb-3">Status :
              {(status_step7 ? 
@@ -455,7 +455,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
       <div class="ml-6">
        
        <div class="text-sm">
-             <p class="font-bold font-serif italic">MOA Signing</p>
+             <p class="font-sans font-bold text-lg">MOA Signing</p>
              <div class="text-sm">
              <div class="text-xs flex items-center gap-1.5 mb-3">Status :
              {(status_step8 ? 
@@ -517,7 +517,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
       <div class="ml-6">
        
        <div class="text-sm">
-             <p class="font-bold font-serif italic">Progress Report</p>
+             <p class="font-sans font-bold text-lg">Progress Report</p>
              <div class="text-sm">
              <div class="text-xs flex items-center gap-1.5 mb-3">Status :
              {(status_step9 ? 
@@ -579,7 +579,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
       <div class="ml-6">
        
        <div class="text-sm">
-             <p class="font-bold font-serif italic">Turnitin</p>
+             <p class="font-sans font-bold text-lg">Turnitin</p>
              <div class="text-sm">
              <div class="text-xs flex items-center gap-1.5 mb-3">Status :
              {(status_step10 ? 

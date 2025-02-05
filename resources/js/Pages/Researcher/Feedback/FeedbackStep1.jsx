@@ -148,15 +148,17 @@ export default function Feedback({user, research, feedbacks_step1}) {
 
         {feedbacks_step1.length === 0 ? (
                        <>
-                        <div class="flex justify-center border-2 border-dotted border-gray-300 p-3">
-                        <div class="grid gap-4 w-80 justify-center">
-                        <img style={{ "width" : "200px" }} src="https://www.achieversacademyalwar.in/assets/images/no-record-found.png" />
-                      
-<div class="flex justify-center">
-
+                        <div class="flex justify-center items-center min-h-[300px] bg-gray-100 rounded-lg shadow-md">
+  <div class="text-center">
+    <div class="mb-4">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-gray-400 mx-auto" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path fill-rule="evenodd" d="M10 18a8 8 0 110-16 8 8 0 010 16zM9 7a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 11-2 0V8H9a1 1 0 01-1-1z" clip-rule="evenodd" />
+      </svg>
+    </div>
+    <p class="text-xl text-gray-700 font-semibold">Oops! No comments here yet.</p>
+    <p class="text-sm text-gray-500 mt-2">Be the first to share your thoughts and start the conversation!</p>
+  </div>
 </div>
-</div>
-                        </div>
                        </>                 
                       )
                         :                               

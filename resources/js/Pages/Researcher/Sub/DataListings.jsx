@@ -17,24 +17,35 @@ const getResearchStatus = (status) => {
   }
 };
 
-const DataListings = ({researchs}) => {
+const DataListings = ({researchs, departments}) => {
+ 
   return (
     <>
-    <div class="flex justify-end space-x-4 mb-4">
+    <div class="flex justify-end space-x-4 mb-3">
+    <div class="flex justify-between gap-3">
+        <label for="roleFilter" class="mr-2 text-sm">From:</label>
+       <input type="date" class="input rounded-lg border shadow-sm"/>
+       <label for="roleFilter" class="mr-2 text-sm">To:</label>
+       <input type="date" class="input rounded-lg border shadow-sm"/>
+      </div>
+   
+    <div>
+      
+        <label for="roleFilter" class="mr-2 text-sm">By Department:</label>
+        <select id="roleFilter" class="border rounded-md shadow-sm">
+          <option value="">All</option>
+            { departments.map((department, index) => (
+                <option key={index} value={department.dept_id}>{department.name}</option>
+            ))}
+        </select>
+      </div>
       <div>
-        <label for="roleFilter" class="mr-2 text-lg">Filter by Status:</label>
-        <select id="roleFilter" class="px-4 py-2 border rounded-md shadow-sm">
+        <label for="roleFilter" class="mr-2 text-sm">By Status:</label>
+        <select id="roleFilter" class="border rounded-md shadow-sm">
           <option value="">All</option>
           <option value="Draft">Draft</option>
           <option value="Submitted">Submitted</option>
           <option value="Received">Received</option>
-        </select>
-      </div>
-      <div>
-        <label for="roleFilter" class="mr-2 text-lg">Filter by Department:</label>
-        <select id="roleFilter" class="px-4 py-2 border rounded-md shadow-sm">
-          <option value="">All</option>
-          <option value="">College of Education</option>
         </select>
       </div>
     </div>
