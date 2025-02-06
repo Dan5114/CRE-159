@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\hasMany;
 
 class Research extends Model
 {
@@ -16,6 +17,10 @@ class Research extends Model
         'user_id'
     ];
 
+    public function app_status(): hasMany
+    {
+        return $this->hasMany(CreApplicationStatus::class, 'id', 'reseach_id');
+    }
 
     public function author(): BelongsTo
     {

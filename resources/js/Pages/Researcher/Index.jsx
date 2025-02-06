@@ -1,6 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Pagination from "@/Components/Pagination";
-import { Head, Link, router } from '@inertiajs/react';
+import { Head, Link, router, usePage } from '@inertiajs/react';
 import debounce from "lodash/debounce";
 import { useMemo, useState, useCallback } from "react";
 import { Notyf } from 'notyf';
@@ -10,6 +10,7 @@ import DataListings from './Sub/DataListings';
 
 export default function Index(props) {
     const notyf = new Notyf();
+    const user = usePage().props.auth.user;
     const {data: researchs, links, meta} = props.researchs;
     const [query, setQuery] = useState("initial");
 
@@ -72,7 +73,7 @@ export default function Index(props) {
                                
                               </div>
                               <div class="overflow-hidden">
-                                <DataListings researchs={researchs} departments={props.departments} initialFilters={props.initialFilters}  />
+                                <DataListings researchs={researchs} departments={props.departments} initialFilters={props.initialFilters} user={user}  />
                               </div>
                             </div>
                           </div>

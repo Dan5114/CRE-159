@@ -27,7 +27,7 @@ const getResearchStatus = (status) => {
   }
 };
 
-const DataListings = ({researchs, departments, initialFilters}) => {
+const DataListings = ({researchs, user, initialFilters}) => {
 
   const [filters, setFilters] = useState(initialFilters);
   
@@ -83,7 +83,7 @@ const DataListings = ({researchs, departments, initialFilters}) => {
   name="r_type" value={filters.r_type} onChange={handleChange}
   class="select w-60 rounded-md" id="favorite-simpson">
     <option value="0" selected>All</option>
-    <option value="D">Draft</option>
+    <option disabled={user.user_type === 'cre'} value="D">Draft</option>
     <option value="S">Submitted</option>
     <option value="REC">Received</option>
   </select>
@@ -102,12 +102,12 @@ const DataListings = ({researchs, departments, initialFilters}) => {
   <select
   name="r_status" value={filters.r_status} onChange={handleChange}
     class="select w-60 rounded-md" id="favorite-simpson">
-    <option value="0"readonly selected>Status</option>
-    <option value="ALL">All Status</option>
-    <option value="OP">On Process</option>
-    <option value="SC">Scheduled</option>
-    <option value="SUB">Submitted</option>
-    <option value="C">Completed</option>
+    <option value="ALL" selected>All Status</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+    <option value="8">8</option>
+    <option value="7">step7</option>
+    <option value="11">step11</option>
   </select>
 </div> 
    
@@ -130,6 +130,7 @@ const DataListings = ({researchs, departments, initialFilters}) => {
 
      
     </div>
+    {filters.r_status}
          <table class="min-w-full border divide-y divide-gray-200 dark:divide-neutral-700">
             <thead class="bg-gray-400 dark:bg-neutral-700">
               <tr>
