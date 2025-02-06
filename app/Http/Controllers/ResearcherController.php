@@ -38,17 +38,32 @@ class ResearcherController extends Controller
     {
         $user_type = auth()->user()->user_type;
         $search = $request->input('q');
+        $r_type = $request->r_type;
+
+        $filters = [
+            "r_type" => $r_type,
+            "r_status" => $request->r_status
+        ];
+
+       
+    
 
         if($user_type == "researcher"){
+
+
             $researchs = Research::with('department')->when($search, function ($query, $search) {
                 return $query->where('research_title', 'LIKE', "%{$search}%");
-            })->orderBy('created_at', 'desc')
+            })->when($r_type, function ($query, $r_type) {
+                return $query->where('status', $r_type);
+            })->orderBy('created_at', 'DESC')
             ->where('user_id', auth()->user()->id)
             ->paginate(8);
+
+
         }else{
             $researchs = Research::with('department')->when($search, function ($query, $search) {
                 return $query->where('research_title', 'LIKE', "%{$search}%");
-            })->orderBy('created_at', 'desc')
+            })->orderBy('created_at', 'DESC')
             ->where('status', '!=', 'D')
             ->paginate(8);
         }
@@ -56,7 +71,8 @@ class ResearcherController extends Controller
 
         return Inertia::render('Researcher/Index', [
             'researchs' => $researchs,
-            'departments' => $departments
+            'departments' => $departments,
+            'initialFilters' => $filters
         ]);
     }
 

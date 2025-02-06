@@ -1,5 +1,6 @@
-import React from 'react';
-import { Link } from '@inertiajs/react';
+import debounce from "lodash/debounce";
+import { useMemo, useState, useCallback } from "react";
+import { Link, router } from '@inertiajs/react';
 import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime);
@@ -9,28 +10,63 @@ dayjs.extend(localizedFormat);
 const getResearchStatus = (status) => {
   switch (status) {
       case "D":
-          return <span>Draft</span>;
+          return <div class="flex items-center justify-center gap-1.5 text-base font-bold text-xs">
+          <span class="badge badge-neutral size-1.5 p-0"></span>
+          Draft
+        </div>;
       case "S":
-        return <span>Submitted</span>;
+        return  <div class="flex items-center justify-center gap-1.5 text-base font-bold text-xs">
+        <span class="badge badge-info size-1.5 p-0"></span>
+        Submitted
+      </div>;
         case "REC":
-        return <span>Received</span>;
+        return <div class="flex items-center justify-center gap-1.5 text-base font-bold text-xs">
+        <span class="badge badge-success size-1.5 p-0"></span>
+        Received
+      </div>;
   }
 };
 
-const DataListings = ({researchs, departments}) => {
+const DataListings = ({researchs, departments, initialFilters}) => {
+
+  const [filters, setFilters] = useState(initialFilters);
+  
+      const sendRequest = useCallback((filters) => {
+          console.log("Changed value:", filters);
+          router.get(
+              route(route().current()),{ 
+                 r_type: filters.r_type,
+                 r_status: filters.r_status
+               },{
+                preserveState: true,
+                replace: true,
+              }
+          );
+      }, []);
+  
+      const debouncedSendRequest = useMemo(() => {
+          return debounce(sendRequest, 500);
+      }, [sendRequest]);
+
+      const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFilters((prevFilters) => {
+          // Update the filters object dynamically
+          const updatedFilters = { ...prevFilters, [name]: value };
+          
+          // Call the debounced function with updated filters
+          debouncedSendRequest(updatedFilters);
+          
+          return updatedFilters; // Update the state
+      });
+    };
+
  
+  
   return (
     <>
-    <div class="flex justify-end space-x-4 mb-3">
-    <div class="flex justify-between gap-3">
-        <label for="roleFilter" class="mr-2 text-sm">From:</label>
-       <input type="date" class="input rounded-lg border shadow-sm"/>
-       <label for="roleFilter" class="mr-2 text-sm">To:</label>
-       <input type="date" class="input rounded-lg border shadow-sm"/>
-      </div>
-   
-    <div>
-      
+{/* 
+<div>
         <label for="roleFilter" class="mr-2 text-sm">By Department:</label>
         <select id="roleFilter" class="border rounded-md shadow-sm">
           <option value="">All</option>
@@ -38,16 +74,61 @@ const DataListings = ({researchs, departments}) => {
                 <option key={index} value={department.dept_id}>{department.name}</option>
             ))}
         </select>
-      </div>
-      <div>
-        <label for="roleFilter" class="mr-2 text-sm">By Status:</label>
-        <select id="roleFilter" class="border rounded-md shadow-sm">
-          <option value="">All</option>
-          <option value="Draft">Draft</option>
-          <option value="Submitted">Submitted</option>
-          <option value="Received">Received</option>
-        </select>
-      </div>
+      </div> */}
+
+<div class="grid grid-cols-3 mt-3">
+  <div class="flex justify-start gap-2">
+  <div class="">
+  <select
+  name="r_type" value={filters.r_type} onChange={handleChange}
+  class="select w-60 rounded-md" id="favorite-simpson">
+    <option value="0" selected>All</option>
+    <option value="D">Draft</option>
+    <option value="S">Submitted</option>
+    <option value="REC">Received</option>
+  </select>
+</div>  
+
+<div class="">
+  <select class="select w-60 rounded-md" id="favorite-simpson">
+    <option selected>Up to Step</option>
+    <option>Draft</option>
+    <option>Submitted</option>
+    <option>Received</option>
+  </select>
+</div> 
+
+<div class="">
+  <select
+  name="r_status" value={filters.r_status} onChange={handleChange}
+    class="select w-60 rounded-md" id="favorite-simpson">
+    <option value="0"readonly selected>Status</option>
+    <option value="ALL">All Status</option>
+    <option value="OP">On Process</option>
+    <option value="SC">Scheduled</option>
+    <option value="SUB">Submitted</option>
+    <option value="C">Completed</option>
+  </select>
+</div> 
+   
+  
+  </div>
+
+
+  <div class="p-4">
+
+  </div>
+
+  <div class="p-4">
+
+  </div>
+</div>
+   
+    <div class="flex justify-end space-x-4 mb-3">
+    
+   
+
+     
     </div>
          <table class="min-w-full border divide-y divide-gray-200 dark:divide-neutral-700">
             <thead class="bg-gray-400 dark:bg-neutral-700">
@@ -68,12 +149,11 @@ const DataListings = ({researchs, departments}) => {
                     <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200"><span class="text-xs  text-gray-500">{getResearchStatus(research.status)}</span></td>
                     <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
                     <Link href={route('researcher.show', research.reference)}>
-                    <button type="button" class="text-xs font-sans inline-flex items-center font-medium rounded-lg border border-transparent text-blue-600 hover:bg-blue-100 hover:text-blue-800 focus:outline-none focus:bg-blue-100 focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:bg-blue-800/30 dark:hover:text-blue-400 dark:focus:bg-blue-800/30 dark:focus:text-blue-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-	<path fill="none" stroke="#181dec" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19V6a1 1 0 0 1 1-1h4.032a1 1 0 0 1 .768.36l1.9 2.28a1 1 0 0 0 .768.36H16a1 1 0 0 1 1 1v1M3 19l3-8h15l-3 8z" />
-</svg>&nbsp;view
-</button>
-                    </Link>
+                    <button class="btn btn-xs btn-accent text-white rounded-md text-xs"><span class="icon-[tabler--files]"></span> View</button>
+                    </Link> 
+
+
+
                     </td>
                 </tr>
                 ))}
