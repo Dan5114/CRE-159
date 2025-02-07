@@ -53,10 +53,14 @@ export default function Index(props) {
                         <div class="-m-1.5 overflow-x-auto card p-3 mt-1 shadow-lg">
                           <div class="p-1 min-w-full inline-block align-middle">
                             <div class="divide-gray-200 dark:border-neutral-700 dark:divide-neutral-700">
-                              <div class="py-3">
+                              <div class="py-2">
 
-                              <div class="grid grid-cols-2 gap-3">
-  <div class="">
+                              <div class="grid grid-cols-1">
+    
+    
+
+    <div class="">
+    <div class="float-right">
   <div class="relative max-w-xs">
                                   <label for="hs-table-search" class="sr-only">Search</label>
                                   <input type="search" onChange={onChange} name="hs-table-search" id="hs-table-search" class="py-2 px-3 ps-9 block w-full border-gray-400 rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Search Research" />
@@ -68,8 +72,11 @@ export default function Index(props) {
                                   </div>
                                 </div>
   </div>
-</div>
+    </div>
 
+  </div>
+
+    
                                
                               </div>
                               <div class="overflow-hidden">

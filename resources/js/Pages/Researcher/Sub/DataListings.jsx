@@ -11,32 +11,34 @@ const getResearchStatus = (status) => {
   switch (status) {
       case "D":
           return <div class="flex items-center justify-center gap-1.5 text-base font-bold text-xs">
-          <span class="badge badge-neutral size-1.5 p-0"></span>
-          Draft
+           <span class="text-neutral">Draft</span>
         </div>;
       case "S":
         return  <div class="flex items-center justify-center gap-1.5 text-base font-bold text-xs">
-        <span class="badge badge-info size-1.5 p-0"></span>
-        Submitted
+       <span class="text-accent">Submitted</span>
       </div>;
         case "REC":
         return <div class="flex items-center justify-center gap-1.5 text-base font-bold text-xs">
-        <span class="badge badge-success size-1.5 p-0"></span>
-        Received
+        <span class="text-lime-600">Received</span>
       </div>;
+
+      
   }
 };
 
 const DataListings = ({researchs, user, initialFilters}) => {
 
   const [filters, setFilters] = useState(initialFilters);
+
+  console.log(researchs);
   
       const sendRequest = useCallback((filters) => {
           console.log("Changed value:", filters);
           router.get(
               route(route().current()),{ 
                  r_type: filters.r_type,
-                 r_status: filters.r_status
+                 r_status: filters.r_status,
+                 r_steps: filters.r_steps
                },{
                 preserveState: true,
                 replace: true,
@@ -75,9 +77,12 @@ const DataListings = ({researchs, user, initialFilters}) => {
             ))}
         </select>
       </div> */}
-
-<div class="grid grid-cols-3 mt-3">
-  <div class="flex justify-start gap-2">
+ <div class="mb-3">
+      <h2 class="text-2xl font-semibold text-gray-800">Advanced Filters</h2>
+      <p class="text-gray-600">Use the filters below to narrow down your search results based on various criteria such as type, steps and status.</p>
+    </div>
+<div class="grid grid-cols-3">
+  <div class="flex justify-between gap-2">
   <div class="">
   <select
   name="r_type" value={filters.r_type} onChange={handleChange}
@@ -90,11 +95,20 @@ const DataListings = ({researchs, user, initialFilters}) => {
 </div>  
 
 <div class="">
-  <select class="select w-60 rounded-md" id="favorite-simpson">
+  <select
+  name="r_steps" value={filters.r_steps} onChange={handleChange}
+  class="select w-60 rounded-md" id="favorite-simpson">
     <option selected>Up to Step</option>
-    <option>Draft</option>
-    <option>Submitted</option>
-    <option>Received</option>
+    <option value="1">Submit Application</option>
+    <option value="2">Technical Committee & Schedule</option>
+    <option value="3">Technical Review Report</option>
+    <option value="4">Approval of Revised Docs</option>
+    <option value="5">Ethics Clearance</option>
+    <option value="6">Budget Proposal</option>
+    <option value="7">URB Approval</option>
+    <option value="8">MOA Signing</option>
+    <option value="9">Progress Report</option>
+    <option value="10">Turnitin</option>
   </select>
 </div> 
 
@@ -102,12 +116,11 @@ const DataListings = ({researchs, user, initialFilters}) => {
   <select
   name="r_status" value={filters.r_status} onChange={handleChange}
     class="select w-60 rounded-md" id="favorite-simpson">
-    <option value="ALL" selected>All Status</option>
-    <option value="9">9</option>
-    <option value="10">10</option>
-    <option value="8">8</option>
-    <option value="7">step7</option>
-    <option value="11">step11</option>
+    <option value="0" selected>All Status</option>
+    <option value="Submitted">Submitted</option>
+    <option value="Scheduled">Scheduled</option>
+    <option value="Completed">Completed</option>
+    <option value="On Process">On Process</option>
   </select>
 </div> 
    
@@ -130,31 +143,65 @@ const DataListings = ({researchs, user, initialFilters}) => {
 
      
     </div>
-    {filters.r_status}
          <table class="min-w-full border divide-y divide-gray-200 dark:divide-neutral-700">
             <thead class="bg-gray-400 dark:bg-neutral-700">
               <tr>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Research Title</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Department</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Research Status</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Date Created</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Status</th>
-                <th scope="col" class="px-3 py-3  text-end text-xs font-bolder text-white uppercase dark:text-neutral-500"></th>
+                <th scope="col" class="px-3 py-3  text-center text-xs font-bolder text-white uppercase dark:text-neutral-500">Type</th>
+                <th scope="col" class="px-3 py-3 "></th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
                 { researchs.map((research, index) => (
                 <tr class={index % 2 !== 0 ? "bg-gray-50 dark:bg-gray-800 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-800 dark:border-gray-700"}>
-                    <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{research.research_title}</td>
-                    <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{research.department.name}</td>
+                    <td class="px-3 py-3 truncate max-w-xs whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{research.research_title}</td>
+                    <td class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{research.department.name}</td>
+                    <td class="py-3 px-6 group relative">
+                    <span class="text-gray-600 text-sm font-bold">
+                      {
+                        (research.app_status.name == "Pending") ?
+                        <>
+                        <div class="flex items-center justify-start gap-1.5 text-base font-bold text-xs">
+                                  <span class="badge badge-warning size-1.5 p-0"></span>
+                                 Pending
+                                </div>
+                        </>
+                        :
+                        <>
+                           Step {research.app_status.steps}: {research.app_status.name}
+                           <div class="w-60">
+
+                                {
+                                  (research.app_status.status == "Submitted" || research.app_status.status == "Completed" || research.app_status.status == "Scheduled") ?
+                                  <>
+                                  <div class="flex items-center justify-start gap-1.5 text-base font-bold text-xs">
+                                    <span class="badge badge-success size-1.5 p-0"></span>
+                                    {research.app_status.status}
+                                  </div>
+                                  </>
+                                  :
+                                  <div class="flex items-center justify-start gap-1.5 text-base font-bold text-xs">
+                                  <span class="badge badge-info size-1.5 p-0"></span>
+                                  {research.app_status.status}
+                                </div>
+                                }
+                              
+                          </div>
+                        </>
+                      }
+                      </span>
+                   
+                </td>
                     <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(research.created_at).format("LL")}</td>
                     <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200"><span class="text-xs  text-gray-500">{getResearchStatus(research.status)}</span></td>
-                    <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
+                   
+                    <td class="px-3 py-3 whitespace-nowrap text-sm font-medium">
                     <Link href={route('researcher.show', research.reference)}>
-                    <button class="btn btn-xs btn-accent text-white rounded-md text-xs"><span class="icon-[tabler--files]"></span> View</button>
+                    <button class="btn btn-xs btn-accent text-white rounded-md text-xs"><span class="icon-[tabler--files]"></span>View</button>
                     </Link> 
-
-
-
                     </td>
                 </tr>
                 ))}

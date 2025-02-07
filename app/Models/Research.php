@@ -17,9 +17,11 @@ class Research extends Model
         'user_id'
     ];
 
-    public function app_status(): hasMany
+    public function app_status(): BelongsTo
     {
-        return $this->hasMany(CreApplicationStatus::class, 'id', 'reseach_id');
+        return $this->BelongsTo(CreApplicationStatus::class, 'id', 'research_id')->withDefault([
+            "name" => "Pending"
+        ]);;
     }
 
     public function author(): BelongsTo

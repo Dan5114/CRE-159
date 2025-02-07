@@ -11,19 +11,12 @@ export default function Dashboard() {
     return (
         <AuthenticatedLayout
             header={
-                <div class='flex text-white'>
-                 <h2 className="text-xl text-white font-extrabold leading-none tracking-tight">
-                    Dashboard
-                </h2>
+              <div class='flex text-white'>
+              <h2 className="text-xl text-white font-extrabold leading-none tracking-tight">
+                 Dashboard
+               </h2>
 
-                <div class="navbar-end w-full">
-                    <div class="breadcrumbs">
-                    <ul>
-   
-    
-                    </ul>
-                    </div>
-                    </div>
+             
                 </div>
             }
         >

@@ -40,19 +40,31 @@ class ResearcherController extends Controller
         $search = $request->input('q');
         $r_type = $request->r_type;
         $r_status = $request->r_status;
+        $r_steps = $request->r_steps;
 
         $filters = [
             "r_type" => $r_type,
-            "r_status" => $request->r_status
+            "r_status" => $r_status,
+            "r_steps" => $r_steps
         ];
 
         if($user_type == "researcher"){
-            $researchs = Research::with('department')->when($r_type, function ($query, $r_type) {
+            $researchs = Research::with('department')
+            ->with(['app_status' => function($query) {
+               return $query->orderBy('created_at', 'ASC');
+            }])
+            ->when($r_type, function ($query, $r_type) {
                 return $query->where('status', $r_type);
+            })
+            ->when($r_steps && $r_status, function ($query) use ($r_steps, $r_status) {
+                return $query->whereHas('app_status', function ($query) use ($r_steps, $r_status) {
+                    $query->where('steps', $r_steps)->where('status', $r_status);
+                });
             })
             ->when($search, function ($query, $search) {
                 return $query->where('research_title', 'LIKE', "%{$search}%");
-            })->orderBy('created_at', 'DESC')
+            })
+            ->orderBy('created_at', 'DESC')
             ->where('user_id', auth()->user()->id)
             ->paginate(10);
 
@@ -60,11 +72,21 @@ class ResearcherController extends Controller
         }else{
             $researchs = Research::with('department')->when($search, function ($query, $search) {
                 return $query->where('research_title', 'LIKE', "%{$search}%");
-            })->when($r_type, function ($query, $r_type) {
+            }) ->when($r_type, function ($query, $r_type) {
                 return $query->where('status', $r_type);
+            })
+            ->when($r_steps && $r_status, function ($query) use ($r_steps, $r_status) {
+                return $query->whereHas('app_status', function ($query) use ($r_steps, $r_status) {
+                    $query->where('steps', $r_steps)->where('status', $r_status);
+                });
+            })
+            ->when($search, function ($query, $search) {
+                return $query->where('research_title', 'LIKE', "%{$search}%");
             })->orderBy('created_at', 'DESC')
             ->where('status', '!=', 'D')
             ->paginate(8);
+
+            
         }
         $departments = Department::all();
 

@@ -31,9 +31,9 @@ export default function Create(props) {
     return (
         <AuthenticatedLayout
             header={
-                <div class='flex text-white '>
-                  <h2 className="text-xl font-serif italic">
-                      Create Proposal Application
+              <div class='flex text-white'>
+                 <h2 className="text-xl text-white font-extrabold leading-none tracking-tight">
+                    Create Application Proposal
                   </h2>
                 </div>
             }
