@@ -25,59 +25,74 @@ export default function Dashboard() {
             <div className="py-2">
             <div class="max-w-7xl mx-auto py-2 px-2 sm:px-6 lg:px-8">
    
-            <div class="p-6 bg-gray-100 min-h-screen">
-  <div class="max-w-7xl mx-auto">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
-      
-      <div class="space-y-6">
-        <div class="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between">
-          <h3 class="text-lg font-semibold text-gray-800 mb-4">Total Research Papers</h3>
-          <div class="text-3xl font-bold text-gray-800">1,250</div>
-          <div class="mt-4 flex items-center">
-            <span class="text-sm text-green-500">+15%</span>
-            <span class="ml-2 text-sm text-gray-500">Since last month</span>
-          </div>
-        </div>
+            <div class="container mx-auto p-6">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+    
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-semibold text-gray-700">Proposal Overview</h3>
+      <p class="text-gray-500 mt-2">Total Proposals: 12</p>
+      <p class="text-gray-500 mt-2">Pending: 5</p>
+      <p class="text-gray-500 mt-2">Approved: 7</p>
+      <a href="#" class="text-blue-500 hover:text-blue-700 mt-4 block">View All Proposals</a>
+    </div>
 
-        <div class="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between">
-          <h3 class="text-lg font-semibold text-gray-800 mb-4">Average Citations</h3>
-          <div class="text-3xl font-bold text-gray-800">35</div>
-          <div class="mt-4 flex items-center">
-            <span class="text-sm text-blue-500">+10%</span>
-            <span class="ml-2 text-sm text-gray-500">Since last year</span>
-          </div>
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-semibold text-gray-700">Proposal Status</h3>
+      <div class="mt-4">
+        <div class="flex items-center justify-between">
+          <p class="text-gray-600">Proposal 1</p>
+          <span class="bg-yellow-400 text-white text-xs font-semibold px-3 py-1 rounded-full">In Progress</span>
         </div>
-
-        <div class="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between">
-          <h3 class="text-lg font-semibold text-gray-800 mb-4">New Papers This Month</h3>
-          <div class="text-3xl font-bold text-gray-800">45</div>
-          <div class="mt-4 flex items-center">
-            <span class="text-sm text-yellow-500">+5%</span>
-            <span class="ml-2 text-sm text-gray-500">Compared to last month</span>
-          </div>
+        <div class="flex items-center justify-between mt-2">
+          <p class="text-gray-600">Proposal 2</p>
+          <span class="bg-green-500 text-white text-xs font-semibold px-3 py-1 rounded-full">Approved</span>
         </div>
-      </div>
-
-      <div class="space-y-6">
-        <div class="bg-white shadow-lg rounded-lg p-6">
-          <h3 class="text-lg font-semibold text-gray-800 mb-4">Recent Research</h3>
-          <ul class="space-y-2">
-            <li class="p-2 bg-gray-50 rounded-md flex justify-between items-center">
-              <span class="text-sm text-gray-600">Research Paper 1</span>
-              <span class="text-sm text-gray-400">12/04/2025</span>
-            </li>
-            <li class="p-2 bg-gray-50 rounded-md flex justify-between items-center">
-              <span class="text-sm text-gray-600">Research Paper 2</span>
-              <span class="text-sm text-gray-400">11/23/2025</span>
-            </li>
-          </ul>
-          <button class="text-blue-600 hover:underline text-sm mt-4">View More</button>
+        <div class="flex items-center justify-between mt-2">
+          <p class="text-gray-600">Proposal 3</p>
+          <span class="bg-red-500 text-white text-xs font-semibold px-3 py-1 rounded-full">Rejected</span>
         </div>
-
       </div>
     </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-semibold text-gray-700">Upcoming Deadlines</h3>
+      <ul class="mt-4">
+        <li class="flex justify-between py-2 border-b">
+          <p class="text-gray-600">Proposal 4 Submission</p>
+          <span class="text-gray-500">Feb 14, 2025</span>
+        </li>
+        <li class="flex justify-between py-2 border-b">
+          <p class="text-gray-600">Proposal 7 Review</p>
+          <span class="text-gray-500">Feb 20, 2025</span>
+        </li>
+        <li class="flex justify-between py-2">
+          <p class="text-gray-600">Proposal 12 Final Review</p>
+          <span class="text-gray-500">Feb 28, 2025</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h3 class="text-xl font-semibold text-gray-700">Recent Activity</h3>
+      <ul class="mt-4">
+        <li class="flex justify-between py-2 border-b">
+          <p class="text-gray-600">Proposal 1 updated</p>
+          <span class="text-gray-500">Feb 7, 2025</span>
+        </li>
+        <li class="flex justify-between py-2 border-b">
+          <p class="text-gray-600">Proposal 5 approved</p>
+          <span class="text-gray-500">Feb 6, 2025</span>
+        </li>
+        <li class="flex justify-between py-2">
+          <p class="text-gray-600">Proposal 8 submission confirmed</p>
+          <span class="text-gray-500">Feb 5, 2025</span>
+        </li>
+      </ul>
+    </div>
+
   </div>
 </div>
+
 
 
     

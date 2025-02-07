@@ -7,6 +7,7 @@ const Navbar = () => {
     console.log(user);
   return (
     <>
+    <div class="">
 <nav class="navbar bg-base-100">
 
     <div class="navbar-start">
@@ -207,6 +208,7 @@ const Navbar = () => {
     </div>
   </div>
 </nav>
+</div>
     </>
   )
 }

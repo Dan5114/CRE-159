@@ -78,7 +78,7 @@ const DataListings = ({researchs, user, initialFilters}) => {
         </select>
       </div> */}
  <div class="mb-3">
-      <h2 class="text-2xl font-semibold text-gray-800">Advanced Filters</h2>
+      <h2 class="text-lg font-semibold font-mono text-gray-800">Advanced Filters</h2>
       <p class="text-gray-600">Use the filters below to narrow down your search results based on various criteria such as type, steps and status.</p>
     </div>
 <div class="grid grid-cols-3">
@@ -87,7 +87,7 @@ const DataListings = ({researchs, user, initialFilters}) => {
   <select
   name="r_type" value={filters.r_type} onChange={handleChange}
   class="select w-60 rounded-md" id="favorite-simpson">
-    <option value="0" selected>All</option>
+    <option value="0" selected>All Types</option>
     <option disabled={user.user_type === 'cre'} value="D">Draft</option>
     <option value="S">Submitted</option>
     <option value="REC">Received</option>
@@ -98,7 +98,7 @@ const DataListings = ({researchs, user, initialFilters}) => {
   <select
   name="r_steps" value={filters.r_steps} onChange={handleChange}
   class="select w-60 rounded-md" id="favorite-simpson">
-    <option selected>Up to Step</option>
+    <option value="0" selected>All Steps</option>
     <option value="1">Submit Application</option>
     <option value="2">Technical Committee & Schedule</option>
     <option value="3">Technical Review Report</option>
@@ -143,7 +143,8 @@ const DataListings = ({researchs, user, initialFilters}) => {
 
      
     </div>
-         <table class="min-w-full border divide-y divide-gray-200 dark:divide-neutral-700">
+    <div class="overflow-x-auto">
+         <table class="min-w-full table-auto border divide-y divide-gray-200 dark:divide-neutral-700">
             <thead class="bg-gray-400 dark:bg-neutral-700">
               <tr>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Research Title</th>
@@ -200,13 +201,14 @@ const DataListings = ({researchs, user, initialFilters}) => {
                    
                     <td class="px-3 py-3 whitespace-nowrap text-sm font-medium">
                     <Link href={route('researcher.show', research.reference)}>
-                    <button class="btn btn-xs btn-accent text-white rounded-md text-xs"><span class="icon-[tabler--files]"></span>View</button>
+                    <button class="btn btn-xs btn-accent text-white rounded-md text-xs"><span class="icon-[tabler--files]"></span></button>
                     </Link> 
                     </td>
                 </tr>
                 ))}
             </tbody>
           </table>
+          </div>
     </>
   )
 }
