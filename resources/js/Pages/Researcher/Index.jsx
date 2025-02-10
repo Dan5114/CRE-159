@@ -8,6 +8,7 @@ import 'notyf/notyf.min.css';
 import EmptyData from './Sub/EmptyData';
 import DataListings from './Sub/DataListings';
 
+
 export default function Index(props) {
     const notyf = new Notyf();
     const user = usePage().props.auth.user;

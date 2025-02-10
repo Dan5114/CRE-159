@@ -64,7 +64,7 @@ export default function Feedback({user, research, feedbacks_step3}) {
 <></>
 
 }
-        <ul class="timeline timeline-vertical timeline-trimmed timeline-compact w-full">
+        <ul class="timeline timeline-vertical timeline-trimmed timeline-compact w-full mt-3">
 
             { feedbacks_step3.map((feedback_step3, index) => (
                               <>

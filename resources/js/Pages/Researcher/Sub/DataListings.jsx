@@ -6,6 +6,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
+import _ from 'lodash';
 
 const getResearchStatus = (status) => {
   switch (status) {
@@ -27,10 +28,8 @@ const getResearchStatus = (status) => {
 };
 
 const DataListings = ({researchs, user, initialFilters}) => {
-
   const [filters, setFilters] = useState(initialFilters);
-
-  console.log(researchs);
+  const totalRecords = _.size(researchs);
   
       const sendRequest = useCallback((filters) => {
           console.log("Changed value:", filters);
@@ -148,7 +147,7 @@ const DataListings = ({researchs, user, initialFilters}) => {
             <thead class="bg-gray-400 dark:bg-neutral-700">
               <tr>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Research Title</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Department</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">College</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Research Status</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Date Created</th>
                 <th scope="col" class="px-3 py-3  text-center text-xs font-bolder text-white uppercase dark:text-neutral-500">Type</th>
@@ -163,7 +162,10 @@ const DataListings = ({researchs, user, initialFilters}) => {
                     <td class="py-3 px-6 group relative">
                     <span class="text-gray-600 text-sm font-bold">
                       {
-                        (research.app_status.name == "Pending") ?
+                        (research && research.app_status && research.app_status.name !== null && research.app_status.name !== undefined) ?
+
+                        
+                         (research.app_status.name == "Pending") ?
                         <>
                         <div class="flex items-center justify-start gap-1.5 text-base font-bold text-xs">
                                   <span class="badge badge-warning size-1.5 p-0"></span>
@@ -192,6 +194,10 @@ const DataListings = ({researchs, user, initialFilters}) => {
                               
                           </div>
                         </>
+                        :
+                        <>
+                          
+                        </>
                       }
                       </span>
                    
@@ -207,6 +213,14 @@ const DataListings = ({researchs, user, initialFilters}) => {
                 </tr>
                 ))}
             </tbody>
+            <tfoot>
+      <tr class="bg-gray-100">
+        <td colspan="6" class="px-4 py-2 border-t text-right">
+          <span class="text-sm text-gray-500">Total Records:</span>&nbsp;
+          <span id="total-records" class="text-lg font-semibold text-blue-600">{totalRecords}</span>
+        </td>
+      </tr>
+    </tfoot>
           </table>
           </div>
     </>

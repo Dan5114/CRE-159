@@ -72,12 +72,19 @@ class ResearcherController extends Controller
         }else{
             $researchs = Research::with('department')->when($search, function ($query, $search) {
                 return $query->where('research_title', 'LIKE', "%{$search}%");
-            }) ->when($r_type, function ($query, $r_type) {
+            })
+            ->with(['app_status' => function($query) {
+                return $query->orderBy('created_at', 'ASC');
+             }]) 
+            ->when($r_type, function ($query, $r_type) {
+                return $query->where('status', $r_type);
+            })
+            ->when($r_type, function ($query) use ($r_type, $r_steps, $r_status) {
                 return $query->where('status', $r_type);
             })
             ->when($r_steps && $r_status, function ($query) use ($r_steps, $r_status) {
                 return $query->whereHas('app_status', function ($query) use ($r_steps, $r_status) {
-                    $query->where('steps', $r_steps)->where('status', $r_status);
+                    $query->where('tbl_cre_application_status.steps', $r_steps)->where('tbl_cre_application_status.status', $r_status);
                 });
             })
             ->when($search, function ($query, $search) {

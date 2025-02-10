@@ -66,10 +66,10 @@ export default function Create(props) {
                         </dd>
                       </div>
                       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 text-base">
-                        <dt class="font-bold text-base-content/90">Department : <span class="text-[#FF0000]">*</span></dt>
+                        <dt class="font-bold text-base-content/90">College : <span class="text-[#FF0000]">*</span></dt>
                         <dd class="mt-1 text-base-content/80 sm:col-span-2 sm:mt-0">
                         <select      data-select='{
-    "placeholder": "Select your Department",
+    "placeholder": "Select your College",
     "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
     "toggleClasses": "rounded-md advance-select-toggle",
     "hasSearch": true,
