@@ -502,24 +502,31 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
 
 
 
-    {/* <div class="p-2 mt-5">
-        <h3 class="text-2xl font-semibold text-gray-900">Turnitin Uploading</h3>
-        <p class="text-gray-700 mt-2">Turnitin's CRE (Content Review Engine) helps in detecting potential plagiarism and ensures originality in academic writing. It is widely used by institutions to verify the authenticity of submitted content.</p>
-    </div> */}
-
+    <div class="mt-5">
+    <div class="bg-blue-50 border-l-4 border-blue-500 p-6 shadow-md rounded-lg">
+  <div class="flex items-start">
+    <div class="flex-shrink-0">
+      <svg class="h-6 w-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12l5 5H3v2h7l5 5V3l-5 5H5z"></path>
+      </svg>
+    </div>
+    <div class="ml-4">
+      <h3 class="text-xl font-semibold text-gray-800">Other Documents Uploading</h3>
+      <p class="mt-2 text-gray-600">You can upload other important documents related to your account or project here. Please ensure that all files are in the correct format and within the file size limits.</p>
+      <p class="mt-2 text-gray-500">
+        <strong class="text-blue-700">Accepted Formats:</strong> PDF, DOCX, XLSX, JPEG, PNG (max 10MB).
+      </p>
       
-    <form onSubmit={submitFilesRevisions}>
+      <div class="mt-4">
+      <form onSubmit={submitFilesRevisions}>
           <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mb-3 mt-6">
            
           <div>
             <label class="label label-text" for="firstName">Document File </label>
             <input type="file" placeholder="" onChange={(e) => setData('document_file', e.target.files[0])} class="input" id="firstName" />
-            <div className="mb-4 mt-1 text-xs text-gray-500">
-              <p>You can upload PDF, DOC, or DOCX files</p>
-            </div>
           </div>
 
-            <div class="flex justify-end gap-y-2 mt-7">
+            <div class="flex justify-end gap-y-2 mt-3">
         
             <button type="submit" class="btn btn-default rounded-full">
               <span class="icon-[tabler--upload] text-base-content/80 size-6"></span>Upload
@@ -527,8 +534,17 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
             </div>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+</div>
 
-        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 mt-3 rounded-md">
+    </div>
+
+      
+
+
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-3 mt-4 rounded-md">
         <strong class="font-semibold">Important:</strong> 
         &nbsp;Please <span class="font-semibold">do not delete or remove any previously uploaded documents</span> as they are crucial for version tracking.
     </div>

@@ -215,7 +215,7 @@ const DataListings = ({researchs, user, initialFilters}) => {
             </tbody>
             <tfoot>
       <tr class="bg-gray-100">
-        <td colspan="6" class="px-4 py-2 border-t text-right">
+        <td colspan="6" class="px-4 py-2 border-t text-left">
           <span class="text-sm text-gray-500">Total Records:</span>&nbsp;
           <span id="total-records" class="text-lg font-semibold text-blue-600">{totalRecords}</span>
         </td>

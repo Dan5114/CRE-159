@@ -225,7 +225,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
 <span>|</span>
    <div class="text-xs flex items-center gap-1.5">Tech Cert : {(tech_doc != null) ? 
 <>
-<span class="badge badge-sucess size-2 p-0"></span> Uploaded
+<span class="badge badge-success size-2 p-0"></span> Uploaded
 </> 
 :
 <>

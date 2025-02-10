@@ -228,11 +228,38 @@ export default function Step2({user, research, panels}) {
                   }
             </div>
 
-            <div class="flex justify-end gap-y-2 mt-6">
-   
+            <div class=" gap-y-2 mt-6">
+
+            {
+              (research.meeting.status == "Success") ?
+              <>
+             <div class="bg-green-50 border-l-4 border-green-500 p-6 shadow-md rounded-lg">
+  <div class="flex items-start">
+    <div class="flex-shrink-0">
+      <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"></path>
+      </svg>
+    </div>
+    <div class="ml-4">
+      <h3 class="text-xl font-semibold text-gray-800">Meeting Scheduled</h3>
+      <p class="mt-2 text-gray-600">Your meeting has been successfully scheduled. Please check your calendar for the details.</p>
+      <p class="mt-2 text-gray-500">
+        <strong class="text-green-700">Next Steps:</strong> Review the meeting details and prepare for the scheduled time.
+      </p>
+     
+    </div>
+  </div>
+</div>
+
+              </>
+              :
+              <>
+                 
     <button type="button" onClick={() => scheduledMeeting()} class="btn btn-success rounded-full">
         Schedule Appointment
    </button>
+              </>
+            }
     </div>
 
   </div>
