@@ -16,6 +16,7 @@ export default function Step9({user, research, progress_report}) {
     useForm({
         research_id : research.id,
         date_scheduled: "",
+        date_due: "",
         steps: "9",
         document_file: "",
         type: ""
@@ -97,8 +98,11 @@ export default function Step9({user, research, progress_report}) {
             
             <form onSubmit={submitFiles}>
             <div class="mt-6 flex space-x-3">
-              <label for="followup-date" class="block text-sm font-medium text-gray-700">Scheduled Date</label>
+              <label for="followup-date" class="block text-sm font-medium text-gray-700">Scheduled Date<span class="text-red-500">*</span></label>
               <input type="date" id="followup-date" onChange={(e) => setData('date_scheduled', e.target.value)} name="followup-date" class="block w-60 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+
+              <label for="followup-date" class="block text-sm font-medium text-gray-700">Due Date<span class="text-red-500">*</span></label>
+              <input type="date" id="followup-date" onChange={(e) => setData('date_due', e.target.value)} name="followup-date" class="block w-60 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
               <button type="submit" class="btn text-sm text-white bg-green-600 hover:bg-green-700 rounded-md shadow-md focus:outline-none">
                 Scheduled
               </button>
@@ -118,8 +122,12 @@ export default function Step9({user, research, progress_report}) {
             <div class="p-6 rounded-lg shadow-lg border border-gray-200">
                 <div class="flex items-center justify-between">
                 <div class="text-xl font-medium text-gray-700"> Progress Report {index+1} - { dayjs(report.date_scheduled).format("LL")}
-                
                 </div>
+               
+                <div class="mb-4">
+  <h4 class="text-sm font-semibold text-red-500">Due Date</h4>
+  <p class="text-gray-600 text-xs">{ dayjs(report.date_due).format("LL")}</p>
+</div>
                 </div>
 
 { report.details.map((report_detail, indexes) => (
@@ -227,6 +235,10 @@ export default function Step9({user, research, progress_report}) {
                     <div class="text-xl font-medium text-gray-700"> Progress Report {index+1} - { dayjs(report.date_scheduled).format("LL")}
                     
                     </div>
+                    <div class="mb-4">
+  <h4 class="text-sm font-semibold text-red-500">Due Date</h4>
+  <p class="text-gray-600 text-xs">{ dayjs(report.date_due).format("LL")}</p>
+</div>
                     </div>
 
                     

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('research_id');
             $table->timestamp('date_scheduled')->nullable();
+            $table->timestamp('date_due')->nullable();
             $table->char('steps', length: 1);
             $table->timestamps();
         });

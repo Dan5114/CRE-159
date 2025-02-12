@@ -17,7 +17,6 @@ export default function Step2({user, research, panels}) {
       research_id : research.id,
       meeting_date: "",
       panels1: "",
-      leadPanel1: false,
       panels2: "",
       panels3: "",
       panels4: "",
@@ -101,52 +100,52 @@ export default function Step2({user, research, panels}) {
         <label class="label label-text" for="firstName">Meeting Date </label>
         <input type="date" placeholder="" onChange={(e) => setData('meeting_date', e.target.value)} class="input" id="firstName" />
       </div>
+
+      <div>
+        <label class="label label-text" for="firstName">Lead Panel </label>
+        <input type="text" placeholder="" class="input" onChange={(e) => setData('panels1', e.target.value )} id="firstName"  />
+      </div>
     </div>
     <br/>
-
+<div class="divider"></div>
     <div class="grid grid-cols-2 gap-6 md:grid-cols-2">
-    <div>
+
+      <div>
         <label class="label label-text" for="firstName">Panel Member 1 </label>
-        <input type="text" placeholder="" class="input" onChange={(e) => setData('panels1', e.target.value )} id="firstName"  />
-        <div class="flex items-center">
-<input type="checkbox" class="checkbox checkbox-primary checkbox-xs" onChange={(e) => setData('leadPanel1', e.target.checked )} id="checkboxExtraSmall" />
-<label class="label label-text text-xs" for="checkboxExtraSmall"> Lead Panel </label>
-</div>
+        <input type="text" placeholder="" class="input" onChange={(e) => setData('panels2', e.target.value)} id="firstName"  />
       </div>
+
       <div>
         <label class="label label-text" for="firstName">Panel Member 2 </label>
-        <input type="text" placeholder="" class="input" onChange={(e) => setData('panels2', e.target.value)} id="firstName"  />
+        <input type="text" placeholder="" class="input" onChange={(e) => setData('panels3', e.target.value)} id="firstName"  />
       </div>
      
     </div>
     <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mt-3">
-    <div>
-        <label class="label label-text" for="firstName">Panel Member 3 </label>
-        <input type="text" placeholder="" class="input" onChange={(e) => setData('panels3', e.target.value)} id="firstName"  />
-      </div>
+  
 
       <div>
-        <label class="label label-text" for="firstName">Panel Member 4 </label>
+        <label class="label label-text" for="firstName">Panel Member 3 </label>
         <input type="text" placeholder="" class="input" id="firstName" onChange={(e) => setData('panels4', e.target.value)}  />
       </div>
 
       <div>
-        <label class="label label-text" for="firstName">Panel Member 5 </label>
+        <label class="label label-text" for="firstName">Panel Member 4 </label>
         <input type="text" placeholder="" class="input" id="firstName" onChange={(e) => setData('panels5', e.target.value)}  />
       </div>
 
       <div>
-        <label class="label label-text" for="firstName">Panel Member 6 </label>
+        <label class="label label-text" for="firstName">Panel Member 5 </label>
         <input type="text" placeholder="" class="input" id="firstName" onChange={(e) => setData('panels6', e.target.value)}  />
       </div>
 
       <div>
-        <label class="label label-text" for="firstName">Panel Member 7 </label>
+        <label class="label label-text" for="firstName">Panel Member 6 </label>
         <input type="text" placeholder="" class="input" id="firstName" onChange={(e) => setData('panels7', e.target.value)}  />
       </div>
 
       <div>
-        <label class="label label-text" for="firstName">Panel Member 8 </label>
+        <label class="label label-text" for="firstName">Panel Member 7 </label>
         <input type="text" placeholder="" class="input" id="firstName" onChange={(e) => setData('panels8', e.target.value)}  />
       </div>
 

@@ -11,6 +11,7 @@ class CreProgressReportHeader extends Model
     protected $fillable = [
         'research_id',
         'date_scheduled',
+        'date_due',
         'steps'
     ];
 

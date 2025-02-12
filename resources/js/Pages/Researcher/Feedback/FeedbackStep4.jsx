@@ -32,17 +32,6 @@ export default function Feedback({user, research, feedbacks_step4}) {
         reset();
     }
 
-    const markAsRead = (id) => {
-        patch(route('researcher.mark.read', id), {
-            onSuccess: (page) =>  {
-            notyf.success(page.props.flash.message);
-            },
-            onFinish: () =>  {
-                console.log("Finishing update status");
-            },
-        });
-        }
-
   return (
     <>
     {
@@ -88,24 +77,6 @@ export default function Feedback({user, research, feedbacks_step4}) {
           <p>
             CRE commented on <span class="link link-primary link-hover font-medium">{research.research_title}</span>&nbsp;<span class="badge badge-soft badge-secondary badge-sm rounded-full">Revised Docs</span>
           </p>
-          
-
-                {
-                    (user.user_type == "researcher") ? 
-                    <>
-                    { (feedback_step4.read_status == 1) ?
-                      <></>
-                      :
-                      <button type="button" class="btn btn-default btn-xs" onClick={() => markAsRead(feedback_step4.id)}>
-                          <span class="text-xs">
-                          <span class="icon-[tabler--mail-opened] align-bottom"></span>&nbsp;mark as read
-                          </span>
-                      </button>
-                      }
-                    </>
-                    :
-                    <></>
-                }
          
         </div>
         <div class="border-base-content/25 bg-base-200/50 rounded-lg border p-3 font-normal italic">

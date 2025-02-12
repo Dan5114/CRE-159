@@ -32,17 +32,6 @@ export default function Feedback({user, research, feedbacks_step1}) {
         reset();
     }
 
-    const markAsRead = (id) => {
-        patch(route('researcher.mark.read', id), {
-            onSuccess: (page) =>  {
-            notyf.success(page.props.flash.message);
-            },
-            onFinish: () =>  {
-                console.log("Finishing update status");
-            },
-        });
-        }
-
   return (
     <>
     {
@@ -89,23 +78,6 @@ export default function Feedback({user, research, feedbacks_step1}) {
             CRE commented on <span class="link link-primary link-hover font-medium">{research.research_title}</span>&nbsp;<span class="badge badge-soft badge-secondary badge-sm rounded-full">Document Submission</span>
           </p>
           
-
-                {
-                    (user.user_type == "researcher") ? 
-                    <>
-                    { (feedback_step1.read_status == 1) ?
-                      <></>
-                      :
-                      <button type="button" class="btn btn-default btn-xs" onClick={() => markAsRead(feedback_step1.id)}>
-                          <span class="text-xs">
-                          Mark as read
-                          </span>
-                      </button>
-                      }
-                    </>
-                    :
-                    <></>
-                }
          
         </div>
         <div class="border-base-content/25 bg-base-200/50 rounded-lg border p-3 font-normal italic">

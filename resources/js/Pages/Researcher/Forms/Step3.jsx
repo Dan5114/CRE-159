@@ -12,7 +12,7 @@ import FeedbackStep3 from '../Feedback/FeedbackStep3';
 
 export default function Step3({user, research, technical_docs, feedbacks_step3, feedbacks_step3_notif}) {
     const notyf = new Notyf();
-    const { data, setData, post,  delete: destroy, errors, reset, formState, processing, progress, recentlySuccessful } =
+    const { data, setData, post,  delete: destroy, patch, errors, reset, formState, processing, progress, recentlySuccessful } =
     useForm({
         research_id : research.id,
         report_date: "",
@@ -62,6 +62,17 @@ export default function Step3({user, research, technical_docs, feedbacks_step3, 
       });
     }
 
+    const markAsRead = (id) => {
+      patch(route('researcher.mark.read', id), {
+          onSuccess: (page) =>  {
+            console.log("Finishing read status");
+          },
+          onFinish: () =>  {
+              console.log("Finishing update status");
+          },
+      });
+    }
+
 
   return (
     <>
@@ -69,7 +80,13 @@ export default function Step3({user, research, technical_docs, feedbacks_step3, 
         <button type="button" class="tab active-tab:tab-active active" id="tabs-lifted-item-3" data-tab="#tabs-lifted-3" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
           Files
         </button>
-        <button type="button" class="tab active-tab:tab-active" id="tabs-lifted-item-4" data-tab="#tabs-lifted-4" aria-controls="tabs-lifted-2" role="tab" aria-selected="false">
+        <button type="button" onClick={() => {
+    if (user.user_type === "researcher") {
+      markAsRead(research.id);
+    } else {
+      console.log("You do not have permission to perform this action.");
+    }
+  }} class="tab active-tab:tab-active" id="tabs-lifted-item-4" data-tab="#tabs-lifted-4" aria-controls="tabs-lifted-2" role="tab" aria-selected="false">
           Feedback
           {
       (feedbacks_step3_notif == 0) ? 

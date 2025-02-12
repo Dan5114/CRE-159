@@ -256,7 +256,7 @@ class ResearcherController extends Controller
             CrePanelMember::create([
             "research_id" => $request->research_id,
             "name" => $request->panels1,
-            "role" => ($request->leadPanel1 == false) ? "member" : "lead",
+            "role" => "Lead",
             ]);
         } 
 
@@ -923,7 +923,7 @@ class ResearcherController extends Controller
                 "read_status" => 1,
                 "updated_at" => Carbon::now()
             ];
-            ResearchMessageThread::where('id', $id)->update($data);
+            ResearchMessageThread::where('research_id', $id)->where('read_status', '!=', '1')->update($data);
 
             return redirect()->back()->with('message', 'Successfully updated');
         } catch (Exception $e) {

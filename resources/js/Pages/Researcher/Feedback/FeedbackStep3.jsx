@@ -32,17 +32,6 @@ export default function Feedback({user, research, feedbacks_step3}) {
         reset();
     }
 
-    const markAsRead = (id) => {
-        patch(route('researcher.mark.read', id), {
-            onSuccess: (page) =>  {
-            notyf.success(page.props.flash.message);
-            },
-            onFinish: () =>  {
-                console.log("Finishing update status");
-            },
-        });
-        }
-
   return (
     <>
     {
@@ -90,22 +79,6 @@ export default function Feedback({user, research, feedbacks_step3}) {
           </p>
           
 
-                {
-                    (user.user_type == "researcher") ? 
-                    <>
-                    { (feedback_step3.read_status == 1) ?
-                      <></>
-                      :
-                      <button type="button" class="btn btn-default btn-xs" onClick={() => markAsRead(feedback_step3.id)}>
-                          <span class="text-xs">
-                          Mark as read
-                          </span>
-                      </button>
-                      }
-                    </>
-                    :
-                    <></>
-                }
          
         </div>
         <div class="border-base-content/25 bg-base-200/50 rounded-lg border p-3 font-normal italic">

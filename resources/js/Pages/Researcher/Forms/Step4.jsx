@@ -99,6 +99,17 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
   });
   }
 
+  const markAsRead = (id) => {
+    patch(route('researcher.mark.read', id), {
+        onSuccess: (page) =>  {
+          console.log("Finishing read status");
+        },
+        onFinish: () =>  {
+            console.log("Finishing update status");
+        },
+    });
+  }
+
   return (
     <>
     
@@ -106,7 +117,13 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
   <button type="button" class="tab active-tab:tab-active active" id="tabs-lifted-item-5" data-tab="#tabs-lifted-5" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
     Files
   </button>
-  <button type="button" class="tab active-tab:tab-active" id="tabs-lifted-item-6" data-tab="#tabs-lifted-6" aria-controls="tabs-lifted-2" role="tab" aria-selected="false">
+  <button type="button" onClick={() => {
+    if (user.user_type === "researcher") {
+      markAsRead(research.id);
+    } else {
+      console.log("You do not have permission to perform this action.");
+    }
+  }} class="tab active-tab:tab-active" id="tabs-lifted-item-6" data-tab="#tabs-lifted-6" aria-controls="tabs-lifted-2" role="tab" aria-selected="false">
     Feedback
     {
       (feedbacks_step4_notif == 0) ? 
