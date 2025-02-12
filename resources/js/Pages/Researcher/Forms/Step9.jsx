@@ -126,7 +126,7 @@ export default function Step9({user, research, progress_report}) {
                    <div id="listings-1" class="mt-2 space-y-4">
                    <div class="border-l-4 border-green-400 pl-4 py-3 bg-white rounded-md shadow-md p-3">
                        <div class="flex items-center justify-between">
-                           <h4 class="font-semibold text-gray-800">{(report_detail.type == "1") ? "Progress Report" : "Liquidation Report"} </h4>
+                       <h4 class="font-semibold text-gray-800">{(report_detail.type == "1") ? "Progress Report" : (report_detail.type == "2" ? "Liquidation Report" : "Others")} </h4>
                            <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(report_detail.files.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(report_detail.files.created_at), true)} ago</time>)</span>
                        </div>
                        <ul role="list" class="divide-y mt-2 text-sm divide-base-content/25 rounded-md border border-base-content/25">
@@ -241,6 +241,7 @@ export default function Step9({user, research, progress_report}) {
             <option disabled selected>Please select type</option>
             <option value="1">Progress Report</option>
             <option value="2">Liquidation</option>
+            <option value="3">Others</option>
             </select>
           </div>
 
@@ -269,7 +270,7 @@ export default function Step9({user, research, progress_report}) {
                    <div id="listings-1" class="mt-2 space-y-4">
                    <div class="border-l-4 border-green-400 pl-4 py-3 bg-white rounded-md shadow-md p-3">
                        <div class="flex items-center justify-between">
-                           <h4 class="font-semibold text-gray-800">{(report_detail.type == "1") ? "Progress Report" : "Liquidation Report"} </h4>
+                           <h4 class="font-semibold text-gray-800">{(report_detail.type == "1") ? "Progress Report" : (report_detail.type == "2" ? "Liquidation Report" : "Others")} </h4>
                            <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(report_detail.files.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(report_detail.files.created_at), true)} ago</time>)</span>
                        </div>
                        <ul role="list" class="divide-y mt-2 text-sm divide-base-content/25 rounded-md border border-base-content/25">

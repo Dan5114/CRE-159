@@ -12,9 +12,10 @@ import Step7 from "../Forms/Step7";
 import Step8 from "../Forms/Step8";
 import Step9 from "../Forms/Step9";
 import Step10 from "../Forms/Step10";
+import Step11 from "../Forms/Step11";
 
 
-export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, ethics_docs, budget_docs, moa_docs, feedbacks_step1, feedbacks_step1_notif, feedbacks_step3, feedbacks_step3_notif, feedbacks_step4, feedbacks_step4_notif, endorsement_status, tech_doc , urb_approval, progress_report, revisions_docs, turnitin_docs}) {
+export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, tpl_docs, ethics_docs, budget_docs, moa_docs, feedbacks_step1, feedbacks_step1_notif, feedbacks_step3, feedbacks_step3_notif, feedbacks_step4, feedbacks_step4_notif, endorsement_status, tech_doc , urb_approval, progress_report, revisions_docs, turnitin_docs}) {
 
   const getCurrentIndex = (user.user_type != "tpl" ? 1 : 3);
     
@@ -147,9 +148,27 @@ export default function StepperForm({research, files, user, panels, technical_do
 
 {
       (user.user_type != "tpl") ?
-      <div data-stepper-content-item='{ "index": 10 }' style={{"display" : "none"}}>
+      <div data-stepper-content-item='{ "index": 10 }' style={{"display" : "none"}} class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
       <div>
-        <Step10 user={user} research={research} turnitin_docs={turnitin_docs}/>
+      <div class="mb-4">
+        <h1 class="text-3xl font-bold text-gray-900">Technical Panel Endorsement</h1>
+        <p class="text-gray-600 mt-3">
+  Endorsement from the technical panel to proceed with the proposed project, confirming adherence to technical standards, best practices, and project feasibility.
+</p>
+
+    </div>
+        <Step10 user={user} research={research} tpl_docs={tpl_docs} />
+     </div>
+   </div>
+   :
+   <></>
+    }
+
+{
+      (user.user_type != "tpl") ?
+      <div data-stepper-content-item='{ "index": 11 }' style={{"display" : "none"}}>
+      <div>
+        <Step11 user={user} research={research} turnitin_docs={turnitin_docs}/>
      </div>
    </div>
    :
