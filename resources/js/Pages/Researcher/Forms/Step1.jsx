@@ -29,7 +29,9 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
       step7: "",
       step7_url: "",
       document_file: "",
-      steps: "revisions"
+      steps: "revisions",
+      date_completion: "",
+      date_extension: ""
     });
 
     const submitFiles = (e) => {
@@ -90,14 +92,16 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
        }
 
        const creApproveApplication = () => {
-        post(route('researcher.update.status'), {
-          onSuccess: (page) =>  {
-            notyf.success(page.props.flash.message)
-          },
-          onFinish: () =>  {
-              console.log("Finishing update status");
-          },
-        });
+        
+        alert("sample");
+        // post(route('researcher.update.status'), {
+        //   onSuccess: (page) =>  {
+        //     notyf.success(page.props.flash.message)
+        //   },
+        //   onFinish: () =>  {
+        //       console.log("Finishing update status");
+        //   },
+        // });
        }
 
        const deleteFile = (id) => {
@@ -409,9 +413,34 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
           (user.user_type == "cre") ?
         
           (research.status != "REC") ?
-          <button type="button" onClick={() => creApproveApplication()} class="btn btn-success rounded-full">
-          Accept Application
-     </button>
+
+          <>
+   <div class="bg-green-50 border-l-4 border-green-500 p-6 shadow-md rounded-lg">
+   <div class="flex items-start">
+
+   <div class="mb-4">
+                <h1 class="text-xl font-bold text-gray-900">CRE</h1>
+            </div>
+<form class="mt-6" onSubmit={creApproveApplication}>
+            <div class="mt-6 flex space-x-3">
+              <label for="followup-date" class="block text-sm font-medium text-gray-700">Completion Date<span class="text-red-500">*</span></label>
+              <input type="date" id="followup-date" onChange={(e) => setData('date_completion', e.target.value)} name="followup-date" class="block w-60 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+
+              <label for="followup-date" class="block text-sm font-medium text-gray-700">Extension Date<span class="text-red-500">*</span></label>
+              <input type="date" id="followup-date" onChange={(e) => setData('date_extension', e.target.value)} name="followup-date" class="block w-60 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
+              <button type="submit" class="btn text-sm text-white bg-green-600 hover:bg-green-700 rounded-md shadow-md focus:outline-none">
+                Accept Application
+              </button>
+            </div>
+
+            <div class="mt-6 flex space-x-1">
+             
+
+            </div>
+            </form>
+        </div>
+        </div>
+          </>
      :
     
      <>
@@ -530,11 +559,8 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
     <div class="ml-4">
       <h3 class="text-xl font-semibold text-gray-800">Other Documents Uploading</h3>
       <p class="mt-2 text-gray-600">You can upload other important documents related to your account or project here. Please ensure that all files are in the correct format and within the file size limits.</p>
-      <p class="mt-2 text-gray-500">
-        <strong class="text-blue-700">Accepted Formats:</strong> PDF, DOCX, XLSX, JPEG, PNG (max 10MB).
-      </p>
-      
-      <div class="mt-4">
+     
+      <div class="">
       <form onSubmit={submitFilesRevisions}>
           <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mb-3 mt-6">
            

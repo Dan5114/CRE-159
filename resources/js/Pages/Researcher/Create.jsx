@@ -1,5 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm, usePage } from '@inertiajs/react';
+import React, { useState, useEffect } from "react";
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
 
@@ -12,6 +13,46 @@ export default function Create(props) {
     useForm({
       research_title: "",
     });
+
+    const [input, setInput] = useState(""); // Holds the current input value
+    const [values, setValues] = useState([]); // Holds the multiple values
+  
+    // Handle the input change
+    const handleInputChange = (e) => {
+      setInput(e.target.value);
+    };
+  
+    // Add the value when Enter or Comma is pressed
+    // const handleKeyDown = (e) => {
+    //   if ((e.key === "Enter" || e.key === ",") && input.trim() !== "") {
+    //     // Add the input to the values array
+    //     setValues((prevValues) => [
+    //       ...prevValues,
+    //       input.trim().replace(/,$/, ""), // Remove any trailing comma
+    //     ]);
+    //     setInput(""); // Clear the input field
+    //     e.preventDefault(); // Prevent the default behavior (e.g., form submission)
+    //   }
+    // };
+
+    const handleButtonClick = (e) => {
+      setValues((prevValues) => [
+        ...prevValues,
+        input.trim().replace(/,$/, ""), // Remove any trailing comma
+      ]);
+      setInput(""); // Clear the input field
+      e.preventDefault(); // Prevent the default behavior (e.g., form submission)
+    };
+  
+    // Remove a value
+    const removeValue = (valueToRemove) => {
+      setValues(values.filter((value) => value !== valueToRemove));
+    };
+
+
+    useEffect(() => {
+      setData('members', values)
+    }, [values]); 
 
     const submitProposal = (e) => {
       e.preventDefault();
@@ -93,18 +134,55 @@ export default function Create(props) {
                       <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 text-base">
                         <dt class="font-bold text-base-content/90">Members : <span class="text-[#FF0000]">*</span></dt>
                         <dd class="mt-1 text-base-content/80 sm:col-span-2 sm:mt-0">
-                        <input type="text" onChange={(e) => setData('members', e.target.value)} class="input rounded-md" aria-label="input" />
-                        <div class="label">
-    <span class="label-text-alt text-xs">Multiple members put a comma, Ex. (Test1, Test 2)</span>
-  </div>
+                          <div class="flex justify-between gap-2">
+                          <input
+          type="text"
+          value={input}
+          onChange={handleInputChange}
+          class="border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+          placeholder=""
+        />
+
+<button
+        onClick={handleButtonClick}
+        class="m-3 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+      >
+       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5v14m7-7H5" /></svg>
+
+      </button>
+                          </div>
                         {errors.members && <div class="text-[#FF0000] flex text-xs"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
 	<path fill="red" d="M12 17q.425 0 .713-.288T13 16t-.288-.712T12 15t-.712.288T11 16t.288.713T12 17m-1-4h2V7h-2zm1 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8" />
 </svg>&nbsp;{errors.members}</div>}
+
+                          {
+                            (values.length > 0 && (<div className="flex flex-wrap gap-2 mb-4 mt-3">
+                              <label class="text-sm">List of Members:</label>
+              {values.map((value, index) => (
+                <span
+                  key={index}
+                  className="bg-green-500 text-white px-4 py-1 rounded-full text-md flex items-center"
+                >
+                  {value}
+                  <button
+                    type="button"
+                    onClick={() => removeValue(value)}
+                    className="ml-2 text-white hover:text-red-500"
+                  >
+                    &times;
+                  </button>
+                </span>
+              ))}
+            </div>))
+                          }
+
                         </dd>
+
                       </div>
+
                     </dl>
                   </div>
-                  <div class="flex justify-end">  <button type="submit" disabled={processing} class="btn btn-primary rounded-full">{(processing) ?<span class="loading loading-spinner loading-md"></span> : "Submit"}</button></div>
+                  <div class="flex justify-end mt-8">  <button type="submit" disabled={processing} class="btn btn-primary rounded-full">{(processing) ?<span class="loading loading-spinner loading-md"></span> : "Submit"}</button></div>
                 </div>
                 </form>
 

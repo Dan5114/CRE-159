@@ -121,7 +121,6 @@ class ResearcherController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'research_title' => 'required|unique:tbl_research|max:250',
             'department' => 'required'
@@ -135,9 +134,7 @@ class ResearcherController extends Controller
                 'user_id' => auth()->user()->id
             ]);
 
-            $valuesArray = explode(",", $request->members);
-
-            foreach ($valuesArray as $value) {
+            foreach ($request->members as $value) {
                 $data = [
                     "research_id" => $research->id,
                     "name" => $value

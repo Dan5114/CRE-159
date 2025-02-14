@@ -10,7 +10,7 @@ export default function AuthenticatedLayout({ header, children }) {
 
             {header && (
                 <header className="bg-[#198754]">
-                    <div className="p-3">
+                    <div className="p-3 ml-5">
                         {header}
                     </div>
                 </header>
