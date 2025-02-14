@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->uuid('reference');
             $table->string('research_title', length: 200);
+            $table->timestamp('date_completion')->nullable();
+            $table->timestamp('date_extension')->nullable();
             $table->char('status', length: 100)->default('D');
             $table->timestamps();
         });

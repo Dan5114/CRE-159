@@ -8,6 +8,7 @@ dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 import FeedbackStep1 from '../Feedback/FeedbackStep1';
+import Step1Form from '../SubForms/Step1Form';
 
 export default function Step1({research, files, user, feedbacks_step1, feedbacks_step1_notif, revisions_docs}) {
     const notyf = new Notyf();
@@ -30,8 +31,6 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
       step7_url: "",
       document_file: "",
       steps: "revisions",
-      date_completion: "",
-      date_extension: ""
     });
 
     const submitFiles = (e) => {
@@ -89,19 +88,6 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
               console.log("Finishing update status");
           },
         });
-       }
-
-       const creApproveApplication = () => {
-        
-        alert("sample");
-        // post(route('researcher.update.status'), {
-        //   onSuccess: (page) =>  {
-        //     notyf.success(page.props.flash.message)
-        //   },
-        //   onFinish: () =>  {
-        //       console.log("Finishing update status");
-        //   },
-        // });
        }
 
        const deleteFile = (id) => {
@@ -415,31 +401,11 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
           (research.status != "REC") ?
 
           <>
-   <div class="bg-green-50 border-l-4 border-green-500 p-6 shadow-md rounded-lg">
-   <div class="flex items-start">
-
-   <div class="mb-4">
-                <h1 class="text-xl font-bold text-gray-900">CRE</h1>
+          <div class="bg-green-50 border-l-4 border-green-500 p-6 shadow-md rounded-lg">
+            <div class="flex justify-start">
+              <Step1Form id={research.id}/>
             </div>
-<form class="mt-6" onSubmit={creApproveApplication}>
-            <div class="mt-6 flex space-x-3">
-              <label for="followup-date" class="block text-sm font-medium text-gray-700">Completion Date<span class="text-red-500">*</span></label>
-              <input type="date" id="followup-date" onChange={(e) => setData('date_completion', e.target.value)} name="followup-date" class="block w-60 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
-
-              <label for="followup-date" class="block text-sm font-medium text-gray-700">Extension Date<span class="text-red-500">*</span></label>
-              <input type="date" id="followup-date" onChange={(e) => setData('date_extension', e.target.value)} name="followup-date" class="block w-60 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
-              <button type="submit" class="btn text-sm text-white bg-green-600 hover:bg-green-700 rounded-md shadow-md focus:outline-none">
-                Accept Application
-              </button>
-            </div>
-
-            <div class="mt-6 flex space-x-1">
-             
-
-            </div>
-            </form>
-        </div>
-        </div>
+          </div>
           </>
      :
     
@@ -470,16 +436,13 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
   <div class="">
   {
     (research.status == "D") ?
-    <button type="submit" disabled={processing} class="btn btn-primary rounded-full">{(processing) ?<span class="loading loading-spinner loading-md"></span> : "Upload Document"} 
-         
-         </button>
-         :
-         ""
-    }
-    &nbsp;
+    <button type="submit" disabled={processing} class="btn btn-primary rounded-full">{(processing) ?<span class="loading loading-spinner loading-md"></span> : "Upload Document"}</button>
+    :
+    ""
+  }
+  &nbsp;
     {
       (research.status != "D") ?
-      
       <>
       {
         (research.status == "REC") ?

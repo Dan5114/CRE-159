@@ -12,6 +12,8 @@ class Research extends Model
 
     protected $fillable = [
         'research_title',
+        'date_completion',
+        'date_extension',
         'reference',
         'dept_id',
         'user_id'

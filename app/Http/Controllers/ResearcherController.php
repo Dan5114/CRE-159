@@ -150,12 +150,19 @@ class ResearcherController extends Controller
 
     public function update_application_status(Request $request)
     {
+        $validated = $request->validate([
+            'date_completion' => 'required|date|after_or_equal:today',  // Ensure it is a valid date and not in the past
+            'date_extension' => 'required|date|after_or_equal:date_completion',  // Ensure extension date is after completion date
+        ]);
+    
         $current = Carbon::now();
         $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "1")->first();
         CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current]);
         $this->cre_application_status($request->research_id, "2", "Technical Committee & Schedule Presentation", $current, $end = null, "On Process");
 
-        Research::where('id', $request->research_id)->update(['status'=>'REC']);
+        Research::where('id', $request->research_id)->update(['status' => 'REC', 'date_completion' => $request->date_completion,
+        'date_extension' => $request->date_extension]);
+
         return redirect()->back()->with('message', 'Updated Status Successfully');
     }
 
