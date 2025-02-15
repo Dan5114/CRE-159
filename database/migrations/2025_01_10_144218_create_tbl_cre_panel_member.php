@@ -17,6 +17,7 @@ return new class extends Migration
             $table->char('fname', length: 50);
             $table->char('lname', length: 50);
             $table->char('role', length: 20);
+            $table->char('endorsement_status', length: 1)->nullable();
             $table->timestamps();
         });
     }
