@@ -16,6 +16,7 @@ class Research extends Model
         'date_extension',
         'reference',
         'dept_id',
+        'type',
         'user_id'
     ];
 

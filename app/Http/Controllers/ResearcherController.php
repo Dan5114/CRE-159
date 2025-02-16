@@ -131,6 +131,7 @@ class ResearcherController extends Controller
                 'reference' => (string) Str::uuid(),
                 'research_title' => $request->research_title,
                 'dept_id' => $request->department,
+                'type' => $request->type,
                 'user_id' => auth()->user()->id
             ]);
 

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('dept_id');
             $table->foreignId('user_id');
             $table->uuid('reference');
+            $table->char('type', length: 3)->nullable();
             $table->string('research_title', length: 200);
             $table->timestamp('date_completion')->nullable();
             $table->timestamp('date_extension')->nullable();

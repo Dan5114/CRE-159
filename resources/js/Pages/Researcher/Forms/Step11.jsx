@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
+import TurnitinScore from '../SubForms/Turnitin';
 dayjs.extend(localizedFormat);
 
 export default function Step10({user, research, turnitin_docs}) {
@@ -61,6 +62,28 @@ export default function Step10({user, research, turnitin_docs}) {
     });
   }
 
+  const updateStatus = () => {
+    const score = parseInt(document.getElementById('turnitin-score').value);
+    const statusTextElement = document.getElementById('status-text');
+    const statusColorElement = document.getElementById('status-color');
+
+    if (score >= 0 && score <= 100) {
+        const statusText = score >= 60 ? 'Pass' : 'Fail';
+        const statusColor = score >= 60 ? 'bg-green-500' : 'bg-red-500';
+
+        // Update the Pass/Fail status and card color dynamically
+        statusTextElement.innerText = statusText;
+        statusColorElement.classList.remove('bg-green-500', 'bg-red-500');
+        statusColorElement.classList.add(statusColor);
+    } else {
+        statusTextElement.innerText = 'Invalid Score';
+        statusColorElement.classList.remove('bg-green-500', 'bg-red-500');
+        statusColorElement.classList.add('bg-gray-500');
+    }
+};
+
+// Add event listener to update the status when the score is entered
+
 
   return (
     <>
@@ -74,6 +97,8 @@ export default function Step10({user, research, turnitin_docs}) {
                     <p class="text-gray-700 mt-2">Turnitin's CRE (Content Review Engine) helps in detecting potential plagiarism and ensures originality in academic writing. It is widely used by institutions to verify the authenticity of submitted content.</p>
                 </div> 
 
+              <TurnitinScore />
+
         <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 mt-3 rounded-md">
         <strong class="font-semibold">Important:</strong> 
         &nbsp;Please <span class="font-semibold">do not delete or remove any previously uploaded documents</span> as they are crucial for version tracking.
@@ -83,7 +108,6 @@ export default function Step10({user, research, turnitin_docs}) {
             <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700 mt-3">
             <thead class="bg-gray-100 dark:bg-neutral-700">
               <tr>
-                <th></th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Version #</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">File</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Date Created</th>
@@ -94,12 +118,6 @@ export default function Step10({user, research, turnitin_docs}) {
                         { turnitin_docs.map((turnitin_doc, index) => (
                             <>
                             <tr class="border-b hover:bg-gray-50">
-                                <td>
-                                <div class="flex items-center">
-                                    <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" id="checkboxExtraSmall" />
-                                    <label class="label label-text text-sm" for="checkboxExtraSmall"> Turnitin </label>
-                                </div>
-                                </td>
                                 <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">V{index+1}</td>
                                 <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{turnitin_doc.file_name}</td>
                                 <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(turnitin_doc.created_at).format("LLL")}</td>
