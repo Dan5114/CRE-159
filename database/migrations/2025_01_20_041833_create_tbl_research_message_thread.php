@@ -17,7 +17,7 @@ return new class extends Migration
             $table->char('remarks', length: 200);
             $table->char('seen_by', length: 200)->nullable();
             $table->char('read_status', length: 1);
-            $table->char('steps', length: 1);
+            $table->char('steps', length: 2);
             $table->timestamps();
         });
     }

@@ -94,7 +94,7 @@ export default function Step10({user, research, turnitin_docs}) {
             <div class="card p-3">
                 <div class="p-2 mt-5">
                     <h3 class="text-2xl font-semibold text-gray-900">Turnitin Uploading</h3>
-                    <p class="text-gray-700 mt-2">Turnitin's CRE (Content Review Engine) helps in detecting potential plagiarism and ensures originality in academic writing. It is widely used by institutions to verify the authenticity of submitted content.</p>
+                    <p class="text-gray-700 mt-2">Turnitin's helps in detecting potential plagiarism and ensures originality in academic writing. It is widely used by institutions to verify the authenticity of submitted content.</p>
                 </div> 
 
               <TurnitinScore />
@@ -159,7 +159,7 @@ export default function Step10({user, research, turnitin_docs}) {
             <div class="card p-3">
                 <div class="p-2 mt-5">
                     <h3 class="text-2xl font-semibold text-gray-900">Turnitin Uploading</h3>
-                    <p class="text-gray-700 mt-2">Turnitin's CRE (Content Review Engine) helps in detecting potential plagiarism and ensures originality in academic writing. It is widely used by institutions to verify the authenticity of submitted content.</p>
+                    <p class="text-gray-700 mt-2">Turnitin's helps in detecting potential plagiarism and ensures originality in academic writing. It is widely used by institutions to verify the authenticity of submitted content.</p>
                 </div> 
 
                     

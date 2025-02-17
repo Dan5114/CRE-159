@@ -8,10 +8,11 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
+import FeedbackStep10 from '../Feedback/FeedbackStep10';
 
-export default function Step10({user, research, tpl_docs}) {
+export default function Step10({user, research, tpl_docs, feedbacks_step10, feedbacks_step10_notif,}) {
     const notyf = new Notyf();
-    const { data, setData, post,  delete: destroy, errors, reset, formState, processing, progress, recentlySuccessful } =
+    const { data, setData, post,  delete: destroy, patch, errors, reset, formState, processing, progress, recentlySuccessful } =
     useForm({
         research_id : research.id,
         document_file: "",
@@ -60,11 +61,48 @@ export default function Step10({user, research, tpl_docs}) {
         });
       }
 
+      const markAsRead = (id) => {
+        patch(route('researcher.mark.read', id), {
+            onSuccess: (page) =>  {
+              console.log("Finishing read status");
+            },
+            onFinish: () =>  {
+                console.log("Finishing update status");
+            },
+        });
+      }
+
 
   return (
     <>
-        {
-            (user.user_type == "cre") ? 
+
+<nav class="tabs tabs-lifted mt-3 p-2" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
+  <button type="button" class="tab active-tab:tab-active active" id="tabs-lifted-item-techpanel10" data-tab="#tabs-lifted-techpanel10" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
+    Files
+  </button>
+  <button type="button" onClick={() => {
+    if (user.user_type === "cre") {
+      markAsRead(research.id);
+    } else {
+      console.log("You do not have permission to perform this action.");
+    }
+  }} class="tab active-tab:tab-active" id="tabs-lifted-item-techpanelfeedback10" data-tab="#tabs-lifted-techpanelfeedback10" aria-controls="tabs-lifted-2" role="tab" aria-selected="false">
+    Feedback
+    {
+      (feedbacks_step10_notif == 0) ? 
+      ""
+      :
+      <span class="badge bg-[#FF0000] text-white badge-sm ms-2 rounded-full">+{feedbacks_step10_notif}</span>
+    }
+  
+  </button>
+</nav>
+
+
+<div id="tabs-lifted-techpanel10" role="tabpanel" aria-labelledby="tabs-lifted-item-techpanel10">
+
+{
+            (user.user_type == "researcher") ? 
             <>
                     <div>
                       
@@ -147,6 +185,8 @@ export default function Step10({user, research, tpl_docs}) {
             </>
             :
             <>
+
+
                 <div class="p-3">
            
                    <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 mt-3 rounded-md">
@@ -201,7 +241,13 @@ export default function Step10({user, research, tpl_docs}) {
            
                      </div>
             </>
-        }
+        } 
+
+</div>
+
+<div id="tabs-lifted-techpanelfeedback10" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-techpanelfeedback10">
+  <FeedbackStep10 user={user} research={research} feedbacks_step10={feedbacks_step10} />
+</div>
     </>
   )
 }
