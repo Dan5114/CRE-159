@@ -619,15 +619,24 @@ class ResearcherController extends Controller
 
     public function tpl_endorse_application(Request $request)
     {
-        $data = [
-            "date_endorse" =>  $request->date_endorsement,
-            "research_id" => $request->research_id,
-            "user_id" => auth()->user()->id,
-            "steps" => $request->steps
-        ];
-
-        TplEndorsementPaper::create($data);
-        return redirect()->back()->with('message', 'Success');
+        try {
+            $current = Carbon::now();
+            $session_id = (auth()->user()->user_type == "cre" ? $request->panel_id : auth()->user()->id);
+            $date_endorse = (auth()->user()->user_type == "cre" ? $current : $request->date_endorsement);
+    
+            CrePanelMember::where('id', $session_id)->update(['endorsement_status' => 'yes']);
+            
+            $data = [
+                "date_endorse" =>  $date_endorse,
+                "research_id" => $request->research_id,
+                "user_id" => $session_id,
+                "steps" => $request->steps
+            ];
+            TplEndorsementPaper::create($data);
+            return redirect()->back()->with('message', 'Success');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
     }
 
     public function urb_approved_application(Request $request){

@@ -25,6 +25,7 @@ export default function Step2({user, research, panels}) {
       panels7: "",
       panels8: "",
       meeting_id: research.meeting.id,
+      steps: "4"
     });
 
 
@@ -60,6 +61,22 @@ export default function Step2({user, research, panels}) {
         onSuccess: (page) =>  notyf.success(page.props.flash.message),
         onError: () => console.log("Error deleting"),
         onFinish: () => reset(),
+    });
+    }
+
+    const acceptApplication = (id) => {      
+      post(route('tpl.endorse.application', {
+        panel_id: id,
+      }),
+      {
+        onSuccess: (page) =>  {
+            notyf.success(page.props.flash.message);
+            closeModal();
+        },
+        onFinish: () =>  {
+            console.log("Finishing accept application");
+            reset()
+        },
     });
     }
 
@@ -203,7 +220,18 @@ export default function Step2({user, research, panels}) {
                 <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{panel.role}</td>
                 <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">
                   
-                <button class="btn btn-sm btn-primary">Endorse</button>
+                {
+                  (panel.endorsement_status == "yes") ?
+                  <>
+                 <span class="text-gray-500 text-xs"><span class="size=6 icon-[tabler--checks] text-success align-bottom"></span> Endorsed at {dayjs(panel.updated_at).format("LLL")}</span>
+                  </>
+                  :
+                  <>
+                  <button class="btn btn-sm btn-primary" onClick={() => {
+                  acceptApplication(panel.id);
+                  }}>Endorse</button>
+                  </>
+                }
                 </td>
                 
                 <td>
