@@ -218,6 +218,9 @@ export default function Step10({user, research, tpl_docs, feedbacks_step10, feed
                             ))}
                          </tbody>
                          </table>
+
+                        
+
                          {tpl_docs.length === 0 ? (
                                   <>
                                    <div class="bg-white p-6 shadow-lg rounded-lg border border-gray-200">
@@ -236,7 +239,13 @@ export default function Step10({user, research, tpl_docs, feedbacks_step10, feed
                                   </>                 
                                  )
                                    :                               
-                                  <></>                       
+                                  <>
+                                    <div class="mt-3">
+                                    <button type="button"  class="btn btn-success rounded-full">
+                                      Endorse Paper for Technical Clearance
+                                      </button>
+                                    </div>
+                                  </>                       
                                  }
            
                      </div>
