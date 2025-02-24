@@ -80,7 +80,7 @@ export default function StepperForm({research, files, user, panels, technical_do
         Formal approval for the revised versions of documents, ensuring they meet all required standards and revisions.
       </p>
     </div>
-        <Step4 user={user} research={research} revised_docs={revised_docs}  feedbacks_step4={feedbacks_step4} feedbacks_step4_notif={feedbacks_step4_notif} endorsement_status={endorsement_status} tech_doc={tech_doc}/>
+        <Step4 user={user} research={research} revised_docs={revised_docs}  feedbacks_step4={feedbacks_step4} feedbacks_step4_notif={feedbacks_step4_notif} endorsement_status={endorsement_status} tech_doc={tech_doc} panels={panels}/>
      </div>
    </div>
 

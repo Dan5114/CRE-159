@@ -11,7 +11,7 @@ dayjs.extend(localizedFormat);
 import Modal from '@/Components/Modal';
 import FeedbackStep4 from '../Feedback/FeedbackStep4';
 
-export default function Step4({user, research, revised_docs, feedbacks_step4, feedbacks_step4_notif, endorsement_status, tech_doc}) {
+export default function Step4({user, research, revised_docs, feedbacks_step4, feedbacks_step4_notif, endorsement_status, tech_doc, panels}) {
   const notyf = new Notyf();
   const [confirmingModal, setConfirmingModal] = useState(false);
   const { data, setData, post,  delete: destroy, patch, errors, reset, formState, processing, progress, recentlySuccessful } =
@@ -85,9 +85,43 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
     });
   }
 
+    const deletePanel = (id) => {
+      destroy(route('researcher.delete.panel', id), {
+          preserveScroll: true,
+          onSuccess: (page) =>  notyf.success(page.props.flash.message),
+          onError: () => console.log("Error deleting"),
+          onFinish: () => reset(),
+      });
+    }
+
+    const unendorsedPanel = (id) => {
+      patch(route('researcher.unendorsed.panel', id), {
+          preserveScroll: true,
+          onSuccess: (page) =>  notyf.success(page.props.flash.message),
+          onError: () => console.log("Error deleting"),
+          onFinish: () => reset(),
+      });
+    }
+
   const acceptApplication = (e) => {
     e.preventDefault();
     post(route('tpl.endorse.application'), {
+      onSuccess: (page) =>  {
+          notyf.success(page.props.flash.message);
+          closeModal();
+      },
+      onFinish: () =>  {
+          console.log("Finishing accept application");
+          reset()
+      },
+  });
+  }
+
+  const acceptApplicationPanel = (id) => {      
+    post(route('tpl.endorse.application', {
+      panel_id: id,
+    }),
+    {
       onSuccess: (page) =>  {
           notyf.success(page.props.flash.message);
           closeModal();
@@ -505,6 +539,71 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
             </div>
           </div>
         </form>
+
+                <div class="bg-base-100 border text-base-content">
+                <label class="text-base-content bg-gray-300  flex justify-left p-2 text-lg font-semibold" for="firstName"> List of Panel Members </label>
+                <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700">
+                    <thead class="bg-gray-100 dark:bg-neutral-700">
+                    <tr>
+                        <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Panel</th>
+                        <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Role</th>
+                        <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Endorsement Status</th>
+                        <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500"></th>
+                      </tr>
+                    </thead>
+        
+                    <tbody>
+                    { panels.map((panel, index) => (
+                      <tr>
+                        <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">
+                        <div class="flex items-center space-x-3">
+            <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png" alt="User Image" class="size-10 rounded-full" />
+            <span>{panel.name}</span>
+        </div>
+        
+                        </td>
+                        <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{panel.role}</td>
+                        <td class="px-3 py-6 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">
+                          
+                        {
+                          (panel.endorsement_status == "yes") ?
+                          <>
+                         <span class="text-gray-500 text-xs"><span class="size=6 icon-[tabler--checks] text-success align-bottom"></span> Endorsed at {dayjs(panel.updated_at).format("LLL")}</span>
+                          </>
+                          :
+                          <>
+                          <button class="btn btn-sm btn-primary" onClick={() => {
+                          acceptApplicationPanel(panel.id);
+                          }}>Endorse</button>
+                          </>
+                        }
+                        </td>
+                        
+                        <td>
+                          <div class="flex flex-col items-end gap-x-2 gap-y-0.5 m-3">
+                          {
+                          (panel.endorsement_status == "yes") ?
+                          <>
+                          <span class="text-base-content/50 text-sm text-gray hover:cursor-pointer" onClick={() => unendorsedPanel(panel.id)}>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" d="M8 3L3 8l5 5m4 7h3a6 6 0 1 0 0-12H4"/></svg>
+                          </span>
+                          </>
+                          :
+                          <>
+                           <span class="text-base-content/50 text-sm text-gray hover:cursor-pointer" onClick={() => deletePanel(panel.id)}>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="#ff001a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16m-10 4v6m4-6v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/></svg>
+                              </span>
+                          </>
+}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}                    
+                    </tbody>
+                  </table>
+                    
+        
+                    </div>
         </>
         :
         <>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResearcherController;
+use App\Http\Controllers\PanelController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,8 +26,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resources([
-        'researcher' => ResearcherController::class
+        'researcher' => ResearcherController::class,
+        'panels' => PanelController::class
     ]);
+
     Route::post('/researcher/file/upload', [ResearcherController::class, 'file_uplolad_store'])->name('researcher.upload.files');
     Route::get('/file/download/{id}', [ResearcherController::class, 'file_download'])->name('researcher.file.download');
     Route::post('/researcher/update/status', [ResearcherController::class, 'update_application_status'])->name('researcher.update.status');
@@ -45,7 +48,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/urb/disapproved/application', [ResearcherController::class, 'urb_disapproved_application'])->name('urb.disapproved.application');
     Route::post('/cre/progress/report/date', [ResearcherController::class, 'schedule_progress_report'])->name('cre.progress.report.date');
     Route::post('/researcher/progress/report/upload', [ResearcherController::class, 'researcher_progress_upload'])->name('researcher.progress.report.files');
-
+    Route::patch('/researcher/unendorsed/panel/{id}', [ResearcherController::class, 'unendorsed_panel'])->name('researcher.unendorsed.panel');
 
 });
 

@@ -903,6 +903,16 @@ class ResearcherController extends Controller
         }
     }
 
+    public function unendorsed_panel(string $id)
+    {
+        try {
+            CrePanelMember::where('id', $id)->update(['endorsement_status' => null]);
+            return redirect()->back()->with('message', 'Successfully Unendorsed');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
+    }
+
     public function delete_doc(string $id)
     {
         try {

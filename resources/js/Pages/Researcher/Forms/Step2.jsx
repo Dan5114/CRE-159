@@ -218,7 +218,7 @@ export default function Step2({user, research, panels}) {
 
                 </td>
                 <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{panel.role}</td>
-                <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">
+                <td class="px-3 py-8 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">
                   
                 {
                   (panel.endorsement_status == "yes") ?
@@ -227,18 +227,19 @@ export default function Step2({user, research, panels}) {
                   </>
                   :
                   <>
-                  <button class="btn btn-sm btn-primary" onClick={() => {
+                  {/* <button class="btn btn-sm btn-primary" onClick={() => {
                   acceptApplication(panel.id);
-                  }}>Endorse</button>
+                  }}>Endorse</button> */}
+                  ----
                   </>
                 }
                 </td>
                 
                 <td>
                 <div class="flex flex-col items-end gap-x-2 gap-y-0.5 m-3">
-                    <span class="text-base-content/50 text-sm text-gray hover:cursor-pointer" onClick={() => deletePanel(panel.id)}>
+                    {/* <span class="text-base-content/50 text-sm text-gray hover:cursor-pointer" onClick={() => deletePanel(panel.id)}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="#ff001a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16m-10 4v6m4-6v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/></svg>
-                    </span>
+                    </span> */}
                     </div>
                 </td>
               </tr>
@@ -246,27 +247,6 @@ export default function Step2({user, research, panels}) {
             </tbody>
           </table>
             
-            {/* { panels.map((panel, index) => (
-                                <>
-                                   
-                               
-                <li class="flex items-center gap-2 px-4 py-2.5 border-t">
-                <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png" alt="User Image" class="size-10 rounded-full" />
-                <div class="flex grow items-center justify-between gap-y-1">
-                    <div class="user-info">
-                    <h6 class="text-base">{panel.name}</h6>
-                    <a href="#"><span class="badge badge-xs badge-outline badge-accent">{panel.role}</span></a>
-                    
-                    </div>
-                    <div class="flex flex-col items-end gap-x-2 gap-y-0.5">
-                    <span class="text-base-content/50 text-sm text-gray hover:cursor-pointer" onClick={() => deletePanel(panel.id)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="#ff001a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16m-10 4v6m4-6v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/></svg>
-                    </span>
-                    </div>
-                </div>
-                </li>
-                </>
-                                ))} */}
 
             </div>
 
