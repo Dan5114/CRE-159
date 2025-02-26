@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
-import TurnitinScore from '../SubForms/Turnitin';
+import TurnitinScoreModal from '../SubForms/TurnitinModal';
 dayjs.extend(localizedFormat);
 
 export default function Step10({user, research, turnitin_docs}) {
@@ -62,29 +62,6 @@ export default function Step10({user, research, turnitin_docs}) {
     });
   }
 
-  const updateStatus = () => {
-    const score = parseInt(document.getElementById('turnitin-score').value);
-    const statusTextElement = document.getElementById('status-text');
-    const statusColorElement = document.getElementById('status-color');
-
-    if (score >= 0 && score <= 100) {
-        const statusText = score >= 60 ? 'Pass' : 'Fail';
-        const statusColor = score >= 60 ? 'bg-green-500' : 'bg-red-500';
-
-        // Update the Pass/Fail status and card color dynamically
-        statusTextElement.innerText = statusText;
-        statusColorElement.classList.remove('bg-green-500', 'bg-red-500');
-        statusColorElement.classList.add(statusColor);
-    } else {
-        statusTextElement.innerText = 'Invalid Score';
-        statusColorElement.classList.remove('bg-green-500', 'bg-red-500');
-        statusColorElement.classList.add('bg-gray-500');
-    }
-};
-
-// Add event listener to update the status when the score is entered
-
-
   return (
     <>
        {
@@ -124,16 +101,38 @@ export default function Step10({user, research, turnitin_docs}) {
                                 <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">V{index+1}</td>
                                 <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{turnitin_doc.file_name}</td>
                                 <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(turnitin_doc.created_at).format("LLL")}</td>
-                                <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium"></td>
-                                <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium"></td>
-                                <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium"></td>
+                                <td class="px-3 py-3 whitespace-nowrap text-sm font-medium">{(turnitin_doc.turnitin_score == null) ? "---" : turnitin_doc.turnitin_score}</td>
+                                <td class="px-3 py-3 whitespace-nowrap text-sm font-medium">{(turnitin_doc.turnitin_status == null) ? "---" : turnitin_doc.turnitin_status.toUpperCase()}</td>
+                                <td class="px-3 py-3 whitespace-nowrap text-sm font-medium">
+                                  <div class="flex gap-1">
+                                  {(turnitin_doc.turnitin_status == null) ? "---" : turnitin_doc.turnitin_file}
+
+                                  {/* {
+                                    (turnitin_doc.turnitin_file != null) ? 
+                                    <>
+                                     <span class="hover:cursor-pointer text-primary"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg></span>
+                                    </>
+                                    :
+                                    <></>
+                                  } */}
+                                  </div>
+                                </td>
                                 <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
 
                                 <div class="flex justify-start gap-1">
-                         <span>
-                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><g fill="none" stroke="gray" stroke-linejoin="round" stroke-width="2"><path stroke-linecap="round" d="M7 21a2 2 0 0 1-2-2V3h9l5 5v11a2 2 0 0 1-2 2zm5-8v4m-2-2h4"/><path d="M13 3v6h6"/></g></svg>
+                         <span class="hover:cursor-pointer">
+                          {
+                            (turnitin_doc.turnitin_score != null) ?
+                            <></>
+                            :
+                            <>
+                            <TurnitinScoreModal file_id={turnitin_doc.id} className="max-w-xl" />
+                            </>
+                          }
                           </span>
                           <span class="hover:cursor-pointer" onClick={() => downloadDoc(turnitin_doc)}> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg></span>
+                         
+                          
                          </div>
                                 </td>
                             </tr>          
@@ -219,9 +218,22 @@ export default function Step10({user, research, turnitin_docs}) {
                         <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">V{index+1}</td>
                         <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{turnitin_doc.file_name}</td>
                         <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(turnitin_doc.created_at).format("LLL")}</td>
-                        <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium"></td>
-                        <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium"></td>
-                        <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium"></td>
+                        <td class="px-3 py-3 whitespace-nowrap text-sm font-medium">{(turnitin_doc.turnitin_score == null) ? "---" : turnitin_doc.turnitin_score}</td>
+                                <td class="px-3 py-3 whitespace-nowrap text-sm font-medium">{(turnitin_doc.turnitin_status == null) ? "---" : turnitin_doc.turnitin_status.toUpperCase()}</td>
+                                <td class="px-3 py-3 whitespace-nowrap text-sm font-medium">
+                                  <div class="flex gap-1">
+                                  {(turnitin_doc.turnitin_status == null) ? "---" : turnitin_doc.turnitin_file}
+
+                                  {
+                                    (turnitin_doc.turnitin_file != null) ? 
+                                    <>
+                                     <span class="hover:cursor-pointer text-primary"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg></span>
+                                    </>
+                                    :
+                                    <></>
+                                  }
+                                  </div>
+                                </td>
                         <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
                          <div class="flex justify-start gap-1">
                             <span class="hover:cursor-pointer" onClick={() => deleteFile(turnitin_doc.id)}>

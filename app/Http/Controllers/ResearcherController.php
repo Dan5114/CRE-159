@@ -913,6 +913,30 @@ class ResearcherController extends Controller
         }
     }
 
+    public function turnitin_report_upload(Request $request)
+    {
+
+        try {
+            if ($request->file('document_file')){
+                $turnitin_file = $request->file('document_file');
+                $fileName_turnitin =  $turnitin_file->getClientOriginalName(); 
+                $filePath_turnitin = 'uploads/' . $turnitin_file->getClientOriginalName();
+
+                $data = [
+                    "turnitin_score" => $request->score,
+                    "turnitin_status" => $request->status,
+                    "turnitin_file" => $fileName_turnitin,
+                    "turnitin_path" => $filePath_turnitin
+                ];
+                ResearchDoc::where('id', $request->file_id)->update($data);
+                Storage::disk('public')->put($filePath_turnitin, file_get_contents($turnitin_file));
+            }
+            return redirect()->back()->with('message', 'Successfully Uploaded');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
+    }
+
     public function delete_doc(string $id)
     {
         try {

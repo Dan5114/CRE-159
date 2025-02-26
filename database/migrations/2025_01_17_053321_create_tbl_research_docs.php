@@ -18,6 +18,10 @@ return new class extends Migration
             $table->char('file_path', length: 100);
             $table->char('steps', length: 100);
             $table->char('seen_status', length: 100)->nullable();
+            $table->char('turnitin_score', length: 100)->nullable();
+            $table->char('turnitin_status', length: 100)->nullable();
+            $table->char('turnitin_file', length: 100)->nullable();
+            $table->char('turnitin_path', length: 100)->nullable();
             $table->timestamp('seen_date')->nullable();
             $table->timestamp('report_date')->nullable();
             $table->timestamps();

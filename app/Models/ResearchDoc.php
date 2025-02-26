@@ -13,6 +13,10 @@ class ResearchDoc extends Model
         'steps',
         'seen_status',
         'seen_date',
+        'turnitin_score',
+        'turnitin_status',
+        'turnitin_file',
+        'turnitin_path',
         'report_date',
         'file_name',
         'file_path'
