@@ -202,7 +202,8 @@ export default function Step2({user, research, panels}) {
             <tr>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Panel</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Role</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Endorsement Status</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Status</th>
+                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Endorsement Date</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500"></th>
               </tr>
             </thead>
@@ -217,13 +218,13 @@ export default function Step2({user, research, panels}) {
 </div>
 
                 </td>
-                <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{panel.role}</td>
-                <td class="px-3 py-8 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">
+                <td class="px-3 py-3 text-balance whitespace-nowrap text-xs font-medium text-gray-700 dark:text-neutral-200">{panel.role.toUpperCase()}</td>
+                <td class="px-3 py-6 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">
                   
                 {
                   (panel.endorsement_status == "yes") ?
                   <>
-                 <span class="text-gray-500 text-xs"><span class="size=6 icon-[tabler--checks] text-success align-bottom"></span> Endorsed at {dayjs(panel.updated_at).format("LLL")}</span>
+                 <span class="text-gray-500 text-xs"><span class="size=6 icon-[tabler--checks] text-success align-bottom"></span> ENDORSED</span>
                   </>
                   :
                   <>
@@ -233,6 +234,10 @@ export default function Step2({user, research, panels}) {
                   ----
                   </>
                 }
+                </td>
+
+                <td class="px-3 py-8 text-balance whitespace-nowrap text-sm text-gray-700 dark:text-neutral-200">
+                  {dayjs(panel.updated_at).format("LLL")}
                 </td>
                 
                 <td>
