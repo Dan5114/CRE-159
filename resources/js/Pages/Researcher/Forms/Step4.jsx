@@ -563,7 +563,7 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
         </div>
         
                         </td>
-                        <td class="px-3 py-3 text-balance whitespace-nowrap text-xs font-medium text-gray-700 dark:text-neutral-200">{panel.user_profile.role.toUpperCase()}</td>
+                        <td class="px-3 py-3 text-balance whitespace-nowrap text-xs font-medium text-gray-700 dark:text-neutral-200">{panel.role.toUpperCase()}</td>
                         <td class="px-3 py-6 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">
                           
                         {

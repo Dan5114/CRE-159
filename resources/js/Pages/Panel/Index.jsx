@@ -2,6 +2,7 @@ import React from 'react'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
 import Pagination from "@/Components/Pagination";
+import InputError from '@/Components/InputError';
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
 
@@ -20,38 +21,36 @@ export default function Index(props) {
           onSuccess: (page) =>  {
               reset();
               notyf.success(page.props.flash.message);
+              router.visit(route('panels.index'), {
+                preserveState: false,
+                method: 'get',
+            });
           },
           onFinish: () =>  {
-            router.visit(route('panels.index'), {
-              preserveState: false,
-              method: 'get',
-          });
+            
           },
       });
   }
 
   const deletePanel = (id) => {
-    // Ask for confirmation before proceeding
     const isConfirmed = window.confirm("Are you sure you want to delete this panel?");
-
     if (isConfirmed) {
-        // If the user confirms, proceed with the deletion
         destroy(route('panels.destroy', id), {
             preserveScroll: true,
-            onSuccess: (page) => notyf.success(page.props.flash.message),
-            onError: () => console.log("Error deleting"),
-            onFinish: () =>  {
+            onSuccess: (page) => {
+              notyf.success(page.props.flash.message)
               router.visit(route('panels.index'), {
-                preserveState: false,
-                method: 'get',
-            });
-            }
+                  preserveState: false,
+                  method: 'get',
+              });
+            },
+            onError: () => console.log("Error deleting"),
+            onFinish: () =>  console.log("finish request")
         });
     } else {
-        // If the user cancels, do nothing
         console.log("Deletion canceled");
     }
-};
+  };
 
 
   return (
@@ -87,31 +86,27 @@ export default function Index(props) {
               <div class="mb-4">
       <label for="name" class=" text-sm font-medium text-gray-600">First Name</label>
       <input type="text" onChange={(e) => setData('first_name', e.target.value)} class="w-full mt-2 p-3 border rounded-md" placeholder="" />
+     <InputError message={errors.first_name} className="mt-2" />
     </div>
 
     <div class="mb-4">
       <label for="name" class=" text-sm font-medium text-gray-600">Last Name</label>
       <input type="text" onChange={(e) => setData('last_name', e.target.value)} class="w-full mt-2 p-3 border rounded-md" placeholder="" />
+      <InputError message={errors.last_name} className="mt-2" />
     </div>
               </div>
 
-    <div class="mb-4">
-    <label for="name" class="block text-sm font-medium text-gray-600">Role</label>
-      <select class="select select-lg" id="favorite-simpson" onChange={(e) => setData('role', e.target.value)}>
-        <option value="">Please Choose:</option>
-        <option value="lead">Lead Panel</option>
-        <option value="member">Panel Member</option>
-      </select>
-    </div>
 
     <div class="mb-4">
       <label for="email" class="block text-sm font-medium text-gray-600">Email Address</label>
       <input type="email" id="email" onChange={(e) => setData('email', e.target.value)} class="w-full mt-2 p-3 border rounded-md" placeholder="" />
+      <InputError message={errors.email} className="mt-2" />          
     </div>
 
     <div class="mb-4">
       <label for="phone" class="block text-sm font-medium text-gray-600">Password</label>
       <input type="password" id="phone" onChange={(e) => setData('password', e.target.value)} class="w-full mt-2 p-3 border rounded-md" placeholder="" />
+      <InputError message={errors.password} className="mt-2" />          
     </div>
 
     <button type="submit" class="btn btn-primary float-end rounded-full">Create Panel</button>
@@ -127,7 +122,6 @@ export default function Index(props) {
         <tr>
           <th className="px-6 py-3 text-left text-xs font-xs text-white">NAME</th>
           <th className="px-6 py-3 text-left text-xs font-xs text-white">EMAIL</th>
-          <th className="px-6 py-3 text-left text-xs font-xs text-white">ROLE</th>
           <th></th>
         </tr>
       </thead>
@@ -136,10 +130,7 @@ export default function Index(props) {
                        <tr class={index % 2 !== 0 ? "bg-gray-50 dark:bg-gray-800 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-800 dark:border-gray-700"}>
                            <td class="px-3 py-3 truncate max-w-xs whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{techpanel.name}</td>
                            <td class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{techpanel.email}</td>
-                           <td class="py-3 px-6 group relative text-xs">
-                     
-                           {techpanel.role?.toUpperCase()}
-                       </td>
+                          
                        <td>
                 <div class="flex flex-col items-end gap-x-2 gap-y-0.5 m-3">
                     <span class="text-base-content/50 text-sm text-gray hover:cursor-pointer" onClick={() => deletePanel(techpanel.id)}>

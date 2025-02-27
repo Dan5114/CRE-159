@@ -8,6 +8,7 @@ use Inertia\Response;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
+use Illuminate\Validation\Rules\Password;
 
 class PanelController extends Controller
 {
@@ -36,11 +37,17 @@ class PanelController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|ends_with:usls.edu.ph|lowercase|email|max:50|unique:'.User::class,
+            'password' => ['required', Password::min(9)->letters()->numbers()->mixedCase()->symbols()],
+        ]);
+
         $data = [
             "name" => $request->first_name . " " . $request->last_name,
             "email" => $request->email,
             "user_type" => "tpl",
-            "role" => $request->role,
             "email_verified_at" => Carbon::now(),
             "password" => Hash::make($request->password),
         ];

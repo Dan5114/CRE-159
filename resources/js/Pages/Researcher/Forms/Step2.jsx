@@ -218,7 +218,7 @@ export default function Step2({user, research, panels}) {
 </div>
 
                 </td>
-                <td class="px-3 py-3 text-balance whitespace-nowrap text-xs font-medium text-gray-700 dark:text-neutral-200">{panel.user_profile.role.toUpperCase()}</td>
+                <td class="px-3 py-3 text-balance whitespace-nowrap text-xs font-medium text-gray-700 dark:text-neutral-200">{panel.role.toUpperCase()}</td>
                 <td class="px-3 py-6 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">
                   
                 {
@@ -370,8 +370,7 @@ Schedule Appointment
                     <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png" alt="User Image" class="size-10 rounded-full" />
                     <div class="flex grow items-center justify-between gap-y-1">
                         <div class="user-info">
-                        <h6 class="text-base">{panel.name}</h6>
-                        <small class="text-base-content/80 text-xs">Technical Panel</small>
+                        <h6 class="text-base">{panel.user_profile.name}</h6>
                         </div>
                         <div class="flex flex-col items-end gap-x-2 gap-y-0.5">
                         <a href="#"><span class="badge badge-xs badge-outline badge-accent">{panel.role}</span></a>

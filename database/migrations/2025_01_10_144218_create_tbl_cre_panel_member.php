@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('research_id');
             $table->foreignId('user_id');
+            $table->char('role', length: 50)->nullable();
             $table->char('endorsement_status', length: 1)->nullable();
             $table->timestamps();
         });

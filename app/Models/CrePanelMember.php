@@ -11,6 +11,7 @@ class CrePanelMember extends Model
     protected $fillable = [
         'research_id',
         'user_id',
+        'role',
         'endorsement_status'
     ];
 
