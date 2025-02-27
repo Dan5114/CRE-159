@@ -559,11 +559,11 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
                         <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">
                         <div class="flex items-center space-x-3">
             <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png" alt="User Image" class="size-10 rounded-full" />
-            <span>{panel.name}</span>
+            <span>{panel.user_profile.name}</span>
         </div>
         
                         </td>
-                        <td class="px-3 py-3 text-balance whitespace-nowrap text-xs font-medium text-gray-700 dark:text-neutral-200">{panel.role.toUpperCase()}</td>
+                        <td class="px-3 py-3 text-balance whitespace-nowrap text-xs font-medium text-gray-700 dark:text-neutral-200">{panel.user_profile.role.toUpperCase()}</td>
                         <td class="px-3 py-6 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">
                           
                         {

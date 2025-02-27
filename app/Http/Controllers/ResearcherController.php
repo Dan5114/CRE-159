@@ -486,13 +486,15 @@ class ResearcherController extends Controller
             $file_CVR = collect(File::where('research_id', $value->id)->where('document_for', "CVR")->orderBy('created_at', 'desc')->first(['id','file_name','file_path','document_for','created_at']));
             
             $rlogs = ResearchLog::where('research_id', $value->id)->where('steps', 1)->orderBy('created_at', 'ASC')->get();
-            $panels = CrePanelMember::where('research_id', $value->id)->get();
+            $panels = CrePanelMember::with('user_profile')->where('research_id', $value->id)->get();
             $technical_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '3')->get();
             $revised_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '4')->get();
             $ethics_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '5')->get();
             $budget_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '6')->get();
             $moa_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '8')->get();
             $tpl_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '10')->get();
+
+        
 
             $feedbacks_step1 = ResearchMessageThread::where('research_id', $value->id)->where('steps', '1')->orderBy('created_at', 'desc')->get();
             $feedbacks_step1_notif =ResearchMessageThread::where('research_id', $value->id)->where('steps', '1')->where('read_status', '0')->count();

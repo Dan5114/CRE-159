@@ -10,8 +10,12 @@ class CrePanelMember extends Model
 
     protected $fillable = [
         'research_id',
-        'name',
-        'role',
+        'user_id',
         'endorsement_status'
     ];
+
+    public function user_profile()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

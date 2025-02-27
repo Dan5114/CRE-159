@@ -75,9 +75,7 @@ export default function Index(props) {
 
 <div class="bg-white p-6 rounded-lg shadow-md">
 <header class="mb-6">
-                <h2 className="text-lg font-medium text-gray-900">
-                    Panel Information
-                </h2>
+<h2 className="text-xl font-semibold text-gray-700 mb-4">Panel Information</h2>
 
                 <p className="mt-1 text-sm text-gray-600">
                     Update your account's profile information and email address.

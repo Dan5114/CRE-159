@@ -14,9 +14,7 @@ return new class extends Migration
         Schema::create('tbl_cre_panel_member', function (Blueprint $table) {
             $table->id();
             $table->foreignId('research_id');
-            $table->char('fname', length: 50);
-            $table->char('lname', length: 50);
-            $table->char('role', length: 20);
+            $table->foreignId('user_id');
             $table->char('endorsement_status', length: 1)->nullable();
             $table->timestamps();
         });
