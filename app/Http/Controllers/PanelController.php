@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class PanelController extends Controller
 {
@@ -13,7 +16,11 @@ class PanelController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Panel/Index');
+        $techpanels = User::where('user_type', 'tpl')->paginate(5);
+
+        return Inertia::render('Panel/Index', [
+            "techpanels_data" => $techpanels
+        ]);
     }
 
     /**
@@ -21,7 +28,7 @@ class PanelController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -29,7 +36,17 @@ class PanelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            "name" => $request->first_name . " " . $request->last_name,
+            "email" => $request->email,
+            "user_type" => "tpl",
+            "role" => $request->role,
+            "email_verified_at" => Carbon::now(),
+            "password" => Hash::make($request->password),
+        ];
+
+        User::create($data);
+        return redirect()->back()->with('message', 'Panel added Successfully');
     }
 
     /**
@@ -61,6 +78,7 @@ class PanelController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        User::destroy($id);
+        return redirect()->back()->with('message', 'Panel deleted Successfully');
     }
 }

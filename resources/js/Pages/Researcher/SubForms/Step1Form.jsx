@@ -50,7 +50,7 @@ export default function Step1Form({id}) {
 </svg>&nbsp;{errors.date_extension}</div>}
          
 <button type="button" onClick={(e) => creApproveApplication()} class="btn btn-success rounded-full" disabled={processing}>
-            <span class="icon-[tabler--check] size-6"></span>Accept Application
+            Accept
             </button>
         </div>
         <div class="float-end m-6">

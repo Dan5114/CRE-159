@@ -1,8 +1,59 @@
 import React from 'react'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, router, usePage } from '@inertiajs/react';
+import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
+import Pagination from "@/Components/Pagination";
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
 
-export default function Index() {
+export default function Index(props) {
+  const { data: techpanels } = props.techpanels_data;
+  const totalRecords = props.techpanels_data ? props.techpanels_data.total : 0;
+  const notyf = new Notyf();
+ 
+   const { data, setData, post, delete: destroy, errors, reset, processing, progress, recentlySuccessful } =
+    useForm({});
+
+    const submitPanel = (e) => {
+      e.preventDefault();
+
+      post(route('panels.store'), {
+          onSuccess: (page) =>  {
+              reset();
+              notyf.success(page.props.flash.message);
+          },
+          onFinish: () =>  {
+            router.visit(route('panels.index'), {
+              preserveState: false,
+              method: 'get',
+          });
+          },
+      });
+  }
+
+  const deletePanel = (id) => {
+    // Ask for confirmation before proceeding
+    const isConfirmed = window.confirm("Are you sure you want to delete this panel?");
+
+    if (isConfirmed) {
+        // If the user confirms, proceed with the deletion
+        destroy(route('panels.destroy', id), {
+            preserveScroll: true,
+            onSuccess: (page) => notyf.success(page.props.flash.message),
+            onError: () => console.log("Error deleting"),
+            onFinish: () =>  {
+              router.visit(route('panels.index'), {
+                preserveState: false,
+                method: 'get',
+            });
+            }
+        });
+    } else {
+        // If the user cancels, do nothing
+        console.log("Deletion canceled");
+    }
+};
+
+
   return (
        <AuthenticatedLayout
                 header={
@@ -20,77 +71,99 @@ export default function Index() {
                 <div class="w-full">
                       <div class="flex flex-col">
                         <div class=" mt-1">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
 
 <div class="bg-white p-6 rounded-lg shadow-md">
-  <h2 class="text-xl font-semibold text-gray-700 mb-4">Create Panel</h2>
-  <form action="#" method="POST" x-data="{ name: '', email: '', phone: '' }">
-    <div class="mb-4">
-      <label for="name" class="block text-sm font-medium text-gray-600">Name</label>
-      <input type="text" id="name" name="name" x-model="name" class="w-full mt-2 p-3 border rounded-md" placeholder="Enter your name" />
+<header class="mb-6">
+                <h2 className="text-lg font-medium text-gray-900">
+                    Panel Information
+                </h2>
+
+                <p className="mt-1 text-sm text-gray-600">
+                    Update your account's profile information and email address.
+                </p>
+            </header>
+            <form onSubmit={submitPanel}>
+
+              <div class="flex space-x-3">
+              <div class="mb-4">
+      <label for="name" class=" text-sm font-medium text-gray-600">First Name</label>
+      <input type="text" onChange={(e) => setData('first_name', e.target.value)} class="w-full mt-2 p-3 border rounded-md" placeholder="" />
     </div>
 
     <div class="mb-4">
-      <label for="email" class="block text-sm font-medium text-gray-600">Email</label>
-      <input type="email" id="email" name="email" x-model="email" class="w-full mt-2 p-3 border rounded-md" placeholder="Enter your email" />
+      <label for="name" class=" text-sm font-medium text-gray-600">Last Name</label>
+      <input type="text" onChange={(e) => setData('last_name', e.target.value)} class="w-full mt-2 p-3 border rounded-md" placeholder="" />
+    </div>
+              </div>
+
+    <div class="mb-4">
+    <label for="name" class="block text-sm font-medium text-gray-600">Role</label>
+      <select class="select select-lg" id="favorite-simpson" onChange={(e) => setData('role', e.target.value)}>
+        <option value="">Please Choose:</option>
+        <option value="lead">Lead Panel</option>
+        <option value="member">Panel Member</option>
+      </select>
     </div>
 
     <div class="mb-4">
-      <label for="phone" class="block text-sm font-medium text-gray-600">Phone</label>
-      <input type="text" id="phone" name="phone" x-model="phone" class="w-full mt-2 p-3 border rounded-md" placeholder="Enter your phone" />
+      <label for="email" class="block text-sm font-medium text-gray-600">Email Address</label>
+      <input type="email" id="email" onChange={(e) => setData('email', e.target.value)} class="w-full mt-2 p-3 border rounded-md" placeholder="" />
+    </div>
+
+    <div class="mb-4">
+      <label for="phone" class="block text-sm font-medium text-gray-600">Password</label>
+      <input type="password" id="phone" onChange={(e) => setData('password', e.target.value)} class="w-full mt-2 p-3 border rounded-md" placeholder="" />
     </div>
 
     <button type="submit" class="btn btn-primary float-end rounded-full">Create Panel</button>
   </form>
 </div>
 
-<div class="md:col-span-2 bg-white p-6 rounded-lg shadow-md">
-  <h2 class="text-xl font-semibold text-gray-700 mb-4">Panel Profile List</h2>
-  <div class="mb-6">
-
-<div class="grid grid-cols-1">
-
-
-
-<div class="">
-<div class="float-right">
-<div class="relative max-w-xs">
-    <label for="hs-table-search" class="sr-only">Search</label>
-    <input type="search" name="hs-table-search" id="hs-table-search" class="py-2 px-3 ps-9 block w-full border-gray-400 rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Search Panel" />
-    <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3">
-      <svg class="size-4 text-gray-400 dark:text-neutral-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="11" cy="11" r="8"></circle>
-        <path d="m21 21-4.3-4.3"></path>
-      </svg>
-    </div>
-  </div>
-</div>
-</div>
-
-</div>
-
-
- 
-</div>
-  <div class="">
-          <table class="min-w-full table-auto">
-          <thead class="bg-gray-400 dark:bg-neutral-700">
-              <tr>
-                <th class="px-6 py-3 text-left text-xs font-xs text-white">NAME</th>
-                <th class="px-6 py-3 text-left text-xs font-xs text-white">EMAIL</th>
-                <th class="px-6 py-3 text-left text-xs font-xs text-white">USERNAME</th>
-                <th class="px-6 py-3 text-left text-xs font-xs text-white">COLLEGE</th>
-                <th class="px-6 py-3 text-left text-xs font-xs text-white">DEPARTMENT</th>
-                <th class="px-6 py-3 text-left text-xs font-xs text-white">STATUS</th>
-              </tr>
-            </thead>
-            <tbody>
-            
-               
-            </tbody>
-            
-          </table>
-          <div class="bg-white p-6 shadow-lg border border-gray-200">
+<div className="md:col-span-2 rounded-lg">
+  
+  <div class="card p-6">
+  <h2 className="text-xl font-semibold text-gray-700 mb-4">Panel Listings</h2>
+    <table className="min-w-full table-auto shadow-lg">
+      <thead className="bg-gray-400 dark:bg-neutral-700">
+        <tr>
+          <th className="px-6 py-3 text-left text-xs font-xs text-white">NAME</th>
+          <th className="px-6 py-3 text-left text-xs font-xs text-white">EMAIL</th>
+          <th className="px-6 py-3 text-left text-xs font-xs text-white">ROLE</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+                      { techpanels.map((techpanel, index) => (
+                       <tr class={index % 2 !== 0 ? "bg-gray-50 dark:bg-gray-800 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-800 dark:border-gray-700"}>
+                           <td class="px-3 py-3 truncate max-w-xs whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{techpanel.name}</td>
+                           <td class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{techpanel.email}</td>
+                           <td class="py-3 px-6 group relative text-xs">
+                     
+                           {techpanel.role?.toUpperCase()}
+                       </td>
+                       <td>
+                <div class="flex flex-col items-end gap-x-2 gap-y-0.5 m-3">
+                    <span class="text-base-content/50 text-sm text-gray hover:cursor-pointer" onClick={() => deletePanel(techpanel.id)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="#ff001a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16m-10 4v6m4-6v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/></svg>
+                    </span>
+                    </div>
+                </td>
+                       </tr>
+                       ))}
+      </tbody>
+      <tfoot>
+      <tr class="bg-gray-100">
+        <td colspan="6" class="px-4 py-2 border-t text-left">
+          <span class="text-sm text-gray-500">Total Records:</span>&nbsp;
+          <span id="total-records" class="text-lg font-semibold text-blue-600">{totalRecords}</span>
+        </td>
+      </tr>
+    </tfoot>
+    </table>
+    {techpanels.length === 0 ? (
+                        <>
+                          <div class="bg-white p-6 shadow-lg border border-gray-200">
   <div class="flex justify-center items-center">
     <svg class="h-16 w-16 text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 4V6H7V4H5v16h14V4h-2z"></path>
@@ -103,8 +176,14 @@ export default function Index() {
     <p class="mt-2 text-gray-500">It seems like the list is empty. Would you like to add new data or try again later?</p>
   </div>
 </div>
-        </div>
+                        </>               
+                      )
+                        :                               
+                        <Pagination data={props.techpanels_data} />                        
+                      }
+  </div>
 </div>
+
 
 </div>
 
