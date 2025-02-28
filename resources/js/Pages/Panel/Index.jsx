@@ -117,39 +117,41 @@ export default function Index(props) {
   
   <div class="card p-6">
   <h2 className="text-xl font-semibold text-gray-700 mb-4">Panel Listings</h2>
-    <table className="min-w-full table-auto shadow-lg">
-      <thead className="bg-gray-400 dark:bg-neutral-700">
-        <tr>
-          <th className="px-6 py-3 text-left text-xs font-xs text-white">NAME</th>
-          <th className="px-6 py-3 text-left text-xs font-xs text-white">EMAIL</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-                      { techpanels.map((techpanel, index) => (
-                       <tr class={index % 2 !== 0 ? "bg-gray-50 dark:bg-gray-800 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-800 dark:border-gray-700"}>
-                           <td class="px-3 py-3 truncate max-w-xs whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{techpanel.name}</td>
-                           <td class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{techpanel.email}</td>
-                          
-                       <td>
-                <div class="flex flex-col items-end gap-x-2 gap-y-0.5 m-3">
-                    <span class="text-base-content/50 text-sm text-gray hover:cursor-pointer" onClick={() => deletePanel(techpanel.id)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="#ff001a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16m-10 4v6m4-6v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/></svg>
-                    </span>
-                    </div>
-                </td>
-                       </tr>
-                       ))}
-      </tbody>
-      <tfoot>
-      <tr class="bg-gray-100">
-        <td colspan="6" class="px-4 py-2 border-t text-left">
-          <span class="text-sm text-gray-500">Total Records:</span>&nbsp;
-          <span id="total-records" class="text-lg font-semibold text-blue-600">{totalRecords}</span>
+  <table className="min-w-full table-auto shadow-lg border border-gray-300 dark:border-neutral-700">
+  <thead className="bg-gray-400 dark:bg-neutral-700">
+    <tr>
+      <th className="px-2 py-2 text-left text-xs font-bold text-white border-b border-gray-300 dark:border-neutral-600">NAME</th>
+      <th className="px-2 py-2 text-left text-xs font-bold text-white border-b border-gray-300 dark:border-neutral-600">EMAIL</th>
+      <th className="px-2 py-2 border-b border-gray-300 dark:border-neutral-600"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {techpanels.map((techpanel, index) => (
+      <tr key={techpanel.id} className={index % 2 !== 0 ? "bg-gray-50 dark:bg-gray-800 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-neutral-800"}>
+        <td className="px-2 truncate max-w-xs whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200 border-b border-gray-300 dark:border-neutral-600">{techpanel.name}</td>
+        <td className="px-2 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200 border-b border-gray-300 dark:border-neutral-600">{techpanel.email}</td>
+        <td className="px-2 border-b border-gray-300 dark:border-neutral-600">
+          <div className="flex flex-col items-end gap-x-2 gap-y-0.5 m-3">
+            <span className="text-base-content/50 text-sm text-gray hover:cursor-pointer" onClick={() => deletePanel(techpanel.id)}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                <path fill="none" stroke="#ff001a" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 7h16m-10 4v6m4-6v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3" />
+              </svg>
+            </span>
+          </div>
         </td>
       </tr>
-    </tfoot>
-    </table>
+    ))}
+  </tbody>
+  <tfoot>
+    <tr className="bg-gray-100 dark:bg-neutral-800">
+      <td colSpan="3" className="px-4 py-2 border-t text-left">
+        <span className="text-sm text-gray-500">Total Records:</span>&nbsp;
+        <span id="total-records" className="text-lg font-semibold text-blue-600">{totalRecords}</span>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
     {techpanels.length === 0 ? (
                         <>
                           <div class="bg-white p-6 shadow-lg border border-gray-200">

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Log;
 use Exception;
 use App\Models\Department;
 use App\Models\File;
+use App\Models\User;
 use App\Models\ResearchLog;
 use App\Models\CreMeeting;
 use App\Models\CrePanelMember;
@@ -51,7 +52,7 @@ class ResearcherController extends Controller
         if($user_type == "researcher"){
             $researchs = Research::with('department')
             ->with(['app_status' => function($query) {
-               return $query->orderBy('created_at', 'ASC');
+               return $query->orderBy('end', 'ASC');
             }])
             ->when($r_type, function ($query) use ($r_type, $r_steps, $r_status) {
                 return $query->where('status', $r_type);
@@ -74,7 +75,7 @@ class ResearcherController extends Controller
                 return $query->where('research_title', 'LIKE', "%{$search}%");
             })
             ->with(['app_status' => function($query) {
-                return $query->orderBy('created_at', 'ASC');
+                return $query->orderBy('end', 'ASC');
              }]) 
             ->when($r_type, function ($query, $r_type) {
                 return $query->where('status', $r_type);
@@ -246,83 +247,28 @@ class ResearcherController extends Controller
         }
     }
 
-    public function submit_panels(Request $request)
+    public function save_meeting(Request $request)
     {
-
-        if($request->input('meeting_date') != null) {
+        try {
             CreMeeting::create([
                 "research_id" => $request->research_id,
                 "meeting_date" => $request->meeting_date,
                 "status" => "Pending"
-               ]);
+            ]);
+
+            return redirect()->back()->with('message', 'Submitted Successfully');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
         }
+    }
 
-        if($request->input('panels1') != null) {
-            CrePanelMember::create([
+    public function submit_panels(Request $request)
+    {
+        CrePanelMember::create([
             "research_id" => $request->research_id,
-            "name" => $request->panels1,
-            "role" => "Lead",
-            ]);
-        } 
-
-        if($request->input('panels2') != null) {
-            CrePanelMember::create([
-            "research_id" => $request->research_id,
-            "name" => $request->panels2,
-            "role" => "member",
-            ]);
-        } 
-
-        if($request->input('panels3') != null) {
-            CrePanelMember::create([
-            "research_id" => $request->research_id,
-            "name" => $request->panels3,
-            "role" => "member",
-            ]);
-        }
-
-        if($request->input('panels4') != null) {
-            CrePanelMember::create([
-            "research_id" => $request->research_id,
-            "name" => $request->panels4,
-            "role" => "member",
-            ]);
-        }
-
-        if($request->input('panels5') != null) {
-            CrePanelMember::create([
-            "research_id" => $request->research_id,
-            "name" => $request->panels5,
-            "role" => "member",
-            ]);
-        }
-
-        if($request->input('panels6') != null) {
-            CrePanelMember::create([
-            "research_id" => $request->research_id,
-            "name" => $request->panels6,
-            "role" => "member",
-            ]);
-        }
-
-        if($request->input('panels7') != null) {
-            CrePanelMember::create([
-            "research_id" => $request->research_id,
-            "name" => $request->panels7,
-            "role" => "member",
-            ]);
-        }
-
-        if($request->input('panels8') != null) {
-            CrePanelMember::create([
-            "research_id" => $request->research_id,
-            "name" => $request->panels8,
-            "role" => "member",
-            ]);
-        }
-
-       
-
+            "user_id" => $request->panels,
+            "role" => $request->role,
+        ]);
        return redirect()->back()->with('message', 'Saved Successfully');
     }
 
@@ -487,6 +433,7 @@ class ResearcherController extends Controller
             
             $rlogs = ResearchLog::where('research_id', $value->id)->where('steps', 1)->orderBy('created_at', 'ASC')->get();
             $panels = CrePanelMember::with('user_profile')->where('research_id', $value->id)->get();
+            $user_panels = User::where('user_type', 'tpl')->get();
             $technical_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '3')->get();
             $revised_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '4')->get();
             $ethics_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '5')->get();
@@ -555,6 +502,7 @@ class ResearcherController extends Controller
             $step_status = null;
             $rlogs = null;
             $panels = null;
+            $user_panels = null;
             $files = null;
             $author = null;
         }
@@ -576,6 +524,7 @@ class ResearcherController extends Controller
             'frp' => $doc_file,
             'research_logs' => $rlogs,
             'panels' => $panels,
+            'user_panels' => $user_panels,
             'technical_docs' => $technical_docs,
             'revised_docs' => $revised_docs,
             'tpl_docs' => $tpl_docs,
@@ -930,8 +879,13 @@ class ResearcherController extends Controller
                     "turnitin_file" => $fileName_turnitin,
                     "turnitin_path" => $filePath_turnitin
                 ];
-                ResearchDoc::where('id', $request->file_id)->update($data);
+                $research = ResearchDoc::where('id', $request->file_id)->first();
+                $research->update($data);
                 Storage::disk('public')->put($filePath_turnitin, file_get_contents($turnitin_file));
+
+                $current = Carbon::now();
+                $ApplicationStat = CreApplicationStatus::where("research_id", $research->research_id)->where("steps", "11")->first();
+                CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Completed"]);
             }
             return redirect()->back()->with('message', 'Successfully Uploaded');
         } catch (Exception $e) {
@@ -967,8 +921,8 @@ class ResearcherController extends Controller
         } catch (Exception $e) {
             Log::debug($e->getMessage());
             throw ValidationException::withMessages([
-                'message' => __('Ops Something went wrong. Try again posting feedback'),
-            ]);
+                'message' => 'Ops, something went wrong. Try again marking feedback.'
+            ]);            
         }
     }
 
@@ -986,8 +940,8 @@ class ResearcherController extends Controller
         } catch (Exception $e) {
             Log::debug($e->getMessage());
             throw ValidationException::withMessages([
-                'message' => __('Ops Something went wrong. Try again marking feedback'),
-            ]);
+                'message' => 'Ops, something went wrong. Try again marking feedback.'
+            ]);            
         }
     }
 

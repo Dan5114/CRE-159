@@ -585,7 +585,7 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
                                              (panel.endorsement_status == "yes") ?
                                           dayjs(panel.updated_at).format("LLL")
                                           :
-                                          <></>
+                                          <>---</>
                                           }
                                         </td>
                         

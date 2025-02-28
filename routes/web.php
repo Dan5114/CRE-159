@@ -37,6 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/researcher/submit/application', [ResearcherController::class, 'submit_application'])->name('researcher.submit.application');
     Route::post('/researcher/submit/panels', [ResearcherController::class, 'submit_panels'])->name('researcher.submit.panels');
     Route::post('/researcher/scheduled/meeting', [ResearcherController::class, 'scheduled_meeting'])->name('researcher.scheduled.meeting');
+    Route::post('/researcher/save/meeting', [ResearcherController::class, 'save_meeting'])->name('researcher.save.meeting');
     Route::delete('/researcher/delete/panel/{id}', [ResearcherController::class, 'delete_panel'])->name('researcher.delete.panel');
     Route::post('/researcher/technical/review/upload', [ResearcherController::class, 'technical_review_upload'])->name('researcher.technical.review.files');
     Route::get('/doc/download/{id}', [ResearcherController::class, 'doc_download'])->name('researcher.doc.download');

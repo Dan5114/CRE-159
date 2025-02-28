@@ -10,20 +10,12 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 
 
-export default function Step2({user, research, panels}) {
+export default function Step2({user, research, panels, user_panels}) {
     const notyf = new Notyf();
     const { data, setData, post,  delete: destroy, errors, reset, processing, progress, recentlySuccessful } =
     useForm({
       research_id : research.id,
       meeting_date: "",
-      panels1: "",
-      panels2: "",
-      panels3: "",
-      panels4: "",
-      panels5: "",
-      panels6: "",
-      panels7: "",
-      panels8: "",
       meeting_id: research.meeting.id,
       steps: "4"
     });
@@ -35,7 +27,6 @@ export default function Step2({user, research, panels}) {
           preserveScroll: true,
           onSuccess: (page) =>  {
             notyf.success(page.props.flash.message);
-            // router.get(route('researcher.show', research.reference));
           },
           onFinish: () =>  {
               console.log("Finishing inserting panels");
@@ -55,31 +46,16 @@ export default function Step2({user, research, panels}) {
     });
     }
 
-    const deletePanel = (id) => {
-      destroy(route('researcher.delete.panel', id), {
-        preserveScroll: true,
-        onSuccess: (page) =>  notyf.success(page.props.flash.message),
-        onError: () => console.log("Error deleting"),
-        onFinish: () => reset(),
-    });
-    }
-
-    const acceptApplication = (id) => {      
-      post(route('tpl.endorse.application', {
-        panel_id: id,
-      }),
-      {
-        onSuccess: (page) =>  {
-            notyf.success(page.props.flash.message);
-            closeModal();
-        },
-        onFinish: () =>  {
-            console.log("Finishing accept application");
-            reset()
-        },
-    });
-    }
-
+    const saveMeeting = () => {
+      post(route('researcher.save.meeting'), {
+          onSuccess: (page) =>  {
+          notyf.success(page.props.flash.message);
+          },
+          onFinish: () =>  {
+              console.log("Finishing update status");
+          },
+      });
+      }
 
   return (
     <>
@@ -105,86 +81,112 @@ export default function Step2({user, research, panels}) {
 <div class="mt-3">
   <div id="tabs-lifted-11" role="tabpanel" aria-labelledby="tabs-lifted-item-11">
    
- <form onSubmit={submitPanels}>
+ 
 
     
 
 <div class="">
   <div class="border shadow p-3">
   <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-
     <div>
         <label class="label label-text" for="firstName">Meeting Date </label>
         <input type="date" placeholder="" onChange={(e) => setData('meeting_date', e.target.value)} class="input" id="firstName" />
       </div>
 
-      <div>
-        <label class="label label-text" for="firstName">Lead Panel </label>
-        <input type="text" placeholder="" class="input" onChange={(e) => setData('panels1', e.target.value )} id="firstName"  />
-      </div>
+      <div class="flex justify-end gap-y-2 mt-6">
+        <button type="submit" class="btn btn-info rounded-full" onClick={() => saveMeeting()}>
+           Save Meeting
+      </button>
+    </div>
     </div>
     <br/>
 <div class="divider"></div>
-    <div class="grid grid-cols-2 gap-6 md:grid-cols-2">
+    <div class="mt-3">
 
-      <div>
-        <label class="label label-text" for="firstName">Panel Member 1 </label>
-        <input type="text" placeholder="" class="input" onChange={(e) => setData('panels2', e.target.value)} id="firstName"  />
-      </div>
+<form onSubmit={submitPanels}>
+    <div class="grid grid-cols-3 gap-6 md:grid-cols-3 mb-6">
 
-      <div>
-        <label class="label label-text" for="firstName">Panel Member 2 </label>
-        <input type="text" placeholder="" class="input" onChange={(e) => setData('panels3', e.target.value)} id="firstName"  />
-      </div>
-     
+<div>
+  <label class="label label-text" for="">Panel </label>
+  <select      data-select='{
+    "placeholder": "Select your Panel",
+    "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
+    "toggleClasses": "rounded-md advance-select-toggle",
+    "hasSearch": true,
+    "dropdownClasses": "advance-select-menu max-h-52 pt-0 vertical-scrollbar rounded-scrollbar",
+    "optionClasses": "advance-select-option selected:active",
+    "optionTemplate": "<div class=\"flex justify-between items-center w-full\"><span data-title></span><span class=\"icon-[tabler--check] flex-shrink-0 size-4 text-primary hidden selected:block \"></span></div>",
+    "extraMarkup": "<span class=\"icon-[tabler--caret-up-down] flex-shrink-0 size-4 text-base-content/90 absolute top-1/2 end-3 -translate-y-1/2 \"></span>"
+    }'
+    class="hidden" id="favorite-simpson" onChange={(e) => setData('panels', e.target.value)}>
+                          <option value="">Please Choose:</option>
+                          { user_panels.map((user_panel, index) => (
+                             <option key={index} value={user_panel.id}>{user_panel.name}</option>
+                          ))}
+                       </select>
+</div>
+
+<div>
+  <label class="label label-text" for="">Role </label>
+  <div class="w-96">
+  <select class="select" id="favorite-simpson" onChange={(e) => setData('role', e.target.value)}>
+    <option value="">Please Choose:</option>
+    <option value="lead">Lead</option>
+    <option value="member">Member</option>
+  </select>
+</div>
+</div>
+
+<div class="flex justify-end gap-y-2 mt-6">
+        <button type="submit" class="btn btn-primary rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="#fff" fill-rule="evenodd" clip-rule="evenodd"><path d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12m10-8a8 8 0 1 0 0 16a8 8 0 0 0 0-16"/><path d="M13 7a1 1 0 1 0-2 0v4H7a1 1 0 1 0 0 2h4v4a1 1 0 1 0 2 0v-4h4a1 1 0 1 0 0-2h-4z"/></g></svg>
+      </button>
     </div>
-    <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mt-3">
-  
 
-      <div>
-        <label class="label label-text" for="firstName">Panel Member 3 </label>
-        <input type="text" placeholder="" class="input" id="firstName" onChange={(e) => setData('panels4', e.target.value)}  />
-      </div>
+</div>
+</form>
+<label class="text-base-content bg-gray-300  flex justify-left p-2 text-lg font-semibold" for="firstName"> List of Panel Members </label>  
+<table class="w-full divide-y divide-gray-200 dark:divide-neutral-700 border border-gray-300 dark:border-neutral-700 rounded-sm">
+  <thead class="bg-gray-100 dark:bg-neutral-700">
+    <tr>
+      <th scope="col" class="px-2 py-2 text-start text-xs font-bold uppercase dark:text-neutral-500 border-b border-gray-300 dark:border-neutral-600">Panel</th>
+      <th scope="col" class="px-2 py-2 text-start text-xs font-bold uppercase dark:text-neutral-500 border-b border-gray-300 dark:border-neutral-600">Email</th>
+      <th scope="col" class="px-2 py-2 text-start text-xs font-bold uppercase dark:text-neutral-500 border-b border-gray-300 dark:border-neutral-600">Role</th>
+      <th scope="col" class="px-2 py-2 text-start text-xs font-bold uppercase dark:text-neutral-500 border-b border-gray-300 dark:border-neutral-600"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {panels.map((panel, index) => (
+      <tr key={index} class="hover:bg-gray-100 dark:hover:bg-neutral-800">
+        <td class="px-2 py-2 text-sm font-medium text-gray-700 dark:text-neutral-200 border-b border-gray-200 dark:border-neutral-600">
+          <div class="flex items-center space-x-2">
+            <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png" alt="User Image" class="w-8 h-8 rounded-full" />
+            <span>{panel.user_profile.name}</span>
+          </div>
+        </td>
+        <td class="px-2 py-2 text-xs font-medium text-gray-700 dark:text-neutral-200 border-b border-gray-200 dark:border-neutral-600">
+          {panel.user_profile.email}
+        </td>
+        <td class="px-2 py-2 text-xs font-medium text-gray-700 dark:text-neutral-200 border-b border-gray-200 dark:border-neutral-600">
+          {panel.role.toUpperCase()}
+        </td>
+        <td class="px-2 py-2 border-b border-gray-200 dark:border-neutral-600"></td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
-      <div>
-        <label class="label label-text" for="firstName">Panel Member 4 </label>
-        <input type="text" placeholder="" class="input" id="firstName" onChange={(e) => setData('panels5', e.target.value)}  />
-      </div>
-
-      <div>
-        <label class="label label-text" for="firstName">Panel Member 5 </label>
-        <input type="text" placeholder="" class="input" id="firstName" onChange={(e) => setData('panels6', e.target.value)}  />
-      </div>
-
-      <div>
-        <label class="label label-text" for="firstName">Panel Member 6 </label>
-        <input type="text" placeholder="" class="input" id="firstName" onChange={(e) => setData('panels7', e.target.value)}  />
-      </div>
-
-      <div>
-        <label class="label label-text" for="firstName">Panel Member 7 </label>
-        <input type="text" placeholder="" class="input" id="firstName" onChange={(e) => setData('panels8', e.target.value)}  />
-      </div>
-
-    
-   
-      </div>
-      <div class="flex justify-end gap-y-2 mt-6">
-    <button type="submit" class="btn btn-info rounded-full">
-        Save Draft
-   </button>
-    </div>
+  </div>
   </div>
 </div>
 
 
 
  
-    </form>
   </div>
   <div id="tabs-lifted-22" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-22">
   <div class="">
-    <div class="p-3 shadow flex items-start">
+    {/* <div class="p-3 shadow flex items-start">
       <span class="icon-[tabler--calendar] size-6"></span>
       <div class="flex flex-col gap-1">
         <h5 class="text-lg font-semibold">&nbsp;Meeting Date</h5>
@@ -192,65 +194,54 @@ export default function Step2({user, research, panels}) {
           <li>{ (research.meeting.meeting_date) ? dayjs(research.meeting.meeting_date).format("LLLL") : "No date added yet"}</li>
         </ul>
       </div>
-    </div>
+    </div> */}
 
     
         <div class="bg-base-100 border text-base-content">
         <label class="text-base-content bg-gray-300  flex justify-left p-2 text-lg font-semibold" for="firstName"> List of Panel Members </label>
-        <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700">
-            <thead class="bg-gray-100 dark:bg-neutral-700">
-            <tr>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Panel</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Role</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Status</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Endorsement Date</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500"></th>
-              </tr>
-            </thead>
+        <table class="w-full divide-y divide-gray-200 dark:divide-neutral-700 border border-gray-300 dark:border-neutral-700 rounded-sm">
+  <thead class="bg-gray-100 dark:bg-neutral-700">
+    <tr>
+      <th scope="col" class="px-2 py-2 text-start text-xs font-bold uppercase dark:text-neutral-500 border-b border-gray-300 dark:border-neutral-600">Panel</th>
+      <th scope="col" class="px-2 py-2 text-start text-xs font-bold uppercase dark:text-neutral-500 border-b border-gray-300 dark:border-neutral-600">Role</th>
+      <th scope="col" class="px-2 py-2 text-start text-xs font-bold uppercase dark:text-neutral-500 border-b border-gray-300 dark:border-neutral-600">Status</th>
+      <th scope="col" class="px-2 py-2 text-start text-xs font-bold uppercase dark:text-neutral-500 border-b border-gray-300 dark:border-neutral-600">Endorsement Date</th>
+      <th scope="col" class="px-2 py-2 text-start text-xs font-bold uppercase dark:text-neutral-500 border-b border-gray-300 dark:border-neutral-600"></th>
+    </tr>
+  </thead>
 
-            <tbody>
-            { panels.map((panel, index) => (
-              <tr>
-                <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">
-                <div class="flex items-center space-x-3">
-    <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png" alt="User Image" class="size-10 rounded-full" />
-    <span>{panel.user_profile.name}</span>
-</div>
+  <tbody>
+    {panels.map((panel, index) => (
+      <tr key={index} class="hover:bg-gray-100 dark:hover:bg-neutral-800">
+        <td class="px-2 py-2 text-sm font-medium text-gray-700 dark:text-neutral-200 border-b border-gray-200 dark:border-neutral-600">
+          <div class="flex items-center space-x-2">
+            <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png" alt="User Image" class="w-8 h-8 rounded-full" />
+            <span>{panel.user_profile.name}</span>
+          </div>
+        </td>
+        <td class="px-2 py-2 text-xs font-medium text-gray-700 dark:text-neutral-200 border-b border-gray-200 dark:border-neutral-600">
+          {panel.role.toUpperCase()}
+        </td>
+        <td class="px-2 py-2 text-xs font-medium text-gray-700 dark:text-neutral-200 border-b border-gray-200 dark:border-neutral-600">
+          {panel.endorsement_status === "yes" ? (
+            <span class="text-gray-500 text-xs"><span class="size=6 icon-[tabler--checks] text-success align-bottom"></span> ENDORSED</span>
+          ) : (
+            <>---</>
+          )}
+        </td>
+        <td class="px-2 py-2 text-sm text-gray-700 dark:text-neutral-200 border-b border-gray-200 dark:border-neutral-600">
+          {panel.endorsement_status === "yes" ? dayjs(panel.updated_at).format("LLL") : <>---</>}
+        </td>
+        <td class="px-2 py-2 border-b border-gray-200 dark:border-neutral-600">
+          <div class="flex flex-col items-end gap-x-2 gap-y-0.5">
+            {/* Add buttons or actions here if needed */}
+          </div>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
 
-                </td>
-                <td class="px-3 py-3 text-balance whitespace-nowrap text-xs font-medium text-gray-700 dark:text-neutral-200">{panel.role.toUpperCase()}</td>
-                <td class="px-3 py-6 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">
-                  
-                {
-                  (panel.endorsement_status == "yes") ?
-                  <>
-                 <span class="text-gray-500 text-xs"><span class="size=6 icon-[tabler--checks] text-success align-bottom"></span> ENDORSED</span>
-                  </>
-                  :
-                  <>
-                  {/* <button class="btn btn-sm btn-primary" onClick={() => {
-                  acceptApplication(panel.id);
-                  }}>Endorse</button> */}
-                  ----
-                  </>
-                }
-                </td>
-
-                <td class="px-3 py-8 text-balance whitespace-nowrap text-sm text-gray-700 dark:text-neutral-200">
-                  {dayjs(panel.updated_at).format("LLL")}
-                </td>
-                
-                <td>
-                <div class="flex flex-col items-end gap-x-2 gap-y-0.5 m-3">
-                    {/* <span class="text-base-content/50 text-sm text-gray hover:cursor-pointer" onClick={() => deletePanel(panel.id)}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="#ff001a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16m-10 4v6m4-6v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/></svg>
-                    </span> */}
-                    </div>
-                </td>
-              </tr>
-            ))}                    
-            </tbody>
-          </table>
             
 
             </div>
@@ -289,7 +280,7 @@ export default function Step2({user, research, panels}) {
 </div>
 <div class="ml-4">
 <h3 class="text-xl font-semibold text-gray-800">Meeting Scheduled</h3>
-<p class="mt-2 text-gray-600">Your meeting has been successfully scheduled. Please check your calendar for the details.</p>
+<p class="mt-2 text-gray-600">Your meeting has been successfully scheduled. <span class="text-lg font-bold">   <span class="icon-[tabler--calendar] size-6"></span> { (research.meeting.meeting_date) ? dayjs(research.meeting.meeting_date).format("LLLL") : "No date added yet"}</span> . Please check your calendar for the details.</p>
 <p class="mt-2 text-gray-500">
 <strong class="text-green-700">Next Steps:</strong> Review the meeting details and prepare for the scheduled time.
 </p>
