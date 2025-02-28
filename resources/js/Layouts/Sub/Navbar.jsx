@@ -37,7 +37,7 @@ const Navbar = () => {
           <span class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"></span>
         </button>
         <ul class="dropdown-menu dropdown-open:opacity-100 hidden" role="menu" aria-orientation="vertical" aria-labelledby="nested-dropdown"> 
-          <li><Link href={route('researcher.index')} class="dropdown-item">Research List</Link></li>
+          <li><Link href={route('researcher.index')} class="dropdown-item">Research Listings</Link></li>
         </ul>
       </li>
       :
@@ -48,7 +48,7 @@ const Navbar = () => {
           <span class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"></span>
         </button>
         <ul class="dropdown-menu dropdown-open:opacity-100 hidden" role="menu" aria-orientation="vertical" aria-labelledby="nested-dropdown"> 
-          <li><Link href={route('researcher.index')} class="dropdown-item">Research List</Link></li>
+          <li><Link href={route('researcher.index')} class="dropdown-item">Research Listings</Link></li>
         </ul>
       </li>
         :
@@ -59,7 +59,7 @@ const Navbar = () => {
         </button>
         <ul class="dropdown-menu dropdown-open:opacity-100 hidden" role="menu" aria-orientation="vertical" aria-labelledby="nested-dropdown">
         <li><Link href={route('researcher.create')} class="dropdown-item">Create Application</Link></li>
-          <li><Link href={route('researcher.index')} class="dropdown-item">Research List</Link></li>
+          <li><Link href={route('researcher.index')} class="dropdown-item">Research Listings</Link></li>
         </ul>
       </li> 
        }

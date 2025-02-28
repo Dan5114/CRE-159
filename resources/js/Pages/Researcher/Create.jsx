@@ -3,6 +3,7 @@ import { Head, useForm, usePage } from '@inertiajs/react';
 import React, { useState, useEffect } from "react";
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
+import TinyMCE from './MCEForms/TinyMce';
 
 
 export default function Create(props) {
@@ -82,6 +83,8 @@ export default function Create(props) {
           <Head title="Proposal Submission" />
             <div className="py-2">
                 <div className="mx-auto sm:px-6 lg:px-8">
+
+                  {/* <TinyMCE /> */}
 
                 
                 <form onSubmit={submitProposal}>

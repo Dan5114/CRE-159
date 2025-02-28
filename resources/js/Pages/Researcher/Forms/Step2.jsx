@@ -63,10 +63,9 @@ export default function Step2({user, research, panels, user_panels}) {
     {
         (user.user_type == "cre") ? 
         <div id="account-details-validation" class="space-y-5" data-stepper-content-item='{ "index": 2 }'>
-
-<div class="px-4 sm:px-0 mb-6">
-          <h3 class="text-2xl font-semibold text-base-content">Assigning Researcher Schedule & Panels </h3>
-          <p class="mt-1 max-w-full text-base-content/80">Please fill up the fields </p>
+        <div class="mb-8">
+          <h2 class="text-3xl font-semibold text-gray-800">Assigning Researcher Schedule & Panels</h2>
+          <p class="mt-2 text-gray-500">Please fill up the fields</p>
         </div>
 
         <nav class="tabs tabs-lifted mt-3 p-2" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
