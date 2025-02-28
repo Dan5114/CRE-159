@@ -17,7 +17,7 @@ const Navbar = () => {
     <div class="navbar-start">
         <div className="flex items-center">
             <img src="/img/logo.svg" className="rounded-md w-28 text-gray-500 mr-4" alt="logo" />
-            <a class="link text-base-content/90 link-neutral text-xl font-semibold no-underline" href="#">Research Tracker</a>
+            <a class="link text-base-content/90 link-neutral text-xl font-semibold no-underline font-custom" href="#">Research Tracker</a>
         </div>    
     </div>
 

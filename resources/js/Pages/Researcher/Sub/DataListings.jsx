@@ -66,20 +66,6 @@ const DataListings = ({researchs, user, initialFilters}) => {
   
   return (
     <>
-{/* 
-<div>
-        <label for="roleFilter" class="mr-2 text-sm">By Department:</label>
-        <select id="roleFilter" class="border rounded-md shadow-sm">
-          <option value="">All</option>
-            { departments.map((department, index) => (
-                <option key={index} value={department.dept_id}>{department.name}</option>
-            ))}
-        </select>
-      </div> */}
- <div class="mb-3">
-      <h2 class="text-lg font-semibold font-mono text-gray-800">Advanced Filters</h2>
-      <p class="text-gray-600">Use the filters below to narrow down your search results based on various criteria such as type, steps and status.</p>
-    </div>
 <div class="grid grid-cols-3">
   <div class="flex justify-between gap-2">
   <div class="">
@@ -143,85 +129,78 @@ const DataListings = ({researchs, user, initialFilters}) => {
      
     </div>
     <div class="overflow-x-auto">
-         <table class="min-w-full table-auto border divide-y divide-gray-200 dark:divide-neutral-700">
-            <thead class="bg-gray-400 dark:bg-neutral-700">
-              <tr>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Research Title</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">College</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Research Status</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Date Created</th>
-                <th scope="col" class="px-3 py-3  text-center text-xs font-bolder text-white uppercase dark:text-neutral-500">Type</th>
-                <th scope="col" class="px-3 py-3 "></th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
-                { researchs.map((research, index) => (
-                <tr class={index % 2 !== 0 ? "bg-gray-50 dark:bg-gray-800 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-800 dark:border-gray-700"}>
-                    <td class="px-3 py-3 truncate max-w-xs whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{research.research_title}</td>
-                    <td class="px-3 py-3 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{research.department.name}</td>
-                    <td class="py-3 px-6 group relative">
-                    <span class="text-gray-600 text-sm font-bold">
-                      {
-                        (research && research.app_status && research.app_status.name !== null && research.app_status.name !== undefined) ?
-
-                        
-                         (research.app_status.name == "Pending") ?
-                        <>
-                        <div class="flex items-center justify-start gap-1.5 text-base font-bold text-xs">
-                                  <span class="badge badge-warning size-1.5 p-0"></span>
-                                 Pending
-                                </div>
-                        </>
-                        :
-                        <>
-                           Step {research.app_status.steps}: {research.app_status.name}
-                           <div class="w-60">
-
-                                {
-                                  (research.app_status.status == "Submitted" || research.app_status.status == "Completed" || research.app_status.status == "Scheduled") ?
-                                  <>
-                                  <div class="flex items-center justify-start gap-1.5 text-base font-bold text-xs">
-                                    <span class="badge badge-success size-1.5 p-0"></span>
-                                    {research.app_status.status}
-                                  </div>
-                                  </>
-                                  :
-                                  <div class="flex items-center justify-start gap-1.5 text-base font-bold text-xs">
-                                  <span class="badge badge-info size-1.5 p-0"></span>
-                                  {research.app_status.status}
-                                </div>
-                                }
-                              
-                          </div>
-                        </>
-                        :
-                        <>
-                          
-                        </>
-                      }
-                      </span>
-                   
-                </td>
-                    <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(research.created_at).format("LL")}</td>
-                    <td class="px-3 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200"><span class="text-xs  text-gray-500">{getResearchStatus(research.status)}</span></td>
-                   
-                    <td class="px-3 py-3 whitespace-nowrap text-sm font-medium">
-                    <Link href={route('researcher.show', research.reference)}>
-                    <button class="btn btn-xs btn-accent text-white rounded-md text-xs"><span class="icon-[tabler--files]"></span></button>
-                    </Link> 
-                    </td>
-                </tr>
-                ))}
-            </tbody>
-            <tfoot>
-      <tr class="bg-gray-100">
-        <td colspan="6" class="px-4 py-2 border-t text-left">
-          <span class="text-sm text-gray-500">Total Records:</span>&nbsp;
-          <span id="total-records" class="text-lg font-semibold text-blue-600">{totalRecords}</span>
+    <table class="min-w-full table-auto border divide-y divide-gray-200 dark:divide-neutral-700">
+  <thead class="bg-gray-400 dark:bg-neutral-700">
+    <tr>
+      <th scope="col" class="px-2 py-2 text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Research Title</th>
+      <th scope="col" class="px-2 py-2 text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">College</th>
+      <th scope="col" class="px-2 py-2 text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Research Status</th>
+      <th scope="col" class="px-2 py-2 text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Date Created</th>
+      <th scope="col" class="px-2 py-2 text-center text-xs font-bolder text-white uppercase dark:text-neutral-500">Type</th>
+      <th scope="col" class="px-2 py-2"></th>
+    </tr>
+  </thead>
+  <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
+    {researchs.map((research, index) => (
+      <tr class={index % 2 !== 0 ? "bg-gray-50 dark:bg-gray-800 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-800 dark:border-gray-700"}>
+        <td class="px-2 py-2 truncate max-w-xs whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{research.research_title}</td>
+        <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{research.department.name}</td>
+        <td class="px-2 py-2">
+          <span class="text-gray-600 text-sm font-bold">
+            {research && research.app_status && research.app_status.name !== null && research.app_status.name !== undefined ? (
+              research.app_status.name == "Pending" ? (
+                <div class="flex items-center justify-start gap-1.5 text-xs font-bold text-warning">
+                  <span class="badge badge-warning size-1.5 p-0"></span>
+                  Pending
+                </div>
+              ) : (
+                <div>
+                  Step {research.app_status.steps}: {research.app_status.name}
+                  <div class="w-60">
+                    {(research.app_status.status == "Submitted" || research.app_status.status == "Completed" || research.app_status.status == "Scheduled") ? (
+                      <div class="flex items-center justify-start gap-1.5 text-base font-bold text-xs">
+                        <span class="badge badge-success size-1.5 p-0"></span>
+                        {research.app_status.status}
+                      </div>
+                    ) : (
+                      <div class="flex items-center justify-start gap-1.5 text-base font-bold text-xs">
+                        <span class="badge badge-info size-1.5 p-0"></span>
+                        {research.app_status.status}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )
+            ) : (
+              <></>
+            )}
+          </span>
+        </td>
+        <td class="px-2 py-2 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(research.created_at).format("LL")}</td>
+        <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200"><span class="text-xs text-gray-500">{getResearchStatus(research.status)}</span></td>
+        <td class="px-2 py-2 whitespace-nowrap text-sm font-medium">
+          <Link href={route('researcher.show', research.reference)}>
+            <button class="btn btn-xs btn-accent text-white rounded-md text-xs">
+              <span class="icon-[tabler--files]"></span>
+            </button>
+          </Link>
         </td>
       </tr>
-    </tfoot>
-          </table>
+    ))}
+  </tbody>
+  <tfoot>
+    <tr class="bg-gray-100">
+      <td colspan="6" class="border-t text-left">
+        <div class="p-3 rounded-lg shadow-md">
+          <span class="text-sm text-gray-600">Total Records:</span>
+          <span id="total-records" class="text-sm font-semibold text-blue-600">&nbsp;{totalRecords}</span>
+          <p class="mt-2 text-xs text-gray-500">We have successfully fetched the total number of records for you.</p>
+        </div>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
           </div>
     </>
   )

@@ -5,6 +5,11 @@ import Pagination from "@/Components/Pagination";
 import InputError from '@/Components/InputError';
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
+import dayjs from "dayjs";
+import relativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend(relativeTime);
+import localizedFormat from "dayjs/plugin/localizedFormat";
+dayjs.extend(localizedFormat);
 
 export default function Index(props) {
   const { data: techpanels } = props.techpanels_data;
@@ -122,6 +127,7 @@ export default function Index(props) {
     <tr>
       <th className="px-2 py-2 text-left text-xs font-bold text-white border-b border-gray-300 dark:border-neutral-600">NAME</th>
       <th className="px-2 py-2 text-left text-xs font-bold text-white border-b border-gray-300 dark:border-neutral-600">EMAIL</th>
+      <th className="px-2 py-2 text-left text-xs font-bold text-white border-b border-gray-300 dark:border-neutral-600">CREATED AT</th>
       <th className="px-2 py-2 border-b border-gray-300 dark:border-neutral-600"></th>
     </tr>
   </thead>
@@ -130,6 +136,7 @@ export default function Index(props) {
       <tr key={techpanel.id} className={index % 2 !== 0 ? "bg-gray-50 dark:bg-gray-800 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-neutral-800"}>
         <td className="px-2 truncate max-w-xs whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200 border-b border-gray-300 dark:border-neutral-600">{techpanel.name}</td>
         <td className="px-2 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200 border-b border-gray-300 dark:border-neutral-600">{techpanel.email}</td>
+        <td className="px-2 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200 border-b border-gray-300 dark:border-neutral-600">{dayjs(techpanel.created_at).format("LLL")}</td>
         <td className="px-2 border-b border-gray-300 dark:border-neutral-600">
           <div className="flex flex-col items-end gap-x-2 gap-y-0.5 m-3">
             <span className="text-base-content/50 text-sm text-gray hover:cursor-pointer" onClick={() => deletePanel(techpanel.id)}>
@@ -144,7 +151,7 @@ export default function Index(props) {
   </tbody>
   <tfoot>
     <tr className="bg-gray-100 dark:bg-neutral-800">
-      <td colSpan="3" className="px-4 py-2 border-t text-left">
+      <td colSpan="4" className="px-4 py-2 border-t text-left">
         <span className="text-sm text-gray-500">Total Records:</span>&nbsp;
         <span id="total-records" className="text-lg font-semibold text-blue-600">{totalRecords}</span>
       </td>
