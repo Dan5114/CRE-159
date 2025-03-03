@@ -146,9 +146,11 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
             </div>
             <div>
             <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0">
+              <div class={research.status == "REC" ? "hidden" : ""}>
               <input class="input" type="file" onChange={(e) => setData('step1', e.target.files[0])} />
               <div className="mb-4 mt-1 text-xs text-gray-500">
               <p>You can upload PDF, DOC, or DOCX files</p>
+              </div>
             </div>
               {
                                           (files.doc_frp.file_name) ?
@@ -164,7 +166,7 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
                   <div class="ms-4 flex gap-2 justify-center">
                   <span class="hover:cursor-pointer" onClick={() => downloadFile(files.doc_frp)}> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg></span>
 
-                  <span class="hover:cursor-pointer"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z"/></svg></span>
+                  {/* <span class="hover:cursor-pointer"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z"/></svg></span> */}
                   </div>
                 </li>
               </ul>
@@ -185,9 +187,11 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
             </div>
             <div>
             <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0 mb-2">
+            <div class={research.status == "REC" ? "hidden" : ""}>
             <input class="input" type="file" onChange={(e) => setData('step2', e.target.files[0])} />
             <div className="mb-4 mt-1 text-xs text-gray-500">
               <p>You can upload PDF, DOC, or DOCX files</p>
+            </div>
             </div>
               {
                                           (files.doc_cp.file_name) ?
@@ -206,7 +210,12 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
                 </li>
               </ul>
               :
-                <></>
+                <>
+                <div id="alertCard" class="w-full bg-red-50 border-l-4 border-red-500 text-red-700 p-2 rounded">
+  <p class="font-bold">No file uploaded</p>
+</div>
+
+                </>
               }
             </dd>
             </div>
@@ -221,9 +230,11 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
             </div>
             <div>
             <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0 mb-2">
+            <div class={research.status == "REC" ? "hidden" : ""}>
             <input class="input" type="file" onChange={(e) => setData('step3', e.target.files[0])} />
             <div className="mb-4 mt-1 text-xs text-gray-500">
               <p>You can upload PDF, DOC, or DOCX files</p>
+            </div>
             </div>
               {
                                           (files.doc_el.file_name) ?
@@ -242,7 +253,11 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
                 </li>
               </ul>
               :
-                <></>
+                <>
+                 <div id="alertCard" class="w-full bg-red-50 border-l-4 border-red-500 text-red-700 p-2 rounded">
+  <p class="font-bold">No file uploaded</p>
+</div>
+                </>
               }
             </dd>
             </div>
@@ -257,9 +272,11 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
             </div>
             <div>
             <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0 mb-2">
+            <div class={research.status == "REC" ? "hidden" : ""}>
             <input class="input" type="file" onChange={(e) => setData('step4', e.target.files[0])} />
             <div className="mb-4 mt-1 text-xs text-gray-500">
               <p>You can upload PDF, DOC, or DOCX files</p>
+            </div>
             </div>
               {
                                           (files.doc_wpgc.file_name) ?
@@ -278,7 +295,10 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
                 </li>
               </ul>
               :
-                <></>
+                <>
+                 <div id="alertCard" class="w-full bg-red-50 border-l-4 border-red-500 text-red-700 p-2 rounded">
+  <p class="font-bold">No file uploaded</p>
+</div></>
               }
             </dd>
             </div>
@@ -293,9 +313,11 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
           </div>
           <div>
           <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0 mb-2">
+          <div class={research.status == "REC" ? "hidden" : ""}>
           <input class="input" type="file" onChange={(e) => setData('step5', e.target.files[0])} />
           <div className="mb-4 mt-1 text-xs text-gray-500">
               <p>You can upload PDF, DOC, or DOCX files</p>
+            </div>
             </div>
               {
                                           (files.doc_brbp.file_name) ?
@@ -314,7 +336,10 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
                 </li>
               </ul>
               :
-                <></>
+                <>
+                 <div id="alertCard" class="w-full bg-red-50 border-l-4 border-red-500 text-red-700 p-2 rounded">
+  <p class="font-bold">No file uploaded</p>
+</div></>
               }
           </dd>
           </div>
@@ -329,9 +354,11 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
           </div>
           <div>
           <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0 mb-2">
+          <div class={research.status == "REC" ? "hidden" : ""}>
           <input class="input" type="file" onChange={(e) => setData('step6', e.target.files[0])} />
           <div className="mb-4 mt-1 text-xs text-gray-500">
               <p>You can upload PDF, DOC, or DOCX files</p>
+            </div>
             </div>
               {
                                           (files.doc_vgii.file_name) ?
@@ -350,7 +377,10 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
                 </li>
               </ul>
               :
-                <></>
+                <>
+                 <div id="alertCard" class="w-full bg-red-50 border-l-4 border-red-500 text-red-700 p-2 rounded">
+  <p class="font-bold">No file uploaded</p>
+</div></>
               }
           </dd>
           </div>
@@ -365,9 +395,11 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
           </div>
           <div>
           <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0 mb-2">
+          <div class={research.status == "REC" ? "hidden" : ""}>
           <input class="input" type="file" onChange={(e) => setData('step7', e.target.files[0])} />
           <div className="mb-4 mt-1 text-xs text-gray-500">
               <p>You can upload PDF, DOC, or DOCX files</p>
+            </div>
             </div>
               {
                                           (files.doc_cvr.file_name) ?
@@ -386,13 +418,18 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
                 </li>
               </ul>
               :
-                <></>
+                <>
+                 <div id="alertCard" class="w-full bg-red-50 border-l-4 border-red-500 text-red-700 p-2 rounded">
+  <p class="font-bold">No file uploaded</p>
+</div>
+                </>
               }
           </dd>
           </div>
         </div>  
-    
-        <div class="w-full">
+        <div class="border-t border-gray-300 my-4"></div>
+
+        <div class="w-full mt-6">
       
       
        {

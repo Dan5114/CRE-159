@@ -109,7 +109,12 @@ const Navbar = () => {
   <div class="text-sm">
       <span class="text-black-400 text-sm font-mono">Currently Viewing: </span>
       <span className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm font-semibold">
-              {UserTypeupperStr}
+              {
+                (UserTypeupperStr == "TPL") ? 
+                "Technical Panel"
+                :
+                UserTypeupperStr
+              }
             </span>
     </div>
             
