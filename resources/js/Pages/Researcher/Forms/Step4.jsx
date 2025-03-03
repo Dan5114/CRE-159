@@ -20,7 +20,7 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
       document_file: "",
       tech_file: "",
       t_steps: "tech",
-      date_endorsement: "",
+      date_endorsement: new Date().toISOString().split('T')[0],
       steps: "4"
   });
 
@@ -346,9 +346,11 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
     <>
       {
         (endorsement_status == null) ?
-        <button type="button"  onClick={confirmModalDisplay} class="btn btn-success rounded-full">
+        <>
+         <button type="button"  onClick={confirmModalDisplay} class="btn btn-success rounded-full">
       Endorse Paper for Technical Clearance
       </button>
+        </>
       :
       <>
         <div class="w-full">
@@ -374,6 +376,12 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
         </div>
       </div>
         </div>
+
+     <div class="float-end mt-3">
+     <button type="button" class="btn btn-warning rounded-full">
+                Unendorsed Paper
+              </button>
+     </div>
       </>
       }
     </>
@@ -716,7 +724,7 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
         <div class="modal-body pt-0">
           <div class="mb-4">
             <label class="label label-text" for="fullName"> Date of Endorsement </label>
-            <input type="date" placeholder="" onChange={(e) => setData('date_endorsement', e.target.value)} class="input" id="fullName" />
+            <input type="date" placeholder="" onChange={(e) => setData('date_endorsement', e.target.value)} value={data.date_endorsement} class="input" id="fullName" />
           </div>
          
         </div>

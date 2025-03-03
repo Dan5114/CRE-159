@@ -1,12 +1,13 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css'; 
+import Cre from './Dashboards/Cre';
+import Researcher from './Dashboards/Researcher';
+import Tpl from './Dashboards/Tpl';
 
 export default function Dashboard() {
-
-    const notyf = new Notyf();
-    
+    const user = usePage().props.auth.user;
 
     return (
         <AuthenticatedLayout
@@ -21,8 +22,22 @@ export default function Dashboard() {
             <Head title="Dashboard" />
 
             <div className="py-2">
-            <div class="max-w-7xl mx-auto py-2 px-2 sm:px-6 lg:px-8">
-   
+                <div class="max-w-7xl mx-auto py-2 px-2 sm:px-6 lg:px-8">
+                    {
+                        user.user_type == "cre" ?
+                        <>
+                        <Cre />
+                        </>
+                        :
+                        user.user_type == "tpl" ?
+                       <>
+                       <Tpl />
+                       </>
+                       :
+                       <>
+                       <Researcher />
+                       </>
+                    }
               </div>
             </div>
         </AuthenticatedLayout>

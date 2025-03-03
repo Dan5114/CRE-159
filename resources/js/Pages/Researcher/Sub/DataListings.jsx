@@ -11,15 +11,15 @@ import _ from 'lodash';
 const getResearchStatus = (status) => {
   switch (status) {
       case "D":
-          return <div class="flex items-center justify-center gap-1.5 text-base font-bold text-xs">
+          return <div class="flex items-center justify-center gap-1.5 text-base font-bold">
            <span class="text-neutral">Draft</span>
         </div>;
       case "S":
-        return  <div class="flex items-center justify-center gap-1.5 text-base font-bold text-xs">
+        return  <div class="flex items-center justify-center gap-1.5 text-base font-bold">
        <span class="text-accent">Submitted</span>
       </div>;
         case "REC":
-        return <div class="flex items-center justify-center gap-1.5 text-base font-bold text-xs">
+        return <div class="flex items-center justify-center gap-1.5 text-base font-bold">
         <span class="text-lime-600">Received</span>
       </div>;
 
@@ -158,12 +158,12 @@ const DataListings = ({researchs, user, initialFilters}) => {
                   Step {research.app_status.steps}: {research.app_status.name}
                   <div class="w-60">
                     {(research.app_status.status == "Submitted" || research.app_status.status == "Completed" || research.app_status.status == "Scheduled") ? (
-                      <div class="flex items-center justify-start gap-1.5 text-base font-bold text-xs">
+                      <div class="flex items-center justify-start gap-1.5 text-base font-bold">
                         <span class="badge badge-success size-1.5 p-0"></span>
                         {research.app_status.status}
                       </div>
                     ) : (
-                      <div class="flex items-center justify-start gap-1.5 text-base font-bold text-xs">
+                      <div class="flex items-center justify-start gap-1.5 text-base font-bold">
                         <span class="badge badge-info size-1.5 p-0"></span>
                         {research.app_status.status}
                       </div>

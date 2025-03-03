@@ -12,14 +12,17 @@ dayjs.extend(localizedFormat);
 export default function Step7({user, research, urb_approval}) {
     const notyf = new Notyf();
     const { data, setData, post, errors, reset, formState, processing, progress, recentlySuccessful } =
-      useForm({
-          research_id : research.id,
-          approved_by: user.name,
-          date_approved: "",
-          remarks_approved: "Approved",
-          remarks_disapproved: "Disapproved",
-          steps: "7"
-      });
+    useForm({
+      research_id: research.id,
+      approved_by: user.name,
+      date_approved: new Date().toISOString().split('T')[0], // Set current date as initial value
+      remarks_approved: "Approved",
+      remarks_disapproved: "Disapproved",
+      steps: "7"
+    });
+  
+  // Your form and logic remains the same
+  
 
     const approvedApplication = (e) => {
         e.preventDefault();
@@ -75,23 +78,31 @@ export default function Step7({user, research, urb_approval}) {
             <p class="mt-2 text-gray-600">Your application is under review by the Urban Review Board (URB). Select the appropriate approval status and provide a follow-up date if necessary.</p>
             
             <form onSubmit={approvedApplication}>
-            <div class="mt-6">
-              <label for="followup-date" class="block text-sm font-medium text-gray-700">Approval Date</label>
-              <input type="date" onChange={(e) => setData('date_approved', e.target.value)} id="followup-date" name="followup-date" class="mt-1 block w-60 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
-            </div>
+  <div class="mt-6">
+    <label for="followup-date" class="block text-sm font-medium text-gray-700">Approval Date</label>
+    <input 
+      type="date" 
+      onChange={(e) => setData('date_approved', e.target.value)} 
+      id="followup-date" 
+      name="followup-date" 
+      class="mt-1 block w-60 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" 
+      value={data.date_approved} // This sets the current date as the default value
+    />
+  </div>
 
-            <div class="mt-6 flex space-x-1">
-              <button type="submit" class="inline-flex items-center btn btn-sm text-xs text-white bg-green-600 hover:bg-green-700 rounded-md shadow-md focus:outline-none">
-                Approve
-              </button>
+  <div class="mt-6 flex space-x-1">
+    <button type="submit" class="inline-flex items-center btn btn-sm text-xs text-white bg-green-600 hover:bg-green-700 rounded-md shadow-md focus:outline-none">
+      Approve
+    </button>
 
-              <button type="button" onClick={() => 
-                DisapprovedApplication()
-              } class="inline-flex items-center btn btn-sm text-xs text-white bg-red-600 hover:bg-red-700 rounded-md shadow-md focus:outline-none">
-                Disapprove
-              </button>
-            </div>
-            </form>
+    <button type="button" onClick={() => 
+      DisapprovedApplication()
+    } class="inline-flex items-center btn btn-sm text-xs text-white bg-red-600 hover:bg-red-700 rounded-md shadow-md focus:outline-none">
+      Disapprove
+    </button>
+  </div>
+</form>
+
 
             <div class="mt-6">
               <p class="text-sm text-gray-700 font-semibold">Suggested Next Steps:</p>
