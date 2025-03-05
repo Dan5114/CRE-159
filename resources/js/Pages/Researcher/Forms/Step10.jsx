@@ -72,6 +72,22 @@ export default function Step10({user, research, tpl_docs, feedbacks_step10, feed
         });
       }
 
+      const acceptApplicationPanel = (id) => {     
+        // post(route('tpl.lead.endorse.application', {
+        //     panel_id: id,
+        //   }),
+        //   {
+        //     onSuccess: (page) =>  {
+        //         notyf.success(page.props.flash.message);
+        //         closeModal();
+        //     },
+        //     onFinish: () =>  {
+        //         console.log("Finishing accept application");
+        //         reset()
+        //     },
+        // });
+      }
+
 
   return (
     <>
@@ -241,7 +257,9 @@ export default function Step10({user, research, tpl_docs, feedbacks_step10, feed
                                    :                               
                                   <>
                                     <div class="mt-3">
-                                    <button type="button"  class="btn btn-success rounded-full">
+                                    <button type="button"  onClick={() => {
+                                      acceptApplicationPanel(user.id);
+                                      }} class="btn btn-success rounded-full">
                                       Endorse Paper for Technical Clearance
                                       </button>
                                     </div>

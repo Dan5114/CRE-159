@@ -376,12 +376,6 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
         </div>
       </div>
         </div>
-
-     <div class="float-end mt-3">
-     <button type="button" class="btn btn-warning rounded-full">
-                Unendorsed Paper
-              </button>
-     </div>
       </>
       }
     </>

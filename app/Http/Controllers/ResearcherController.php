@@ -154,7 +154,6 @@ class ResearcherController extends Controller
     {
         $validated = $request->validate([
             'date_completion' => 'required|date|after_or_equal:today',  // Ensure it is a valid date and not in the past
-            'date_extension' => 'required|date|after_or_equal:date_completion',  // Ensure extension date is after completion date
         ]);
     
         $current = Carbon::now();
@@ -162,8 +161,7 @@ class ResearcherController extends Controller
         CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current]);
         $this->cre_application_status($request->research_id, "2", "Technical Committee & Schedule Presentation", $current, $end = null, "On Process");
 
-        Research::where('id', $request->research_id)->update(['status' => 'REC', 'date_completion' => $request->date_completion,
-        'date_extension' => $request->date_extension]);
+        Research::where('id', $request->research_id)->update(['status' => 'REC', 'date_completion' => $request->date_completion]);
 
         return redirect()->back()->with('message', 'Updated Status Successfully');
     }
@@ -582,12 +580,33 @@ class ResearcherController extends Controller
             $session_id = (auth()->user()->user_type == "cre" ? $request->panel_id : auth()->user()->id);
             $date_endorse = (auth()->user()->user_type == "cre" ? $current : $request->date_endorsement);
     
+            $check_role = CrePanelMember::where('id', $session_id)->where('role', 'lead')->first();
             CrePanelMember::where('id', $session_id)->update(['endorsement_status' => 'yes']);
 
+            if($check_role){
+                $data = [
+                    "date_endorse" =>  $date_endorse,
+                    "research_id" => $request->research_id,
+                    "user_id" => $session_id,
+                    "steps" => $request->steps
+                ];
+                TplEndorsementPaper::create($data);
+            }
+            
+            return redirect()->back()->with('message', 'Success');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
+    }
+
+    public function tpl_lead_endorse_application(Request $request)
+    {
+        try {
+            $current = Carbon::now();
             $data = [
-                "date_endorse" =>  $date_endorse,
+                "date_endorse" =>  $current,
                 "research_id" => $request->research_id,
-                "user_id" => $session_id,
+                "user_id" => $request->panel_id,
                 "steps" => $request->steps
             ];
             TplEndorsementPaper::create($data);
