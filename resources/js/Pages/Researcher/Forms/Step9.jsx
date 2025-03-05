@@ -86,76 +86,169 @@ export default function Step9({user, research, progress_report}) {
                 <p class="text-gray-500 mt-2">An overview of the ongoing research and key progress milestones.</p>
             </div>
 
-            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 shadow-md rounded-lg">
-        <div class="flex items-start">
-        
-          <div class="flex-shrink-0">
-          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path fill="currentColor" d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-          </div>
-          <div class="ml-4">
-            <h3 class="text-xl font-semibold text-gray-800">Set Progress Report Schedule</h3>
-           
-            
-            <form onSubmit={submitFiles}>
-            <div class="mt-6 flex space-x-3">
-              <label for="followup-date" class="block text-sm font-medium text-gray-700">Scheduled Date<span class="text-red-500">*</span></label>
-              <input type="date" id="followup-date" onChange={(e) => setData('date_scheduled', e.target.value)} name="followup-date" class="block w-60 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
-
-              <label for="followup-date" class="block text-sm font-medium text-gray-700">Extension Date&nbsp;<span class="text-gray-400">(optional)</span></label>
-              <input type="date" id="followup-date" onChange={(e) => setData('date_due', e.target.value)} name="followup-date" class="block w-60 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" />
-              <button type="submit" class="btn text-sm text-white bg-green-600 hover:bg-green-700 rounded-md shadow-md focus:outline-none">
-                Scheduled
-              </button>
-            </div>
-
-            <div class="mt-6 flex space-x-1">
-             
-
-            </div>
-            </form>
-          </div>
-        </div>
+            <div class="bg-green-50 border-l-4 border-green-500 p-6 shadow-md rounded-lg mb-3">
+  <div class="grid grid-cols-2 gap-6">
+    
+    <div class="flex items-start">
+      <div class="flex-shrink-0">
+      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 20 20"><g fill="gray" fill-rule="evenodd" clip-rule="evenodd"><path d="M5.75 11.5a.75.75 0 0 1 .75-.75h7a.75.75 0 0 1 0 1.5h-7a.75.75 0 0 1-.75-.75m0 3a.75.75 0 0 1 .75-.75h7a.75.75 0 0 1 0 1.5h-7a.75.75 0 0 1-.75-.75"/><path d="M2.5 2.5c0-1.102.898-2 2-2h6.69c.562 0 1.092.238 1.465.631l.006.007l4.312 4.702c.359.383.527.884.527 1.36v10.3c0 1.102-.898 2-2 2h-11c-1.102 0-2-.898-2-2zm8.689 0H4.5v15h11V7.192l-4.296-4.685l-.003-.001z"/><path d="M11.19.5a1 1 0 0 1 1 1v4.7h4.31a1 1 0 1 1 0 2h-5.31a1 1 0 0 1-1-1V1.5a1 1 0 0 1 1-1"/></g></svg>
       </div>
+      <div class="ml-4">
+        <h3 class="text-xl font-semibold text-gray-800">Research Application</h3>
+        
+        <form>
+          <div class="mt-4">
+            <label for="extension-date" class="block text-sm font-medium text-gray-700">
+              Extension Date&nbsp;<span class="text-gray-400">(optional)</span>
+            </label>
+            <input type="date" id="extension-date" onChange={(e) => setData('date_due', e.target.value)} name="extension-date" class="block w-60 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm" />
+          </div>
+
+          <button type="submit" class="mt-6 btn text-sm text-white bg-green-600 hover:bg-green-700 rounded-md shadow-md focus:outline-none">
+            Save Changes
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="p-5 bg-gray-50 rounded-lg shadow-md border border-gray-200">
+  {/* Header */}
+  <h3 class="text-lg font-semibold text-gray-900">📅 Schedule Summary</h3>
+
+  {/* Completion Date */}
+  <div class="mt-3 flex items-center gap-2">
+    <p class="text-sm font-medium text-gray-700">Completion Date:</p>
+    <p class={`text-sm font-semibold ${research.date_completion ? "text-green-700" : "text-gray-400"}`}>
+      {research.date_completion ? dayjs(research.date_completion).format("LLL") : "---"}
+    </p>
+  </div>
+
+  {/* Extension Date */}
+  <div class="mt-2 flex items-center gap-2">
+    <p class="text-sm font-medium text-gray-700">Extension Date:</p>
+    <p class={`text-sm font-semibold ${research.date_extension ? "text-red-600" : "text-gray-400"}`}>
+      {research.date_extension ? dayjs(research.date_extension).format("LLL") : "---"}
+    </p>
+  </div>
+</div>
+
+  </div>
+</div>
+
+
+
+<div class="bg-gray-50 border-l-4 border-blue-500 p-4 shadow-md rounded-lg">
+  <div class="flex items-start">
+    
+    {/* Icon */}
+    <div class="flex-shrink-0">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/>
+      </svg>
+    </div>
+
+    <div class="ml-3 w-full">
+      <h3 class="text-lg font-semibold text-gray-800">Set Progress Report Schedule</h3>
+      
+      <form onSubmit={submitFiles} class="mt-4">
+        <div class="grid grid-cols-2 gap-4">
+          
+          {/* Scheduled Date */}
+          <div>
+            <label for="followup-date" class="block text-sm font-medium text-gray-700">
+              Scheduled Date <span class="text-red-500">*</span>
+            </label>
+            <input type="date" id="followup-date" onChange={(e) => setData('date_scheduled', e.target.value)}
+              name="followup-date" class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm p-2" />
+          </div>
+
+          {/* Extension Date */}
+          <div>
+            <label for="extension-date" class="block text-sm font-medium text-gray-700">
+              Extension Date <span class="text-gray-400">(optional)</span>
+            </label>
+            <input type="date" id="extension-date" onChange={(e) => setData('date_due', e.target.value)}
+              name="extension-date" class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm p-2" />
+          </div>
+
+        </div>
+
+        {/* Submit Button */}
+        <div class="mt-4 text-right">
+          <button type="submit" class="px-4 py-2 text-sm text-white bg-green-600 hover:bg-green-700 rounded-md shadow-md focus:outline-none">
+            Schedule
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 
       <div class="space-y-4 mt-3">
+      <h4 class="mt-5 text-lg font-semibold text-gray-800 border-b pb-2 border-gray-300">
+    🗓️ Progress Report Dates
+  </h4>
         { progress_report.map((report, index) => (
-            <div class="p-6 rounded-lg shadow-lg border border-gray-200">
-                <div class="flex items-center justify-between">
-                <div class="text-xl font-medium text-gray-700"> Progress Report {index+1} - { dayjs(report.date_scheduled).format("LL")}
-                </div>
-               
-                <div class="mb-4">
-  <h4 class="text-sm font-semibold text-red-500">Extension Date</h4>
-  <p class="text-gray-600 text-xs">{ dayjs(report.date_due).format("LL")}</p>
+            <div class="p-6 rounded-lg  border border-gray-200">
+              <div class="flex items-center justify-between bg-blue-50 px-4 py-2 rounded-md shadow-sm">
+  <div class="flex items-center gap-2 text-sm sm:text-md font-semibold text-blue-700">
+    📅 <span class="text-gray-800">{dayjs(report.date_scheduled).format("LL")}</span>
+  </div>
 </div>
-                </div>
 
-{ report.details.map((report_detail, indexes) => (
-                   <div id="listings-1" class="mt-2 space-y-4">
-                   <div class="border-l-4 border-green-400 pl-4 py-3 bg-white rounded-md shadow-md p-3">
-                       <div class="flex items-center justify-between">
-                       <h4 class="font-semibold text-gray-800">{(report_detail.type == "1") ? "Progress Report" : (report_detail.type == "2" ? "Liquidation Report" : "Others")} </h4>
-                           <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(report_detail.files.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(report_detail.files.created_at), true)} ago</time>)</span>
-                       </div>
-                       <ul role="list" class="divide-y mt-2 text-sm divide-base-content/25 rounded-md border border-base-content/25">
-                                     <li class="flex items-center justify-between py-2 ps-2 pe-2">
-                                         <div class="flex w-0 flex-1 items-center">
-                                           <span class="icon-[tabler--paperclip] size-5 flex-shrink-0"></span>
-                                           <div class="ms-4 flex min-w-0 flex-1 gap-2">
-                                             <span class="truncate font-medium">{report_detail.files.file_name}</span>
-                                            
-                                           </div>
-                                         </div>
-                                         <div class="ms-4 flex-shrink-0">
-                                         <a href="#" onClick={() => downloadFile(report_detail.files)} class="link link-primary">
-                                           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg>
-                                           </a>
-                                         </div>
-                                       </li>
-                                     </ul>
-                   </div>
-               </div>
-                ))}
+
+
+
+                <div class="grid grid-cols-2 gap-4 mt-2">
+                {report.details.map((report_detail, indexes) => (
+  <div id={`listings-${indexes}`} class="border-l-4 border-green-400 pl-3 py-2 bg-white rounded-md shadow-md p-3">
+    
+    {/* Enhanced Header */}
+    <div class="flex items-center justify-between bg-green-50 px-3 py-2 rounded-md">
+      <h4 class="text-green-700 text-base sm:text-lg font-semibold">
+        {report_detail.type === "1" ? "📌 Progress Report" : report_detail.type === "2" ? "📊 Liquidation Report" : "📂 Others"}
+      </h4>
+      <span class="text-xs text-gray-600">
+        {dayjs(report_detail.files.created_at).format("LLL")} 
+        (<time dateTime={report_detail.files.created_at}>
+          {dayjs().from(dayjs(report_detail.files.created_at), true)} ago
+        </time>)
+      </span>
+    </div>
+
+    {/* Extension Date Section */}
+    <div class="mt-2 text-xs font-medium">
+      <p class={`${report_detail.date_due ? "text-gray-700" : "text-red-600"}`}>
+        Extension Date: 
+        <span class="ml-2">
+          {report_detail.date_due ? report_detail.date_due : "(Not Set)"}
+        </span>
+      </p>
+    </div>
+
+    {/* File Attachment Section */}
+    <ul role="list" class="divide-y divide-gray-200 mt-2 text-xs border border-gray-200 rounded-md">
+      <li class="flex items-center justify-between py-2 px-3">
+        <div class="flex w-0 flex-1 items-center gap-2">
+          <span class="icon-[tabler--paperclip] size-5 flex-shrink-0 text-gray-600"></span>
+          <span class="truncate font-medium text-gray-800">{report_detail.files.file_name}</span>
+        </div>
+        <div class="flex-shrink-0">
+          <a href="#" onClick={() => downloadFile(report_detail.files)} class="text-green-600 hover:text-green-700">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+              <path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/>
+            </svg>
+          </a>
+        </div>
+      </li>
+    </ul>
+    
+  </div>
+))}
+
+</div>
+
 
 {report.details.length === 0 ? (
                        <>

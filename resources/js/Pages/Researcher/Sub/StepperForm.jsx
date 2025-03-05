@@ -86,14 +86,8 @@ export default function StepperForm({research, files, user, panels, technical_do
 
     {
       (user.user_type != "tpl") ?
-      <div data-stepper-content-item='{ "index": 5 }' class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
+      <div data-stepper-content-item='{ "index": 5 }' style={{"display" : "none"}}>
      <div>
-        <div class="mb-4">
-        <h1 class="text-3xl font-bold text-gray-900">Ethics Clearance</h1>
-        <p class="text-gray-600 mt-3">
-        Approval to conduct research in accordance with ethical guidelines, ensuring the protection of participants and integrity of the study.
-      </p>
-    </div>
         <Step5 user={user} research={research} ethics_docs={ethics_docs}/>
      </div>
    </div>

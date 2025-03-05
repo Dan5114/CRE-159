@@ -171,7 +171,10 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
                 </li>
               </ul>
               :
-                <></>
+                <>
+                    <div id="alertCard" class="w-full bg-red-50 border-l-4 border-red-500 text-red-700 p-2 rounded">
+  <p class="font-bold">No file uploaded</p>
+</div></>
               }
     
             </dd>
