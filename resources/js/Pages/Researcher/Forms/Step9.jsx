@@ -206,7 +206,7 @@ export default function Step9({user, research, progress_report}) {
     
     {/* Enhanced Header */}
     <div class="flex items-center justify-between bg-green-50 px-3 py-2 rounded-md">
-      <h4 class="text-green-700 text-base sm:text-lg font-semibold">
+      <h4 class="text-gray-700 text-base sm:text-md font-semibold">
         {report_detail.type === "1" ? "📌 Progress Report" : report_detail.type === "2" ? "📊 Liquidation Report" : "📂 Others"}
       </h4>
       <span class="text-xs text-gray-600">
@@ -324,77 +324,111 @@ export default function Step9({user, research, progress_report}) {
             
             { progress_report.map((report, index) => (
                 <div class="p-6 mb-3 border-t-2 border-blue-500 rounded-lg shadow-lg">
-                    <div class="flex items-center justify-between">
-                    <div class="text-xl font-medium text-gray-700"> Progress Report {index+1} - { dayjs(report.date_scheduled).format("LL")}
-                    
-                    </div>
-                    <div class="mb-4">
-  <h4 class="text-sm font-semibold text-red-500">Extension Date</h4>
-  <p class="text-gray-600 text-xs">{ dayjs(report.date_due).format("LL")}</p>
+                     <div class="flex items-center justify-between bg-blue-50 px-4 py-2 rounded-md shadow-sm">
+  <div class="flex items-center gap-2 text-sm sm:text-md font-semibold text-blue-700">
+    📅 <span class="text-gray-800">{dayjs(report.date_scheduled).format("LL")}</span>
+  </div>
 </div>
-                    </div>
 
-                    
-        <form >
-        <div class="grid grid-cols-3 gap-6 md:grid-cols-3 mt-3 mb-6">
+<form class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
 
-        <div>
-            <label class="label label-text" for="firstName">Type </label>
-            <select onChange={(e) => {setData('type', e.target.value);
-                 setState(report.id);
-            }} class="select max-w-sm appearance-none" aria-label="select">
-            <option disabled selected>Please select type</option>
-            <option value="1">Progress Report</option>
-            <option value="2">Liquidation</option>
-            <option value="3">Others</option>
-            </select>
-          </div>
+    {/* Type Selection */}
+    <div>
+      <label class="text-sm font-semibold text-gray-700 block mb-1">Type</label>
+      <select 
+        onChange={(e) => {
+          setData('type', e.target.value);
+          setState(report.id);
+        }} 
+        class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+      >
+        <option disabled selected>Please select type</option>
+        <option value="1">Progress Report</option>
+        <option value="2">Liquidation</option>
+        <option value="3">Others</option>
+      </select>
+    </div>
 
-           <div>
-            <label class="label label-text" for="firstName">Document File </label>
-            <input type="file" placeholder="" onChange={(e) => {
-                setState(report.id);
-                setData('document_file', e.target.files[0]);}} class="input" id="firstName" />
-                 <div className="mb-4 mt-1 text-xs text-gray-500">
-              <p>You can upload PDF, DOC, or DOCX files</p>
-            </div>
-          </div>
+    {/* File Upload - Compact */}
+    <div>
+      <label class="text-sm font-semibold text-gray-700 block mb-1">Document File</label>
+      <div class="relative w-full">
+        <input 
+          type="file" 
+          onChange={(e) => {
+            setState(report.id);
+            setData('document_file', e.target.files[0]);
+          }} 
+          class="w-full px-3 py-[6px] text-sm border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white"
+        />
+      </div>
+     
+    </div>
 
-          <div class="flex justify-end gap-y-2 mt-7">
-          <button type="button" onClick={() => 
-            submitFiles2()}
-            class="btn btn-default rounded-full">
-              <span class="icon-[tabler--upload] text-base-content/80 size-6"></span>Upload
-              </button>
-          </div>
+    {/* Upload Button - Properly Aligned */}
+    <div>
+      <button 
+        type="button" 
+        onClick={() => submitFiles2()} 
+        class="w-full bg-blue-500 text-white text-sm font-medium px-3 py-2 rounded-lg shadow-md hover:bg-blue-600 transition duration-200 flex items-center justify-center gap-2"
+      >
+        <span class="icon-[tabler--upload] text-white size-4"></span>
+        Upload
+      </button>
+    </div>
+
+  </div>
+</form>
+
+
+
+
+
+        <div class="grid grid-cols-2 gap-4 mt-2">
+                {report.details.map((report_detail, indexes) => (
+  <div id={`listings-${indexes}`} class="border-l-4 border-green-400 pl-3 py-2 bg-white rounded-md shadow-md p-3">
+    
+    {/* Enhanced Header */}
+    <div class="flex items-center justify-between bg-green-50 px-3 py-2 rounded-md">
+      <h4 class="text-gray-700 text-base sm:text-md font-semibold">
+        {report_detail.type === "1" ? "📌 Progress Report" : report_detail.type === "2" ? "📊 Liquidation Report" : "📂 Others"}
+      </h4>
+      <span class="text-xs text-gray-600">
+        {dayjs(report_detail.files.created_at).format("LLL")} 
+        (<time dateTime={report_detail.files.created_at}>
+          {dayjs().from(dayjs(report_detail.files.created_at), true)} ago
+        </time>)
+      </span>
+    </div>
+
+    {/* Extension Date Section */}
+    <div class="mt-2 text-xs font-medium">
+      <p class={`${report_detail.date_due ? "text-gray-700" : "text-red-600"}`}>
+        Extension Date: 
+        <span class="ml-2">
+          {report_detail.date_due ? report_detail.date_due : "(Not Set)"}
+        </span>
+      </p>
+    </div>
+
+    {/* File Attachment Section */}
+    <ul role="list" class="divide-y divide-gray-200 mt-2 text-xs border border-gray-200 rounded-md">
+      <li class="flex items-center justify-between py-2 px-3">
+        <div class="flex w-0 flex-1 items-center gap-2">
+          <span class="icon-[tabler--paperclip] size-5 flex-shrink-0 text-gray-600"></span>
+          <span class="truncate font-medium text-gray-800">{report_detail.files.file_name}</span>
         </div>
-        </form>
+        <div class="flex-shrink-0">
+        
+        </div>
+      </li>
+    </ul>
+    
+  </div>
+))}
 
-
-        { report.details.map((report_detail, indexes) => (
-                   <div id="listings-1" class="mt-2 space-y-4">
-                   <div class="border-l-4 border-green-400 pl-4 py-3 bg-white rounded-md shadow-md p-3">
-                       <div class="flex items-center justify-between">
-                           <h4 class="font-semibold text-gray-800">{(report_detail.type == "1") ? "Progress Report" : (report_detail.type == "2" ? "Liquidation Report" : "Others")} </h4>
-                           <span class="flex-shrink-0 text-xs text-base-content/50">{dayjs(report_detail.files.created_at).format("LLL")} (<time datetime="2023-01-23T13:23Z">{dayjs().from(dayjs(report_detail.files.created_at), true)} ago</time>)</span>
-                       </div>
-                       <ul role="list" class="divide-y mt-2 text-sm divide-base-content/25 rounded-md border border-base-content/25">
-                                     <li class="flex items-center justify-between py-2 ps-2 pe-2">
-                                         <div class="flex w-0 flex-1 items-center">
-                                           <span class="icon-[tabler--paperclip] size-5 flex-shrink-0"></span>
-                                           <div class="ms-4 flex min-w-0 flex-1 gap-2">
-                                             <span class="truncate font-medium">{report_detail.files.file_name}</span>
-                                            
-                                           </div>
-                                         </div>
-                                         <div class="ms-4 flex-shrink-0">
-                                         {/* Delete */}
-                                         </div>
-                                       </li>
-                                     </ul>
-                   </div>
-               </div>
-                ))}
+</div>
 
 
 {report.details.length === 0 ? (
