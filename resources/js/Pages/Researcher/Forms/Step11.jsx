@@ -52,6 +52,26 @@ export default function Step10({user, research, turnitin_docs}) {
      });
   }
 
+  const downloadDocResult = (file) => {
+    fetch(route('researcher.doc.download.result', file.id))
+     .then((response) => response.blob())
+     .then((blob) => {
+       const url = window.URL.createObjectURL(new Blob([blob]));
+       const link = document.createElement("a");
+       link.href = url;
+       link.download = file.turnitin_file || "downloaded-file";
+       document.body.appendChild(link);
+
+       link.click();
+
+       document.body.removeChild(link);
+       window.URL.revokeObjectURL(url);
+     })
+     .catch((error) => {
+       console.error("Error fetching the file:", error);
+     });
+  }
+
 
   const deleteFile = (id) => {
     destroy(route('researcher.delete.doc', id), {
@@ -98,14 +118,24 @@ export default function Step10({user, research, turnitin_docs}) {
                         { turnitin_docs.map((turnitin_doc, index) => (
                             <>
                             <tr class="border-b hover:bg-gray-50">
-                                <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">V{index+1}</td>
+                            <td class="px-3 py-3 text-balance whitespace-nowrap text-xs font-mono text-gray-700 dark:text-neutral-200">V.{index+1}</td>
                                 <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{turnitin_doc.file_name}</td>
                                 <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(turnitin_doc.created_at).format("LLL")}</td>
                                 <td class="px-3 py-3 whitespace-nowrap text-sm font-medium">{(turnitin_doc.turnitin_score == null) ? "---" : turnitin_doc.turnitin_score}</td>
-                                <td class="px-3 py-3 whitespace-nowrap text-sm font-medium">{(turnitin_doc.turnitin_status == null) ? "---" : turnitin_doc.turnitin_status.toUpperCase()}</td>
+                                <td className={`px-3 py-3 whitespace-nowrap text-xs font-medium
+  ${(turnitin_doc.turnitin_status?.toLowerCase() === "fail") ? "text-red-600" : 
+  (turnitin_doc.turnitin_status?.toLowerCase() === "pass") ? "text-green-600" : ""}`}>
+  {(turnitin_doc.turnitin_status == null) ? "---" : turnitin_doc.turnitin_status.toUpperCase()}
+</td>
                                 <td class="px-3 py-3 whitespace-nowrap text-sm font-medium">
                                   <div class="flex gap-1">
-                                  {(turnitin_doc.turnitin_status == null) ? "---" : turnitin_doc.turnitin_file}
+                                  {(turnitin_doc.turnitin_status == null) ? "---" :
+                                  <>
+                                  
+                                  <span class=" text-xs font-mono text-gray-700 rounded-full">
+                                  ✅ Uploaded
+        </span>                                  </>
+                                }
 
                                   {/* {
                                     (turnitin_doc.turnitin_file != null) ? 
@@ -172,26 +202,26 @@ export default function Step10({user, research, turnitin_docs}) {
                     <p class="text-gray-700 mt-2">Turnitin's helps in detecting potential plagiarism and ensures originality in academic writing. It is widely used by institutions to verify the authenticity of submitted content.</p>
                 </div> 
 
-                    
-    <form onSubmit={submitFilesTurnitin}>
-          <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mb-3 mt-6">
-           
-          <div>
-            <label class="label label-text" for="firstName">Document File </label>
-            <input type="file" placeholder="" onChange={(e) => setData('document_file', e.target.files[0])} class="input" id="firstName" />
-            <div className="mb-4 mt-1 text-xs text-gray-500">
-              <p>You can upload PDF, DOC, or DOCX files</p>
-            </div>
-          </div>
+                  {/* File Upload Form */}
+  <form onSubmit={submitFilesTurnitin} class="bg-gray-50 p-4 rounded-lg border">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Document File</label>
+        <input 
+          type="file" 
+          onChange={(e) => setData('document_file', e.target.files[0])} 
+          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
+        />
+        <p class="mt-1 text-xs text-gray-500">Accepted formats: PDF, DOC, DOCX</p>
+      </div>
+    </div>
 
-            <div class="flex justify-end gap-y-2 mt-7">
-        
-            <button type="submit" class="btn btn-default rounded-full">
-              <span class="icon-[tabler--upload] text-base-content/80 size-6"></span>Upload
-              </button>
-            </div>
-          </div>
-        </form>
+    <div class="flex justify-end mt-4">
+      <button type="submit" class="flex items-center gap-2 text-sm text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md shadow-md focus:outline-none">
+        <span class="icon-[tabler--upload] size-5"></span>Upload
+      </button>
+    </div>
+  </form>
 
         <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 mt-3 rounded-md">
         <strong class="font-semibold">Important:</strong> 
@@ -215,19 +245,24 @@ export default function Step10({user, research, turnitin_docs}) {
                 { turnitin_docs.map((turnitin_doc, index) => (
                     <>
                     <tr class="border-b hover:bg-gray-50">
-                        <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">V{index+1}</td>
+                        <td class="px-3 py-3 text-balance whitespace-nowrap text-xs font-mono text-gray-700 dark:text-neutral-200">V.{index+1}</td>
                         <td class="px-3 py-3 text-balance whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{turnitin_doc.file_name}</td>
                         <td class="px-3 py-3 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(turnitin_doc.created_at).format("LLL")}</td>
                         <td class="px-3 py-3 whitespace-nowrap text-sm font-medium">{(turnitin_doc.turnitin_score == null) ? "---" : turnitin_doc.turnitin_score}</td>
-                                <td class="px-3 py-3 whitespace-nowrap text-sm font-medium">{(turnitin_doc.turnitin_status == null) ? "---" : turnitin_doc.turnitin_status.toUpperCase()}</td>
+                        <td className={`px-3 py-3 whitespace-nowrap text-xs font-medium
+  ${(turnitin_doc.turnitin_status?.toLowerCase() === "fail") ? "text-red-600" : 
+  (turnitin_doc.turnitin_status?.toLowerCase() === "pass") ? "text-green-600" : ""}`}>
+  {(turnitin_doc.turnitin_status == null) ? "---" : turnitin_doc.turnitin_status.toUpperCase()}
+</td>
+
                                 <td class="px-3 py-3 whitespace-nowrap text-sm font-medium">
                                   <div class="flex gap-1">
-                                  {(turnitin_doc.turnitin_status == null) ? "---" : turnitin_doc.turnitin_file}
+                                  {(turnitin_doc.turnitin_status == null) ? "---" : ""}
 
                                   {
                                     (turnitin_doc.turnitin_file != null) ? 
                                     <>
-                                     <span class="hover:cursor-pointer text-primary"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg></span>
+                                     <span class="hover:cursor-pointer text-primary" onClick={() => downloadDocResult(turnitin_doc)}><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg></span>
                                     </>
                                     :
                                     <></>

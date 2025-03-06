@@ -563,23 +563,27 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
       <h3 class="text-xl font-semibold text-gray-800">Other Documents Uploading</h3>
       <p class="mt-2 text-gray-600">You can upload other important documents related to your account or project here. Please ensure that all files are in the correct format and within the file size limits.</p>
      
-      <div class="">
-      <form onSubmit={submitFilesRevisions}>
-          <div class="grid grid-cols-2 gap-6 md:grid-cols-2 mb-3 mt-6">
-           
-          <div>
-            <label class="label label-text" for="firstName">Document File </label>
-            <input type="file" placeholder="" onChange={(e) => setData('document_file', e.target.files[0])} class="input" id="firstName" />
-          </div>
+      <div class="mt-3">
+         {/* File Upload Form */}
+  <form onSubmit={submitFilesRevisions} class="bg-gray-50 p-4 rounded-lg border">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Document File</label>
+        <input 
+          type="file" 
+          onChange={(e) => setData('document_file', e.target.files[0])} 
+          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
+        />
+        <p class="mt-1 text-xs text-gray-500">Accepted formats: PDF, DOC, DOCX</p>
+      </div>
+    </div>
 
-            <div class="flex justify-end gap-y-2 mt-3">
-        
-            <button type="submit" class="btn btn-default rounded-full">
-              <span class="icon-[tabler--upload] text-base-content/80 size-6"></span>Upload
-              </button>
-            </div>
-          </div>
-        </form>
+    <div class="flex justify-end mt-4">
+      <button type="submit" class="flex items-center gap-2 text-sm text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md shadow-md focus:outline-none">
+        <span class="icon-[tabler--upload] size-5"></span>Upload
+      </button>
+    </div>
+  </form>
       </div>
     </div>
   </div>

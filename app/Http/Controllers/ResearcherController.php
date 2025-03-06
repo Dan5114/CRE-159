@@ -559,6 +559,12 @@ class ResearcherController extends Controller
        return response()->download("storage/docs/" . $file->file_name, $file->file_name);
     }
 
+    public function doc_download_result($file_id)
+    {
+       $file = ResearchDoc::where('id', $file_id)->first();
+       return response()->download("storage/uploads/" . $file->turnitin_file, $file->turnitin_file);
+    }
+
     public function download_doc_status($file_id)
     {
        $file = ResearchDoc::where('id', $file_id)->first();
