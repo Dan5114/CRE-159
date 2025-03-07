@@ -57,7 +57,7 @@ const confirmModalDisplay = () => {
                       <form onSubmit={progressExtension} className="p-6">
                           <div className="mt-4">
     <label htmlFor="testName" className="block text-sm font-medium text-gray-700">
-    Extension Date {id}
+    Extension Date
     </label>
     <input
       type="date"

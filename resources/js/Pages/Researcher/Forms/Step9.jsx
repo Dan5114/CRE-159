@@ -133,11 +133,16 @@ export default function Step9({user, research, progress_report}) {
             </div>
 
             {/* Button */}
-            <div class="flex items-end mt-5">
-              <button type="submit" class="w-full sm:w-auto px-4 py-2 text-sm text-white bg-green-600 hover:bg-green-700 rounded-md shadow-md focus:outline-none">
+            {
+              research.date_extension ?
+              <></>
+              :
+              <div class="flex items-end mt-5">
+              <button type="submit" class="disable w-full sm:w-auto px-4 py-2 text-sm text-white bg-green-600 hover:bg-green-700 rounded-md shadow-md focus:outline-none">
                 Save Changes
               </button>
             </div>
+            }
           </div>
         </form>
       </div>
