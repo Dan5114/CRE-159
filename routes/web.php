@@ -31,7 +31,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'panels' => PanelController::class
     ]);
 
-    Route::post('/researcher/file/upload', [ResearcherController::class, 'file_uplolad_store'])->name('researcher.upload.files');
+    Route::post('/researcher/file/upload', [ResearcherController::class, 'file_upload_store'])->name('researcher.upload.files');
     Route::get('/file/download/{id}', [ResearcherController::class, 'file_download'])->name('researcher.file.download');
     Route::post('/researcher/update/status', [ResearcherController::class, 'update_application_status'])->name('researcher.update.status');
     Route::post('/researcher/submit/application', [ResearcherController::class, 'submit_application'])->name('researcher.submit.application');

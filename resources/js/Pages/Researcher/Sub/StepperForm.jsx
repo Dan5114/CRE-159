@@ -49,7 +49,7 @@ export default function StepperForm({research, files, user, panels, technical_do
 
    {
     (user.user_type != "tpl") ?
-    <div data-stepper-content-item='{ "index": 2 }' class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
+    <div data-stepper-content-item='{ "index": 2 }' class="card rounded-scrollbar max-h-auto p-3">
       <div>
         <Step2 user={user} research={research} panels={panels} user_panels={user_panels}/>
       </div>

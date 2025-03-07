@@ -29,6 +29,7 @@ use App\Models\CreProgressReportHeader;
 use App\Models\ProgressReportDetail;
 use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
+use App\Http\Requests\FileUploadRequest;
 
 class ResearcherController extends Controller
 {
@@ -270,7 +271,7 @@ class ResearcherController extends Controller
        return redirect()->back()->with('message', 'Saved Successfully');
     }
 
-    public function file_uplolad_store(Request $request)
+    public function file_upload_store(FileUploadRequest $request)
     {
         try {
 

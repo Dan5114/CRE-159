@@ -9,6 +9,7 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 import FeedbackStep1 from '../Feedback/FeedbackStep1';
 import Step1Form from '../SubForms/Step1Form';
+import InputError from '@/Components/InputError';
 
 export default function Step1({research, files, user, feedbacks_step1, feedbacks_step1_notif, revisions_docs}) {
     const notyf = new Notyf();
@@ -139,10 +140,10 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
   <div class="vertical-scrollbar rounded-scrollbar max-h-screen w-full p-4">
   <form onSubmit={submitFiles}>
       <div class="mt-6 border-t border-base-content/25">
-          <div class="grid grid-cols-1 gap-6 md:grid-cols-2 m-3">
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-2 mt-3 mb-3">
             <div>
-              <label class="text-base-content text-lg font-semibold" for="firstName"> 1. Research Proposal </label>
-           
+              <label class="text-base-content text-lg font-semibold ml-2" for="firstName"> 1. Research Proposal<span class="text-red-500">*</span></label>
+              <InputError className="mt-2" message={errors.step1} />
             </div>
             <div>
             <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0">
@@ -164,7 +165,7 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
                     </div>
                   </div>
                   <div class="ms-4 flex gap-2 justify-center">
-                  <span class="hover:cursor-pointer" onClick={() => downloadFile(files.doc_frp)}> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg></span>
+                  <span class="hover:cursor-pointer" onClick={() => downloadFile(files.doc_frp)}> <a class="link link-primary">Download</a></span>
 
                   {/* <span class="hover:cursor-pointer"> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z"/></svg></span> */}
                   </div>
@@ -185,8 +186,8 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
     
           <div class="grid grid-cols-1 gap-6 md:grid-cols-2 mt-3">
             <div class="">
-              <label class="text-base-content text-lg font-semibold ml-3" for="firstName"> 2. Checklist for Proposal </label>
-           
+              <label class="text-base-content text-lg font-semibold ml-3" for="firstName"> 2. Checklist for Proposal<span class="text-red-500">*</span></label>
+              <InputError className="mt-2" message={errors.step2} />
             </div>
             <div>
             <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0 mb-2">
@@ -228,8 +229,8 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
     
           <div class="grid grid-cols-1 gap-6 md:grid-cols-2 mt-3">
             <div class="">
-              <label class="text-base-content text-lg font-semibold ml-3" for="firstName"> 3. Endorsement Letters </label>
-           
+              <label class="text-base-content text-lg font-semibold ml-3" for="firstName"> 3. Endorsement Letters<span class="text-red-500">*</span> </label>
+              <InputError className="mt-2" message={errors.step3} />
             </div>
             <div>
             <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0 mb-2">
@@ -270,8 +271,8 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
     
           <div class="grid grid-cols-1 gap-6 md:grid-cols-2 mt-3">
             <div class="">
-              <label class="text-base-content text-lg font-semibold ml-3" for="firstName"> 4. Work Plan/Gantt Chart </label>
-           
+              <label class="text-base-content text-lg font-semibold ml-3" for="firstName"> 4. Work Plan/Gantt Chart<span class="text-red-500">*</span></label>
+              <InputError className="mt-2" message={errors.step4} />
             </div>
             <div>
             <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0 mb-2">
@@ -311,8 +312,8 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
     
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 mt-3">
           <div class="">
-            <label class="text-base-content text-lg font-semibold ml-3" for="firstName"> 5. Budget Requirement/Budget Proposal </label>
-        
+            <label class="text-base-content text-lg font-semibold ml-3" for="firstName"> 5. Budget Requirement/Budget Proposal<span class="text-red-500">*</span></label>
+            <InputError className="mt-2" message={errors.step5} />
           </div>
           <div>
           <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0 mb-2">
@@ -352,8 +353,8 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
     
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 mt-3">
           <div class="">
-            <label class="text-base-content text-lg font-semibold ml-3" for="firstName"> 6. Valid government issued ID</label>
-    
+            <label class="text-base-content text-lg font-semibold ml-3" for="firstName"> 6. Valid government issued ID<span class="text-red-500">*</span></label>
+            <InputError className="mt-2" message={errors.step6} />
           </div>
           <div>
           <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0 mb-2">
@@ -393,8 +394,8 @@ export default function Step1({research, files, user, feedbacks_step1, feedbacks
     
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 mt-3">
           <div class="">
-            <label class="text-base-content text-lg font-semibold ml-3" for="firstName"> 7. CV of the Researchers </label>
-    
+            <label class="text-base-content text-lg font-semibold ml-3" for="firstName"> 7. CV of the Researchers<span class="text-red-500">*</span> </label>
+            <InputError className="mt-2" message={errors.step7} />
           </div>
           <div>
           <dd class="mt-2 text-base-content sm:col-span-2 sm:mt-0 mb-2">
