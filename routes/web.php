@@ -54,6 +54,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/researcher/progress/report/upload', [ResearcherController::class, 'researcher_progress_upload'])->name('researcher.progress.report.files');
     Route::patch('/researcher/unendorsed/panel/{id}', [ResearcherController::class, 'unendorsed_panel'])->name('researcher.unendorsed.panel');
     Route::post('/cre/turnitin/report/upload', [ResearcherController::class, 'turnitin_report_upload'])->name('turnitin.report.upload');
+    Route::patch('/cre/progress/report/extension/{id}', [ResearcherController::class, 'progress_report_extension'])->name('progress.extension.date');
+    Route::patch('/research/extension/date/{id}', [ResearcherController::class, 'research_extension_date'])->name('researcher.extension.date');
 });
 
 require __DIR__.'/auth.php';

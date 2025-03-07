@@ -18,7 +18,7 @@ export default function Step10({user, research, turnitin_docs}) {
         document_file: "",
         steps: "turnitin"
       });
-
+  
   const submitFilesTurnitin = (e) => {
     e.preventDefault();
     post(route('researcher.technical.review.files'), {

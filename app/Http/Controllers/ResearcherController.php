@@ -890,6 +890,26 @@ class ResearcherController extends Controller
         }
     }
 
+    public function progress_report_extension(Request $request, string $id)
+    {
+        try {
+            CreProgressReportHeader::where('id', $id)->update(['date_due' => $request->date_extension]);
+            return redirect()->back()->with('message', 'Successfully Set Extension Date');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
+    }
+
+    public function research_extension_date(Request $request, string $id)
+    {
+        try {
+            Research::where('id', $id)->update(['date_extension' => $request->date_extension]);
+            return redirect()->back()->with('message', 'Successfully Set Extension Date');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
+    }
+
     public function turnitin_report_upload(Request $request)
     {
 

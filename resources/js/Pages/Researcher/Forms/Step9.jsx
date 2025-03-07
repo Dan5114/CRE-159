@@ -7,12 +7,13 @@ import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
+import ProgressExtensionModal from '../SubForms/ProgressExtensionModal';
 dayjs.extend(localizedFormat);
 
 export default function Step9({user, research, progress_report}) {
     const notyf = new Notyf();
     const [state, setState] = useState([]);
-    const { data, setData, post,  delete: destroy, errors, reset, formState, processing, progress, recentlySuccessful } =
+    const { data, setData, post,  delete: destroy, patch, errors, reset, formState, processing, progress, recentlySuccessful } =
     useForm({
         research_id : research.id,
         date_scheduled: "",
@@ -50,6 +51,20 @@ export default function Step9({user, research, progress_report}) {
             },
         });
     }
+
+    const researchExtensionDate = (e) => {
+      e.preventDefault();
+      patch(route('researcher.extension.date',research.id), {
+        preserveScroll: true,
+          onSuccess: (page) =>  {
+              notyf.success(page.props.flash.message);
+          },
+          onFinish: () =>  {
+              console.log("Finishing updating extension date");
+              reset()
+          },
+      });
+  }
 
     const downloadFile = (file) => {
       fetch(route('researcher.file.download', file.id))
@@ -106,14 +121,14 @@ export default function Step9({user, research, progress_report}) {
       <div class="ml-3 w-full">
         <h3 class="text-lg font-semibold text-gray-800">Research Application</h3>
 
-        <form>
+        <form onSubmit={researchExtensionDate}>
           <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
             {/* Extension Date */}
             <div>
               <label for="extension-date" class="block text-sm font-medium text-gray-700">
                 Extension Date <span class="text-gray-400">(optional)</span>
               </label>
-              <input type="date" id="extension-date" onChange={(e) => setData('date_due', e.target.value)}
+              <input type="date" id="extension-date" onChange={(e) => setData('date_extension', e.target.value)}
                 name="extension-date" class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 sm:text-sm p-2" />
             </div>
 
@@ -136,7 +151,7 @@ export default function Step9({user, research, progress_report}) {
       <div class="mt-3 flex items-center gap-2">
         <p class="text-sm font-medium text-gray-700">Completion Date:</p>
         <p class={`text-sm font-semibold ${research.date_completion ? "text-green-700" : "text-gray-400"}`}>
-          {research.date_completion ? dayjs(research.date_completion).format("LLL") : "---"}
+          {research.date_completion ? dayjs(research.date_completion).format("LL") : "---"}
         </p>
       </div>
 
@@ -144,7 +159,7 @@ export default function Step9({user, research, progress_report}) {
       <div class="mt-2 flex items-center gap-2">
         <p class="text-sm font-medium text-gray-700">Extension Date:</p>
         <p class={`text-sm font-semibold ${research.date_extension ? "text-red-600" : "text-gray-400"}`}>
-          {research.date_extension ? dayjs(research.date_extension).format("LLL") : "---"}
+          {research.date_extension ? dayjs(research.date_extension).format("LL") : "---"}
         </p>
       </div>
     </div>
@@ -214,12 +229,18 @@ export default function Step9({user, research, progress_report}) {
   <div className="flex items-center gap-2">
     📅 <span className="text-gray-800">{dayjs(report.date_scheduled).format("LL")}</span>
   </div>
-  <p className="text-red-600">
-    Extension Date:
+
+  {report.date_due ?
+  <>
+   <span class="text-red-600">Extension Date: {dayjs(report.date_due).format("LL")  }</span>
+  </>
+:
+  <p className="text-gray-600">
     <span className="ml-2">
-      {report.date_due ? dayjs(report.date_due).format("LL") : "(Not Set)"}
+     <ProgressExtensionModal id={report.id} />
     </span>
   </p>
+}
 </div>
 
 
