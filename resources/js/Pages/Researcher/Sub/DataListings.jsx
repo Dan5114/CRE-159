@@ -74,51 +74,48 @@ const DataListings = ({researchs, user, initialFilters}) => {
   class="select w-60 rounded-md" id="favorite-simpson">
     <option value="0" selected>All Types</option>
     <option disabled={user.user_type === 'cre'} value="D">Draft</option>
-    <option value="S">Submitted</option>
-    <option value="REC">Received</option>
+    <option value="S">For Acceptance</option>
+    <option value="REC">On Progress</option>
   </select>
 </div>  
 
-<div class="">
-  <select
-  name="r_steps" value={filters.r_steps} onChange={handleChange}
-  class="select w-60 rounded-md" id="favorite-simpson">
-    <option value="0" selected>All Steps</option>
-    <option value="1">Submit Application</option>
-    <option value="2">Technical Committee & Schedule</option>
-    <option value="3">Technical Review Report</option>
-    <option value="4">Approval of Revised Docs</option>
-    <option value="5">Ethics Clearance</option>
-    <option value="6">Budget Proposal</option>
-    <option value="7">URB Approval</option>
-    <option value="8">MOA Signing</option>
-    <option value="9">Progress Report</option>
-    <option value="10">Turnitin</option>
-  </select>
-</div> 
+{
+  filters.r_type == "S" || filters.r_type == 0 || filters.r_type == null ?
+  <>
+  </>
+  :
+  <>
+    <div class="">
+      <select
+      name="r_steps" value={filters.r_steps} onChange={handleChange}
+      class="select w-60 rounded-md" id="favorite-simpson">
+        <option value="0" selected>All Steps</option>
+        <option value="1">Submit Application</option>
+        <option value="2">Technical Committee & Schedule</option>
+        <option value="3">Technical Review Report</option>
+        <option value="4">Approval of Revised Docs</option>
+        <option value="5">Ethics Clearance</option>
+        <option value="6">Budget Proposal</option>
+        <option value="7">URB Approval</option>
+        <option value="8">MOA Signing</option>
+        <option value="9">Progress Report</option>
+        <option value="10">Turnitin</option>
+      </select>
+    </div> 
 
-<div class="">
-  <select
-  name="r_status" value={filters.r_status} onChange={handleChange}
-    class="select w-60 rounded-md" id="favorite-simpson">
-    <option value="0" selected>All Status</option>
-    <option value="Submitted">Submitted</option>
-    <option value="Scheduled">Scheduled</option>
-    <option value="Completed">Completed</option>
-    <option value="On Process">On Process</option>
-  </select>
-</div> 
-   
-  
-  </div>
-
-
-  <div class="p-4">
-
-  </div>
-
-  <div class="p-4">
-
+    <div class="">
+      <select
+      name="r_status" value={filters.r_status} onChange={handleChange}
+        class="select w-60 rounded-md" id="favorite-simpson">
+        <option value="0" selected>All Status</option>
+        <option value="Submitted">Submitted</option>
+        <option value="Scheduled">Scheduled</option>
+        <option value="Completed">Completed</option>
+        <option value="On Process">On Process</option>
+      </select>
+    </div> 
+  </>
+}  
   </div>
 </div>
    

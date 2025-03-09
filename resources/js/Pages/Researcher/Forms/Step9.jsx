@@ -212,7 +212,7 @@ export default function Step9({user, research, progress_report}) {
           {/* Submit Button */}
           <div class="flex justify-start">
             <button type="submit" class="px-4 py-2 text-sm text-white bg-green-600 hover:bg-green-700 rounded-md shadow-md focus:outline-none">
-              Schedule
+              Add Schedule
             </button>
           </div>
 

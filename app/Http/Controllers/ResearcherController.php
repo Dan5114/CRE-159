@@ -81,12 +81,9 @@ class ResearcherController extends Controller
             ->when($r_type, function ($query, $r_type) {
                 return $query->where('status', $r_type);
             })
-            ->when($r_type, function ($query) use ($r_type, $r_steps, $r_status) {
-                return $query->where('status', $r_type);
-            })
-            ->when($r_steps && $r_status, function ($query) use ($r_steps, $r_status) {
-                return $query->whereHas('app_status', function ($query) use ($r_steps, $r_status) {
-                    $query->where('tbl_cre_application_status.steps', $r_steps)->where('tbl_cre_application_status.status', $r_status);
+            ->when($r_type && $r_steps && $r_status, function ($query) use ($r_steps, $r_status, $r_type) {
+                return $query->whereHas('app_status', function ($query) use ($r_type, $r_steps, $r_status) {
+                    $query->where('status', $r_type)->where('tbl_cre_application_status.steps', $r_steps)->where('tbl_cre_application_status.status', $r_status);
                 });
             })
             ->when($search, function ($query, $search) {
