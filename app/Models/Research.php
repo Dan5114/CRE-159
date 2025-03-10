@@ -23,10 +23,10 @@ class Research extends Model
     public function app_status(): BelongsTo
     {
         return $this->BelongsTo(CreApplicationStatus::class, 'id', 'research_id')->withDefault([
-            "name" => "Pending",
-            "steps" => "Pending",
-            "status" => "Pending"
-        ]);;
+            "name" => null,
+            "steps" => null,
+            "status" => null
+        ]);
     }
 
     public function author(): BelongsTo

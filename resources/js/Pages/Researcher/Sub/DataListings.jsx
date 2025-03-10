@@ -99,7 +99,8 @@ const DataListings = ({researchs, user, initialFilters}) => {
         <option value="7">URB Approval</option>
         <option value="8">MOA Signing</option>
         <option value="9">Progress Report</option>
-        <option value="10">Turnitin</option>
+        <option value="10">Tech Panel Endorsement</option>
+        <option value="11">Turnitin</option>
       </select>
     </div> 
 
@@ -108,8 +109,6 @@ const DataListings = ({researchs, user, initialFilters}) => {
       name="r_status" value={filters.r_status} onChange={handleChange}
         class="select w-60 rounded-md" id="favorite-simpson">
         <option value="0" selected>All Status</option>
-        <option value="Submitted">Submitted</option>
-        <option value="Scheduled">Scheduled</option>
         <option value="Completed">Completed</option>
         <option value="On Process">On Process</option>
       </select>

@@ -76,16 +76,21 @@ class ResearcherController extends Controller
                 return $query->where('research_title', 'LIKE', "%{$search}%");
             })
             ->with(['app_status' => function($query) {
-                return $query->orderBy('end', 'ASC');
+                return $query->orderBy('tbl_cre_application_status.steps', 'ASC');
              }]) 
             ->when($r_type, function ($query, $r_type) {
                 return $query->where('status', $r_type);
             })
-            ->when($r_type && $r_steps && $r_status, function ($query) use ($r_steps, $r_status, $r_type) {
-                return $query->whereHas('app_status', function ($query) use ($r_type, $r_steps, $r_status) {
-                    $query->where('status', $r_type)->where('tbl_cre_application_status.steps', $r_steps)->where('tbl_cre_application_status.status', $r_status);
-                });
-            })
+            ->when(isset($r_steps, $r_status), function ($query) use ($r_steps, $r_status) {
+                return $query->when(!empty($r_steps) && !empty($r_status), function ($query) use ($r_steps, $r_status) {
+                    return $query->whereHas('app_status', function ($q) use ($r_steps, $r_status) {
+                        $q->where('tbl_cre_application_status.steps', $r_steps)
+                          ->where('tbl_cre_application_status.status', $r_status)
+                          ->orderBy('tbl_cre_application_status.end', 'ASC'); // Ordering inside the subquery
+                    });
+                })->orderBy('created_at', 'DESC'); // Ordering the main query by created_at
+                              
+            })             
             ->when($search, function ($query, $search) {
                 return $query->where('research_title', 'LIKE', "%{$search}%");
             })->orderBy('created_at', 'DESC')
