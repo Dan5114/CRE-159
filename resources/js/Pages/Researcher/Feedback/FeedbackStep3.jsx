@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
 import { Link, useForm, usePage, router } from '@inertiajs/react';
@@ -7,6 +7,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
+import TinyMCEEditor from './TinyMCE';
 
 export default function Feedback({user, research, feedbacks_step3}) {
     const notyf = new Notyf();
@@ -16,7 +17,7 @@ export default function Feedback({user, research, feedbacks_step3}) {
         comment: "",
         seen_by: user.name,
         steps: "3"
-    });
+    });  
 
     const submitFiles = (e) => {
         e.preventDefault();
@@ -48,6 +49,9 @@ export default function Feedback({user, research, feedbacks_step3}) {
   </div>
   </div>     
 </form> 
+
+
+<TinyMCEEditor />
 </div>
 :
 <></>
