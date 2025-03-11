@@ -5,14 +5,11 @@ import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
 export default function Index() {
 
   const requirements = [
-    { title: "Full Research Proposal", file: "/files/full-research-proposal.pdf" },
     { title: "Checklist for Full Proposal", file: "/files/checklist-full-proposal.pdf" },
     { title: "Endorsement Letter (DC to Dean)", file: "/files/endorsement-dc-to-dean.pdf" },
     { title: "Endorsement Letter (Dean to AVCRE)", file: "/files/endorsement-dean-to-avcre.pdf" },
     { title: "Work Plan/Gantt Chart", file: "/files/work-plan-gantt-chart.pdf" },
     { title: "Budget Requirement/Budget Proposal", file: "/files/budget-requirement.pdf" },
-    { title: "Valid Government-issued ID", file: "/files/valid-gov-id.pdf" },
-    { title: "CV of the Researchers", file: "/files/researcher-cv.pdf" },
   ];
 
   return (

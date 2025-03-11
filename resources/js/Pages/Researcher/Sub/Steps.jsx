@@ -3,10 +3,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
-import isBetween from "dayjs/plugin/isBetween";
-import weekday from "dayjs/plugin/weekday";
-dayjs.extend(isBetween);
-dayjs.extend(weekday);
+import DurationDays from "./DurationDays";
 
 export default function StepperForm({research_logs, step_status, user, tech_doc}) {
 
@@ -22,26 +19,6 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
   const status_step10 = step_status.step10;
   const status_step11 = step_status.step11;
   
- 
-const countBusinessDays = (start, end) => {
-  let count = 0;
-  let current = dayjs(start);
-
-  while (current.isBefore(end, "day") || current.isSame(end, "day")) {
-    if (current.day() !== 0 && current.day() !== 6) {
-      // Exclude Sundays (0) and Saturdays (6)
-      count++;
-    }
-    current = current.add(1, "day");
-  }
-
-  return count;
-};
-
-const startDate = status_step1?.start ? dayjs(status_step1.start) : null;
-const endDate = status_step1?.end ? dayjs(status_step1.end) : null;
-const businessDaysCount = startDate && endDate ? countBusinessDays(startDate, endDate) : null;
-
      return (
         <>
         <div>
@@ -87,11 +64,7 @@ const businessDaysCount = startDate && endDate ? countBusinessDays(startDate, en
             &nbsp; {(status_step1) ? dayjs(status_step1.end).format("LLL") : ""}
             </div>
 
-            {businessDaysCount !== null && (
-              <div className="text-xs flex items-center gap-1.5">
-                Duration : &nbsp; {businessDaysCount} {businessDaysCount === 1 ? "business day" : "business days"}
-              </div>
-            )}
+            <DurationDays start_date={status_step1.start} end_date={status_step1.end} />
                         </div>
                         </div>
                 </div>
@@ -146,6 +119,7 @@ const businessDaysCount = startDate && endDate ? countBusinessDays(startDate, en
      <div class="text-xs flex items-center gap-1.5">End Date :
      &nbsp; {(status_step2) ? dayjs(status_step2.end).format("LLL") : ""}
      </div>
+     <DurationDays start_date={status_step2.start} end_date={status_step2.end} />
                  </div>
                  </div>
         </div>
@@ -207,6 +181,8 @@ const businessDaysCount = startDate && endDate ? countBusinessDays(startDate, en
  <div class="text-xs flex items-center gap-1.5">End Date :
  &nbsp; {(status_step3) ? dayjs(status_step3.end).format("LLL") : ""}
  </div>
+
+ <DurationDays start_date={status_step3.start} end_date={status_step3.end} />
              </div>
              </div>
     </div>
@@ -273,6 +249,9 @@ const businessDaysCount = startDate && endDate ? countBusinessDays(startDate, en
  &nbsp; {(status_step4) ? dayjs(status_step4.end).format("LLL") : ""}
  </div>
 
+ <DurationDays start_date={status_step4?.start} end_date={status_step4?.end} />
+
+
 
              </div>
              </div>
@@ -331,6 +310,7 @@ const businessDaysCount = startDate && endDate ? countBusinessDays(startDate, en
  <div class="text-xs flex items-center gap-1.5">End Date :
  &nbsp; {(status_step5) ? dayjs(status_step5.end).format("LLL") : ""}
  </div>
+ <DurationDays start_date={status_step5?.start} end_date={status_step5?.end} />
                </div>
                </div>
       </div>
@@ -393,6 +373,7 @@ const businessDaysCount = startDate && endDate ? countBusinessDays(startDate, en
  <div class="text-xs flex items-center gap-1.5">End Date :
  &nbsp; {(status_step6) ? dayjs(status_step6.end).format("LLL") : ""}
  </div>
+ <DurationDays start_date={status_step6?.start} end_date={status_step6?.end} />
              </div>
              </div>
     </div>
@@ -455,6 +436,7 @@ const businessDaysCount = startDate && endDate ? countBusinessDays(startDate, en
  <div class="text-xs flex items-center gap-1.5">End Date :
  &nbsp; {(status_step7) ? dayjs(status_step7.end).format("LLL") : ""}
  </div>
+ <DurationDays start_date={status_step7?.start} end_date={status_step7?.end} />
              </div>
              </div>
     </div>
@@ -517,6 +499,7 @@ const businessDaysCount = startDate && endDate ? countBusinessDays(startDate, en
  <div class="text-xs flex items-center gap-1.5">End Date :
  &nbsp; {(status_step8) ? dayjs(status_step8.end).format("LLL") : ""}
  </div>
+ <DurationDays start_date={status_step8?.start} end_date={status_step8?.end} />
              </div>
              </div>
     </div>
@@ -579,6 +562,7 @@ const businessDaysCount = startDate && endDate ? countBusinessDays(startDate, en
  <div class="text-xs flex items-center gap-1.5">End Date :
  &nbsp; {(status_step9) ? dayjs(status_step9.end).format("LLL") : ""}
  </div>
+ <DurationDays start_date={status_step9?.start} end_date={status_step9?.end} />
              </div>
              </div>
     </div>
@@ -641,6 +625,7 @@ const businessDaysCount = startDate && endDate ? countBusinessDays(startDate, en
  <div class="text-xs flex items-center gap-1.5">End Date :
  &nbsp; {(status_step10) ? dayjs(status_step10.end).format("LLL") : ""}
  </div>
+ <DurationDays start_date={status_step10?.start} end_date={status_step10?.end} />
              </div>
              </div>
     </div>
@@ -703,6 +688,7 @@ const businessDaysCount = startDate && endDate ? countBusinessDays(startDate, en
  <div class="text-xs flex items-center gap-1.5">End Date :
  &nbsp; {(status_step11) ? dayjs(status_step11.end).format("LLL") : ""}
  </div>
+ <DurationDays start_date={status_step11?.start} end_date={status_step11?.end} />
              </div>
              </div>
     </div>
