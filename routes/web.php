@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResearcherController;
 use App\Http\Controllers\PanelController;
+use App\Http\Controllers\RequirementsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -28,6 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resources([
         'researcher' => ResearcherController::class,
+        'requirements' => RequirementsController::class,
         'panels' => PanelController::class
     ]);
 

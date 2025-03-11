@@ -97,7 +97,7 @@ export default function Step3({user, research, technical_docs, feedbacks_step3, 
     }
         </button>
         <button type="button" class="tab active-tab:tab-active" id="tabs-lifted-item-consolidated-form" data-tab="#tabs-lifted-consolidated-form" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
-          Consolidated Form
+          Consolidated Comments & Suggestions
         </button>
       </nav>
 

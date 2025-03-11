@@ -3,6 +3,10 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
+import isBetween from "dayjs/plugin/isBetween";
+import weekday from "dayjs/plugin/weekday";
+dayjs.extend(isBetween);
+dayjs.extend(weekday);
 
 export default function StepperForm({research_logs, step_status, user, tech_doc}) {
 
@@ -17,6 +21,26 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
   const status_step9 = step_status.step9;
   const status_step10 = step_status.step10;
   const status_step11 = step_status.step11;
+  
+ 
+const countBusinessDays = (start, end) => {
+  let count = 0;
+  let current = dayjs(start);
+
+  while (current.isBefore(end, "day") || current.isSame(end, "day")) {
+    if (current.day() !== 0 && current.day() !== 6) {
+      // Exclude Sundays (0) and Saturdays (6)
+      count++;
+    }
+    current = current.add(1, "day");
+  }
+
+  return count;
+};
+
+const startDate = status_step1?.start ? dayjs(status_step1.start) : null;
+const endDate = status_step1?.end ? dayjs(status_step1.end) : null;
+const businessDaysCount = startDate && endDate ? countBusinessDays(startDate, endDate) : null;
 
      return (
         <>
@@ -62,6 +86,12 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
             <div class="text-xs flex items-center gap-1.5">End Date :
             &nbsp; {(status_step1) ? dayjs(status_step1.end).format("LLL") : ""}
             </div>
+
+            {businessDaysCount !== null && (
+              <div className="text-xs flex items-center gap-1.5">
+                Duration : &nbsp; {businessDaysCount} {businessDaysCount === 1 ? "business day" : "business days"}
+              </div>
+            )}
                         </div>
                         </div>
                 </div>
@@ -201,7 +231,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
        <div class="text-sm">
              <p class="font-sans font-bold text-lg">Approval of Revised Docs</p>
              <div class="text-sm">
-             <div class="text-xs flex items-center gap-1.5 mb-3 flex">Status :
+             <div class="text-xs flex items-center gap-1.5 mb-3">Status :
              {(status_step4 ? 
     <>
       {

@@ -54,7 +54,7 @@ class ResearcherController extends Controller
         if($user_type == "researcher"){
             $researchs = Research::with('department')
             ->with(['app_status' => function($query) {
-               return $query->orderBy('end', 'ASC');
+                return $query->orderBy('tbl_cre_application_status.steps', 'ASC');
             }])
             ->when($r_type, function ($query) use ($r_type, $r_steps, $r_status) {
                 return $query->where('status', $r_type);
