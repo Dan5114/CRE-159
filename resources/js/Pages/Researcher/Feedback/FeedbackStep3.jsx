@@ -7,7 +7,6 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
-import TinyMCEEditor from './TinyMCE';
 
 export default function Feedback({user, research, feedbacks_step3}) {
     const notyf = new Notyf();
@@ -51,12 +50,14 @@ export default function Feedback({user, research, feedbacks_step3}) {
 </form> 
 
 
-<TinyMCEEditor />
+
 </div>
 :
 <></>
 
 }
+<br/>
+
         <ul class="timeline timeline-vertical timeline-trimmed timeline-compact w-full mt-3">
 
             { feedbacks_step3.map((feedback_step3, index) => (

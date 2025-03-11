@@ -9,8 +9,9 @@ dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 import FeedbackStep3 from '../Feedback/FeedbackStep3';
+import TinyMCE from '../Feedback/TinyMCE';
 
-export default function Step3({user, research, technical_docs, feedbacks_step3, feedbacks_step3_notif}) {
+export default function Step3({user, research, technical_docs, feedbacks_step3, feedbacks_step3_notif, contents_mce}) {
     const notyf = new Notyf();
     const { data, setData, post,  delete: destroy, patch, errors, reset, formState, processing, progress, recentlySuccessful } =
     useForm({
@@ -94,6 +95,9 @@ export default function Step3({user, research, technical_docs, feedbacks_step3, 
       :
       <span class="badge bg-[#FF0000] text-white badge-sm ms-2 rounded-full">+{feedbacks_step3_notif}</span>
     }
+        </button>
+        <button type="button" class="tab active-tab:tab-active" id="tabs-lifted-item-consolidated-form" data-tab="#tabs-lifted-consolidated-form" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
+          Consolidated Form
         </button>
       </nav>
 
@@ -257,6 +261,9 @@ export default function Step3({user, research, technical_docs, feedbacks_step3, 
         <div class="vertical-scrollbar rounded-scrollbar max-h-screen w-full p-4">
           <FeedbackStep3 user={user} research={research} feedbacks_step3={feedbacks_step3} />
         </div>
+        </div>
+        <div id="tabs-lifted-consolidated-form" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-consolidated-form">
+          <TinyMCE research={research} contents_mce={contents_mce} />
         </div>
       </div>
     </>

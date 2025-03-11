@@ -90,7 +90,7 @@ const DataListings = ({researchs, user, initialFilters}) => {
       name="r_steps" value={filters.r_steps} onChange={handleChange}
       class="select w-60 rounded-md" id="favorite-simpson">
         <option value="0" selected>All Steps</option>
-        <option value="1">Submit Application</option>
+        {/* <option value="1">Submit Application</option> */}
         <option value="2">Technical Committee & Schedule</option>
         <option value="3">Technical Review Report</option>
         <option value="4">Approval of Revised Docs</option>

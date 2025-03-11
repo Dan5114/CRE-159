@@ -27,6 +27,7 @@ use App\Models\ResearchMember;
 use App\Models\UrbApproval;
 use App\Models\CreProgressReportHeader;
 use App\Models\ProgressReportDetail;
+use App\Models\ConsolidatedFeedbacks;
 use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 use App\Http\Requests\FileUploadRequest;
@@ -190,6 +191,18 @@ class ResearcherController extends Controller
             ];
             CreProgressReportHeader::create($data);
             return redirect()->back()->with('message', 'Submitted Successfully');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
+    }
+
+    public function update_tiny_mce(Request $request){
+        try {
+            ConsolidatedFeedbacks::updateOrCreate(
+                ['research_id' => $request->research_id],
+                ['content' => $request->content]
+            );
+            return redirect()->back()->with('message', 'Successfully Saved Changes');
         } catch (Exception $e) {
             Log::debug($e->getMessage());
         }
@@ -463,7 +476,8 @@ class ResearcherController extends Controller
             $urb_approval = UrbApproval::where('research_id', $value->id)->where('steps', '7')->first();
 
             $progress_report = CreProgressReportHeader::where('research_id', $value->id)->where('steps', '9')->with('details')->with('details.files')->get();
-            
+            $contents_mce = ConsolidatedFeedbacks::where('research_id', $value->id)->first();
+
             $step_status = [
                 "step1" => $this->getStepStatus($value->id, "1"),
                 "step2" => $this->getStepStatus($value->id, "2"),
@@ -506,6 +520,7 @@ class ResearcherController extends Controller
             $user_panels = null;
             $files = null;
             $author = null;
+            $contents_mce = null;
         }
 
         $doc_file = [
@@ -546,7 +561,8 @@ class ResearcherController extends Controller
             'tech_doc' => $tech_doc,
             'revisions_docs' => $revisions_docs,
             'turnitin_docs' => $turnitin_docs,
-            'authors' => $author
+            'authors' => $author,
+            'contents_mce' => $contents_mce
         ]);
     }
 

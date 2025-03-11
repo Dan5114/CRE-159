@@ -56,6 +56,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/cre/turnitin/report/upload', [ResearcherController::class, 'turnitin_report_upload'])->name('turnitin.report.upload');
     Route::patch('/cre/progress/report/extension/{id}', [ResearcherController::class, 'progress_report_extension'])->name('progress.extension.date');
     Route::patch('/research/extension/date/{id}', [ResearcherController::class, 'research_extension_date'])->name('researcher.extension.date');
+    Route::post('/cre/feedback/tinymce', [ResearcherController::class, 'update_tiny_mce'])->name('cre.tinymce.update');
 });
 
 require __DIR__.'/auth.php';
