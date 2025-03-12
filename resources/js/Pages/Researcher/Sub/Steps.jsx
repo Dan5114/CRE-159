@@ -64,7 +64,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
             &nbsp; {(status_step1) ? dayjs(status_step1.end).format("LLL") : ""}
             </div>
 
-            <DurationDays start_date={status_step1.start} end_date={status_step1.end} />
+            <DurationDays start_date={status_step1?.start} end_date={status_step1?.end} />
                         </div>
                         </div>
                 </div>
@@ -119,7 +119,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
      <div class="text-xs flex items-center gap-1.5">End Date :
      &nbsp; {(status_step2) ? dayjs(status_step2.end).format("LLL") : ""}
      </div>
-     <DurationDays start_date={status_step2.start} end_date={status_step2.end} />
+     <DurationDays start_date={status_step2?.start} end_date={status_step2?.end} />
                  </div>
                  </div>
         </div>
@@ -182,7 +182,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
  &nbsp; {(status_step3) ? dayjs(status_step3.end).format("LLL") : ""}
  </div>
 
- <DurationDays start_date={status_step3.start} end_date={status_step3.end} />
+ <DurationDays start_date={status_step3?.start} end_date={status_step3?.end} />
              </div>
              </div>
     </div>

@@ -30,7 +30,7 @@ export default function DurationDays({ start_date, end_date }) {
     const endDate = dayjs(end_date);
 
     if (!start_date || !end_date || !startDate.isValid() || !endDate.isValid()) {
-        return <div className="text-xs text-gray-500 italic">Duration: N/A</div>;
+        return <div className="text-xs text-red-500 gap-1.5">Duration: N/A</div>;
     }
 
     const businessDaysCount = countBusinessDays(startDate, endDate);

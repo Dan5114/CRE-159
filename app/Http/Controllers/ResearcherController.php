@@ -292,8 +292,8 @@ class ResearcherController extends Controller
 
             if ($request->file('step1')){
                 $file_step1 = $request->file('step1');
-                $fileName_step1 =  $file_step1->getClientOriginalName(); 
-                $filePath_step1 = 'uploads/' . $file_step1->getClientOriginalName();
+                $fileName_step1 =  date('ymdhis') . $request->research_id . $file_step1->getClientOriginalName(); 
+                $filePath_step1 = 'uploads/' . date('ymdhis') . $request->research_id . $file_step1->getClientOriginalName();
 
                 $data = [
                     "research_id"  => $request->research_id,
@@ -311,8 +311,8 @@ class ResearcherController extends Controller
     
             if ($request->file('step2')){
                 $file_step2 = $request->file('step2');
-                $fileName_step2 =  $file_step2->getClientOriginalName(); 
-                $filePath_step2 = 'uploads/' . $file_step2->getClientOriginalName();
+                $fileName_step2 =  date('ymdhis') . $request->research_id . $file_step2->getClientOriginalName(); 
+                $filePath_step2 = 'uploads/' . date('ymdhis') . $request->research_id . $file_step2->getClientOriginalName();
     
                 $data = [
                     "research_id"  => $request->research_id,
@@ -330,8 +330,8 @@ class ResearcherController extends Controller
 
             if ($request->file('step3')){
                 $file_step3 = $request->file('step3');
-                $fileName_step3 =  $file_step3->getClientOriginalName(); 
-                $filePath_step3 = 'uploads/' . $file_step3->getClientOriginalName();
+                $fileName_step3 =  date('ymdhis') . $request->research_id . $file_step3->getClientOriginalName(); 
+                $filePath_step3 = 'uploads/' . date('ymdhis') . $request->research_id . $file_step3->getClientOriginalName();
     
                 $data = [
                     "research_id"  => $request->research_id,
@@ -349,8 +349,8 @@ class ResearcherController extends Controller
 
             if ($request->file('step4')){
                 $file_step4 = $request->file('step4');
-                $fileName_step4 =  $file_step4->getClientOriginalName(); 
-                $filePath_step4 = 'uploads/' . $file_step4->getClientOriginalName();
+                $fileName_step4 =  date('ymdhis') . $request->research_id . $file_step4->getClientOriginalName(); 
+                $filePath_step4 = 'uploads/' . date('ymdhis') . $request->research_id . $file_step4->getClientOriginalName();
     
                 $data = [
                     "research_id"  => $request->research_id,
@@ -368,8 +368,8 @@ class ResearcherController extends Controller
 
             if ($request->file('step5')){
                 $file_step5 = $request->file('step5');
-                $fileName_step5 =  $file_step5->getClientOriginalName(); 
-                $filePath_step5 = 'uploads/' . $file_step5->getClientOriginalName();
+                $fileName_step5 =  date('ymdhis') . $request->research_id . $file_step5->getClientOriginalName(); 
+                $filePath_step5 = 'uploads/' . date('ymdhis') . $request->research_id . $file_step5->getClientOriginalName();
     
                 $data = [
                     "research_id"  => $request->research_id,
@@ -387,8 +387,8 @@ class ResearcherController extends Controller
 
             if ($request->file('step6')){
                 $file_step6 = $request->file('step6');
-                $fileName_step6 =   $file_step6->getClientOriginalName(); 
-                $filePath_step6 = 'uploads/' . $file_step6->getClientOriginalName();
+                $fileName_step6 =   date('ymdhis') . $request->research_id . $file_step6->getClientOriginalName(); 
+                $filePath_step6 = 'uploads/' . date('ymdhis') . $request->research_id . $file_step6->getClientOriginalName();
     
                 $data = [
                     "research_id"  => $request->research_id,
@@ -406,8 +406,8 @@ class ResearcherController extends Controller
 
             if ($request->file('step7')){
                 $file_step7 = $request->file('step7');
-                $fileName_step7 = $file_step7->getClientOriginalName(); 
-                $filePath_step7 = 'uploads/'   . $file_step7->getClientOriginalName();
+                $fileName_step7 = date('ymdhis') . $request->research_id . $file_step7->getClientOriginalName(); 
+                $filePath_step7 = 'uploads/'   . date('ymdhis') . $request->research_id . $file_step7->getClientOriginalName();
     
                 $data = [
                     "research_id"  => $request->research_id,
@@ -576,6 +576,11 @@ class ResearcherController extends Controller
     {
        $file = ResearchDoc::where('id', $file_id)->first();
        return response()->download("storage/docs/" . $file->file_name, $file->file_name);
+    }
+
+    public function requirements_download($filename)
+    {
+       return response()->download("storage/requirements/" . $filename, $filename);
     }
 
     public function doc_download_result($file_id)
