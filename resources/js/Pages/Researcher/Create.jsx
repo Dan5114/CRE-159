@@ -158,7 +158,7 @@ export default function Create(props) {
             />
             <button
               onClick={handleButtonClick}
-              className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+              className="p-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition"
             >
               ➕
             </button>
@@ -197,7 +197,7 @@ export default function Create(props) {
           <button
             type="submit"
             disabled={processing}
-            className="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
+           className="hover:cursor-pointer flex items-center gap-2 bg-blue-600 text-white px-4 py-2 text-sm font-medium rounded-lg hover:bg-blue-700 shadow-md transition-all duration-300"
           >
             {processing ? <span className="loading loading-spinner loading-md"></span> : "Submit"}
           </button>

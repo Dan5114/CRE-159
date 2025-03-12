@@ -146,14 +146,8 @@ const Navbar = () => {
         <li>
           <Link class="dropdown-item" href={route('profile.edit')}>
             <span class="icon-[tabler--user]"></span>
-            My Profile
+            Profile
           </Link>
-        </li>
-        <li>
-          <a class="dropdown-item" href="#">
-            <span class="icon-[tabler--settings]"></span>
-            Settings
-          </a>
         </li>
        
         <li class="dropdown-footer gap-2">

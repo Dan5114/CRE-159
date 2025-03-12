@@ -87,7 +87,7 @@ export default function Index(props) {
           >
             {/* Title & Download Button */}
             <div className="flex justify-between items-center">
-              <span className="text-lg font-semibold text-gray-900 tracking-wide leading-tight">
+              <span className="text-md font-mono text-gray-900 tracking-wide leading-tight">
                 {item.title}
               </span>
               <a

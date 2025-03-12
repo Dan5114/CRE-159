@@ -63,7 +63,7 @@ export default function Index(props) {
                 header={
                     <div class='flex text-white'>
                      <h2 className="text-xl text-white font-extrabold leading-none tracking-tight">
-                        List of Panels
+                        Manage Panel Members
                       </h2>
                     </div>
                 }
@@ -89,13 +89,13 @@ export default function Index(props) {
 
               <div class="flex space-x-3">
               <div class="mb-4">
-      <label for="name" class=" text-sm font-medium text-gray-600">First Name</label>
+      <label for="name" class=" text-sm font-medium text-gray-600">First Name<span class="text-red-500">*</span></label>
       <input type="text" onChange={(e) => setData('first_name', e.target.value)} class="w-full mt-2 p-3 border rounded-md" placeholder="" />
      <InputError message={errors.first_name} className="mt-2" />
     </div>
 
     <div class="mb-4">
-      <label for="name" class=" text-sm font-medium text-gray-600">Last Name</label>
+      <label for="name" class=" text-sm font-medium text-gray-600">Last Name<span class="text-red-500">*</span></label>
       <input type="text" onChange={(e) => setData('last_name', e.target.value)} class="w-full mt-2 p-3 border rounded-md" placeholder="" />
       <InputError message={errors.last_name} className="mt-2" />
     </div>
@@ -103,33 +103,34 @@ export default function Index(props) {
 
 
     <div class="mb-4">
-      <label for="email" class="block text-sm font-medium text-gray-600">Email Address</label>
+      <label for="email" class="block text-sm font-medium text-gray-600">Email Address<span class="text-red-500">*</span></label>
       <input type="email" id="email" onChange={(e) => setData('email', e.target.value)} class="w-full mt-2 p-3 border rounded-md" placeholder="" />
       <InputError message={errors.email} className="mt-2" />          
     </div>
 
     <div class="mb-4">
-      <label for="phone" class="block text-sm font-medium text-gray-600">Password</label>
+      <label for="phone" class="block text-sm font-medium text-gray-600">Password<span class="text-red-500">*</span></label>
       <input type="password" id="phone" onChange={(e) => setData('password', e.target.value)} class="w-full mt-2 p-3 border rounded-md" placeholder="" />
       <InputError message={errors.password} className="mt-2" />          
     </div>
 
-    <button type="submit" class="btn btn-primary float-end rounded-full">Create Panel</button>
+    <button type="submit" class="btn btn-primary float-end rounded-md">Create Panel</button>
   </form>
 </div>
 
 <div className="md:col-span-2 rounded-lg">
   
-  <div class="card p-6">
-  <h2 className="text-xl font-semibold text-gray-700 mb-4">Panel Listings</h2>
+  <div class="card p-2">
   <table className="min-w-full table-auto shadow-lg border border-gray-300 dark:border-neutral-700">
-  <thead className="bg-gray-400 dark:bg-neutral-700">
-    <tr>
-      <th className="px-2 py-2 text-left text-xs font-bold text-white border-b border-gray-300 dark:border-neutral-600">NAME</th>
-      <th className="px-2 py-2 text-left text-xs font-bold text-white border-b border-gray-300 dark:border-neutral-600">EMAIL</th>
-      <th className="px-2 py-2 text-left text-xs font-bold text-white border-b border-gray-300 dark:border-neutral-600">CREATED AT</th>
-      <th className="px-2 py-2 border-b border-gray-300 dark:border-neutral-600"></th>
-    </tr>
+
+  <thead class="bg-gray-400 dark:bg-neutral-700">
+  <tr class="bg-gray-800 text-white dark:bg-neutral-900">
+  <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">NAME</th>
+  <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">EMAIL</th>
+  <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">CREATED AT</th>
+  <th scope="col" class="px-4 py-3 w-24"></th>
+</tr>
+
   </thead>
   <tbody>
     {techpanels.map((techpanel, index) => (
@@ -177,7 +178,10 @@ export default function Index(props) {
                         </>               
                       )
                         :                               
-                        <Pagination data={props.techpanels_data} />                        
+                        <>
+                        <Pagination data={props.techpanels_data} />   
+                        <br/>         
+                        </>            
                       }
   </div>
 </div>

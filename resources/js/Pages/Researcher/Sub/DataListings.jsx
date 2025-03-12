@@ -11,15 +11,15 @@ import _ from 'lodash';
 const getResearchStatus = (status) => {
   switch (status) {
       case "D":
-          return <div class="flex items-center justify-center gap-1.5 text-base font-bold">
+          return <div class="flex items-center justify-center gap-1.5 text-xs font-bold">
            <span class="text-neutral">Draft</span>
         </div>;
       case "S":
-        return  <div class="flex items-center justify-center gap-1.5 text-base font-bold">
+        return  <div class="flex items-center justify-center gap-1.5 text-xs font-bold">
        <span class="text-accent">Submitted</span>
       </div>;
         case "REC":
-        return <div class="flex items-center justify-center gap-1.5 text-base font-bold">
+        return <div class="flex items-center justify-center gap-1.5 text-xs font-bold">
         <span class="text-lime-600">Received</span>
       </div>;
 
@@ -127,14 +127,15 @@ const DataListings = ({researchs, user, initialFilters}) => {
     <div class="overflow-x-auto">
     <table class="min-w-full table-auto border divide-y divide-gray-200 dark:divide-neutral-700">
   <thead class="bg-gray-400 dark:bg-neutral-700">
-    <tr>
-      <th scope="col" class="px-2 py-2 text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Research Title</th>
-      <th scope="col" class="px-2 py-2 text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">College</th>
-      <th scope="col" class="px-2 py-2 text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Research Status</th>
-      <th scope="col" class="px-2 py-2 text-start text-xs font-bolder text-white uppercase dark:text-neutral-500">Date Created</th>
-      <th scope="col" class="px-2 py-2 text-center text-xs font-bolder text-white uppercase dark:text-neutral-500">Type</th>
-      <th scope="col" class="px-2 py-2"></th>
-    </tr>
+  <tr class="bg-gray-800 text-white dark:bg-neutral-900">
+  <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">Research Title</th>
+  <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">College</th>
+  <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">Current Research Status</th>
+  <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">Date Created</th>
+  <th scope="col" class="px-4 py-3 text-center text-sm font-semibold uppercase">Type</th>
+  <th scope="col" class="px-4 py-3 w-24"></th>
+</tr>
+
   </thead>
   <tbody class="divide-y divide-gray-200 dark:divide-neutral-700">
     {researchs.map((research, index) => (
@@ -151,32 +152,36 @@ const DataListings = ({researchs, user, initialFilters}) => {
                 </div>
               ) : (
                 <div>
-                  Step {research.app_status.steps}: {research.app_status.name}
+                  {research && research.app_status && research.app_status.name !== null && research.app_status.name !== undefined ? 
+                  <>Step {research.app_status.steps}: {research.app_status.name}</>
+                  :
+                  <></>
+              }
                   <div class="w-60">
                     {(research.app_status.status == "Submitted" || research.app_status.status == "Completed" || research.app_status.status == "Scheduled") ? (
                       <div class="flex items-center justify-start gap-1.5 text-base font-bold">
-                        <span class="badge badge-success size-1.5 p-0"></span>
-                        {research.app_status.status}
+                        <span class="badge badge-success badge-xs size-1.5 p-0"></span>
+                       <span class="text-xs"> {research.app_status.status}</span>
                       </div>
                     ) : (
                       <div class="flex items-center justify-start gap-1.5 text-base font-bold">
-                        <span class="badge badge-info size-1.5 p-0"></span>
-                        {research.app_status.status}
+                        <span class="badge badge-info badge-xs size-1.5 p-0"></span>
+                        <span class="text-xs">{research.app_status.status}</span>
                       </div>
                     )}
                   </div>
                 </div>
               )
             ) : (
-              <></>
+              <><span class="text-xs ">N/A</span></>
             )}
           </span>
         </td>
         <td class="px-2 py-2 whitespace-nowrap truncate text-xs/5 text-gray-500">{dayjs(research.created_at).format("LL")}</td>
-        <td class="px-2 py-2 whitespace-nowrap text-sm text-gray-800 dark:text-neutral-200"><span class="text-xs text-gray-500">{getResearchStatus(research.status)}</span></td>
+        <td class="px-2 py-2 whitespace-nowrap text-xs text-gray-800 dark:text-neutral-200"><span class="text-xs text-gray-500">{getResearchStatus(research.status)}</span></td>
         <td class="px-2 py-2 whitespace-nowrap text-sm font-medium">
           <Link href={route('researcher.show', research.reference)}>
-            <button class="btn btn-xs btn-accent text-white rounded-md text-xs">
+            <button class="btn btn-xs bg-gray-500 text-white rounded-md text-xs">
               <span class="icon-[tabler--files]"></span>
             </button>
           </Link>
@@ -190,7 +195,6 @@ const DataListings = ({researchs, user, initialFilters}) => {
         <div class="p-3 rounded-lg shadow-md">
           <span class="text-sm text-gray-600">Total Records:</span>
           <span id="total-records" class="text-sm font-semibold text-blue-600">&nbsp;{totalRecords}</span>
-          <p class="mt-2 text-xs text-gray-500">We have successfully fetched the total number of records for you.</p>
         </div>
       </td>
     </tr>
