@@ -3,6 +3,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { Link, useForm, usePage, router } from '@inertiajs/react';
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
+import * as XLSX from "xlsx";
  
 const MyEditor = ({research, contents_mce}) => {
    const notyf = new Notyf();
@@ -38,6 +39,49 @@ const MyEditor = ({research, contents_mce}) => {
     }
   };
 
+  const exportToExcel = () => {
+    if (editorRef.current) {
+      const htmlContent = editorRef.current.getContent();
+  
+      // Convert HTML content to an Excel sheet
+      const worksheet = htmlToExcelSheet(htmlContent);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, research.research_title);
+  
+      // Export the Excel file
+      XLSX.writeFile(workbook, research.research_title + ".xlsx");
+    }
+  };
+  
+  // Function to convert TinyMCE HTML into an Excel-compatible format
+  const htmlToExcelSheet = (htmlString) => {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = htmlString;
+  
+    const rows = [];
+  
+    // Process all elements inside TinyMCE content
+    tempDiv.childNodes.forEach((node) => {
+      if (node.nodeName === "TABLE") {
+        // Convert Tables Properly
+        node.querySelectorAll("tr").forEach((row) => {
+          const rowData = [];
+          row.querySelectorAll("td, th").forEach((cell) => {
+            rowData.push(cell.innerText.trim());
+          });
+          rows.push(rowData);
+        });
+        rows.push([]); // Empty row for spacing after tables
+      } else if (node.nodeName === "P" || node.nodeName.startsWith("H")) {
+        // Convert Headings and Paragraphs
+        rows.push([node.innerText.trim()]);
+        rows.push([]); // Add spacing
+      }
+    });
+  
+    return XLSX.utils.aoa_to_sheet(rows);
+  };
+
   return (
     <>
       <Editor
@@ -54,7 +98,8 @@ const MyEditor = ({research, contents_mce}) => {
         init={{
           height: 600,
           menubar: false,
-          toolbar: false,
+          plugins: "advlist autolink lists link charmap preview anchor print",
+          toolbar: "undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | removeformat | print",
           table_toolbar: false,
           contextmenu: "link image",
           content_style:
@@ -62,9 +107,25 @@ const MyEditor = ({research, contents_mce}) => {
           readonly: 0,
         }}
       />
+<div className="flex justify-end gap-3 mt-3">
+  <button
+    type="button"
+    onClick={saveContent}
+    className="btn btn-primary flex items-center gap-2"
+  >
+    <span className="icon-[tabler--file] size-6 align-bottom"></span>
+    Save Changes
+  </button>
 
-<button type="button" onClick={saveContent} class="mt-3 float-end btn btn-primary"><span class="icon-[tabler--file] size-6 align-bottom"></span>Save Changes</button>
-      
+  <button
+    onClick={exportToExcel}
+    className="px-4 py-2 bg-green-500 text-white rounded flex items-center"
+  >
+   <span className="icon-[tabler--file-spreadsheet] size-6 align-bottom"></span>
+    Export to Excel
+  </button>
+</div>
+
     </>
   );
 };

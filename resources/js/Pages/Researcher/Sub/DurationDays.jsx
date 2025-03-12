@@ -38,7 +38,7 @@ export default function DurationDays({ start_date, end_date }) {
     return (
         <div className="text-xs text-primary flex items-center gap-1.5">
             Duration: &nbsp;
-            {businessDaysCount} {businessDaysCount === 1 ? "business day" : "business days"}
+            {businessDaysCount} {businessDaysCount === 1 ? "day" : "days"}
         </div>
     );
 }

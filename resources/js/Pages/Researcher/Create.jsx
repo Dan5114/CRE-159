@@ -1,9 +1,8 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { Head, useForm, usePage, Link } from '@inertiajs/react';
 import React, { useState, useEffect } from "react";
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
-import TinyMCE from './MCEForms/TinyMce';
 
 
 export default function Create(props) {
@@ -22,19 +21,6 @@ export default function Create(props) {
     const handleInputChange = (e) => {
       setInput(e.target.value);
     };
-  
-    // Add the value when Enter or Comma is pressed
-    // const handleKeyDown = (e) => {
-    //   if ((e.key === "Enter" || e.key === ",") && input.trim() !== "") {
-    //     // Add the input to the values array
-    //     setValues((prevValues) => [
-    //       ...prevValues,
-    //       input.trim().replace(/,$/, ""), // Remove any trailing comma
-    //     ]);
-    //     setInput(""); // Clear the input field
-    //     e.preventDefault(); // Prevent the default behavior (e.g., form submission)
-    //   }
-    // };
 
     const handleButtonClick = (e) => {
       setValues((prevValues) => [
@@ -81,132 +67,184 @@ export default function Create(props) {
             }
         >
           <Head title="Proposal Submission" />
-            <div className="py-2">
-                <div className="mx-auto sm:px-6 lg:px-8">
+          <div className="py-4">
+  <div className="mx-auto max-w-8xl sm:px-6 lg:px-8">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {/* Left Column - Form */}
+      <form onSubmit={submitProposal} className="bg-white p-6 rounded-xl shadow-md">
+        {/* Header */}
+        <div className="mb-6">
+          <h3 className="text-2xl font-bold text-gray-900">Proposal Information</h3>
+          <p className="text-sm text-gray-600">
+            Please fill up the required fields marked with an asterisk (<span className="text-red-500">*</span>).
+          </p>
+        </div>
 
-                  {/* <TinyMCE /> */}
+        {/* Research Title */}
+        <div className="mb-5">
+          <label className="block font-medium text-gray-800">
+            Research Title <span className="text-red-500">*</span>
+          </label>
+          <textarea
+            value={data.research_title}
+            onChange={(e) => setData("research_title", e.target.value)}
+            className="w-full border rounded-md p-3 focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter research title..."
+            maxLength={200}
+          ></textarea>
+          {/* Character Counter */}
+          <p className={`text-xs mt-1 ${data.research_title.length >= 200 ? "text-red-500" : "text-gray-500"}`}>
+            {data.research_title.length}/200 characters
+          </p>
+          {errors.research_title && (
+            <p className="text-red-500 text-sm mt-1 flex items-center">⚠ {errors.research_title}</p>
+          )}
+        </div>
 
-                
-                <form onSubmit={submitProposal}>
-                <div class="card p-3">
-                  <div class="px-4 sm:px-0">
-                    <h3 class="text-2xl font-semibold text-base-content/90">Proposal Information</h3>
-                    <p class="text-sm max-w-full text-base-content/80">Please fill up the required fields with mark asterisk(<span class="text-[#FF0000]">*</span>)</p>
-                  </div>
-                  <div class="mt-6 border-t border-base-content/25">
-                    <dl class="mt-3">
-                      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 text-base">
-                        <dt class="font-bold text-base-content/90">Research Title : <span class="text-[#FF0000]">*</span></dt>
-                        <dd class="mt-1 text-base-content/80 sm:col-span-2 sm:mt-0">
-                        <textarea value={data.research_title} onChange={(e) => setData('research_title', e.target.value)}  class="textarea" placeholder="" ></textarea>
-                        <span class="label-text-alt text-xs">Max. 200 characters</span>
-                        <div class="">
-                          
-                        {errors.research_title && <div class="text-[#FF0000] flex text-xs"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-	<path fill="red" d="M12 17q.425 0 .713-.288T13 16t-.288-.712T12 15t-.712.288T11 16t.288.713T12 17m-1-4h2V7h-2zm1 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8" />
-</svg>&nbsp;{errors.research_title}</div>}
-
-                        </div>
-                        </dd>
-                      </div>
-
-                      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 text-base">
-                        <dt class="font-bold text-base-content/90">College : <span class="text-[#FF0000]">*</span></dt>
-                        <dd class="mt-1 text-base-content/80 sm:col-span-2 sm:mt-0">
-                        <select      data-select='{
-    "placeholder": "Select your College",
-    "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
-    "toggleClasses": "rounded-md advance-select-toggle",
-    "hasSearch": true,
-    "dropdownClasses": "advance-select-menu max-h-52 pt-0 vertical-scrollbar rounded-scrollbar",
-    "optionClasses": "advance-select-option selected:active",
-    "optionTemplate": "<div class=\"flex justify-between items-center w-full\"><span data-title></span><span class=\"icon-[tabler--check] flex-shrink-0 size-4 text-primary hidden selected:block \"></span></div>",
-    "extraMarkup": "<span class=\"icon-[tabler--caret-up-down] flex-shrink-0 size-4 text-base-content/90 absolute top-1/2 end-3 -translate-y-1/2 \"></span>"
-    }'
-    class="hidden" id="favorite-simpson" onChange={(e) => setData('department', e.target.value)}>
+        {/* College Selection */}
+        <div className="mb-5">
+          <label className="block font-medium text-gray-800">
+            College <span className="text-red-500">*</span>
+          </label>
+          <select      
+          data-select='{
+          "placeholder": "Select your College",
+          "toggleTag": "<button type=\"button\" aria-expanded=\"false\"></button>",
+          "toggleClasses": "rounded-md advance-select-toggle",
+          "hasSearch": true,
+          "dropdownClasses": "advance-select-menu max-h-52 pt-0 vertical-scrollbar rounded-scrollbar",
+          "optionClasses": "advance-select-option selected:active",
+          "optionTemplate": "<div class=\"flex justify-between items-center w-full\"><span data-title></span><span class=\"icon-[tabler--check] flex-shrink-0 size-4 text-primary hidden selected:block \"></span></div>",
+          "extraMarkup": "<span class=\"icon-[tabler--caret-up-down] flex-shrink-0 size-4 text-base-content/90 absolute top-1/2 end-3 -translate-y-1/2 \"></span>"
+          }'
+          class="hidden" id="favorite-simpson" onChange={(e) => setData('department', e.target.value)}>
                           <option value="">Please Choose:</option>
                           { props.departments.map((department, index) => (
                              <option key={index} value={department.dept_id}>{department.name}</option>
                           ))}
                        </select>
-                       {errors.department && <div class="text-[#FF0000] flex text-xs"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-	<path fill="red" d="M12 17q.425 0 .713-.288T13 16t-.288-.712T12 15t-.712.288T11 16t.288.713T12 17m-1-4h2V7h-2zm1 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8" />
-</svg>&nbsp;{errors.department}</div>}
-                        </dd>
-                      </div>
+          {errors.department && (
+            <p className="text-red-500 text-sm mt-1 flex items-center">⚠ {errors.department}</p>
+          )}
+        </div>
 
-                      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 text-base">
-                        <dt class="font-bold text-base-content/90">Type : <span class="text-[#FF0000]">*</span></dt>
-                        <dd class="mt-1 text-base-content/80 sm:col-span-2 sm:mt-0">
+        {/* Type Selection */}
+        <div className="mb-5">
+          <label className="block font-medium text-gray-800">
+            Type <span className="text-red-500">*</span>
+          </label>
+          <select
+            className="w-full border rounded-md p-3 focus:ring-2 focus:ring-blue-500"
+            onChange={(e) => setData("type", e.target.value)}
+          >
+            <option value="">Please Choose</option>
+            <option value="MD">Multi Disciplinary</option>
+            <option value="C">Collaboration</option>
+          </select>
+        </div>
 
-                        <div class="w-full">
-  <select class="select" id="" onChange={(e) => setData('type', e.target.value)}>
-    <option selected>Please Choose: </option>
-    <option value="MD">Multi Disciplinary</option>
-    <option value="C">Collaboration</option>
-  </select>
+        {/* Members Input */}
+        <div className="mb-5">
+          <label className="block font-medium text-gray-800">
+            Members <span className="text-red-500">*</span>
+          </label>
+          <div className="flex items-center gap-2">
+            <input
+              type="text"
+              value={input}
+              onChange={handleInputChange}
+              className="w-full border rounded-md p-3 focus:ring-2 focus:ring-blue-500"
+              placeholder="Add a member..."
+            />
+            <button
+              onClick={handleButtonClick}
+              className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+            >
+              ➕
+            </button>
+          </div>
+          {errors.members && (
+            <p className="text-red-500 text-sm mt-1 flex items-center">⚠ {errors.members}</p>
+          )}
+
+          {/* List of Members */}
+          {values.length > 0 && (
+            <div className="mt-3">
+              <p className="text-sm font-medium text-gray-700">List of Members:</p>
+              <div className="flex flex-wrap gap-2">
+                {values.map((value, index) => (
+                  <span
+                    key={index}
+                    className="bg-green-500 text-white px-4 py-1 rounded-full text-sm flex items-center"
+                  >
+                    {value}
+                    <button
+                      type="button"
+                      onClick={() => removeValue(value)}
+                      className="ml-2 text-white hover:text-red-500"
+                    >
+                      &times;
+                    </button>
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Submit Button */}
+        <div className="flex justify-end mt-12">
+          <button
+            type="submit"
+            disabled={processing}
+            className="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition"
+          >
+            {processing ? <span className="loading loading-spinner loading-md"></span> : "Submit"}
+          </button>
+        </div>
+      </form>
+
+      {/* Right Column - Help Section */}
+      <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-6 rounded-xl shadow-lg">
+  {/* Header */}
+  <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
+    📌 First-Time Application Guide
+  </h3>
+
+  {/* Guidelines */}
+  <ul className="list-disc list-inside text-gray-800 text-sm space-y-2">
+    <li>Ensure your <span className="font-medium text-green-800">research title</span> is **clear and concise** (Max: <span className="font-bold">200 characters</span>).</li>
+    <li>Select the <span className="font-medium text-green-800">correct college</span> that aligns with your proposal.</li>
+    <li>Choose the <span className="font-medium text-green-800">right type</span> (Multi Disciplinary or Collaboration).</li>
+    <li>Add <span className="font-medium text-green-800">all team members</span> who are part of the research.</li>
+    <li>Review your details before <span className="font-medium text-green-800">submitting the proposal</span>.</li>
+  </ul>
+
+  {/* Important Notes Section */}
+  <div className="mt-6 p-4 bg-white border-l-4 border-green-500 shadow-sm rounded-md">
+    <h4 className="text-sm font-semibold text-green-900">⚠ Important Notes:</h4>
+    <ul className="list-disc list-inside text-xs text-gray-700 mt-2 space-y-1">
+      <li>Your <span className="font-medium">proposal will be reviewed</span> within 3-5 business days.</li>
+      <li>If you need help, contact the <span className="font-medium">research department</span>.</li>
+    </ul>
+  </div>
+
+  {/* Link to Requirements Page */}
+  <div className="mt-8">
+    <Link
+      href={route("requirements.index")}
+      className="text-green-600 font-medium hover:underline transition duration-200 hover:text-green-800"
+    >
+      📄 View Full Application Requirements →
+    </Link>
+  </div>
 </div>
 
-                        </dd>
-                      </div>
-                      
-                      <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0 text-base">
-                        <dt class="font-bold text-base-content/90">Members : <span class="text-[#FF0000]">*</span></dt>
-                        <dd class="mt-1 text-base-content/80 sm:col-span-2 sm:mt-0">
-                          <div class="flex justify-between gap-2">
-                          <input
-          type="text"
-          value={input}
-          onChange={handleInputChange}
-          class="border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
-          placeholder=""
-        />
+    </div>
+  </div>
+</div>
 
-<button
-        onClick={handleButtonClick}
-        class="m-3 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-      >
-       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5v14m7-7H5" /></svg>
 
-      </button>
-                          </div>
-                        {errors.members && <div class="text-[#FF0000] flex text-xs"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-	<path fill="red" d="M12 17q.425 0 .713-.288T13 16t-.288-.712T12 15t-.712.288T11 16t.288.713T12 17m-1-4h2V7h-2zm1 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8" />
-</svg>&nbsp;{errors.members}</div>}
-
-                          {
-                            (values.length > 0 && (<div className="flex flex-wrap gap-2 mb-4 mt-3">
-                              <label class="text-sm">List of Members:</label>
-              {values.map((value, index) => (
-                <span
-                  key={index}
-                  className="bg-green-500 text-white px-4 py-1 rounded-full text-md flex items-center"
-                >
-                  {value}
-                  <button
-                    type="button"
-                    onClick={() => removeValue(value)}
-                    className="ml-2 text-white hover:text-red-500"
-                  >
-                    &times;
-                  </button>
-                </span>
-              ))}
-            </div>))
-                          }
-
-                        </dd>
-
-                      </div>
-
-                    </dl>
-                  </div>
-                  <div class="flex justify-end mt-8">  <button type="submit" disabled={processing} class="btn btn-primary rounded-full">{(processing) ?<span class="loading loading-spinner loading-md"></span> : "Submit"}</button></div>
-                </div>
-                </form>
-
-                 </div>
-            </div> 
         </AuthenticatedLayout>
     );
 }

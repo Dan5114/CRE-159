@@ -4,25 +4,49 @@ import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
 
 export default function Index(props) {
 
-  const downloadDoc = (file) => {
-    fetch(route('researcher.requirements.download', file.file_name))
-     .then((response) => response.blob())
-     .then((blob) => {
-       const url = window.URL.createObjectURL(new Blob([blob]));
-       const link = document.createElement("a");
-       link.href = url;
-       link.download = file.file_name || "downloaded-file";
-       document.body.appendChild(link);
-
-       link.click();
-
-       document.body.removeChild(link);
-       window.URL.revokeObjectURL(url);
-     })
-     .catch((error) => {
-       console.error("Error fetching the file:", error);
-     });
-  }
+  const downloadDoc = async (file) => {
+    if (!file?.file_name) {
+      alert("❌ Error: File name is missing. Unable to download.");
+      return;
+    }
+  
+    // Show confirmation dialog
+    const isConfirmed = confirm(`📂 Do you want to download "${file.file_name}"?`);
+    if (!isConfirmed) return;
+  
+    try {
+      // Show loading state (optional, if using UI frameworks)
+      console.log("⏳ Downloading...");
+  
+      const response = await fetch(route("researcher.requirements.download", file.file_name));
+  
+      if (!response.ok) {
+        throw new Error(`⚠️ Download failed: ${response.statusText}`);
+      }
+  
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(new Blob([blob]));
+      const link = document.createElement("a");
+  
+      link.href = url;
+      link.download = file.file_name || "downloaded-file";
+      document.body.appendChild(link);
+      link.click();
+  
+      // Cleanup
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+  
+      console.log("✅ Download complete!");
+  
+      alert(`✅ "${file.file_name}" has been downloaded successfully.`);
+    } catch (error) {
+      console.error("Download error:", error);
+      alert("❌ Failed to download the file. Please check your internet connection and try again.");
+    }
+  };
+  
+  
 
   return (
      <AuthenticatedLayout
