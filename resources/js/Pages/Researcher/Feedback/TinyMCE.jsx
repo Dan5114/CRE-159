@@ -25,33 +25,50 @@ const MyEditor = ({research, contents_mce}) => {
   }, []); 
 
   const saveContent = () => {
-    if (editorRef.current) {
-        const newContent = editorRef.current.getContent();
-        setContent(newContent);
-        post(route('cre.tinymce.update'),{
-          onSuccess: (page) =>  {
-            notyf.success(page.props.flash.message);
-          },
-          onFinish: () =>  {
-              console.log("Finishing sending message");            
-          },
-      });
-    }
-  };
+    if (!editorRef.current) return;
 
-  const exportToExcel = () => {
-    if (editorRef.current) {
-      const htmlContent = editorRef.current.getContent();
-  
-      // Convert HTML content to an Excel sheet
-      const worksheet = htmlToExcelSheet(htmlContent);
-      const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workbook, worksheet, research.research_title);
-  
-      // Export the Excel file
-      XLSX.writeFile(workbook, research.research_title + ".xlsx");
+    const newContent = editorRef.current.getContent();
+    
+    // Confirmation alert before saving
+    if (!window.confirm("📂 Are you sure you want to save changes?")) {
+        return;
     }
-  };
+
+    setContent(newContent);
+
+    post(route('cre.tinymce.update'), {
+        onSuccess: (page) => {
+            notyf.success(page.props.flash.message || "Content saved successfully!");
+        },
+        onError: (errors) => {
+            notyf.error("Failed to save content. Please try again.");
+        },
+        onFinish: () => {
+            console.log("Finishing sending message");
+        },
+    });
+};
+
+
+const exportToExcel = () => {
+  if (!editorRef.current) return;
+
+  // Native confirmation alert
+  const isConfirmed = window.confirm("🚀 Do you want to download the Excel file?");
+  if (!isConfirmed) return;
+
+  const htmlContent = editorRef.current.getContent();
+
+  // Convert HTML content to an Excel sheet
+  const worksheet = htmlToExcelSheet(htmlContent);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, research.research_title);
+
+  // Export the Excel file
+  XLSX.writeFile(workbook, research.research_title + ".xlsx");
+
+  alert("Your Excel file has been downloaded!");
+};
   
   // Function to convert TinyMCE HTML into an Excel-compatible format
   const htmlToExcelSheet = (htmlString) => {
