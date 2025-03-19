@@ -8,6 +8,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
+import { Editor } from "@tinymce/tinymce-react";
 
 
 export default function Step2({user, research, panels, user_panels}) {
@@ -19,6 +20,9 @@ export default function Step2({user, research, panels, user_panels}) {
       meeting_id: research.meeting.id,
       steps: "4"
     });
+
+    const [open, setOpen] = useState(false);
+    const [content, setContent] = useState("");
 
 
     const submitPanels = (e) => {
@@ -258,11 +262,58 @@ export default function Step2({user, research, panels, user_panels}) {
         <td class="px-2 py-2 text-sm text-gray-700 dark:text-neutral-200 border-b border-gray-200 dark:border-neutral-600">
           {panel.endorsement_status === "yes" ? dayjs(panel.updated_at).format("LLL") : <>---</>}
         </td>
-        <td class="px-2 py-2 border-b border-gray-200 dark:border-neutral-600">
-          <div class="flex flex-col items-end gap-x-2 gap-y-0.5">
-            {/* Add buttons or actions here if needed */}
-          </div>
+        <td className="px-2 py-2 border-b border-gray-200 dark:border-neutral-600 text-right">
+        {panel.feedback_form?.content && (
+  <button
+    className="flex items-center gap-1 text-blue-600 dark:text-blue-400 
+               hover:text-blue-800 dark:hover:text-blue-300 
+               px-3 py-1 rounded-md transition-all duration-200"
+    onClick={() => setOpen(true)}
+  >
+    <span className="text-sm font-medium flex items-center">
+      {/* SVG Icon */}
+      <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.283 9.283 0 01-4-.88L4 20l1.027-3.178A8.963 8.963 0 013 12C3 7.582 7.03 4 12 4s9 3.582 9 8z" />
+      </svg>
+      View Comment & Suggestion
+    </span>
+  </button>
+)}
+
         </td>
+
+              {/* Custom Modal */}
+      {open && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white dark:bg-neutral-800 p-5 rounded-lg shadow-lg max-w-7xl w-full">
+            {/* Modal Header */}
+            <div className="flex justify-between items-center border-b pb-2">
+              <h2 className="text-lg font-semibold">VIEW FORM #1: COMMENTS AND SUGGESTIONS FORM</h2>
+              <button 
+                className="text-gray-500 hover:text-gray-700 dark:hover:text-white"
+                onClick={() => setOpen(false)}
+              >
+                ✖
+              </button>
+            </div>
+
+            <div className="mt-4">
+
+            <Editor
+            apiKey="mbol3tcfo3wkegym6drelrc3e356aq0k7lc8gnrkdpp3x23w"
+            value={panel.feedback_form?.content || "No content available."} // Show default text if null
+            init={{
+              height: 600,
+              menubar: false,
+              plugins: "link lists code",
+              toolbar: "undo redo | formatselect | bold italic | alignleft aligncenter alignright | code",
+              readonly: true, // ✅ Make the editor read-only
+            }}
+          />
+            </div>
+          </div>
+        </div>
+      )}
       </tr>
     ))}
   </tbody>

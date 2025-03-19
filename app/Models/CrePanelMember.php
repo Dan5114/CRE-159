@@ -19,4 +19,9 @@ class CrePanelMember extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function feedback_form()
+    {
+        return $this->belongsTo(ConsolidatedFeedbacks::class, 'user_id', 'added_by');
+    }
 }
