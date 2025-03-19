@@ -305,9 +305,15 @@ export default function Step2({user, research, panels, user_panels}) {
             init={{
               height: 600,
               menubar: false,
-              plugins: "link lists code",
-              toolbar: "undo redo | formatselect | bold italic | alignleft aligncenter alignright | code",
+              plugins: "print",
+              toolbar: "print",
               readonly: true, // ✅ Make the editor read-only
+              setup: (editor) => {
+                editor.on('init', () => {
+                  editor.getBody().setAttribute('contenteditable', false); // ❌ Disable typing
+                });
+              },
+              content_style: "pointer-events: none; user-select: none;",
             }}
           />
             </div>

@@ -194,16 +194,18 @@ const generateTable = () => {
     <th colspan="2">TO BE FILLED IN BY THE EVALUATOR</th>
     <th colspan="2">TO BE FILLED IN BY THE STUDY LEADER</th>
   </tr>
-  <tr>
-    <th width="40%">Comments and Suggestions</th>
-    <th width="30%">Action Taken</th>
-    <th width="30%">Refer to page#</th>
+   <tr>
+  <th width="40%"></th>
+    <th width="20%">Comments and Suggestions</th>
+    <th width="20%">Action Taken</th>
+    <th width="20%">Refer to page#</th>
   </tr>
-  <tr>
-    <td colspan="3"><strong>INTRODUCTION</strong></td>
+ <tr>
+    <td colspan="4" style="background-color: #ddd;"><strong>INTRODUCTION</strong></td>
   </tr>
   <tr>
     <td>Background of the Study</td>
+    <td></td>
     <td></td>
     <td></td>
   </tr>
@@ -211,9 +213,11 @@ const generateTable = () => {
     <td>Statement of the Problem</td>
     <td></td>
     <td></td>
+    <td></td>
   </tr>
   <tr>
     <td>Hypothesis/Hypotheses</td>
+    <td></td>
     <td></td>
     <td></td>
   </tr>
@@ -221,9 +225,11 @@ const generateTable = () => {
     <td>Theoretical/Conceptual Framework</td>
     <td></td>
     <td></td>
+    <td></td>
   </tr>
   <tr>
     <td>Scope and Limitations</td>
+    <td></td>
     <td></td>
     <td></td>
   </tr>
@@ -231,9 +237,11 @@ const generateTable = () => {
     <td>Significance of the Study</td>
     <td></td>
     <td></td>
+    <td></td>
   </tr>
   <tr>
     <td>Definition of Terms</td>
+    <td></td>
     <td></td>
     <td></td>
   </tr>
@@ -241,12 +249,14 @@ const generateTable = () => {
     <td>Review of Related Literature</td>
     <td></td>
     <td></td>
+    <td></td>
   </tr>
   <tr>
-    <td colspan="3" style="background-color: #ddd;"><strong>METHODS/MATERIALS AND METHODS</strong></td>
+    <td colspan="4" style="background-color: #ddd;"><strong>METHODS/MATERIALS AND METHODS</strong></td>
   </tr>
   <tr>
     <td>Research Design</td>
+    <td></td>
     <td></td>
     <td></td>
   </tr>
@@ -254,9 +264,11 @@ const generateTable = () => {
     <td>Respondents/Participants/Subjects</td>
     <td></td>
     <td></td>
+    <td></td>
   </tr>
   <tr>
     <td>Instrument/Description of Product/Prototype</td>
+    <td></td>
     <td></td>
     <td></td>
   </tr>
@@ -277,48 +289,52 @@ const generateTable = () => {
     <th colspan="2">TO BE FILLED IN BY THE STUDY LEADER</th>
   </tr>
   <tr>
-    <th width="40%">Comments and Suggestions</th>
-    <th width="30%">Action Taken</th>
-    <th width="30%">Refer to page#</th>
+  <th width="40%"></th>
+    <th width="20%">Comments and Suggestions</th>
+    <th width="20%">Action Taken</th>
+    <th width="20%">Refer to page#</th>
   </tr>
   <tr>
     <td>Data Gathering Procedure/Quality Testing or Performance Evaluation</td>
+     <td></td>
     <td></td>
     <td></td>
   </tr>
   <tr>
     <td><strong>Statistical Treatment / <em>Data Analysis</em></strong></td>
+     <td></td>
     <td></td>
     <td></td>
   </tr>
   <tr>
     <td>Ethical Considerations (FPIC/Assent form)</td>
+     <td></td>
     <td></td>
     <td></td>
   </tr>
   <tr>
-    <td colspan="3"><strong>REFERENCES</strong></td>
+    <td>REFERENCES</td>
+     <td></td>
+    <td></td>
+    <td></td>
   </tr>
   <tr>
-    <td colspan="3"></td>
+    <td>WORK PLAN</td>
+     <td></td>
+    <td></td>
+    <td></td>
   </tr>
   <tr>
-    <td colspan="3"><strong>WORK PLAN</strong></td>
+    <td>BUDGET REQUIREMENT</td>
+     <td></td>
+    <td></td>
+    <td></td>
   </tr>
   <tr>
-    <td colspan="3"></td>
-  </tr>
-  <tr>
-    <td colspan="3"><strong>BUDGET REQUIREMENT</strong></td>
-  </tr>
-  <tr>
-    <td colspan="3"></td>
-  </tr>
-  <tr>
-    <td colspan="3"><strong>OTHERS</strong></td>
-  </tr>
-  <tr>
-    <td colspan="3"></td>
+    <td>OTHERS</td>
+     <td></td>
+    <td></td>
+    <td></td>
   </tr>
 </table>
 

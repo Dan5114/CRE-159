@@ -623,8 +623,8 @@ class ResearcherController extends Controller
             $session_id = (auth()->user()->user_type == "cre" ? $request->panel_id : auth()->user()->id);
             $date_endorse = (auth()->user()->user_type == "cre" ? $current : $request->date_endorsement);
     
-            $check_role = CrePanelMember::where('id', $session_id)->where('role', 'lead')->first();
-            CrePanelMember::where('id', $session_id)->update(['endorsement_status' => 'yes']);
+            $check_role = CrePanelMember::where('user_id', $session_id)->where('role', 'lead')->where('research_id', $request->research_id)->first();
+            CrePanelMember::where('id', $check_role->id)->update(['endorsement_status' => 'yes']);
 
             if($check_role){
                 $data = [
