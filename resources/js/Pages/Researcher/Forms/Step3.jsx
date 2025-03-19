@@ -10,8 +10,9 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 import FeedbackStep3 from '../Feedback/FeedbackStep3';
 import TinyMCE from '../Feedback/TinyMCE';
+import TinyMCETech from '../Feedback/TechPanelTinyMCE';
 
-export default function Step3({user, research, technical_docs, feedbacks_step3, feedbacks_step3_notif, contents_mce}) {
+export default function Step3({user, research, technical_docs, feedbacks_step3, feedbacks_step3_notif, contents_mce, contents_mce_tech}) {
     const notyf = new Notyf();
     const { data, setData, post,  delete: destroy, patch, errors, reset, formState, processing, progress, recentlySuccessful } =
     useForm({
@@ -263,7 +264,18 @@ export default function Step3({user, research, technical_docs, feedbacks_step3, 
         </div>
         </div>
         <div id="tabs-lifted-consolidated-form" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-consolidated-form">
-          <TinyMCE research={research} contents_mce={contents_mce} />
+        {
+  user.user_type === "cre" ? (
+    <TinyMCE research={research} contents_mce={contents_mce} />
+  ) : user.user_type === "tpl" ? (
+    <TinyMCETech research={research} contents_mce={contents_mce_tech} />
+  ) : (
+    <div className="p-4 mb-4 border-l-4 border-gray-500 bg-gray-100 text-gray-700 rounded-md shadow-md">
+    <h3 className="text-sm font-semibold">No Content Available</h3>
+    <p className="text-xs mt-1">There is no content to display for this user type.</p>
+  </div>
+  )
+}
         </div>
       </div>
     </>

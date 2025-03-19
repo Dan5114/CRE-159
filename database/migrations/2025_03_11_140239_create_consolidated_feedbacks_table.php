@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('research_id');
             $table->longText('content')->nullable();
+            $table->char('steps', length: 1);
+            $table->char('user_type', length: 25);
+            $table->foreignId('added_by')->nullable();
             $table->timestamps();
         });
     }

@@ -15,7 +15,7 @@ import Step10 from "../Forms/Step10";
 import Step11 from "../Forms/Step11";
 
 
-export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, tpl_docs, ethics_docs, budget_docs, moa_docs, feedbacks_step1, feedbacks_step1_notif, feedbacks_step3, feedbacks_step3_notif, feedbacks_step4, feedbacks_step4_notif,feedbacks_step10, feedbacks_step10_notif, endorsement_status, tech_doc , urb_approval, progress_report, revisions_docs, turnitin_docs, user_panels, contents_mce}) {
+export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, tpl_docs, ethics_docs, budget_docs, moa_docs, feedbacks_step1, feedbacks_step1_notif, feedbacks_step3, feedbacks_step3_notif, feedbacks_step4, feedbacks_step4_notif,feedbacks_step10, feedbacks_step10_notif, endorsement_status, tech_doc , urb_approval, progress_report, revisions_docs, turnitin_docs, user_panels, contents_mce, contents_mce_tech}) {
 
   const getCurrentIndex = (user.user_type != "tpl" ? 1 : 3);
     
@@ -68,7 +68,7 @@ export default function StepperForm({research, files, user, panels, technical_do
         A detailed analysis of the technical aspects of the project, including design, implementation, and quality assurance.
       </p>
     </div>
-        <Step3 user={user} research={research} contents_mce={contents_mce} technical_docs={technical_docs} feedbacks_step3={feedbacks_step3} feedbacks_step3_notif={feedbacks_step3_notif}/>
+        <Step3 user={user} research={research} contents_mce={contents_mce} contents_mce_tech={contents_mce_tech} technical_docs={technical_docs} feedbacks_step3={feedbacks_step3} feedbacks_step3_notif={feedbacks_step3_notif}/>
      </div>
    </div>
 

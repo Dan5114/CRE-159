@@ -199,8 +199,15 @@ class ResearcherController extends Controller
     public function update_tiny_mce(Request $request){
         try {
             ConsolidatedFeedbacks::updateOrCreate(
-                ['research_id' => $request->research_id],
-                ['content' => $request->content]
+                [
+                    'research_id' => $request->research_id,
+                    'user_type' => $request->user_type,
+                    'added_by' => auth()->id()
+                ],
+                [
+                    'content' => $request->content,
+                    'steps' => $request->steps
+                ]
             );
             return redirect()->back()->with('message', 'Successfully Saved Changes');
         } catch (Exception $e) {
@@ -476,7 +483,9 @@ class ResearcherController extends Controller
             $urb_approval = UrbApproval::where('research_id', $value->id)->where('steps', '7')->first();
 
             $progress_report = CreProgressReportHeader::where('research_id', $value->id)->where('steps', '9')->with('details')->with('details.files')->get();
-            $contents_mce = ConsolidatedFeedbacks::where('research_id', $value->id)->first();
+            $contents_mce = ConsolidatedFeedbacks::where('research_id', $value->id)->where('steps', '3')->where('user_type', 'cre')->first();
+
+            $contents_mce_tech = ConsolidatedFeedbacks::where('research_id', $value->id)->where('steps', '2')->where('user_type', 'tech')->where('added_by', auth()->id())->first();
 
             $step_status = [
                 "step1" => $this->getStepStatus($value->id, "1"),
@@ -521,6 +530,7 @@ class ResearcherController extends Controller
             $files = null;
             $author = null;
             $contents_mce = null;
+            $contents_mce_tech = null;
         }
 
         $doc_file = [
@@ -562,7 +572,8 @@ class ResearcherController extends Controller
             'revisions_docs' => $revisions_docs,
             'turnitin_docs' => $turnitin_docs,
             'authors' => $author,
-            'contents_mce' => $contents_mce
+            'contents_mce' => $contents_mce,
+            'contents_mce_tech' => $contents_mce_tech
         ]);
     }
 

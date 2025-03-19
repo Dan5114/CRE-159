@@ -37,6 +37,7 @@ export default function Step2({user, research, panels, user_panels}) {
 
     const scheduledMeeting = () => {
       post(route('researcher.scheduled.meeting'), {
+          preserveScroll: true,
           onSuccess: (page) =>  {
           notyf.success(page.props.flash.message);
           },

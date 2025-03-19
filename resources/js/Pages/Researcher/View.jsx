@@ -43,6 +43,7 @@ export default function View(props) {
     const turnitin_docs = props.turnitin_docs;
     const authors = props.authors;
     const contents_mce = props.contents_mce;
+    const contents_mce_tech = props.contents_mce_tech;
     const user = usePage().props.auth.user;
 
     return (
@@ -75,7 +76,7 @@ export default function View(props) {
                             
                             </div>
                             <div class="col-span-2 max-h-auto mb-3">
-                              <StepperForm files={files} research={research_data} user={user} panels={panels} technical_docs={technical_docs} revised_docs={revised_docs} tpl_docs={tpl_docs} ethics_docs={ethics_docs} budget_docs={budget_docs} moa_docs={moa_docs} feedbacks_step1={feedbacks_step1} feedbacks_step1_notif={feedbacks_step1_notif} feedbacks_step3={feedbacks_step3} feedbacks_step3_notif={feedbacks_step3_notif} feedbacks_step4={feedbacks_step4} feedbacks_step4_notif={feedbacks_step4_notif} feedbacks_step10={feedbacks_step10} feedbacks_step10_notif={feedbacks_step10_notif} endorsement_status={endorsement_status} tech_doc={tech_doc} urb_approval={urb_approval} progress_report={progress_report} revisions_docs={revisions_docs} turnitin_docs={turnitin_docs} user_panels={user_panels} contents_mce={contents_mce} />
+                              <StepperForm files={files} research={research_data} user={user} panels={panels} technical_docs={technical_docs} revised_docs={revised_docs} tpl_docs={tpl_docs} ethics_docs={ethics_docs} budget_docs={budget_docs} moa_docs={moa_docs} feedbacks_step1={feedbacks_step1} feedbacks_step1_notif={feedbacks_step1_notif} feedbacks_step3={feedbacks_step3} feedbacks_step3_notif={feedbacks_step3_notif} feedbacks_step4={feedbacks_step4} feedbacks_step4_notif={feedbacks_step4_notif} feedbacks_step10={feedbacks_step10} feedbacks_step10_notif={feedbacks_step10_notif} endorsement_status={endorsement_status} tech_doc={tech_doc} urb_approval={urb_approval} progress_report={progress_report} revisions_docs={revisions_docs} turnitin_docs={turnitin_docs} user_panels={user_panels} contents_mce={contents_mce} contents_mce_tech={contents_mce_tech} />
                             </div>
                       </div>
                     </div>

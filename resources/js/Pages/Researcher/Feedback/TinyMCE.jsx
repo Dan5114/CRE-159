@@ -12,6 +12,8 @@ const MyEditor = ({research, contents_mce}) => {
    const { data, setData, post, errors, reset, formState, processing, progress, recentlySuccessful } =
       useForm({
           research_id : research.id,
+          steps : "3",
+          user_type : "cre"
       });
 
   useEffect(() => {
