@@ -579,7 +579,7 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
                           :
                           <>
                           <button class="btn btn-sm btn-primary" onClick={() => {
-                          acceptApplicationPanel(panel.id);
+                          acceptApplicationPanel(panel.user_id);
                           }}>Endorse</button>
                           </>
                         }

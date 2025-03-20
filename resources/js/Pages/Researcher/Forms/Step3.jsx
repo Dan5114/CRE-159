@@ -268,7 +268,7 @@ export default function Step3({user, research, technical_docs, feedbacks_step3, 
   user.user_type === "cre" ? (
     <TinyMCE research={research} contents_mce={contents_mce} />
   ) : user.user_type === "tpl" ? (
-    <TinyMCETech research={research} contents_mce={contents_mce_tech} />
+    <TinyMCETech research={research} contents_mce_tech={contents_mce_tech} />
   ) : (
     <div className="p-4 mb-4 border-l-4 border-gray-500 bg-gray-100 text-gray-700 rounded-md shadow-md">
     <h3 className="text-sm font-semibold">No Content Available</h3>

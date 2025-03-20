@@ -5,7 +5,7 @@ import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
 import * as XLSX from "xlsx";
 
-const MyEditor = ({research, contents_mce}) => {
+const MyEditor = ({research, contents_mce_tech}) => {
    const notyf = new Notyf();
   const editorRef = useRef(null);
   const [content, setContent] = useState("");
@@ -17,7 +17,7 @@ const MyEditor = ({research, contents_mce}) => {
       });
 
   useEffect(() => {
-    const savedContent = (contents_mce) ? contents_mce.content : null;
+    const savedContent = (contents_mce_tech) ? contents_mce_tech.content : null;
     if (savedContent) {
       setContent(savedContent);
     } else {

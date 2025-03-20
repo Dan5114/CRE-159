@@ -202,7 +202,8 @@ class ResearcherController extends Controller
                 [
                     'research_id' => $request->research_id,
                     'user_type' => $request->user_type,
-                    'added_by' => auth()->id()
+                    'added_by' => auth()->id(),
+                    'content' => $request->content,
                 ],
                 [
                     'content' => $request->content,
@@ -453,8 +454,8 @@ class ResearcherController extends Controller
             $file_CVR = collect(File::where('research_id', $value->id)->where('document_for', "CVR")->orderBy('created_at', 'desc')->first(['id','file_name','file_path','document_for','created_at']));
             
             $rlogs = ResearchLog::where('research_id', $value->id)->where('steps', 1)->orderBy('created_at', 'ASC')->get();
-            $panels = CrePanelMember::with(['user_profile', 'feedback_form' => function ($query) use ($value) {
-                $query->where('research_id', $value->id);
+            $panels = CrePanelMember::with(['user_profile', 'feedback_form' => function ($query) use ($research) {
+                $query->where('research_id', $research->id);
             }])->where('research_id', $value->id)->get();
             $user_panels = User::where('user_type', 'tpl')->get();
             $technical_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '3')->get();

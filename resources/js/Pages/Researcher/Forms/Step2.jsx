@@ -264,6 +264,7 @@ export default function Step2({user, research, panels, user_panels}) {
         </td>
         <td className="px-2 py-2 border-b border-gray-200 dark:border-neutral-600 text-right">
         {panel.feedback_form?.content && (
+          <>
   <button
     className="flex items-center gap-1 text-blue-600 dark:text-blue-400 
                hover:text-blue-800 dark:hover:text-blue-300 
@@ -278,12 +279,7 @@ export default function Step2({user, research, panels, user_panels}) {
       View Comment & Suggestion
     </span>
   </button>
-)}
-
-        </td>
-
-              {/* Custom Modal */}
-      {open && (
+  {open && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white dark:bg-neutral-800 p-5 rounded-lg shadow-lg max-w-7xl w-full">
             {/* Modal Header */}
@@ -320,6 +316,10 @@ export default function Step2({user, research, panels, user_panels}) {
           </div>
         </div>
       )}
+  </>
+)}
+
+        </td>
       </tr>
     ))}
   </tbody>
