@@ -86,9 +86,9 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
             <li class="group flex flex-1 shrink basis-0 flex-col" data-stepper-nav-item='{ "index": 2 }'>
         <div class="flex items-center rounded text-sm">
         <span class="min-h-7.5 min-w-7.5 group inline-flex items-center align-middle text-sm">
-            <span class={(status_step2 && status_step2.status == "Scheduled") ? "stepper-active:bg-primary stepper-active:text-primary-content stepper-success bg-success stepper-active:shadow stepper-success:shadow stepper-success:text-primary-content stepper-error:bg-error stepper-error:text-error-content stepper-completed:bg-success stepper-completed:group-focus:bg-success size-7.5 bg-neutral/20 text-base-content/90 group-focus:bg-base-content/20 flex flex-shrink-0 items-center justify-center rounded-full font-medium" : "stepper-active:bg-primary stepper-active:text-primary-content stepper-success:bg-success stepper-active:shadow stepper-success:shadow stepper-success:text-primary-content stepper-error:bg-error stepper-error:text-error-content stepper-completed:bg-success stepper-completed:group-focus:bg-success size-7.5 bg-neutral/20 text-base-content/90 group-focus:bg-base-content/20 flex flex-shrink-0 items-center justify-center rounded-full font-medium"} >
-            <span class="stepper-success:hidden stepper-completed:hidden">{(status_step2 && status_step2.status == "Scheduled") ? "" : "2"}</span>
-            <span class={(status_step2 && status_step2.status == "Scheduled") ? 'icon-[tabler--check] stepper-success:block  size-4 flex-shrink-0' : 'icon-[tabler--check] stepper-success:block hidden size-5 flex-shrink-0'}></span>
+            <span class={(status_step2 && status_step2.status == "Completed") ? "stepper-active:bg-primary stepper-active:text-primary-content stepper-success bg-success stepper-active:shadow stepper-success:shadow stepper-success:text-primary-content stepper-error:bg-error stepper-error:text-error-content stepper-completed:bg-success stepper-completed:group-focus:bg-success size-7.5 bg-neutral/20 text-base-content/90 group-focus:bg-base-content/20 flex flex-shrink-0 items-center justify-center rounded-full font-medium" : "stepper-active:bg-primary stepper-active:text-primary-content stepper-success:bg-success stepper-active:shadow stepper-success:shadow stepper-success:text-primary-content stepper-error:bg-error stepper-error:text-error-content stepper-completed:bg-success stepper-completed:group-focus:bg-success size-7.5 bg-neutral/20 text-base-content/90 group-focus:bg-base-content/20 flex flex-shrink-0 items-center justify-center rounded-full font-medium"} >
+            <span class="stepper-success:hidden stepper-completed:hidden">{(status_step2 && status_step2.status == "Completed") ? "" : "2"}</span>
+            <span class={(status_step2 && status_step2.status == "Completed") ? 'icon-[tabler--check] stepper-success:block  size-4 flex-shrink-0' : 'icon-[tabler--check] stepper-success:block hidden size-5 flex-shrink-0'}></span>
             </span>
             <span class="text-base-content/90 ms-2 max-sm:hidden">Step 2</span>
             
@@ -575,9 +575,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
     <></>
   }
 
-{
-    (user.user_type != "tpl") ?
-    <>
+
 
   <hr />
   <li class="group flex flex-1 shrink basis-0 flex-col" data-stepper-nav-item='{ "index": 10 }'>
@@ -594,7 +592,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
       <div class="ml-6">
        
        <div class="text-sm">
-             <p class="font-sans font-bold text-lg">Technical Panel Endorsement</p>
+             <p class="font-sans font-bold text-lg">Terminal Review Endorsement</p>
              <div class="text-sm">
              <div class="text-xs flex items-center gap-1.5 mb-3">Status :
              {(status_step10 ? 
@@ -633,10 +631,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
     </div>
     <div class="bg-neutral/20 ms-3.5 mt-2 h-full w-px justify-self-start group-last:hidden"></div>
   </li>
-    </>
-    :
-    <></>
-  }
+
 
 {
     (user.user_type != "tpl") ?

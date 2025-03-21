@@ -63,7 +63,7 @@ export default function Index(props) {
                 header={
                     <div class='flex text-white'>
                      <h2 className="text-xl text-white font-extrabold leading-none tracking-tight">
-                        Manage Panel Members
+                        Manage Faculty
                       </h2>
                     </div>
                 }
@@ -79,7 +79,7 @@ export default function Index(props) {
 
 <div class="bg-white p-6 rounded-lg shadow-md">
 <header class="mb-6">
-<h2 className="text-xl font-semibold text-gray-700 mb-4">Panel Information</h2>
+<h2 className="text-xl font-semibold text-gray-700 mb-4">Faculty Information</h2>
 
                 <p className="mt-1 text-sm text-gray-600">
                     Update your account's profile information and email address.
@@ -125,7 +125,8 @@ export default function Index(props) {
 
   <thead class="bg-gray-400 dark:bg-neutral-700">
   <tr class="bg-gray-800 text-white dark:bg-neutral-900">
-  <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">NAME</th>
+  <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">LAST NAME</th>
+  <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">FIRST NAME</th>
   <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">EMAIL</th>
   <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">CREATED AT</th>
   <th scope="col" class="px-4 py-3 w-24"></th>
@@ -133,9 +134,15 @@ export default function Index(props) {
 
   </thead>
   <tbody>
-    {techpanels.map((techpanel, index) => (
+    {techpanels.map((techpanel, index) => {
+      const fullName = techpanel.name ?? "NA"; // Handle null values
+      const [firstName, ...lastNameParts] = fullName.split(" ");
+      const lastName = lastNameParts.length > 0 ? lastNameParts.join(" ") : "N/A"; // Handle cases with no last name
+
+      return (
       <tr key={techpanel.id} className={index % 2 !== 0 ? "bg-gray-50 dark:bg-gray-800 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-neutral-800"}>
-        <td className="px-2 truncate max-w-xs whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200 border-b border-gray-300 dark:border-neutral-600">{techpanel.name}</td>
+        <td className="px-2 truncate max-w-xs whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200 border-b border-gray-300 dark:border-neutral-600">{lastName}</td>
+        <td className="px-2 truncate max-w-xs whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200 border-b border-gray-300 dark:border-neutral-600">{firstName}</td>
         <td className="px-2 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200 border-b border-gray-300 dark:border-neutral-600">{techpanel.email}</td>
         <td className="px-2 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200 border-b border-gray-300 dark:border-neutral-600">{dayjs(techpanel.created_at).format("LLL")}</td>
         <td className="px-2 border-b border-gray-300 dark:border-neutral-600">
@@ -147,12 +154,12 @@ export default function Index(props) {
             </span>
           </div>
         </td>
-      </tr>
-    ))}
+      </tr>);
+    })}
   </tbody>
   <tfoot>
     <tr className="bg-gray-100 dark:bg-neutral-800">
-      <td colSpan="4" className="px-4 py-2 border-t text-left">
+      <td colSpan="5" className="px-4 py-2 border-t text-left">
         <span className="text-sm text-gray-500">Total Records:</span>&nbsp;
         <span id="total-records" className="text-lg font-semibold text-blue-600">{totalRecords}</span>
       </td>

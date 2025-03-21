@@ -68,7 +68,7 @@ export default function StepperForm({research, files, user, panels, technical_do
         A detailed analysis of the technical aspects of the project, including design, implementation, and quality assurance.
       </p>
     </div>
-        <Step3 user={user} research={research} contents_mce={contents_mce} contents_mce_tech={contents_mce_tech} technical_docs={technical_docs} feedbacks_step3={feedbacks_step3} feedbacks_step3_notif={feedbacks_step3_notif}/>
+        <Step3 user={user} research={research} panels={panels} contents_mce={contents_mce} contents_mce_tech={contents_mce_tech} technical_docs={technical_docs} feedbacks_step3={feedbacks_step3} feedbacks_step3_notif={feedbacks_step3_notif}/>
      </div>
    </div>
 
@@ -140,12 +140,11 @@ export default function StepperForm({research, files, user, panels, technical_do
     }
 
 
-{
-      (user.user_type != "tpl") ?
+
       <div data-stepper-content-item='{ "index": 10 }' style={{"display" : "none"}} class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
       <div>
       <div class="mb-4">
-        <h1 class="text-3xl font-bold text-gray-900">Technical Panel Endorsement</h1>
+        <h1 class="text-3xl font-bold text-gray-900">Terminal Review Endorsement</h1>
         <p class="text-gray-600 mt-3">
   Endorsement from the technical panel to proceed with the proposed project, confirming adherence to technical standards, best practices, and project feasibility.
 </p>
@@ -154,9 +153,7 @@ export default function StepperForm({research, files, user, panels, technical_do
         <Step10 user={user} research={research} tpl_docs={tpl_docs} feedbacks_step10={feedbacks_step10} feedbacks_step10_notif={feedbacks_step10_notif} />
      </div>
    </div>
-   :
-   <></>
-    }
+
 
 {
       (user.user_type != "tpl") ?

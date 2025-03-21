@@ -73,7 +73,7 @@ const DataListings = ({researchs, user, initialFilters}) => {
   name="r_type" value={filters.r_type} onChange={handleChange}
   class="select w-60 rounded-md" id="favorite-simpson">
     <option value="0" selected>All Types</option>
-    <option disabled={user.user_type === 'cre'} value="D">Draft</option>
+    <option disabled={user.user_type === 'cre' || user.user_type === 'tpl'} value="D">Draft</option>
     <option value="S">For Acceptance</option>
     <option value="REC">On Progress</option>
   </select>
@@ -129,6 +129,7 @@ const DataListings = ({researchs, user, initialFilters}) => {
   <thead class="bg-gray-400 dark:bg-neutral-700">
   <tr class="bg-gray-800 text-white dark:bg-neutral-900">
   <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">Research Title</th>
+  <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">Author</th>
   <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">College</th>
   <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">Current Research Status</th>
   <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">Date Created</th>
@@ -141,6 +142,7 @@ const DataListings = ({researchs, user, initialFilters}) => {
     {researchs.map((research, index) => (
       <tr class={index % 2 !== 0 ? "bg-gray-50 dark:bg-gray-800 dark:border-gray-700" : "bg-gray-200 dark:bg-gray-800 dark:border-gray-700"}>
         <td class="px-2 py-2 truncate max-w-xs whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{research.research_title}</td>
+        <td class="px-2 py-2 truncate max-w-xs whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{research.author?.name}</td>
         <td class="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-700 dark:text-neutral-200">{research.department.name}</td>
         <td class="px-2 py-2">
           <span class="text-gray-600 text-sm font-bold">
@@ -191,7 +193,7 @@ const DataListings = ({researchs, user, initialFilters}) => {
   </tbody>
   <tfoot>
     <tr class="bg-gray-100">
-      <td colspan="6" class="border-t text-left">
+      <td colspan="7" class="border-t text-left">
         <div class="p-3 rounded-lg shadow-md">
           <span class="text-sm text-gray-600">Total Records:</span>
           <span id="total-records" class="text-sm font-semibold text-blue-600">&nbsp;{totalRecords}</span>

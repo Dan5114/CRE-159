@@ -12,7 +12,7 @@ import FeedbackStep3 from '../Feedback/FeedbackStep3';
 import TinyMCE from '../Feedback/TinyMCE';
 import TinyMCETech from '../Feedback/TechPanelTinyMCE';
 
-export default function Step3({user, research, technical_docs, feedbacks_step3, feedbacks_step3_notif, contents_mce, contents_mce_tech}) {
+export default function Step3({user, research, panels, technical_docs, feedbacks_step3, feedbacks_step3_notif, contents_mce, contents_mce_tech}) {
     const notyf = new Notyf();
     const { data, setData, post,  delete: destroy, patch, errors, reset, formState, processing, progress, recentlySuccessful } =
     useForm({
@@ -98,7 +98,7 @@ export default function Step3({user, research, technical_docs, feedbacks_step3, 
     }
         </button>
         <button type="button" class="tab active-tab:tab-active" id="tabs-lifted-item-consolidated-form" data-tab="#tabs-lifted-consolidated-form" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
-          Comments & Suggestions
+         {(user.user_type == "cre" ? "Consolidated" : "Individual")} Comments & Suggestions
         </button>
       </nav>
 
@@ -266,7 +266,7 @@ export default function Step3({user, research, technical_docs, feedbacks_step3, 
         <div id="tabs-lifted-consolidated-form" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-consolidated-form">
         {
   user.user_type === "cre" ? (
-    <TinyMCE research={research} contents_mce={contents_mce} />
+    <TinyMCE research={research} contents_mce={contents_mce} panels={panels} />
   ) : user.user_type === "tpl" ? (
     <TinyMCETech research={research} contents_mce_tech={contents_mce_tech} />
   ) : (

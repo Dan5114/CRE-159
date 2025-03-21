@@ -5,7 +5,7 @@ import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
 import * as XLSX from "xlsx";
  
-const MyEditor = ({research, contents_mce}) => {
+const MyEditor = ({research, contents_mce, panels}) => {
    const notyf = new Notyf();
   const editorRef = useRef(null);
   const [content, setContent] = useState("");
@@ -21,7 +21,7 @@ const MyEditor = ({research, contents_mce}) => {
     if (savedContent) {
       setContent(savedContent);
     } else {
-      const defaultContent = generateTable();
+      const defaultContent = generateTable(panels);
       setContent(defaultContent);
     }
   }, []); 
@@ -149,7 +149,11 @@ const exportToExcel = () => {
   );
 };
 
-const generateTable = () => {
+const generateTable = (panels) => {
+
+  // Convert comments array into a list format
+  const panelList = panels.map(panel => `<li>${panel.user_profile.name}</li>`).join("");
+
   return `
     <h3 style="text-align: center;">UNIVERSITY OF ST. LA SALLE</h3>
     <h4 style="text-align: center;">CENTER FOR RESEARCH AND ENGAGEMENT</h4>
@@ -187,7 +191,7 @@ const generateTable = () => {
       </thead>
       <tbody>
         <tr style="background-color: #d9d9d9;"><td style="font-weight: bold;">INTRODUCTION</td><td></td><td></td><td></td></tr>
-        <tr><td>Background of the Study</td><td></td><td></td><td></td></tr>
+        <tr><td>Background of the Study</td><td><ul>${panelList}</ul></td><td></td><td></td></tr>
         <tr><td>Statement of the Problem</td><td></td><td></td><td></td></tr>
         <tr><td>Hypothesis/Hypotheses</td><td></td><td></td><td></td></tr>
         <tr><td>Theoretical/Conceptual Framework</td><td></td><td></td><td></td></tr>

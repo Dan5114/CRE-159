@@ -11,6 +11,7 @@ dayjs.extend(localizedFormat);
 import { Editor } from "@tinymce/tinymce-react";
 
 
+
 export default function Step2({user, research, panels, user_panels}) {
     const notyf = new Notyf();
     const { data, setData, post,  delete: destroy, errors, reset, processing, progress, recentlySuccessful } =
@@ -22,7 +23,12 @@ export default function Step2({user, research, panels, user_panels}) {
     });
 
     const [open, setOpen] = useState(false);
-    const [content, setContent] = useState("");
+    const [selectedContent, setSelectedContent] = useState("");
+
+    const handleOpenModal = (content) => {
+      setSelectedContent(content || "No content available."); // Update content
+      setOpen(true); // Open modal
+    };
 
 
     const submitPanels = (e) => {
@@ -269,7 +275,7 @@ export default function Step2({user, research, panels, user_panels}) {
     className="flex items-center gap-1 text-blue-600 dark:text-blue-400 
                hover:text-blue-800 dark:hover:text-blue-300 
                px-3 py-1 rounded-md transition-all duration-200"
-    onClick={() => setOpen(true)}
+               onClick={() => handleOpenModal(panel.feedback_form.content)}
   >
     <span className="text-sm font-medium flex items-center">
       {/* SVG Icon */}
@@ -287,6 +293,7 @@ export default function Step2({user, research, panels, user_panels}) {
               <h2 className="text-lg font-semibold">VIEW FORM #1: COMMENTS AND SUGGESTIONS FORM</h2>
               <button 
                 className="text-gray-500 hover:text-gray-700 dark:hover:text-white"
+                
                 onClick={() => setOpen(false)}
               >
                 ✖
@@ -297,7 +304,7 @@ export default function Step2({user, research, panels, user_panels}) {
 
             <Editor
             apiKey="mbol3tcfo3wkegym6drelrc3e356aq0k7lc8gnrkdpp3x23w"
-            value={panel.feedback_form?.content || "No content available."} // Show default text if null
+            value={selectedContent}
             init={{
               height: 600,
               menubar: false,

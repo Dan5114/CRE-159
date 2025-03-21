@@ -20,7 +20,7 @@ class PanelController extends Controller
         $techpanels = User::where('user_type', 'tpl')->paginate(5);
 
         return Inertia::render('Panel/Index', [
-            "techpanels_data" => $techpanels
+            "techpanels_data" => $techpanels->toArray()
         ]);
     }
 

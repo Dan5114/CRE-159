@@ -52,9 +52,9 @@ class ResearcherController extends Controller
         ];
 
         if($user_type == "researcher"){
-            $researchs = Research::with('department')
+            $researchs = Research::with(['department', 'author'])
             ->with(['app_status' => function($query) {
-                return $query->orderBy('tbl_cre_application_status.steps', 'ASC');
+                return $query->orderBy('tbl_cre_application_status.start', 'ASC');
             }])
             ->when($r_type, function ($query) use ($r_type, $r_steps, $r_status) {
                 return $query->where('status', $r_type);
@@ -70,14 +70,19 @@ class ResearcherController extends Controller
             ->orderBy('created_at', 'DESC')
             ->where('user_id', auth()->user()->id)
             ->paginate(10);
+            
 
-
-        }else{
-            $researchs = Research::with('department')->when($search, function ($query, $search) {
+        }else if($user_type == "tpl"){
+            $sessionId = auth()->user()->id;
+            $researchs = Research::with(['department', 'faculty', 'author'])
+            ->whereHas('faculty', function ($query) use ($sessionId) {
+                $query->where('user_id', $sessionId);
+            })
+            ->when($search, function ($query, $search) {
                 return $query->where('research_title', 'LIKE', "%{$search}%");
             })
             ->with(['app_status' => function($query) {
-                return $query->orderBy('tbl_cre_application_status.steps', 'ASC');
+                return $query->orderBy('tbl_cre_application_status.start', 'ASC');
              }]) 
             ->when($r_type, function ($query, $r_type) {
                 return $query->where('status', $r_type);
@@ -86,18 +91,36 @@ class ResearcherController extends Controller
                 return $query->when(!empty($r_steps) && !empty($r_status), function ($query) use ($r_steps, $r_status) {
                     return $query->whereHas('app_status', function ($q) use ($r_steps, $r_status) {
                         $q->where('tbl_cre_application_status.steps', $r_steps)
-                          ->where('tbl_cre_application_status.status', $r_status)
-                          ->orderBy('tbl_cre_application_status.end', 'ASC'); // Ordering inside the subquery
+                          ->where('tbl_cre_application_status.status', $r_status);
                     });
-                })->orderBy('created_at', 'DESC'); // Ordering the main query by created_at
-                              
-            })             
-            ->when($search, function ($query, $search) {
-                return $query->where('research_title', 'LIKE', "%{$search}%");
-            })->orderBy('created_at', 'DESC')
+                })->orderBy('created_at', 'DESC');    
+            })
+            ->orderBy('created_at', 'DESC')
             ->where('status', '!=', 'D')
             ->paginate(8);
-
+        }
+        else{
+            $researchs = Research::with(['department', 'author'])
+            ->when($search, function ($query, $search) {
+                return $query->where('research_title', 'LIKE', "%{$search}%");
+            })
+            ->with(['app_status' => function($query) {
+                return $query->orderBy('tbl_cre_application_status.start', 'ASC');
+             }]) 
+            ->when($r_type, function ($query, $r_type) {
+                return $query->where('status', $r_type);
+            })
+            ->when(isset($r_steps, $r_status), function ($query) use ($r_steps, $r_status) {
+                return $query->when(!empty($r_steps) && !empty($r_status), function ($query) use ($r_steps, $r_status) {
+                    return $query->whereHas('app_status', function ($q) use ($r_steps, $r_status) {
+                        $q->where('tbl_cre_application_status.steps', $r_steps)
+                          ->where('tbl_cre_application_status.status', $r_status); // Ordering inside the subquery
+                    });
+                })->orderBy('created_at', 'DESC'); // Ordering the main query by created_at         
+            })
+            ->orderBy('created_at', 'DESC')
+            ->where('status', '!=', 'D')
+            ->paginate(8);
             
         }
         $departments = Department::all();
@@ -203,7 +226,6 @@ class ResearcherController extends Controller
                     'research_id' => $request->research_id,
                     'user_type' => $request->user_type,
                     'added_by' => auth()->id(),
-                    'content' => $request->content,
                 ],
                 [
                     'content' => $request->content,
@@ -260,7 +282,7 @@ class ResearcherController extends Controller
             CreMeeting::where('id', $request->meeting_id)->update(['status'=>'Success']);
 
             $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "2")->first();
-            CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Scheduled"]);
+            CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Completed"]);
             $this->cre_application_status($request->research_id, "3", "Technical Review Report", $current, $end = null, "On Process");
 
             return redirect()->back()->with('message', 'Submitted Successfully');
@@ -454,9 +476,10 @@ class ResearcherController extends Controller
             $file_CVR = collect(File::where('research_id', $value->id)->where('document_for', "CVR")->orderBy('created_at', 'desc')->first(['id','file_name','file_path','document_for','created_at']));
             
             $rlogs = ResearchLog::where('research_id', $value->id)->where('steps', 1)->orderBy('created_at', 'ASC')->get();
-            $panels = CrePanelMember::with(['user_profile', 'feedback_form' => function ($query) use ($research) {
-                $query->where('research_id', $research->id);
+            $panels = CrePanelMember::with(['user_profile', 'feedback_form' => function ($query) use ($value) {
+                $query->where('research_id', $value->id)->where('user_type', "tech");
             }])->where('research_id', $value->id)->get();
+
             $user_panels = User::where('user_type', 'tpl')->get();
             $technical_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '3')->get();
             $revised_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '4')->get();
@@ -625,7 +648,7 @@ class ResearcherController extends Controller
             $date_endorse = (auth()->user()->user_type == "cre" ? $current : $request->date_endorsement);
     
             $check_role = CrePanelMember::where('user_id', $session_id)->where('role', 'lead')->where('research_id', $request->research_id)->first();
-            CrePanelMember::where('id', $check_role->id)->update(['endorsement_status' => 'yes']);
+            CrePanelMember::where('user_id', $session_id)->update(['endorsement_status' => 'yes']);
 
             if($check_role){
                 $data = [

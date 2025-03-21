@@ -46,5 +46,10 @@ class Research extends Model
         ]);
     }
 
+    public function faculty(): BelongsTo
+    {
+        return $this->belongsTo(CrePanelMember::class, 'id', 'research_id');
+    }
+
     
 }
