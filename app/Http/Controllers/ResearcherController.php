@@ -970,6 +970,16 @@ class ResearcherController extends Controller
         }
     }
 
+    public function research_completion_date(Request $request, string $id)
+    {
+        try {
+            Research::where('id', $id)->update(['date_completion' => $request->date_completion]);
+            return redirect()->back()->with('message', 'Successfully Set Completion Date');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
+    }
+
     public function turnitin_report_upload(Request $request)
     {
 

@@ -127,7 +127,7 @@ export default function Step10({user, research, tpl_docs, feedbacks_step10, feed
   <form onSubmit={submitFiles} class="bg-gray-50 p-4 rounded-lg border">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
-        <label class="block text-sm font-medium text-gray-700">Document File</label>
+        <label class="block text-sm font-medium text-gray-700">Revised Document/Manuscript</label>
         <input 
           type="file" 
           onChange={(e) => setData('document_file', e.target.files[0])} 
