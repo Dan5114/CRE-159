@@ -18,6 +18,7 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
   const status_step9 = step_status.step9;
   const status_step10 = step_status.step10;
   const status_step11 = step_status.step11;
+  const status_step12 = step_status.step12;
   
      return (
         <>
@@ -704,9 +705,9 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
   <li class="group flex flex-1 shrink basis-0 flex-col" data-stepper-nav-item='{ "index": 12 }'>
     <div class="flex items-center rounded text-sm">
     <span class="min-h-7.5 min-w-7.5 group inline-flex items-center align-middle text-sm">
-            <span class={(status_step11 && status_step11.status == "Completed") ? "stepper-active:bg-primary stepper-active:text-primary-content stepper-success bg-success stepper-active:shadow stepper-success:shadow stepper-success:text-primary-content stepper-error:bg-error stepper-error:text-error-content stepper-completed:bg-success stepper-completed:group-focus:bg-success size-7.5 bg-neutral/20 text-base-content/90 group-focus:bg-base-content/20 flex flex-shrink-0 items-center justify-center rounded-full font-medium" : "stepper-active:bg-primary stepper-active:text-primary-content stepper-success:bg-success stepper-active:shadow stepper-success:shadow stepper-success:text-primary-content stepper-error:bg-error stepper-error:text-error-content stepper-completed:bg-success stepper-completed:group-focus:bg-success size-7.5 bg-neutral/20 text-base-content/90 group-focus:bg-base-content/20 flex flex-shrink-0 items-center justify-center rounded-full font-medium"} >
-            <span class="stepper-success:hidden stepper-completed:hidden">{(status_step11 && status_step11.status == "Completed") ? "" : "12"}</span>
-            <span class={(status_step11 && status_step11.status == "Completed") ? 'icon-[tabler--check] stepper-success:block  size-4 flex-shrink-0' : 'icon-[tabler--check] stepper-success:block hidden size-5 flex-shrink-0'}></span>
+            <span class={(status_step12 && status_step12.status == "Completed") ? "stepper-active:bg-primary stepper-active:text-primary-content stepper-success bg-success stepper-active:shadow stepper-success:shadow stepper-success:text-primary-content stepper-error:bg-error stepper-error:text-error-content stepper-completed:bg-success stepper-completed:group-focus:bg-success size-7.5 bg-neutral/20 text-base-content/90 group-focus:bg-base-content/20 flex flex-shrink-0 items-center justify-center rounded-full font-medium" : "stepper-active:bg-primary stepper-active:text-primary-content stepper-success:bg-success stepper-active:shadow stepper-success:shadow stepper-success:text-primary-content stepper-error:bg-error stepper-error:text-error-content stepper-completed:bg-success stepper-completed:group-focus:bg-success size-7.5 bg-neutral/20 text-base-content/90 group-focus:bg-base-content/20 flex flex-shrink-0 items-center justify-center rounded-full font-medium"} >
+            <span class="stepper-success:hidden stepper-completed:hidden">{(status_step12 && status_step12.status == "Completed") ? "" : "12"}</span>
+            <span class={(status_step12 && status_step12.status == "Completed") ? 'icon-[tabler--check] stepper-success:block  size-4 flex-shrink-0' : 'icon-[tabler--check] stepper-success:block hidden size-5 flex-shrink-0'}></span>
             </span>
             <span class="text-base-content/90 ms-2 max-sm:hidden">Step 12</span>
             
@@ -718,18 +719,18 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
              <p class="font-sans font-bold text-lg">Final Document/Manuscript</p>
              <div class="text-sm">
              <div class="text-xs flex items-center gap-1.5 mb-3">Status :
-             {(status_step11 ? 
+             {(status_step12 ? 
     <>
      {
-        (status_step11.status == "Completed") ?
+        (status_step12.status == "Completed") ?
         <>
             <span class="badge badge-success size-2 p-0"></span>
-            {status_step11.status} 
+            {status_step12.status} 
         </>
         :
         <>
           <span class="badge badge-info size-2 p-0"></span>
-          {status_step11.status} 
+          {status_step12.status} 
         </>
       }
     </>
@@ -741,12 +742,12 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
     )}
  </div>
  <div class="text-xs flex items-center gap-1.5">Start Date :
- &nbsp; {(status_step11) ? dayjs(status_step11.start).format("LLL") : ""}
+ &nbsp; {(status_step12) ? dayjs(status_step12.start).format("LLL") : ""}
  </div>
  <div class="text-xs flex items-center gap-1.5">End Date :
- &nbsp; {(status_step11) ? dayjs(status_step11.end).format("LLL") : ""}
+ &nbsp; {(status_step12) ? dayjs(status_step12.end).format("LLL") : ""}
  </div>
- <DurationDays start_date={status_step11?.start} end_date={status_step11?.end} />
+ <DurationDays start_date={status_step12?.start} end_date={status_step12?.end} />
              </div>
              </div>
     </div>

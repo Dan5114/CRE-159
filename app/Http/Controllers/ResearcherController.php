@@ -487,7 +487,7 @@ class ResearcherController extends Controller
             $budget_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '6')->get();
             $moa_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '8')->get();
             $tpl_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '10')->get();
-
+            $final_docs = ResearchDoc::where('research_id', $value->id)->where('steps', '12')->get();
         
 
             $feedbacks_step1 = ResearchMessageThread::where('research_id', $value->id)->where('steps', '1')->orderBy('created_at', 'desc')->get();
@@ -524,7 +524,8 @@ class ResearcherController extends Controller
                 "step8" => $this->getStepStatus($value->id, "8"),
                 "step9" => $this->getStepStatus($value->id, "9"),
                 "step10" => $this->getStepStatus($value->id, "10"),
-                "step11" => $this->getStepStatus($value->id, "11")
+                "step11" => $this->getStepStatus($value->id, "11"),
+                "step12" => $this->getStepStatus($value->id, "12")
             ];
 
             $author = ResearchMember::where('research_id', $value->id)->get();
@@ -536,6 +537,7 @@ class ResearcherController extends Controller
             $tpl_docs = null;
             $ethics_docs = null;
             $budget_docs = null;
+            $final_docs = null;
             $moa_docs = null;
             $feedbacks_step1 = null;
             $feedbacks_step1_notif = null;
@@ -582,6 +584,7 @@ class ResearcherController extends Controller
             'tpl_docs' => $tpl_docs,
             'ethics_docs' => $ethics_docs,
             'budget_docs' => $budget_docs,
+            'final_docs' => $final_docs,
             'moa_docs' => $moa_docs,
             'feedbacks_step1' => $feedbacks_step1,
             'feedbacks_step1_notif' => $feedbacks_step1_notif,
@@ -892,6 +895,26 @@ class ResearcherController extends Controller
             $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "10")->first();
             CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Completed"]);
             $this->cre_application_status($request->research_id, "11", "Turnitin", $current, $end = null, "On Process");
+        }
+
+        if ($request->file('document_file') && $request->steps == '12'){
+            $document_file = $request->file('document_file');
+            $fileName_doc =   $document_file->getClientOriginalName(); 
+            $filePath_doc = 'docs/' . $document_file->getClientOriginalName();
+
+            $data = [
+                "research_id"  => $request->research_id,
+                "steps" => $request->steps,
+                "file_name"    => $fileName_doc,
+                "file_path"    => $filePath_doc
+            ];
+
+            ResearchDoc::create($data);
+            Storage::disk('public')->put($filePath_doc, file_get_contents($document_file));
+            $current = Carbon::now();
+            $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "11")->first();
+            CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Completed"]);
+            $this->cre_application_status($request->research_id, "12", "Final Document", $current, $end = null, "On Process");
         }
 
         return redirect()->back()->with('message', 'Successfully uploaded');

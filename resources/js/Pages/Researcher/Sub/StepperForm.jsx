@@ -16,7 +16,7 @@ import Step11 from "../Forms/Step11";
 import Step12 from "../Forms/Step12";
 import Step13 from "../Forms/Step13";
 
-export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, tpl_docs, ethics_docs, budget_docs, moa_docs, feedbacks_step1, feedbacks_step1_notif, feedbacks_step3, feedbacks_step3_notif, feedbacks_step4, feedbacks_step4_notif,feedbacks_step10, feedbacks_step10_notif, endorsement_status, tech_doc , urb_approval, progress_report, revisions_docs, turnitin_docs, user_panels, contents_mce, contents_mce_tech}) {
+export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, tpl_docs, ethics_docs, budget_docs, final_docs, moa_docs, feedbacks_step1, feedbacks_step1_notif, feedbacks_step3, feedbacks_step3_notif, feedbacks_step4, feedbacks_step4_notif,feedbacks_step10, feedbacks_step10_notif, endorsement_status, tech_doc , urb_approval, progress_report, revisions_docs, turnitin_docs, user_panels, contents_mce, contents_mce_tech}) {
 
   const getCurrentIndex = (user.user_type != "tpl" ? 1 : 3);
     
@@ -171,7 +171,7 @@ export default function StepperForm({research, files, user, panels, technical_do
       (user.user_type != "tpl") ?
       <div data-stepper-content-item='{ "index": 12 }' style={{"display" : "none"}}>
       <div>
-        <Step12 user={user} research={research} budget_docs={budget_docs}/>
+        <Step12 user={user} research={research} final_docs={final_docs}/>
      </div>
    </div>
    :

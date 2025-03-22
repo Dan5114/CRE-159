@@ -1,5 +1,5 @@
 import React from "react";
-import { ClipboardList, CheckCircle, Clock, Info } from "lucide-react";
+import { ClipboardList, CheckCircle, Clock, Info,HelpCircle, FileText } from "lucide-react";
 
 function Cre() {
   const widgets = [
@@ -61,6 +61,20 @@ function Cre() {
             </p>
           </div>
         ))}
+      </div>
+
+      <div className="mt-6 p-4 bg-gray-200 rounded-lg text-center text-sm text-gray-600 border border-gray-300">
+        <p className="mb-2 font-medium text-gray-700">Need Help? Check these resources:</p>
+        <div className="flex justify-center space-x-6 text-blue-600">
+          <a href="#" className="flex items-center space-x-1 hover:underline">
+            <HelpCircle className="w-4 h-4" />
+            <span>Support Center</span>
+          </a>
+          <a href="#" className="flex items-center space-x-1 hover:underline">
+            <FileText className="w-4 h-4" />
+            <span>Research Guidelines</span>
+          </a>
+        </div>
       </div>
     </div>
   );

@@ -9,13 +9,13 @@ dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 
-export default function Step6({user, research, budget_docs}) {
+export default function Step6({user, research, final_docs}) {
     const notyf = new Notyf();
     const { data, setData, post,  delete: destroy, errors, reset, formState, processing, progress, recentlySuccessful } =
     useForm({
         research_id : research.id,
         document_file: "",
-        steps: "6"
+        steps: "12"
     });
 
     const submitFiles = (e) => {
@@ -102,7 +102,7 @@ export default function Step6({user, research, budget_docs}) {
   </div>
 
   {/* Documents Table */}
-  {budget_docs.length > 0 ? (
+  {final_docs.length > 0 ? (
     <div class="mt-4 overflow-x-auto">
       <table class="w-full border rounded-md shadow-sm bg-white">
         <thead class="bg-gray-100 text-gray-700 uppercase text-sm">
@@ -114,14 +114,14 @@ export default function Step6({user, research, budget_docs}) {
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
-          {budget_docs.map((budget_doc, index) => (
+          {final_docs.map((final_doc, index) => (
             <tr key={index} class="border-b hover:bg-gray-50">
               <td class="px-4 py-3 text-sm font-medium text-gray-700">V{index + 1}</td>
-              <td class="px-4 py-3 text-sm font-medium text-gray-700">{budget_doc.file_name}</td>
-              <td class="px-4 py-3 text-xs text-gray-500">{dayjs(budget_doc.created_at).format("LLL")}</td>
+              <td class="px-4 py-3 text-sm font-medium text-gray-700">{final_doc.file_name}</td>
+              <td class="px-4 py-3 text-xs text-gray-500">{dayjs(final_doc.created_at).format("LLL")}</td>
               <td class="px-4 py-3 text-right">
                 <button 
-                  onClick={() => deleteFile(budget_doc.id)}
+                  onClick={() => deleteFile(final_doc.id)}
                   class="text-red-600 hover:text-red-700"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
@@ -187,7 +187,7 @@ export default function Step6({user, research, budget_docs}) {
         &nbsp;Please <span class="font-semibold">do not delete or remove any previously uploaded documents</span> as they are crucial for version tracking.
     </div>
         {/* Documents Table */}
-  {budget_docs.length > 0 ? (
+  {final_docs.length > 0 ? (
     <div class="mt-4 overflow-x-auto">
       <table class="w-full border rounded-md shadow-sm bg-white">
         <thead class="bg-gray-100 text-gray-700 uppercase text-sm">
@@ -199,14 +199,14 @@ export default function Step6({user, research, budget_docs}) {
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
-          {budget_docs.map((budget_doc, index) => (
+          {final_docs.map((final_doc, index) => (
             <tr key={index} class="border-b hover:bg-gray-50">
               <td class="px-4 py-3 text-sm font-medium text-gray-700">V{index + 1}</td>
-              <td class="px-4 py-3 text-sm font-medium text-gray-700">{budget_doc.file_name}</td>
-              <td class="px-4 py-3 text-xs text-gray-500">{dayjs(budget_doc.created_at).format("LLL")}</td>
+              <td class="px-4 py-3 text-sm font-medium text-gray-700">{final_doc.file_name}</td>
+              <td class="px-4 py-3 text-xs text-gray-500">{dayjs(final_doc.created_at).format("LLL")}</td>
               <td class="px-4 py-3 text-right">
                 <button 
-                  onClick={() => deleteFile(budget_doc.id)}
+                  onClick={() => deleteFile(final_doc.id)}
                   class="text-red-600 hover:text-red-700"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
