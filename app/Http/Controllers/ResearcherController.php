@@ -525,7 +525,8 @@ class ResearcherController extends Controller
                 "step9" => $this->getStepStatus($value->id, "9"),
                 "step10" => $this->getStepStatus($value->id, "10"),
                 "step11" => $this->getStepStatus($value->id, "11"),
-                "step12" => $this->getStepStatus($value->id, "12")
+                "step12" => $this->getStepStatus($value->id, "12"),
+                "step13" => $this->getStepStatus($value->id, "13")
             ];
 
             $author = ResearchMember::where('research_id', $value->id)->get();
