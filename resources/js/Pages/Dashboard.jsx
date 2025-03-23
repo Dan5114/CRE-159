@@ -6,7 +6,7 @@ import Cre from './Dashboards/Cre';
 import Researcher from './Dashboards/Researcher';
 import Tpl from './Dashboards/Tpl';
 
-export default function Dashboard() {
+export default function Dashboard(props) {
     const user = usePage().props.auth.user;
 
     return (
@@ -22,7 +22,7 @@ export default function Dashboard() {
             <Head title="Dashboard" />
 
             <div className="py-2">
-                <div class="max-w-7xl mx-auto py-2 px-2 sm:px-6 lg:px-8">
+                <div class="max-w-12xl mx-auto py-2 px-2 sm:px-6 lg:px-8">
                     {
                         user.user_type == "cre" ?
                         <>
@@ -35,7 +35,7 @@ export default function Dashboard() {
                        </>
                        :
                        <>
-                       <Researcher />
+                       <Researcher requirements={props.requirements} />
                        </>
                     }
               </div>
