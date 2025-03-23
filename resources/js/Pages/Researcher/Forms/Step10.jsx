@@ -9,6 +9,7 @@ dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 import FeedbackStep10 from '../Feedback/FeedbackStep10';
+import TerminalTinyMCE from '../Feedback/TerminalReportTinyMCE';
 
 export default function Step10({user, research, tpl_docs, feedbacks_step10, feedbacks_step10_notif,}) {
     const notyf = new Notyf();
@@ -110,7 +111,9 @@ export default function Step10({user, research, tpl_docs, feedbacks_step10, feed
       :
       <span class="badge bg-[#FF0000] text-white badge-sm ms-2 rounded-full">+{feedbacks_step10_notif}</span>
     }
-  
+  </button>
+  <button type="button" class="tab active-tab:tab-active" id="tabs-lifted-item-techpanelreport" data-tab="#tabs-lifted-techpanelreport" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
+  Terminal Report Evaluation
   </button>
 </nav>
 
@@ -275,6 +278,19 @@ export default function Step10({user, research, tpl_docs, feedbacks_step10, feed
 
 <div id="tabs-lifted-techpanelfeedback10" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-techpanelfeedback10">
   <FeedbackStep10 user={user} research={research} feedbacks_step10={feedbacks_step10} />
+</div>
+
+<div id="tabs-lifted-techpanelreport" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-techpanelreport">
+{
+  user.user_type === "cre" || user.user_type === "tpl"  ? (
+    <TerminalTinyMCE research={research} contents_mce_tech={[]} />
+  ) : (
+    <div className="p-4 mb-4 border-l-4 border-gray-500 bg-gray-100 text-gray-700 rounded-md shadow-md">
+    <h3 className="text-sm font-semibold">No Content Available</h3>
+    <p className="text-xs mt-1">There is no content to display for this user type.</p>
+  </div>
+  )
+}
 </div>
     </>
   )
