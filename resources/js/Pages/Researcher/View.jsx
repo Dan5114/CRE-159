@@ -27,6 +27,7 @@ export default function View(props) {
     const ethics_docs = props.ethics_docs;
     const budget_docs = props.budget_docs;
     const final_docs = props.final_docs;
+    const completion_cert_docs = props.completion_cert_docs;
     const moa_docs = props.moa_docs;
     const feedbacks_step1 = props.feedbacks_step1;
     const feedbacks_step1_notif = props.feedbacks_step1_notif;
@@ -77,7 +78,7 @@ export default function View(props) {
                             
                             </div>
                             <div class="col-span-2 max-h-auto mb-3">
-                              <StepperForm files={files} research={research_data} user={user} panels={panels} technical_docs={technical_docs} revised_docs={revised_docs} tpl_docs={tpl_docs} ethics_docs={ethics_docs} budget_docs={budget_docs} final_docs={final_docs} moa_docs={moa_docs} feedbacks_step1={feedbacks_step1} feedbacks_step1_notif={feedbacks_step1_notif} feedbacks_step3={feedbacks_step3} feedbacks_step3_notif={feedbacks_step3_notif} feedbacks_step4={feedbacks_step4} feedbacks_step4_notif={feedbacks_step4_notif} feedbacks_step10={feedbacks_step10} feedbacks_step10_notif={feedbacks_step10_notif} endorsement_status={endorsement_status} tech_doc={tech_doc} urb_approval={urb_approval} progress_report={progress_report} revisions_docs={revisions_docs} turnitin_docs={turnitin_docs} user_panels={user_panels} contents_mce={contents_mce} contents_mce_tech={contents_mce_tech} />
+                              <StepperForm files={files} research={research_data} user={user} panels={panels} technical_docs={technical_docs} revised_docs={revised_docs} tpl_docs={tpl_docs} ethics_docs={ethics_docs} budget_docs={budget_docs} completion_cert_docs={completion_cert_docs} final_docs={final_docs} moa_docs={moa_docs} feedbacks_step1={feedbacks_step1} feedbacks_step1_notif={feedbacks_step1_notif} feedbacks_step3={feedbacks_step3} feedbacks_step3_notif={feedbacks_step3_notif} feedbacks_step4={feedbacks_step4} feedbacks_step4_notif={feedbacks_step4_notif} feedbacks_step10={feedbacks_step10} feedbacks_step10_notif={feedbacks_step10_notif} endorsement_status={endorsement_status} tech_doc={tech_doc} urb_approval={urb_approval} progress_report={progress_report} revisions_docs={revisions_docs} turnitin_docs={turnitin_docs} user_panels={user_panels} contents_mce={contents_mce} contents_mce_tech={contents_mce_tech} />
                             </div>
                       </div>
                     </div>

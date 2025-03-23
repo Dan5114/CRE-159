@@ -9,13 +9,13 @@ dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 
-export default function Step13({user, research, budget_docs}) {
+export default function Step13({user, research, completion_cert_docs}) {
     const notyf = new Notyf();
     const { data, setData, post,  delete: destroy, errors, reset, formState, processing, progress, recentlySuccessful } =
     useForm({
         research_id : research.id,
         document_file: "",
-        steps: "6"
+        steps: "13"
     });
 
     const submitFiles = (e) => {
@@ -75,34 +75,13 @@ export default function Step13({user, research, budget_docs}) {
     </p>
   </div>
 
-  {/* File Upload Form */}
-  <form onSubmit={submitFiles} class="bg-gray-50 p-4 rounded-lg border">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Document File</label>
-        <input 
-          type="file" 
-          onChange={(e) => setData('document_file', e.target.files[0])} 
-          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
-        />
-        <p class="mt-1 text-xs text-gray-500">Accepted formats: PDF, DOC, DOCX</p>
-      </div>
-    </div>
-
-    <div class="flex justify-end mt-4">
-      <button type="submit" class="flex items-center gap-2 text-sm text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md shadow-md focus:outline-none">
-        <span class="icon-[tabler--upload] size-5"></span>Upload
-      </button>
-    </div>
-  </form>
-
   {/* Important Note */}
   <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-md shadow-sm mt-5">
     <strong class="font-semibold">Important:</strong> Please <span class="font-semibold">do not delete or remove any previously uploaded documents</span> as they are crucial for version tracking.
   </div>
 
   {/* Documents Table */}
-  {budget_docs.length > 0 ? (
+  {completion_cert_docs.length > 0 ? (
     <div class="mt-4 overflow-x-auto">
       <table class="w-full border rounded-md shadow-sm bg-white">
         <thead class="bg-gray-100 text-gray-700 uppercase text-sm">
@@ -114,19 +93,17 @@ export default function Step13({user, research, budget_docs}) {
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
-          {budget_docs.map((budget_doc, index) => (
+          {completion_cert_docs.map((completion_cert_doc, index) => (
             <tr key={index} class="border-b hover:bg-gray-50">
               <td class="px-4 py-3 text-sm font-medium text-gray-700">V{index + 1}</td>
-              <td class="px-4 py-3 text-sm font-medium text-gray-700">{budget_doc.file_name}</td>
-              <td class="px-4 py-3 text-xs text-gray-500">{dayjs(budget_doc.created_at).format("LLL")}</td>
+              <td class="px-4 py-3 text-sm font-medium text-gray-700">{completion_cert_doc.file_name}</td>
+              <td class="px-4 py-3 text-xs text-gray-500">{dayjs(completion_cert_doc.created_at).format("LLL")}</td>
               <td class="px-4 py-3 text-right">
                 <button 
-                  onClick={() => deleteFile(budget_doc.id)}
-                  class="text-red-600 hover:text-red-700"
+                  onClick={() => downloadDoc(ethics_doc)}
+                  class="text-gray-600 hover:text-gray-700"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
-                    <path fill="currentColor" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z"/>
-                  </svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg>
                 </button>
               </td>
             </tr>
@@ -161,25 +138,74 @@ export default function Step13({user, research, budget_docs}) {
     </div>
 
      {/* File Upload Form */}
-  <form onSubmit={submitFiles} class="bg-gray-50 p-4 rounded-lg border">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div>
-        <label class="block text-sm font-medium text-gray-700">Document File</label>
-        <input 
-          type="file" 
-          onChange={(e) => setData('document_file', e.target.files[0])} 
-          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
-        />
-        <p class="mt-1 text-xs text-gray-500">Accepted formats: PDF, DOC, DOCX</p>
-      </div>
+     <form onSubmit={submitFiles} className="bg-gray-50 p-6 rounded-lg border shadow-md">
+  {/* Form Grid Layout */}
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    {/* 📄 Document Upload */}
+    <div>
+      <label className="block text-sm font-medium text-gray-700">Document File</label>
+      <input 
+        type="file" 
+        onChange={(e) => setData('document_file', e.target.files[0])} 
+        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
+      />
+      <p className="mt-1 text-xs text-gray-500">Accepted formats: PDF, DOC, DOCX</p>
     </div>
 
-    <div class="flex justify-end mt-4">
-      <button type="submit" class="flex items-center gap-2 text-sm text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md shadow-md focus:outline-none">
-        <span class="icon-[tabler--upload] size-5"></span>Upload
-      </button>
+    {/* 📆 Academic Year (AY) of Research */}
+    <div>
+      <label className="block text-sm font-medium text-gray-700">Academic Year (AY) of Research</label>
+      <input 
+        type="text" 
+        placeholder="e.g., 2024-2025" 
+        onChange={(e) => setData('academic_year', e.target.value)} 
+        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
+      />
     </div>
-  </form>
+
+    {/* 📅 Date Completed */}
+    <div>
+      <label className="block text-sm font-medium text-gray-700">Date Completed</label>
+      <input 
+        type="date" 
+        onChange={(e) => setData('date_completed', e.target.value)} 
+        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
+      />
+    </div>
+
+    {/* 🎓 Date Certificate Issued */}
+    <div>
+      <label className="block text-sm font-medium text-gray-700">Date Certificate Issued</label>
+      <input 
+        type="date" 
+        onChange={(e) => setData('date_certificate_issued', e.target.value)} 
+        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2"
+      />
+    </div>
+
+  </div>
+
+  {/* Submit Button */}
+  <div className="flex justify-end mt-6">
+    <button 
+      type="submit" 
+      className="flex items-center gap-2 text-sm text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md shadow-md focus:outline-none transition-all"
+    >
+      <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        width="20" 
+        height="20" 
+        viewBox="0 0 24 24" 
+        className="fill-current"
+      >
+        <path d="M5 20h14v-2H5zm7-2l5-5h-3V4h-4v9H7z" />
+      </svg>
+      Upload
+    </button>
+  </div>
+</form>
+
 
 
         <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 mt-3 rounded-md">
@@ -187,7 +213,7 @@ export default function Step13({user, research, budget_docs}) {
         &nbsp;Please <span class="font-semibold">do not delete or remove any previously uploaded documents</span> as they are crucial for version tracking.
     </div>
         {/* Documents Table */}
-  {budget_docs.length > 0 ? (
+  {completion_cert_docs.length > 0 ? (
     <div class="mt-4 overflow-x-auto">
       <table class="w-full border rounded-md shadow-sm bg-white">
         <thead class="bg-gray-100 text-gray-700 uppercase text-sm">
@@ -199,14 +225,14 @@ export default function Step13({user, research, budget_docs}) {
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
-          {budget_docs.map((budget_doc, index) => (
+          {completion_cert_docs.map((completion_cert_doc, index) => (
             <tr key={index} class="border-b hover:bg-gray-50">
               <td class="px-4 py-3 text-sm font-medium text-gray-700">V{index + 1}</td>
-              <td class="px-4 py-3 text-sm font-medium text-gray-700">{budget_doc.file_name}</td>
-              <td class="px-4 py-3 text-xs text-gray-500">{dayjs(budget_doc.created_at).format("LLL")}</td>
+              <td class="px-4 py-3 text-sm font-medium text-gray-700">{completion_cert_doc.file_name}</td>
+              <td class="px-4 py-3 text-xs text-gray-500">{dayjs(completion_cert_doc.created_at).format("LLL")}</td>
               <td class="px-4 py-3 text-right">
                 <button 
-                  onClick={() => deleteFile(budget_doc.id)}
+                  onClick={() => deleteFile(completion_cert_doc.id)}
                   class="text-red-600 hover:text-red-700"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
