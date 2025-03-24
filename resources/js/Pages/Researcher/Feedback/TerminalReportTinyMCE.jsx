@@ -5,7 +5,7 @@ import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
 import * as XLSX from "xlsx";
 
-const MyEditor = ({research, contents_mce_tech}) => {
+const MyEditor = ({research, contents_mce_terminal}) => {
    const notyf = new Notyf();
   const editorRef = useRef(null);
   const [content, setContent] = useState("");
@@ -17,7 +17,7 @@ const MyEditor = ({research, contents_mce_tech}) => {
       });
 
   useEffect(() => {
-    const savedContent = (contents_mce_tech) ? contents_mce_tech.content : null;
+    const savedContent = (contents_mce_terminal) ? contents_mce_terminal.content : null;
     if (savedContent) {
       setContent(savedContent);
     } else {
@@ -115,7 +115,7 @@ const exportToExcel = () => {
           setData('content', newContent)
         }}
         init={{
-          height: 600,
+          height: 610,
           menubar: false,
           plugins: "advlist autolink lists link charmap preview anchor print",
           toolbar: "undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | removeformat | print",

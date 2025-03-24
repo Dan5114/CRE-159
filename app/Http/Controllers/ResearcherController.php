@@ -514,6 +514,8 @@ class ResearcherController extends Controller
 
             $contents_mce_tech = ConsolidatedFeedbacks::where('research_id', $value->id)->where('steps', '2')->where('user_type', 'tech')->where('added_by', auth()->id())->first();
 
+            $contents_mce_terminal = ConsolidatedFeedbacks::where('research_id', $value->id)->where('steps', '10')->where('user_type', 'tpl_lead')->where('added_by', auth()->id())->first();
+
             $step_status = [
                 "step1" => $this->getStepStatus($value->id, "1"),
                 "step2" => $this->getStepStatus($value->id, "2"),
@@ -562,6 +564,7 @@ class ResearcherController extends Controller
             $author = null;
             $contents_mce = null;
             $contents_mce_tech = null;
+            $contents_mce_terminal = null;
         }
 
         $doc_file = [
@@ -606,7 +609,8 @@ class ResearcherController extends Controller
             'turnitin_docs' => $turnitin_docs,
             'authors' => $author,
             'contents_mce' => $contents_mce,
-            'contents_mce_tech' => $contents_mce_tech
+            'contents_mce_tech' => $contents_mce_tech,
+            'contents_mce_terminal' => $contents_mce_terminal
         ]);
     }
 

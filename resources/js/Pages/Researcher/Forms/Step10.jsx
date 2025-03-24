@@ -11,7 +11,7 @@ dayjs.extend(localizedFormat);
 import FeedbackStep10 from '../Feedback/FeedbackStep10';
 import TerminalTinyMCE from '../Feedback/TerminalReportTinyMCE';
 
-export default function Step10({user, research, tpl_docs, feedbacks_step10, feedbacks_step10_notif,}) {
+export default function Step10({user, research, tpl_docs, feedbacks_step10, feedbacks_step10_notif,contents_mce_terminal}) {
     const notyf = new Notyf();
     const { data, setData, post,  delete: destroy, patch, errors, reset, formState, processing, progress, recentlySuccessful } =
     useForm({
@@ -283,7 +283,7 @@ export default function Step10({user, research, tpl_docs, feedbacks_step10, feed
 <div id="tabs-lifted-techpanelreport" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-techpanelreport">
 {
   user.user_type === "cre" || user.user_type === "tpl"  ? (
-    <TerminalTinyMCE research={research} contents_mce_tech={[]} />
+    <TerminalTinyMCE research={research} contents_mce_terminal={contents_mce_terminal} />
   ) : (
     <div className="p-4 mb-4 border-l-4 border-gray-500 bg-gray-100 text-gray-700 rounded-md shadow-md">
     <h3 className="text-sm font-semibold">No Content Available</h3>
