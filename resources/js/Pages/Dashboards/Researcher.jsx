@@ -58,7 +58,7 @@ function Researcher({ requirements }) {
           </p>
 
           <div className="mt-5">
-            <h3 className="text-md font-bold text-gray-800">📌 Important Notes:</h3>
+            <h3 className="text-md font-bold text-gray-800 mb-3">📌 Important Notes:</h3>
             <ul className="list-disc text-gray-700 pl-5 text-sm space-y-2">
               <li>Submit all documents before the deadline.</li>
               <li>Ensure all required signatures are included.</li>
@@ -72,7 +72,7 @@ function Researcher({ requirements }) {
         <div className="md:col-span-2">
           <div className="bg-gray-100 p-5 rounded-xl mb-5">
             <h2 className="text-xl font-extrabold text-gray-900 flex items-center gap-2">
-              📄 Required Documents
+              📄 Required Document Templates
             </h2>
             <p className="text-gray-700 text-sm">
               Click "Download" to get the document. Ensure all necessary forms are completed.
@@ -80,33 +80,43 @@ function Researcher({ requirements }) {
           </div>
 
           {/* RESPONSIVE GRID */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {requirements.map((item, index) => (
-             <div className="bg-white p-5 mb-3 rounded-2xl shadow-md border hover:shadow-lg transition-all duration-300 w-full flex flex-col h-full">
-             {/* Title (Wrapped) */}
-             <h3 className="text-md font-semibold text-gray-900 break-words">
-               {item.title}
-             </h3>
-           
-             {/* File Details */}
-             <div className="text-sm text-gray-700 mt-2">
-               <p>📄 <strong>File Type:</strong> {item.type}</p>
-               <p>🏷 <strong>Category:</strong> <span className="text-red-500">{item.category || "Uncategorized"}</span></p>
-             </div>
-           
-             {/* Download Button (Stays at Bottom) */}
-             <button 
-               onClick={() => downloadDoc(item)}
-               className="mt-auto w-full flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-2 text-sm font-medium rounded-lg hover:bg-blue-700 shadow-md transition-all duration-300"
-             >
-               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" className="fill-current">
-                 <path d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z" />
-               </svg>
-               Download
-             </button>
-           </div>
-          
-            ))}
+          <div className="">
+          <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+        <thead>
+          <tr className="bg-gray-500 border-b">
+            <th className="text-left px-6 py-3 text-white">TITLE</th>
+            <th className="text-left px-6 py-3 text-white">FILE TYPE</th>
+            <th className="text-left px-6 py-3 text-white">CATEGORY</th>
+            <th className="text-center px-6 py-3 text-white">ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          {requirements.map((item, index) => (
+            <tr key={index} className="border-b hover:bg-gray-50 transition">
+              <td className="px-6 py-4 text-sm break-words text-gray-900">{item.title.toUpperCase()}</td>
+              <td className="px-6 py-4 text-sm text-gray-700">📄 {item.type}</td>
+              <td className="px-6 py-4 text-sm text-red-500">{item.category || "Uncategorized"}</td>
+              <td className="px-6 py-4 text-center">
+                <button
+                  onClick={() => downloadDoc(item)}
+                  className="flex items-center justify-center gap-2 bg-blue-600 text-white px-4 py-2 text-sm font-medium rounded-lg hover:bg-blue-700 shadow-md transition-all duration-300"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    className="fill-current"
+                  >
+                    <path d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z" />
+                  </svg>
+                  Download
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
           </div>
         </div>
 
@@ -121,7 +131,7 @@ function Researcher({ requirements }) {
           </a>
           <a href="#" className="flex items-center space-x-1 hover:underline">
             <FileText className="w-4 h-4" />
-            <span>Research Guidelines</span>
+            <span>Researcher Guidelines</span>
           </a>
         </div>
       </div>

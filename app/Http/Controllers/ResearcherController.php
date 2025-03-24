@@ -100,28 +100,50 @@ class ResearcherController extends Controller
             ->paginate(8);
         }
         else{
-            $researchs = Research::with(['department', 'author'])
+            $researchs = Research::with(['department', 'author', 'app_status' => function ($query) {
+                $query->orderBy('tbl_cre_application_status.start', 'ASC');
+            }])
             ->when($search, function ($query, $search) {
                 return $query->where('research_title', 'LIKE', "%{$search}%");
             })
-            ->with(['app_status' => function($query) {
-                return $query->orderBy('tbl_cre_application_status.start', 'ASC');
-             }]) 
             ->when($r_type, function ($query, $r_type) {
                 return $query->where('status', $r_type);
             })
             ->when(isset($r_steps, $r_status), function ($query) use ($r_steps, $r_status) {
-                return $query->when(!empty($r_steps) && !empty($r_status), function ($query) use ($r_steps, $r_status) {
-                    return $query->whereHas('app_status', function ($q) use ($r_steps, $r_status) {
-                        $q->where('tbl_cre_application_status.steps', $r_steps)
-                          ->where('tbl_cre_application_status.status', $r_status); // Ordering inside the subquery
-                    });
-                })->orderBy('created_at', 'DESC'); // Ordering the main query by created_at         
+                return $query->whereHas('app_status', function ($q) use ($r_steps, $r_status) {
+                    $q->where('tbl_cre_application_status.steps', $r_steps)
+                      ->where('tbl_cre_application_status.status', $r_status);
+                });
             })
-            ->orderBy('created_at', 'DESC')
+            ->when(request()->has('status'), function ($query) {
+                $status = request()->input('status');
+        
+                if ($status === "Completed") {
+                    // Only include research that is completed at step 13
+                    $query->whereHas('app_status', function ($q) {
+                        $q->where('tbl_cre_application_status.steps', 13)
+                          ->where('tbl_cre_application_status.status', 'Completed');
+                    });
+                } elseif ($status === "Ongoing") {
+                    // Include only research that is still ongoing and hasn't reached step 13
+                    $query->whereHas('app_status', function ($q) {
+                        $q->where('tbl_cre_application_status.status', 'On Process');
+                    })->whereDoesntHave('app_status', function ($q) {
+                        $q->where('tbl_cre_application_status.steps', 13)
+                          ->where('tbl_cre_application_status.status', 'Completed');
+                    });
+                }
+            })
+            ->when(request()->filled('step'), function ($query) {
+                $step = request()->input('step');
+                return $query->whereHas('app_status', function ($q) use ($step) {
+                    $q->where('tbl_cre_application_status.steps', $step)
+                      ->where('tbl_cre_application_status.status', 'On Process');
+                });
+            })
             ->where('status', '!=', 'D')
+            ->orderBy('created_at', 'DESC')
             ->paginate(8);
-            
         }
         $departments = Department::all();
 

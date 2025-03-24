@@ -26,7 +26,7 @@ export default function Dashboard(props) {
                     {
                         user.user_type == "cre" ?
                         <>
-                        <Cre />
+                        <Cre counter={props.cre_counter} research_counter={props.research_counts} />
                         </>
                         :
                         user.user_type == "tpl" ?
