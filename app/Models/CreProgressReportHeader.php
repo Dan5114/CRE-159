@@ -12,7 +12,8 @@ class CreProgressReportHeader extends Model
         'research_id',
         'date_scheduled',
         'date_due',
-        'steps'
+        'steps',
+        'status'
     ];
 
     public function details()

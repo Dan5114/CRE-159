@@ -20,6 +20,9 @@ return new class extends Migration
             $table->string('research_title', length: 200);
             $table->timestamp('date_completion')->nullable();
             $table->timestamp('date_extension')->nullable();
+            $table->char('academic_year', length: 25)->nullable();
+            $table->timestamp('date_completed')->nullable();
+            $table->timestamp('date_issued')->nullable();
             $table->char('status', length: 100)->default('D');
             $table->timestamps();
         });

@@ -952,6 +952,8 @@ class ResearcherController extends Controller
             $fileName_doc =   $document_file->getClientOriginalName(); 
             $filePath_doc = 'docs/' . $document_file->getClientOriginalName();
 
+            Research::where('id', $request->research_id)->update(['academic_year' => $request->academic_year, 'date_completed' => $request->date_completed, 'date_issued' => $request->date_certificate_issued]);
+
             $data = [
                 "research_id"  => $request->research_id,
                 "steps" => $request->steps,

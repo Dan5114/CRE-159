@@ -17,6 +17,7 @@ return new class extends Migration
             $table->timestamp('date_scheduled')->nullable();
             $table->timestamp('date_due')->nullable();
             $table->char('steps', length: 1);
+            $table->char('status', length: 25);
             $table->timestamps();
         });
     }
