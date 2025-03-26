@@ -129,7 +129,7 @@ const exportToExcel = () => {
   />
   :
 
-  contents_mce.status !== "A" ?
+  contents_mce?.status !== "A" ?
   <Editor
         apiKey="mbol3tcfo3wkegym6drelrc3e356aq0k7lc8gnrkdpp3x23w"
         onInit={(evt, editor) => {
@@ -182,7 +182,7 @@ const exportToExcel = () => {
   <></>
   :
   <>
-    {contents_mce.status !== "A" ? (
+    {contents_mce?.status !== "A" ? (
      <div className="flex justify-end gap-3 mt-3">
      <button
        type="button"

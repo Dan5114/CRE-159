@@ -292,7 +292,7 @@ export default function Step3({user, research, panels, technical_docs, feedbacks
     <>
     <TinyMCE user={user} research={research} contents_mce={contents_mce} panels={panels} />
 
-    {contents_mce.status !== "A" ? (
+    {contents_mce?.status !== "A" ? (
     <div className="mt-3">
         <button
         type="button"
