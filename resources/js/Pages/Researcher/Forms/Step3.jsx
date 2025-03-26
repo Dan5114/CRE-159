@@ -56,13 +56,16 @@ export default function Step3({user, research, panels, technical_docs, feedbacks
     }
 
     const deleteFile = (id) => {
-      destroy(route('researcher.delete.doc', id), {
-        preserveScroll: true,
-        onSuccess: (page) =>  notyf.success(page.props.flash.message),
-        onError: () => console.log("Error deleting"),
-        onFinish: () => reset(),
-      });
-    }
+      if (window.confirm("Are you sure you want to delete this file? This action cannot be undone.")) {
+          destroy(route("researcher.delete.doc", id), {
+              preserveScroll: true,
+              onSuccess: (page) => notyf.success(page.props.flash.message),
+              onError: () => console.log("Error deleting"),
+              onFinish: () => reset(),
+          });
+      }
+  };
+  
 
     const markAsRead = (id) => {
       patch(route('researcher.mark.read', id), {
@@ -76,13 +79,16 @@ export default function Step3({user, research, panels, technical_docs, feedbacks
     }
 
     const submitConsolidated = (id) => {
-      patch(route('submit.consolidated.report.cre', id), {
-          preserveScroll: true,
-          onSuccess: (page) => {
-            notyf.success(page.props.flash.message);
-          },
-      });
-    };
+      if (window.confirm("Are you sure you want to submit the consolidated report?")) {
+          patch(route("submit.consolidated.report.cre", id), {
+              preserveScroll: true,
+              onSuccess: (page) => {
+                  notyf.success(page.props.flash.message);
+              },
+          });
+      }
+  };
+  
 
 
   return (
@@ -131,10 +137,6 @@ export default function Step3({user, research, panels, technical_docs, feedbacks
         (user.user_type == "cre") ? 
         <>
         <div>
-          
-
-   
-
         <form onSubmit={submitFiles}>
         <div class="grid grid-cols-3 gap-6 md:grid-cols-3 mt-3 mb-6">
 
@@ -212,8 +214,6 @@ export default function Step3({user, research, panels, technical_docs, feedbacks
                              :                               
                             <></>          
                       }
-              
-         
         </div>
         </>
         :

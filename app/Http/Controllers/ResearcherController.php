@@ -1047,7 +1047,12 @@ class ResearcherController extends Controller
 
     public function submit_consolidated_report(Request $request, string $id)
     {
-       dd($id);
+        try {
+            ConsolidatedFeedbacks::where('id', $id)->update(['status' => 'A']);
+            return redirect()->back()->with('message', 'Successfully update status');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
     }
 
     public function research_extension_date(Request $request, string $id)
