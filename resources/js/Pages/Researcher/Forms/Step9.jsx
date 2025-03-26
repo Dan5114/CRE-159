@@ -86,6 +86,15 @@ export default function Step9({user, research, progress_report}) {
        });
   }
 
+  const acceptProgressReport = (id) => {
+    patch(route('accept.progress.report', id), {
+        preserveScroll: true,
+        onSuccess: (page) => {
+          notyf.success(page.props.flash.message);
+        },
+    });
+  };
+
 
   return (
     <>
@@ -285,11 +294,30 @@ export default function Step9({user, research, progress_report}) {
         </div>
       </li>
     </ul>
+
+    
     
   </div>
 ))}
 
 </div>
+{report.status !== "accepted" ? (
+    <div className="mt-3 flex justify-end">
+      <button
+        type="button"
+        onClick={() => acceptProgressReport(report.id)}
+        className="px-4 py-2 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-md focus:outline-none"
+      >
+        Accept Progress Report
+      </button>
+    </div>
+) : (
+    <div className="mt-3 text-center text-green-600 font-semibold">
+      ✅ The progress report has already been accepted.
+    </div>
+)}
+
+
 
 
 {report.details.length === 0 ? (
@@ -378,57 +406,66 @@ export default function Step9({user, research, progress_report}) {
   </p>
 </div>
 
-
-<form class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
-
-    {/* Type Selection */}
-    <div>
-      <label class="text-sm font-semibold text-gray-700 block mb-1">Type</label>
-      <select 
-        onChange={(e) => {
-          setData('type', e.target.value);
-          setState(report.id);
-        }} 
-        class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
-      >
-        <option disabled selected>Please select type</option>
-        <option value="1">Progress Report</option>
-        <option value="2">Liquidation</option>
-        <option value="3">Others</option>
-      </select>
+{report.status !== "accepted" ? (
+   <form class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+   <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+ 
+     {/* Type Selection */}
+     <div>
+       <label class="text-sm font-semibold text-gray-700 block mb-1">Type</label>
+       <select 
+         onChange={(e) => {
+           setData('type', e.target.value);
+           setState(report.id);
+         }} 
+         class="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+       >
+         <option disabled selected>Please select type</option>
+         <option value="1">Progress Report</option>
+         <option value="2">Liquidation</option>
+         <option value="3">Others</option>
+       </select>
+     </div>
+ 
+     {/* File Upload - Compact */}
+     <div>
+       <label class="text-sm font-semibold text-gray-700 block mb-1">Document File</label>
+       <div class="relative w-full">
+         <input 
+           type="file" 
+           onChange={(e) => {
+             setState(report.id);
+             setData('document_file', e.target.files[0]);
+           }} 
+           class="w-full px-3 py-[6px] text-sm border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white"
+         />
+       </div>
+      
+     </div>
+ 
+     {/* Upload Button - Properly Aligned */}
+     <div>
+       <button 
+         type="button" 
+         onClick={() => submitFiles2()} 
+         class="w-full bg-blue-500 text-white text-sm font-medium px-3 py-2 rounded-lg shadow-md hover:bg-blue-600 transition duration-200 flex items-center justify-center gap-2"
+       >
+         <span class="icon-[tabler--upload] text-white size-4"></span>
+         Upload
+       </button>
+     </div>
+ 
+   </div>
+ </form>
+ 
+ 
+ 
+) : (
+    <div className="mt-3 text-center text-green-600 font-semibold">
+      ✅ The progress report has already been accepted.
     </div>
+)}
 
-    {/* File Upload - Compact */}
-    <div>
-      <label class="text-sm font-semibold text-gray-700 block mb-1">Document File</label>
-      <div class="relative w-full">
-        <input 
-          type="file" 
-          onChange={(e) => {
-            setState(report.id);
-            setData('document_file', e.target.files[0]);
-          }} 
-          class="w-full px-3 py-[6px] text-sm border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none bg-white"
-        />
-      </div>
-     
-    </div>
-
-    {/* Upload Button - Properly Aligned */}
-    <div>
-      <button 
-        type="button" 
-        onClick={() => submitFiles2()} 
-        class="w-full bg-blue-500 text-white text-sm font-medium px-3 py-2 rounded-lg shadow-md hover:bg-blue-600 transition duration-200 flex items-center justify-center gap-2"
-      >
-        <span class="icon-[tabler--upload] text-white size-4"></span>
-        Upload
-      </button>
-    </div>
-
-  </div>
-</form>
 
 
 

@@ -75,6 +75,15 @@ export default function Step3({user, research, panels, technical_docs, feedbacks
       });
     }
 
+    const submitConsolidated = (id) => {
+      patch(route('submit.consolidated.report.cre', id), {
+          preserveScroll: true,
+          onSuccess: (page) => {
+            notyf.success(page.props.flash.message);
+          },
+      });
+    };
+
 
   return (
     <>
@@ -97,9 +106,23 @@ export default function Step3({user, research, panels, technical_docs, feedbacks
       <span class="badge bg-[#FF0000] text-white badge-sm ms-2 rounded-full">+{feedbacks_step3_notif}</span>
     }
         </button>
-        <button type="button" class="tab active-tab:tab-active" id="tabs-lifted-item-consolidated-form" data-tab="#tabs-lifted-consolidated-form" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
-         {(user.user_type == "cre" ? "Consolidated" : "Individual")} Comments & Suggestions
-        </button>
+
+        {
+          user.user_type === "cre" || user.user_type === "tpl" ? (
+            <button type="button" class="tab active-tab:tab-active" id="tabs-lifted-item-consolidated-form" data-tab="#tabs-lifted-consolidated-form" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
+            {(user.user_type == "cre" ? "Consolidated" : "Individual")} Comments & Suggestions
+          </button>
+          ) : (
+          <></>
+          )
+        }
+
+        {user.user_type == "tpl" && contents_mce.status == "A" && (
+             <button type="button" class="tab active-tab:tab-active" id="tabs-lifted-item-consolidated-form-tech-lead" data-tab="#tabs-lifted-consolidated-form-tech-lead" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
+             Consolidated Comments & Suggestions
+           </button>
+        )}
+
       </nav>
 
       <div class="mt-3">
@@ -266,7 +289,27 @@ export default function Step3({user, research, panels, technical_docs, feedbacks
         <div id="tabs-lifted-consolidated-form" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-consolidated-form">
         {
   user.user_type === "cre" ? (
-    <TinyMCE research={research} contents_mce={contents_mce} panels={panels} />
+    <>
+    <TinyMCE user={user} research={research} contents_mce={contents_mce} panels={panels} />
+
+    {contents_mce.status !== "A" ? (
+    <div className="mt-3">
+        <button
+        type="button"
+        onClick={() => submitConsolidated(contents_mce.id)}
+        className="px-4 py-2 mt-6 text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-md focus:outline-none"
+      >
+        Submit Consolidated
+      </button>
+    </div>
+) : (
+    <div className="mt-6 text-center text-green-600 font-semibold">
+      ✅ The consolidated report has already been submitted.
+    </div>
+)}
+
+ 
+    </>
   ) : user.user_type === "tpl" ? (
     <TinyMCETech research={research} contents_mce_tech={contents_mce_tech} />
   ) : (
@@ -277,6 +320,12 @@ export default function Step3({user, research, panels, technical_docs, feedbacks
   )
 }
         </div>
+
+        <div id="tabs-lifted-consolidated-form-tech-lead" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-consolidated-form-tech-lead">
+
+        <TinyMCE user={user} research={research} contents_mce={contents_mce} panels={panels} />
+          </div>
+
       </div>
     </>
   )

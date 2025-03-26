@@ -1035,6 +1035,21 @@ class ResearcherController extends Controller
         }
     }
 
+    public function progress_report_accept(Request $request, string $id)
+    {
+        try {
+            CreProgressReportHeader::where('id', $id)->update(['status' => 'accepted']);
+            return redirect()->back()->with('message', 'Successfully update status');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
+    }
+
+    public function submit_consolidated_report(Request $request, string $id)
+    {
+       dd($id);
+    }
+
     public function research_extension_date(Request $request, string $id)
     {
         try {

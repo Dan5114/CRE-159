@@ -57,6 +57,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/researcher/unendorsed/panel/{id}', [ResearcherController::class, 'unendorsed_panel'])->name('researcher.unendorsed.panel');
     Route::post('/cre/turnitin/report/upload', [ResearcherController::class, 'turnitin_report_upload'])->name('turnitin.report.upload');
     Route::patch('/cre/progress/report/extension/{id}', [ResearcherController::class, 'progress_report_extension'])->name('progress.extension.date');
+    Route::patch('/cre/progress/report/accept/{id}', [ResearcherController::class, 'progress_report_accept'])->name('accept.progress.report');
+    Route::patch('/cre/submit/consolidated/report/{id}', [ResearcherController::class, 'submit_consolidated_report'])->name('submit.consolidated.report.cre');
     Route::patch('/research/extension/date/{id}', [ResearcherController::class, 'research_extension_date'])->name('researcher.extension.date');
     Route::patch('/research/completion/date/{id}', [ResearcherController::class, 'research_completion_date'])->name('researcher.completion.date');
     Route::post('/cre/feedback/tinymce', [ResearcherController::class, 'update_tiny_mce'])->name('cre.tinymce.update');

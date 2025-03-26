@@ -5,7 +5,7 @@ import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
 import * as XLSX from "xlsx";
  
-const MyEditor = ({research, contents_mce, panels}) => {
+const MyEditor = ({research, contents_mce, panels, user}) => {
    const notyf = new Notyf();
   const editorRef = useRef(null);
   const [content, setContent] = useState("");
@@ -103,7 +103,34 @@ const exportToExcel = () => {
 
   return (
     <>
-      <Editor
+
+{
+  (user.user_type == "tpl") ?
+    <Editor
+    apiKey="mbol3tcfo3wkegym6drelrc3e356aq0k7lc8gnrkdpp3x23w"
+    onInit={(evt, editor) => {
+      editorRef.current = editor;
+      editor.setContent(content);
+    }}
+    value={content}
+    init={{
+      height: 600,
+      menubar: false,
+      plugins: "print",
+      toolbar: "print",
+      readonly: true, // ✅ Make the editor read-only
+      setup: (editor) => {
+        editor.on('init', () => {
+          editor.getBody().setAttribute('contenteditable', false); // ❌ Disable typing
+        });
+      },
+      content_style: "pointer-events: none; user-select: none;",
+    }}
+  />
+  :
+
+  contents_mce.status !== "A" ?
+  <Editor
         apiKey="mbol3tcfo3wkegym6drelrc3e356aq0k7lc8gnrkdpp3x23w"
         onInit={(evt, editor) => {
           editorRef.current = editor;
@@ -126,25 +153,60 @@ const exportToExcel = () => {
           readonly: 0,
         }}
       />
-<div className="flex justify-end gap-3 mt-3">
-  <button
-    type="button"
-    onClick={saveContent}
-    className="btn btn-primary flex items-center gap-2"
-  >
-    <span className="icon-[tabler--file] size-6 align-bottom"></span>
-    Save Changes
-  </button>
-
-  <button
-    onClick={exportToExcel}
-    className="px-4 py-2 bg-green-500 text-white rounded flex items-center"
-  >
-   <span className="icon-[tabler--file-spreadsheet] size-6 align-bottom"></span>
-    Export to Excel
-  </button>
-</div>
-
+      :
+      <Editor
+      apiKey="mbol3tcfo3wkegym6drelrc3e356aq0k7lc8gnrkdpp3x23w"
+      onInit={(evt, editor) => {
+        editorRef.current = editor;
+        editor.setContent(content);
+      }}
+      value={content}
+      init={{
+        height: 600,
+        menubar: false,
+        plugins: "print",
+        toolbar: "print",
+        readonly: true, // ✅ Make the editor read-only
+        setup: (editor) => {
+          editor.on('init', () => {
+            editor.getBody().setAttribute('contenteditable', false); // ❌ Disable typing
+          });
+        },
+        content_style: "pointer-events: none; user-select: none;",
+      }}
+    />
+}
+    
+{
+  (user.user_type == "tpl") ?
+  <></>
+  :
+  <>
+    {contents_mce.status !== "A" ? (
+     <div className="flex justify-end gap-3 mt-3">
+     <button
+       type="button"
+       onClick={saveContent}
+       className="btn btn-primary flex items-center gap-2"
+     >
+       <span className="icon-[tabler--file] size-6 align-bottom"></span>
+       Save Changes
+     </button>
+   
+     <button
+       onClick={exportToExcel}
+       className="px-4 py-2 bg-green-500 text-white rounded flex items-center"
+     >
+      <span className="icon-[tabler--file-spreadsheet] size-6 align-bottom"></span>
+       Export to Excel
+     </button>
+   </div>
+) : (
+   <></>
+)}
+  </>
+ 
+}
     </>
   );
 };
