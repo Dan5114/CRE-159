@@ -8,7 +8,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
-import { Editor } from "@tinymce/tinymce-react";
+import JoditEditor from "jodit-react";
 
 
 
@@ -302,23 +302,25 @@ export default function Step2({user, research, panels, user_panels}) {
 
             <div className="mt-4">
 
-            <Editor
-            apiKey="mbol3tcfo3wkegym6drelrc3e356aq0k7lc8gnrkdpp3x23w"
-            value={selectedContent}
-            init={{
-              height: 600,
-              menubar: false,
-              plugins: "print",
-              toolbar: "print",
-              readonly: true, // ✅ Make the editor read-only
-              setup: (editor) => {
-                editor.on('init', () => {
-                  editor.getBody().setAttribute('contenteditable', false); // ❌ Disable typing
-                });
-              },
-              content_style: "pointer-events: none; user-select: none;",
-            }}
-          />
+            <JoditEditor
+              value={selectedContent}
+              config={{
+                height: 600,
+                resizable: false, // Disable resizing
+                    allowResizeX: false, // Disable horizontal resize
+                    allowResizeY: false, // Disable vertical resize
+                    toolbarSticky: false, 
+                toolbar: [
+                  "undo", "redo", "|",
+                  "bold", "italic", "underline", "|",
+                  "align", "ul", "ol"
+                ],
+                readonly: true,
+                buttons: ["bold", "italic", "underline"], // Only show these buttons
+                toolbarSticky: false, // Prevents toolbar from sticking
+                toolbarAdaptive: false, // Prevents adaptive toolbar changes
+              }}
+            />
             </div>
           </div>
         </div>

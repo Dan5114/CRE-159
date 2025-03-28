@@ -1,4 +1,4 @@
-import { Editor } from "@tinymce/tinymce-react";
+import JoditEditor from "jodit-react";
 import React, { useRef, useEffect, useState } from "react";
 import { Link, useForm, usePage, router } from '@inertiajs/react';
 import { Notyf } from 'notyf';
@@ -29,16 +29,16 @@ const MyEditor = ({research, contents_mce_terminal}) => {
   const saveContent = () => {
     if (!editorRef.current) return;
 
-    const newContent = editorRef.current.getContent();
-    
+    const newContent = editorRef.current.getEditorValue; // ✅ Correct way to get content
+
     // Confirmation alert before saving
     if (!window.confirm("📂 Are you sure you want to save changes?")) {
         return;
     }
 
-    setContent(newContent);
+    setData("content", newContent);
 
-    post(route('cre.tinymce.update'), {
+    post(route("cre.tinymce.update"), {
         onSuccess: (page) => {
             notyf.success(page.props.flash.message || "Content saved successfully!");
         },
@@ -46,7 +46,7 @@ const MyEditor = ({research, contents_mce_terminal}) => {
             notyf.error("Failed to save content. Please try again.");
         },
         onFinish: () => {
-            console.log("Finishing sending message");
+            console.log("Finished sending message");
         },
     });
 };
@@ -59,7 +59,7 @@ const exportToExcel = () => {
   const isConfirmed = window.confirm("🚀 Do you want to download the Excel file?");
   if (!isConfirmed) return;
 
-  const htmlContent = editorRef.current.getContent();
+  const htmlContent = content;
 
   // Convert HTML content to an Excel sheet
   const worksheet = htmlToExcelSheet(htmlContent);
@@ -103,30 +103,30 @@ const exportToExcel = () => {
 
   return (
     <>
-      <Editor
-        apiKey="mbol3tcfo3wkegym6drelrc3e356aq0k7lc8gnrkdpp3x23w"
-        onInit={(evt, editor) => {
-          editorRef.current = editor;
-          editor.setContent(content);
-        }}
-        value={content}
-        onEditorChange={(newContent) => {
-          setContent(newContent);
-          setData('content', newContent)
-        }}
-        init={{
-          height: 610,
-          menubar: false,
-          plugins: "advlist autolink lists link charmap preview anchor print",
-          toolbar: "undo redo | bold italic underline | alignleft aligncenter alignright | bullist numlist outdent indent | removeformat | print",
-          table_toolbar: false,
-          contextmenu: "link image",
-          content_style:
-            "table { border-collapse: collapse; width: 100%; } td, th { border: 1px solid black; padding: 5px; }",
-          readonly: 0,
-        }}
-      />
-<div className="flex justify-end gap-3 mt-3">
+    <div className="overflow-hidden mb-6">
+ <JoditEditor
+    ref={editorRef}
+    value={content}
+    onBlur={(newContent) => setData("content", newContent)} // ✅ Updates state on blur
+    config={{
+      height: 600,
+      maxHeight: 600,
+      resizable: false, // Disable resizing
+          allowResizeX: false, // Disable horizontal resize
+          allowResizeY: false, // Disable vertical resize
+          toolbarSticky: false, 
+          toolbar: true,
+    buttons: "bold,italic,underline,|,ul,ol,|,align,|,undo,redo,|,eraser,print",
+    toolbarAdaptive: false,
+    toolbarSticky: false,
+    showCharsCounter: false,
+    showWordsCounter: false,
+    showXPathInStatusbar: false, 
+      readonly: false,
+    }}
+  />
+  </div>
+<div className="flex justify-end gap-3 mt-12">
   <button
     type="button"
     onClick={saveContent}
