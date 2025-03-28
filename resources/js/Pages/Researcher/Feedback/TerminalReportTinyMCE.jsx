@@ -119,9 +119,6 @@ const exportToExcel = () => {
     buttons: "bold,italic,underline,|,ul,ol,|,align,|,undo,redo,|,eraser,print",
     toolbarAdaptive: false,
     toolbarSticky: false,
-    showCharsCounter: false,
-    showWordsCounter: false,
-    showXPathInStatusbar: false, 
       readonly: false,
     }}
   />

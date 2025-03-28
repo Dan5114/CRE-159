@@ -1,5 +1,5 @@
 import debounce from "lodash/debounce";
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback, useRef } from "react";
 import { Link, router } from '@inertiajs/react';
 import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -7,6 +7,8 @@ dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 import _ from 'lodash';
+import * as XLSX from "xlsx";
+import { FileSpreadsheet } from "lucide-react"; 
 
 const getResearchStatus = (status) => {
   switch (status) {
@@ -29,6 +31,7 @@ const getResearchStatus = (status) => {
 
 const DataListings = ({researchs, user, initialFilters}) => {
   const [filters, setFilters] = useState(initialFilters);
+  const tableRef = useRef(null);
   const totalRecords = _.size(researchs);
   
       const sendRequest = useCallback((filters) => {
@@ -62,70 +65,101 @@ const DataListings = ({researchs, user, initialFilters}) => {
       });
     };
 
+      // ✅ Function to Export Table Data to Excel
+  const exportToExcel = () => {
+    if (!tableRef.current) return;
+
+    const table = tableRef.current;
+    const worksheet = XLSX.utils.table_to_sheet(table);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Research Data");
+
+    XLSX.writeFile(workbook, "Research_Data.xlsx");
+  };
+
+
  
   
   return (
     <>
-<div class="grid grid-cols-3">
-  <div class="flex justify-between gap-2">
-  <div class="">
-  <select
-  name="r_type" value={filters.r_type} onChange={handleChange}
-  class="select w-60 rounded-md" id="favorite-simpson">
-    <option value="0" selected>All Types</option>
-    <option disabled={user.user_type === 'cre' || user.user_type === 'tpl'} value="D">Draft</option>
-    <option value="S">For Acceptance</option>
-    <option value="REC">On Progress</option>
-  </select>
-</div>  
-
-{
-  filters.r_type == "S" || filters.r_type == 0 || filters.r_type == null ?
-  <>
-  </>
-  :
-  <>
-    <div class="">
-      <select
-      name="r_steps" value={filters.r_steps} onChange={handleChange}
-      class="select w-60 rounded-md" id="favorite-simpson">
-        <option value="0" selected>All Steps</option>
-        {/* <option value="1">Submit Application</option> */}
-        <option value="2">Technical Committee & Schedule</option>
-        <option value="3">Technical Review Report</option>
-        <option value="4">Approval of Revised Docs</option>
-        <option value="5">Ethics Clearance</option>
-        <option value="6">Budget Proposal</option>
-        <option value="7">URB Approval</option>
-        <option value="8">MOA Signing</option>
-        <option value="9">Progress Report</option>
-        <option value="10">Tech Panel Endorsement</option>
-        <option value="11">Turnitin</option>
-      </select>
-    </div> 
-
-    <div class="">
-      <select
-      name="r_status" value={filters.r_status} onChange={handleChange}
-        class="select w-60 rounded-md" id="favorite-simpson">
-        <option value="0" selected>All Status</option>
-        <option value="Completed">Completed</option>
-        <option value="On Process">On Process</option>
-      </select>
-    </div> 
-  </>
-}  
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+  {/* Research Type Dropdown */}
+  <div className="flex flex-col">
+    <label htmlFor="r_type" className="text-sm font-semibold text-gray-700 mb-1">Research Type</label>
+    <select
+      name="r_type"
+      id="r_type"
+      value={filters.r_type}
+      onChange={handleChange}
+      className="select w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-blue-200"
+    >
+      <option value="0">All Types</option>
+      <option disabled={user.user_type === 'cre' || user.user_type === 'tpl'} value="D">Draft</option>
+      <option value="S">For Acceptance</option>
+      <option value="REC">On Progress</option>
+    </select>
   </div>
+
+  {/* Conditional Display: Steps and Status */}
+  {(filters.r_type !== "S" && filters.r_type !== "0" && filters.r_type !== null) && (
+    <>
+      {/* Research Steps Dropdown */}
+      <div className="flex flex-col">
+        <label htmlFor="r_steps" className="text-sm font-semibold text-gray-700 mb-1">Research Steps</label>
+        <select
+          name="r_steps"
+          id="r_steps"
+          value={filters.r_steps}
+          onChange={handleChange}
+          className="select w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-blue-200"
+        >
+          <option value="0">All Steps</option>
+          <option value="2">Technical Committee & Schedule</option>
+          <option value="3">Technical Review Report</option>
+          <option value="4">Approval of Revised Docs</option>
+          <option value="5">Ethics Clearance</option>
+          <option value="6">Budget Proposal</option>
+          <option value="7">URB Approval</option>
+          <option value="8">MOA Signing</option>
+          <option value="9">Progress Report</option>
+          <option value="10">Tech Panel Endorsement</option>
+          <option value="11">Turnitin</option>
+        </select>
+      </div>
+
+      {/* Research Status Dropdown */}
+      <div className="flex flex-col">
+        <label htmlFor="r_status" className="text-sm font-semibold text-gray-700 mb-1">Research Status</label>
+        <select
+          name="r_status"
+          id="r_status"
+          value={filters.r_status}
+          onChange={handleChange}
+          className="select w-full rounded-md border-gray-300 shadow-sm focus:ring focus:ring-blue-200"
+        >
+          <option value="0">All Status</option>
+          <option value="Completed">Completed</option>
+          <option value="On Process">On Process</option>
+        </select>
+      </div>
+    </>
+  )}
 </div>
-   
-    <div class="flex justify-end space-x-4 mb-3">
-    
-   
+
+{/* Export Button */}
+<div className="flex justify-end mb-3 mt-3">
+  <button 
+    onClick={exportToExcel} 
+    className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md shadow-md transition duration-300"
+  >
+    <FileSpreadsheet size={20} />
+    <span>Export to Excel</span>
+  </button>
+</div>
 
      
-    </div>
     <div class="overflow-x-auto">
-    <table class="min-w-full table-auto border divide-y divide-gray-200 dark:divide-neutral-700">
+    <table ref={tableRef} class="min-w-full table-auto border divide-y divide-gray-200 dark:divide-neutral-700">
   <thead class="bg-gray-400 dark:bg-neutral-700">
   <tr class="bg-gray-800 text-white dark:bg-neutral-900">
   <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">Research Title</th>
