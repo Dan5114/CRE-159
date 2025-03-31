@@ -154,7 +154,7 @@ const generateTable = () => {
     return `
       <h3 style="text-align: center;">UNIVERSITY OF ST. LA SALLE</h3>
 <h4 style="text-align: center;">CENTER FOR RESEARCH AND ENGAGEMENT</h4>
-<h5 style="text-align: center;">FACULTY RESEARCH PROGRAM AY 2022-2023</h5>
+<h5 style="text-align: center;">FACULTY RESEARCH PROGRAM</h5>
 <h5 style="text-align: center;">FORM #1: COMMENTS AND SUGGESTIONS FORM (FOR PANEL MEMBERS)</h5>
 
 <table style="width: 100%; border-collapse: collapse;">
@@ -190,10 +190,6 @@ const generateTable = () => {
 
 
 <table border="1" width="100%" cellspacing="0" cellpadding="5" style="margin-top: 10px;">
-  <tr style="background-color: #ddd; text-align: center;">
-    <th colspan="2">TO BE FILLED IN BY THE EVALUATOR</th>
-    <th colspan="2">TO BE FILLED IN BY THE STUDY LEADER</th>
-  </tr>
    <tr>
   <th width="40%"></th>
     <th width="20%">Comments and Suggestions</th>

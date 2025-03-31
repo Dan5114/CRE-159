@@ -325,7 +325,7 @@ const generateTable = () => {
     </tr>
   </tbody>
 </table>
-
+<br />
     `;
   };
 

@@ -260,13 +260,13 @@ export default function Step10({user, research, tpl_docs, feedbacks_step10, feed
                                  )
                                    :                               
                                   <>
-                                    <div class="mt-3">
+                                    {/* <div class="mt-3">
                                     <button type="button"  onClick={() => {
                                       acceptApplicationPanel(user.id);
                                       }} class="btn btn-success rounded-full">
-                                      Endorse Paper for Technical Clearance
+                                      Endorse Paper for Technical Clearances
                                       </button>
-                                    </div>
+                                    </div> */}
                                   </>                       
                                  }
            

@@ -265,7 +265,7 @@ const generateTable = (panels) => {
       <tbody>
         <tr>
           <td style="width: 80%; font-weight: bold;">DATE</td>
-          <td style="width: 20%;">AY 2023-2024</td>
+          <td style="width: 20%;"></td>
         </tr>
         <tr><td style="font-weight: bold;">COLLEGE/DEPARTMENT:</td><td></td></tr>
         <tr><td style="font-weight: bold;">RESEARCH AGENDA:</td><td></td></tr>
@@ -278,10 +278,6 @@ const generateTable = (panels) => {
 
     <table border="1" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
       <thead>
-        <tr>
-          <th style="width: 50%; background-color: #fff2cc; color: red; padding: 5px;">TO BE FILLED IN BY THE DOCUMENTER</th>
-          <th colspan="3" style="width: 50%; background-color: #d9ead3; color: red; padding: 5px;">TO BE FILLED IN BY THE STUDY LEADER</th>
-        </tr>
         <tr>
           <th>TITLE</th>
           <th>Comments and suggestions</th>
@@ -304,13 +300,6 @@ const generateTable = (panels) => {
         <tr><td>Respondents/Participants/Subjects</td><td></td><td></td><td></td></tr>
         <tr><td>Instrument/Description of Product/Prototype</td><td></td><td></td><td></td></tr>
       </tbody>
-    </table>
-
-    <table border="1" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
-      <tr>
-        <td style="width: 50%; background-color: #fff2cc; color: red; padding: 5px;">TO BE FILLED IN BY THE DOCUMENTER</td>
-        <td style="width: 50%; background-color: #d9ead3; color: red; padding: 5px;">TO BE FILLED IN BY THE STUDY LEADER</td>
-      </tr>
     </table>
 
     <p><strong style="color: red;">The Documenter is requested to email the consolidated form to both the Proponent(s) and CRE at 
