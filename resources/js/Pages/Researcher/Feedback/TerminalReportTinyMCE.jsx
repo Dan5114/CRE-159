@@ -5,11 +5,11 @@ import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
 import * as XLSX from "xlsx";
 
-const MyEditor = ({research, contents_mce_terminal}) => {
+const MyEditor = ({research, contents_mce_terminal, user}) => {
    const notyf = new Notyf();
   const editorRef = useRef(null);
   const [content, setContent] = useState("");
-   const { data, setData, post, errors, reset, formState, processing, progress, recentlySuccessful } =
+   const { data, setData, post, errors, patch, reset, formState, processing, progress, recentlySuccessful } =
       useForm({
           research_id : research.id,
           steps : "10",
@@ -101,10 +101,49 @@ const exportToExcel = () => {
     return XLSX.utils.aoa_to_sheet(rows);
   };
 
+  const submitEndorsement = (id) => {
+    if (window.confirm("Are you sure you want to submit the consolidated report?")) {
+        patch(route("submit.consolidated.report.cre", id), {
+            preserveScroll: true,
+            onSuccess: (page) => {
+                notyf.success(page.props.flash.message);
+            },
+        });
+    }
+};
+
   return (
     <>
     <div className="overflow-hidden mb-6">
- <JoditEditor
+
+    {
+      (contents_mce_terminal?.status == "P" && user.user_type == "tpl") ?
+      <JoditEditor
+    ref={editorRef}
+    value={content}
+    config={{
+      height: 600,
+      resizable: false, // Disable resizing
+          allowResizeX: false, // Disable horizontal resize
+          allowResizeY: false, // Disable vertical resize
+          toolbarSticky: false, 
+      toolbar: [
+        "undo", "redo", "|",
+        "bold", "italic", "underline", "|",
+        "align", "ul", "ol"
+      ],
+      readonly: false,
+      buttons: ["bold", "italic", "underline"], // Only show these buttons
+      toolbarSticky: false, // Prevents toolbar from sticking
+      toolbarAdaptive: false, // Prevents adaptive toolbar changes
+    }}
+  />
+  :
+  <>
+  {
+    (contents_mce_terminal.status == "A") ? 
+    <>
+    <JoditEditor
     ref={editorRef}
     value={content}
     onBlur={(newContent) => setData("content", newContent)} // ✅ Updates state on blur
@@ -119,11 +158,46 @@ const exportToExcel = () => {
     buttons: "bold,italic,underline,|,ul,ol,|,align,|,undo,redo,|,eraser,print",
     toolbarAdaptive: false,
     toolbarSticky: false,
-      readonly: false,
+      readonly: true,
     }}
   />
+  <br />
+  <div className="mt-6 text-center text-green-600 font-semibold">
+  ✅ The Terminal Evaluation Report has already been endorsed.
+</div>
+</>
+  :
+  <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 shadow-md rounded-lg">
+  <div class="flex items-start">
+    <div class="flex-shrink-0">
+      <svg class="h-6 w-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c1.657 0 3 1.343 3 3s-1.343 3-3 3-3-1.343-3-3 1.343-3 3-3zm0 0V3m0 5v3M9 12c-1.657 0-3 1.343-3 3s1.343 3 3 3s3-1.343 3-3-1.343-3-3-3zM12 8c1.657 0 3 1.343 3 3s-1.343 3-3 3zM12 8h-3"></path>
+      </svg>
+    </div>
+    <div class="ml-4">
+      <h3 class="text-xl font-semibold text-gray-800">Waiting for Tech Lead Panel Endorsement</h3>
+      <p class="mt-2 text-gray-600">Your application is currently under review by the Tech Panel (Lead). We appreciate your patience as this process may take some time.</p>
+      <div class="mt-4">
+        <span class="inline-flex items-center px-3 py-1 text-xs font-medium rounded-full bg-yellow-100 text-yellow-800">
+          Pending Endorsement
+        </span>
+      </div>
+
+
+    </div>
   </div>
-<div className="flex justify-end gap-3 mt-12">
+</div>
+  }
+
+  </>
+    }
+
+ 
+  </div>
+{
+  (contents_mce_terminal?.status == "P" && user.user_type == "tpl") ?
+  <>
+  <div className="flex justify-end gap-3 mt-12">
   <button
     type="button"
     onClick={saveContent}
@@ -141,6 +215,19 @@ const exportToExcel = () => {
     Export to Excel
   </button>
 </div>
+<div className="mt-3">
+        <button
+        type="button"
+        onClick={() => submitEndorsement(contents_mce_terminal.id)}
+        className="px-4 py-2 mt-6 text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-md focus:outline-none"
+      >
+        Endorse Technical Report
+      </button>
+    </div>
+  </>
+  :
+  <></>
+}
 
     </>
   );

@@ -536,7 +536,7 @@ class ResearcherController extends Controller
 
             $contents_mce_tech = ConsolidatedFeedbacks::where('research_id', $value->id)->where('steps', '2')->where('user_type', 'tech')->where('added_by', auth()->id())->first();
 
-            $contents_mce_terminal = ConsolidatedFeedbacks::where('research_id', $value->id)->where('steps', '10')->where('user_type', 'tpl_lead')->where('added_by', auth()->id())->first();
+            $contents_mce_terminal = ConsolidatedFeedbacks::where('research_id', $value->id)->where('steps', '10')->where('user_type', 'tpl_lead')->first();
 
             $step_status = [
                 "step1" => $this->getStepStatus($value->id, "1"),

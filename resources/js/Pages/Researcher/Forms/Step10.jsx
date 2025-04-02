@@ -73,23 +73,6 @@ export default function Step10({user, research, tpl_docs, feedbacks_step10, feed
         });
       }
 
-      const acceptApplicationPanel = (id) => {     
-        // post(route('tpl.lead.endorse.application', {
-        //     panel_id: id,
-        //   }),
-        //   {
-        //     onSuccess: (page) =>  {
-        //         notyf.success(page.props.flash.message);
-        //         closeModal();
-        //     },
-        //     onFinish: () =>  {
-        //         console.log("Finishing accept application");
-        //         reset()
-        //     },
-        // });
-      }
-
-
   return (
     <>
 
@@ -113,8 +96,8 @@ export default function Step10({user, research, tpl_docs, feedbacks_step10, feed
     }
   </button>
   <button type="button" class="tab active-tab:tab-active" id="tabs-lifted-item-techpanelreport" data-tab="#tabs-lifted-techpanelreport" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
-  Terminal Report Evaluation
-  </button>
+      Terminal Report Evaluation
+      </button>
 </nav>
 
 
@@ -283,7 +266,12 @@ export default function Step10({user, research, tpl_docs, feedbacks_step10, feed
 <div id="tabs-lifted-techpanelreport" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-techpanelreport">
 {
   user.user_type === "cre" || user.user_type === "tpl"  ? (
-    <TerminalTinyMCE research={research} contents_mce_terminal={contents_mce_terminal} />
+    (contents_mce_terminal.status != "A") ?
+    <>
+     <TerminalTinyMCE user={user} research={research} contents_mce_terminal={contents_mce_terminal} />
+    </>
+    :
+     <TerminalTinyMCE user={user} research={research} contents_mce_terminal={contents_mce_terminal} />
   ) : (
     <div className="p-4 mb-4 border-l-4 border-gray-500 bg-gray-100 text-gray-700 rounded-md shadow-md">
     <h3 className="text-sm font-semibold">No Content Available</h3>

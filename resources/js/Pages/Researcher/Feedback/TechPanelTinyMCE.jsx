@@ -342,7 +342,7 @@ const generateTable = () => {
   <a href="mailto:urc@usls.edu.ph" style="color: #4c69d3; text-decoration: underline;">urc@usls.edu.ph</a> 
   for consolidation purposes. Thank you.
 </p>
-
+<br />
 
     `;
   };

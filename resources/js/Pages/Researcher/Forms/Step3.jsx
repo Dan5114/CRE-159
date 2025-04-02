@@ -123,7 +123,7 @@ export default function Step3({user, research, panels, technical_docs, feedbacks
           )
         }
 
-        {user.user_type == "tpl" && contents_mce.status == "A" && (
+        {user.user_type == "tpl" && contents_mce?.status == "A" && (
              <button type="button" class="tab active-tab:tab-active" id="tabs-lifted-item-consolidated-form-tech-lead" data-tab="#tabs-lifted-consolidated-form-tech-lead" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
              Consolidated Comments & Suggestions
            </button>
