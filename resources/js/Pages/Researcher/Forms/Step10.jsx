@@ -266,7 +266,7 @@ export default function Step10({user, research, tpl_docs, feedbacks_step10, feed
 <div id="tabs-lifted-techpanelreport" class="hidden" role="tabpanel" aria-labelledby="tabs-lifted-item-techpanelreport">
 {
   user.user_type === "cre" || user.user_type === "tpl"  ? (
-    (contents_mce_terminal.status != "A") ?
+    (contents_mce_terminal?.status != "A") ?
     <>
      <TerminalTinyMCE user={user} research={research} contents_mce_terminal={contents_mce_terminal} />
     </>

@@ -141,7 +141,7 @@ const exportToExcel = () => {
   :
   <>
   {
-    (contents_mce_terminal.status == "A") ? 
+    (contents_mce_terminal?.status == "A") ? 
     <>
     <JoditEditor
     ref={editorRef}
