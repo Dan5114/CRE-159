@@ -247,10 +247,10 @@ class ResearcherController extends Controller
                 [
                     'research_id' => $request->research_id,
                     'user_type' => $request->user_type,
-                    'added_by' => auth()->id(),
                 ],
                 [
                     'content' => $request->content,
+                    'added_by' => auth()->id(),
                     'steps' => $request->steps
                 ]
             );
@@ -942,9 +942,9 @@ class ResearcherController extends Controller
             ResearchDoc::create($data);
             Storage::disk('public')->put($filePath_doc, file_get_contents($document_file));
             $current = Carbon::now();
-            $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "11")->first();
+            $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "12")->first();
             CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Completed"]);
-            $this->cre_application_status($request->research_id, "12", "Final Document", $current, $end = null, "On Process");
+            $this->cre_application_status($request->research_id, "13", "Completion Certificate", $current, $end = null, "On Process");
         }
 
         if ($request->file('document_file') && $request->steps == '13'){
@@ -964,9 +964,8 @@ class ResearcherController extends Controller
             ResearchDoc::create($data);
             Storage::disk('public')->put($filePath_doc, file_get_contents($document_file));
             $current = Carbon::now();
-            $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "12")->first();
+            $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "13")->first();
             CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Completed"]);
-            $this->cre_application_status($request->research_id, "13", "Completion Certificate", $current, $end = null, "On Process");
         }
 
         return redirect()->back()->with('message', 'Successfully uploaded');
@@ -1082,7 +1081,6 @@ class ResearcherController extends Controller
 
     public function turnitin_report_upload(Request $request)
     {
-
         try {
             if ($request->file('document_file')){
                 $turnitin_file = $request->file('document_file');
@@ -1100,8 +1098,11 @@ class ResearcherController extends Controller
                 Storage::disk('public')->put($filePath_turnitin, file_get_contents($turnitin_file));
 
                 $current = Carbon::now();
-                $ApplicationStat = CreApplicationStatus::where("research_id", $research->research_id)->where("steps", "11")->first();
+                $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "11")->first();
                 CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Completed"]);
+
+                $this->cre_application_status($request->research_id, "12", "Final Document", $current, $end = null, "On Process");
+
             }
             return redirect()->back()->with('message', 'Successfully Uploaded');
         } catch (Exception $e) {

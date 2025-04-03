@@ -29,7 +29,7 @@ const MyEditor = ({research, contents_mce_terminal, user}) => {
   const saveContent = () => {
     if (!editorRef.current) return;
 
-    const newContent = editorRef.current.getEditorValue; // ✅ Correct way to get content
+    const newContent = editorRef.current.getEditorValue;
 
     // Confirmation alert before saving
     if (!window.confirm("📂 Are you sure you want to save changes?")) {
@@ -121,6 +121,7 @@ const exportToExcel = () => {
       <JoditEditor
     ref={editorRef}
     value={content}
+    onBlur={(newContent) => setData("content", newContent)} // ✅ Updates state on blur
     config={{
       height: 600,
       resizable: false, // Disable resizing
@@ -146,7 +147,6 @@ const exportToExcel = () => {
     <JoditEditor
     ref={editorRef}
     value={content}
-    onBlur={(newContent) => setData("content", newContent)} // ✅ Updates state on blur
     config={{
       height: 600,
       maxHeight: 600,
@@ -171,6 +171,7 @@ const exportToExcel = () => {
 <JoditEditor
 ref={editorRef}
 value={content}
+onBlur={(newContent) => setData("content", newContent)} // ✅ Updates state on blur
 config={{
   height: 600,
   resizable: false, // Disable resizing
@@ -219,7 +220,7 @@ config={{
  
   </div>
 {
-  (contents_mce_terminal?.status == "P") ?
+  (contents_mce_terminal?.status == "P" && user.user_type == "tpl") ?
   <>
   <div className="flex justify-end gap-3 mt-12">
   <button

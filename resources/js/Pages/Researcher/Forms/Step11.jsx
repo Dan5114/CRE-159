@@ -156,7 +156,7 @@ export default function Step10({user, research, turnitin_docs}) {
                             <></>
                             :
                             <>
-                            <TurnitinScoreModal file_id={turnitin_doc.id} className="max-w-xl" />
+                            <TurnitinScoreModal file_id={turnitin_doc.id} research={research} className="max-w-xl" />
                             </>
                           }
                           </span>

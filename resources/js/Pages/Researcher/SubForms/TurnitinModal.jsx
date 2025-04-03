@@ -9,7 +9,7 @@ import { useRef, useState } from 'react';
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
 
-const TurnitinModal = ({ className = '', file_id }) => {
+const TurnitinModal = ({ className = '', file_id, research }) => {
   const notyf = new Notyf();
   const [confirmingturnitinScore, setConfirmingTurnitinScore] = useState(false);
  
@@ -25,7 +25,8 @@ const TurnitinModal = ({ className = '', file_id }) => {
     'score' : '',
     'status' : '',
     'file_id' : file_id,
-    'document_file' : ''
+    'document_file' : '',
+    'research_id' : research.id
   });
 
   const confirmturnitinScore = () => {
