@@ -117,7 +117,7 @@ const exportToExcel = () => {
     <div className="overflow-hidden mb-6">
 
     {
-      (contents_mce_terminal?.status == "P" && user.user_type == "tpl") ?
+      (contents_mce_terminal?.status == "P") ?
       <JoditEditor
     ref={editorRef}
     value={content}
@@ -167,7 +167,30 @@ const exportToExcel = () => {
 </div>
 </>
   :
-  <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 shadow-md rounded-lg">
+(user.user_type == "tpl" && contents_mce_terminal?.status == null) ?
+<JoditEditor
+ref={editorRef}
+value={content}
+config={{
+  height: 600,
+  resizable: false, // Disable resizing
+      allowResizeX: false, // Disable horizontal resize
+      allowResizeY: false, // Disable vertical resize
+      toolbarSticky: false, 
+  toolbar: [
+    "undo", "redo", "|",
+    "bold", "italic", "underline", "|",
+    "align", "ul", "ol"
+  ],
+  readonly: false,
+  buttons: ["bold", "italic", "underline"], // Only show these buttons
+  toolbarSticky: false, // Prevents toolbar from sticking
+  toolbarAdaptive: false, // Prevents adaptive toolbar changes
+}}
+/>
+:
+<>
+<div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 shadow-md rounded-lg">
   <div class="flex items-start">
     <div class="flex-shrink-0">
       <svg class="h-6 w-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -187,6 +210,7 @@ const exportToExcel = () => {
     </div>
   </div>
 </div>
+</>
   }
 
   </>
@@ -195,7 +219,7 @@ const exportToExcel = () => {
  
   </div>
 {
-  (contents_mce_terminal?.status == "P" && user.user_type == "tpl") ?
+  (contents_mce_terminal?.status == "P") ?
   <>
   <div className="flex justify-end gap-3 mt-12">
   <button
@@ -226,7 +250,42 @@ const exportToExcel = () => {
     </div>
   </>
   :
-  <></>
+  <>
+    {
+      (contents_mce_terminal?.status == null && user.user_type == "tpl") ?
+      <>
+        <div className="flex justify-end gap-3 mt-12">
+  <button
+    type="button"
+    onClick={saveContent}
+    className="btn btn-primary flex items-center gap-2"
+  >
+    <span className="icon-[tabler--file] size-6 align-bottom"></span>
+    Save Changes
+  </button>
+
+  <button
+    onClick={exportToExcel}
+    className="px-4 py-2 bg-green-500 text-white rounded flex items-center"
+  >
+   <span className="icon-[tabler--file-spreadsheet] size-6 align-bottom"></span>
+    Export to Excel
+  </button>
+</div>
+<div className="mt-3">
+        <button
+        type="button"
+        onClick={() => submitEndorsement(contents_mce_terminal.id)}
+        className="px-4 py-2 mt-6 text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-md focus:outline-none"
+      >
+        Endorse Technical Report
+      </button>
+    </div>
+      </>
+      :
+      ""
+    }
+  </>
 }
 
     </>

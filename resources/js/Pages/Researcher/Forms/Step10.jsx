@@ -95,9 +95,14 @@ export default function Step10({user, research, tpl_docs, feedbacks_step10, feed
       <span class="badge bg-[#FF0000] text-white badge-sm ms-2 rounded-full">+{feedbacks_step10_notif}</span>
     }
   </button>
-  <button type="button" class="tab active-tab:tab-active" id="tabs-lifted-item-techpanelreport" data-tab="#tabs-lifted-techpanelreport" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
+  {
+    (user.user_type == "researcher") ?
+    <></>
+    :
+    <button type="button" class="tab active-tab:tab-active" id="tabs-lifted-item-techpanelreport" data-tab="#tabs-lifted-techpanelreport" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
       Terminal Report Evaluation
       </button>
+  }
 </nav>
 
 

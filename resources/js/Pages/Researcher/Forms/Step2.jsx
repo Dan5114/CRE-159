@@ -53,6 +53,7 @@ export default function Step2({user, research, panels, user_panels}) {
           },
           onFinish: () =>  {
               console.log("Finishing update status");
+              reset();
           },
       });
     }

@@ -985,24 +985,29 @@ class ResearcherController extends Controller
     }
 
     public function research_data_log($research_id, $steps, $remarks){
-        $research_data_log = [
-            "research_id" => $research_id,
-            "steps" => $steps,
-            "remarks" => $remarks
-        ];
-        ResearchLog::create($research_data_log);
+        ResearchLog::updateOrCreate(
+            [
+                'research_id' => $research_id, 
+                'steps' => $steps
+            ],
+            [
+                'remarks' => $remarks
+            ]);
     }
 
     public function cre_application_status($research_id, $steps, $name, $start = null, $end = null, $status){
-        $application_status_log = [
-            "research_id" => $research_id,
-            "steps" => $steps,
-            "name" => $name,
-            "start" => $start,
-            "end" => $end,
-            "status" => $status
-        ];
-        CreApplicationStatus::create($application_status_log);
+        CreApplicationStatus::updateOrCreate(
+            [
+                'research_id' => $research_id,
+                'steps' => $steps,
+                'name' => $name
+            ],
+            [
+                'start' => $start,
+                'end' => $end,
+                'status' => $status
+            ]
+        );
     }
 
     public function delete_panel(string $id)
