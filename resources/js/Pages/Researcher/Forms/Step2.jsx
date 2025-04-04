@@ -362,9 +362,15 @@ export default function Step2({user, research, panels, user_panels}) {
                          <div class="gap-y-2 mt-6">
 
 {
-  (research.meeting.status == "Success") ?
+  (research.meeting.status == "Pending") ?
   <>
- <div class="bg-green-50 border-l-4 border-green-500 p-6 shadow-md rounded-lg">
+<button type="button" onClick={() => scheduledMeeting()} class="btn btn-success rounded-full">
+Schedule Appointment
+</button>
+  </>
+  :
+  <>
+      <div class="bg-green-50 border-l-4 border-green-500 p-6 shadow-md rounded-lg">
 <div class="flex items-start">
 <div class="flex-shrink-0">
 <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -382,13 +388,6 @@ export default function Step2({user, research, panels, user_panels}) {
 </div>
 </div>
 
-  </>
-  :
-  <>
-     
-<button type="button" onClick={() => scheduledMeeting()} class="btn btn-success rounded-full">
-Schedule Appointment
-</button>
   </>
 }
 </div>

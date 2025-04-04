@@ -220,7 +220,7 @@ class ResearcherController extends Controller
         try {
             $current = Carbon::now();
             Research::where('id', $request->research_id)->update(['status'=>'S']);
-            $this->cre_application_status($request->research_id, "1", "Submit Application", $current, $end = null, "Submitted");
+            $this->cre_application_status($request->research_id, "1", "Submit Application", $current, $end = null, "Completed");
             return redirect()->back()->with('message', 'Submitted Successfully');
         } catch (Exception $e) {
             Log::debug($e->getMessage());
@@ -485,7 +485,7 @@ class ResearcherController extends Controller
      */
     public function show(string $ref)
     {   
-        $value = Research::where('reference', $ref)->with('author')->with('department')->with('meeting')->first();
+        $value = Research::where('reference', $ref)->with(['author','department','meeting'])->first();
         $research = ($value) ? $value : null;
 
         if($value){
