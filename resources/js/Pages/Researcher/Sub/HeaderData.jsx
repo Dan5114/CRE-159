@@ -31,9 +31,7 @@ const HeaderData = ({research_data, authors}) => {
             <div class="p-3 mt-3 shadow-lg w-full h-auto card bg-gray-100 rounded-xl overflow-hidden mb-1" >
             <div class="grid grid-cols-6 gap-3">
       <div class="col-span-3">
-      <h2 class="mb-3 text-xl text-pretty px-2 border-l-4 font-sans font-extrabold border-teal-600 text-neutral-700  dark:text-gray-200">
-                    {research_data.research_title.toUpperCase()}
-                  </h2>
+                  <h1 class="text-3xl mb-3 text-pretty px-2 border-l-4 text-neutral-700  font-sans font-extrabold border-teal-600">{research_data.research_title.toUpperCase()}</h1>
 
                   <p class="p-1 text-sm flex"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="6" r="4" fill="#868585"/><path fill="#868585" d="M20 17.5c0 2.485 0 4.5-8 4.5s-8-2.015-8-4.5S7.582 13 12 13s8 2.015 8 4.5"/></svg>&nbsp; {research_data.author.name}</p>
 

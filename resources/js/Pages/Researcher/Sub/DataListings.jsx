@@ -165,7 +165,7 @@ const DataListings = ({researchs, user, initialFilters}) => {
   <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">Research Title</th>
   <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">Author</th>
   <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">College</th>
-  <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">Current Research Status</th>
+  <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">Research Status</th>
   <th scope="col" class="px-4 py-3 text-left text-sm font-semibold uppercase">Date Created</th>
   <th scope="col" class="px-4 py-3 text-center text-sm font-semibold uppercase">Type</th>
   <th scope="col" class="px-4 py-3 w-24"></th>
