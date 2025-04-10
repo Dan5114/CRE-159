@@ -30,7 +30,6 @@ export default function Step4({user, research, revised_docs, feedbacks_step4, fe
 
   const closeModal = () => {
     setConfirmingModal(false);
-    clearErrors();
     reset();
   };
 
