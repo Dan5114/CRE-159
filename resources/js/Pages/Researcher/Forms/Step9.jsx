@@ -130,7 +130,7 @@ export default function Step9({user, research, progress_report, feedbacks_step9,
         <>
                 <div>
           
-          <div class="card p-3">
+          <div class="card mt-3 p-3">
 
             <div class="bg-green-50 border-l-4 border-green-500 p-4 shadow-md rounded-lg mb-3">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

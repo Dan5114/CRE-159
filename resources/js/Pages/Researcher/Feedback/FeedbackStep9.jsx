@@ -43,7 +43,7 @@ export default function Feedback({user, research, feedbacks_step9}) {
     <label class="label label-text" for="textareaLabel"> </label>
     <textarea class="textarea" onChange={(e) => setData('comment', e.target.value)} placeholder="" id="textareaLabel"></textarea>
   </div>
-  <div class="float-end mt-3 ">
+  <div class="float-end mt-3 mb-3">
   <button type="submit" class="btn btn-primary"><span class="icon-[tabler--send] size-6 align-bottom"></span>Post Comment</button>
   </div>
   </div>     
@@ -75,12 +75,12 @@ export default function Feedback({user, research, feedbacks_step9}) {
           </span>
         <div class="mb-3 flex w-full flex-wrap items-center justify-between gap-2">
           <p>
-            CRE commented on <span class="link link-primary link-hover font-medium">{research.research_title}</span>&nbsp;<span class="badge badge-soft badge-secondary badge-sm rounded-full">Technical Panel Endorsement</span>
+            CRE commented on <span class="link link-primary link-hover font-medium">{research.research_title}</span>&nbsp;<span class="badge badge-soft badge-secondary badge-sm rounded-full">Progress Report</span>
           </p>
          
         </div>
         <div class="border-base-content/25 bg-base-200/50 rounded-lg border p-3 font-normal italic">
-        {feedback_step10.remarks}
+        {feedback_step9.remarks}
         </div>
             <div class="chat-footer float-end m-2 text-base-content/50">
         <div class="mt-3">Delivered</div>
