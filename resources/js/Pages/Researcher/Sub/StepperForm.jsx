@@ -16,7 +16,7 @@ import Step11 from "../Forms/Step11";
 import Step12 from "../Forms/Step12";
 import Step13 from "../Forms/Step13";
 
-export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, tpl_docs, ethics_docs, budget_docs, final_docs, completion_cert_docs, moa_docs, feedbacks_step1, feedbacks_step1_notif, feedbacks_step3, feedbacks_step3_notif, feedbacks_step4, feedbacks_step4_notif,feedbacks_step10, feedbacks_step10_notif, endorsement_status, tech_doc , urb_approval, progress_report, revisions_docs, turnitin_docs, user_panels, contents_mce, contents_mce_tech, contents_mce_terminal}) {
+export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, tpl_docs, ethics_docs, budget_docs, final_docs, completion_cert_docs, moa_docs, feedbacks_step1, feedbacks_step1_notif, feedbacks_step3, feedbacks_step3_notif, feedbacks_step4, feedbacks_step4_notif,feedbacks_step9, feedbacks_step9_notif, feedbacks_step10, feedbacks_step10_notif, endorsement_status, tech_doc , urb_approval, progress_report, revisions_docs, turnitin_docs, user_panels, contents_mce, contents_mce_tech, contents_mce_terminal}) {
 
   const getCurrentIndex = (user.user_type != "tpl" ? 1 : 3);
     
@@ -131,9 +131,16 @@ export default function StepperForm({research, files, user, panels, technical_do
 
 {
       (user.user_type != "tpl") ?
-      <div data-stepper-content-item='{ "index": 9 }' style={{"display" : "none"}}>
+      <div data-stepper-content-item='{ "index": 9 }' style={{"display" : "none"}} class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
       <div>
-        <Step9 user={user} research={research} progress_report={progress_report}/>
+      <div class="mb-4">
+        <h1 class="text-3xl font-bold text-gray-900">Schedule Progress Report</h1>
+        <p class="text-gray-600 mt-3">
+        An overview of the ongoing research and key progress milestones.
+</p>
+
+    </div>
+        <Step9 user={user} research={research} progress_report={progress_report} feedbacks_step9={feedbacks_step9} feedbacks_step9_notif={feedbacks_step9_notif}/>
      </div>
    </div>
    :

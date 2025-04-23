@@ -9,8 +9,9 @@ dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 import ProgressExtensionModal from '../SubForms/ProgressExtensionModal';
 dayjs.extend(localizedFormat);
+import FeedbackStep9 from '../Feedback/FeedbackStep9';
 
-export default function Step9({user, research, progress_report}) {
+export default function Step9({user, research, progress_report, feedbacks_step9, feedbacks_step9_notif}) {
     const notyf = new Notyf();
     const [state, setState] = useState([]);
     const { data, setData, post,  delete: destroy, patch, errors, reset, formState, processing, progress, recentlySuccessful } =
@@ -98,17 +99,38 @@ export default function Step9({user, research, progress_report}) {
 
   return (
     <>
-      {
+
+<nav class="tabs tabs-lifted mt-3 p-2" aria-label="Tabs" role="tablist" aria-orientation="horizontal">
+  <button type="button" class="tab active-tab:tab-active active" id="tabs-progress-item-1" data-tab="#tabs-progress-1" aria-controls="tabs-lifted-1" role="tab" aria-selected="true">
+    Progress Report
+  </button>
+  <button type="button" onClick={() => {
+    if (user.user_type === "researcher") {
+      markAsRead(research.id);
+    } else {
+      console.log("You do not have permission to perform this action.");
+    }
+  }} class="tab active-tab:tab-active" id="tabs-progress-item-2" data-tab="#tabs-progress-2" aria-controls="tabs-progress-2" role="tab" aria-selected="false">
+    Feedback
+    {
+      (feedbacks_step9_notif == 0) ? 
+      ""
+      :
+      <span class="badge bg-[#FF0000] text-white badge-sm ms-2 rounded-full">+{feedbacks_step9_notif}</span>
+    }
+    
+  </button>
+</nav>
+
+
+<div class="">
+  <div id="tabs-progress-1" role="tabpanel" aria-labelledby="tabs-progress-item-1">
+  {
         (user.user_type == "cre") ? 
         <>
                 <div>
           
           <div class="card p-3">
-  
-            <div class="mb-4">
-                <h1 class="text-3xl font-bold text-gray-900">Schedule Progress Report</h1>
-                <p class="text-gray-500 mt-2">An overview of the ongoing research and key progress milestones.</p>
-            </div>
 
             <div class="bg-green-50 border-l-4 border-green-500 p-4 shadow-md rounded-lg mb-3">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -559,6 +581,16 @@ export default function Step9({user, research, progress_report}) {
             </div>
         </>
         }
+  </div>
+
+    <div id="tabs-progress-2" class="hidden" role="tabpanel" aria-labelledby="tabs-progress-item-2">
+      <div class="vertical-scrollbar rounded-scrollbar max-h-screen w-full p-4">
+           <FeedbackStep9 user={user} research={research} feedbacks_step9={feedbacks_step9} />
+      </div>
+    </div>
+</div>
+
+  
     </>
   )
 }

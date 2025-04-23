@@ -522,6 +522,9 @@ class ResearcherController extends Controller
             $feedbacks_step4 = ResearchMessageThread::where('research_id', $value->id)->where('steps', '4')->orderBy('created_at', 'desc')->get();
             $feedbacks_step4_notif =ResearchMessageThread::where('research_id', $value->id)->where('steps', '4')->where('read_status', '0')->count();
 
+            $feedbacks_step9 = ResearchMessageThread::where('research_id', $value->id)->where('steps', '9')->orderBy('created_at', 'desc')->get();
+            $feedbacks_step9_notif =ResearchMessageThread::where('research_id', $value->id)->where('steps', '9')->where('read_status', '0')->count();
+
             $feedbacks_step10 = ResearchMessageThread::where('research_id', $value->id)->where('steps', '10')->orderBy('created_at', 'desc')->get();
             $feedbacks_step10_notif =ResearchMessageThread::where('research_id', $value->id)->where('steps', '10')->where('read_status', '0')->count();
 
@@ -572,6 +575,8 @@ class ResearcherController extends Controller
             $feedbacks_step3_notif = null;
             $feedbacks_step4 = null;
             $feedbacks_step4_notif = null;
+            $feedbacks_step9 = null;
+            $feedbacks_step9_notif = null;
             $feedbacks_step10 = null;
             $feedbacks_step10_notif = null;
             $endorsement_status = null;
@@ -621,6 +626,8 @@ class ResearcherController extends Controller
             'feedbacks_step3_notif' => $feedbacks_step3_notif,
             'feedbacks_step4' => $feedbacks_step4,
             'feedbacks_step4_notif' => $feedbacks_step4_notif,
+            'feedbacks_step9' => $feedbacks_step9,
+            'feedbacks_step9_notif' => $feedbacks_step9_notif,
             'feedbacks_step10' => $feedbacks_step10,
             'feedbacks_step10_notif' => $feedbacks_step10_notif,
             'endorsement_status' => $endorsement_status,
