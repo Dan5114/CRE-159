@@ -17,6 +17,7 @@ class ResearchDoc extends Model
         'turnitin_status',
         'turnitin_file',
         'turnitin_path',
+        'uploader',
         'report_date',
         'file_name',
         'file_path'

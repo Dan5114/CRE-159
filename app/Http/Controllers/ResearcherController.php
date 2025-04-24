@@ -1117,6 +1117,21 @@ class ResearcherController extends Controller
         }
     }
 
+    public function cre_tagged_uploader(Request $request)
+    {
+        try {
+            $data = [
+                "uploader" => $request->uploader
+            ];
+            $research = ResearchDoc::where('id', $request->file_id)->first();
+            $research->update($data);
+
+            return redirect()->back()->with('message', 'Successfully Tagged Uploader');
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
+    }
+
     public function delete_doc(string $id)
     {
         try {

@@ -402,11 +402,32 @@ export default function Step9({user, research, progress_report, feedbacks_step9,
         <>
               <div>
           
-          <div class="card p-3">
+          <div class="card p-3 mt-3">
   
-            <div class="mb-4">
+            {/* <div class="mb-4">
                 <h1 class="text-3xl font-bold text-gray-900">Progress Report</h1>
                 <p class="text-gray-500 mt-2">An overview of the ongoing research and key progress milestones.</p>
+            </div> */}
+
+            {/* Schedule Summary */}
+            <div class="p-4 bg-gray-50 rounded-lg shadow-md border border-gray-200">
+              <h3 class="text-lg font-semibold text-gray-900">📅 Summary</h3>
+
+              {/* Completion Date */}
+              <div class="mt-3 flex items-center gap-2">
+                <p class="text-sm font-medium text-gray-700">Completion Date:</p>
+                <p class={`text-sm font-semibold ${research.date_completion ? "text-green-700" : "text-gray-400"}`}>
+                  {research.date_completion ? dayjs(research.date_completion).format("LL") : "---"}
+                </p>
+              </div>
+
+              {/* Extension Date */}
+              <div class="mt-2 flex items-center gap-2">
+                <p class="text-sm font-medium text-gray-700">Extension Date:</p>
+                <p class={`text-sm font-semibold ${research.date_extension ? "text-red-600" : "text-gray-400"}`}>
+                  {research.date_extension ? dayjs(research.date_extension).format("LL") : "---"}
+                </p>
+              </div>
             </div>
 
             <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6 mt-3 rounded-md">
@@ -483,9 +504,11 @@ export default function Step9({user, research, progress_report, feedbacks_step9,
  
  
 ) : (
+   <>
     <div className="mt-3 text-center text-green-600 font-semibold">
       ✅ The progress report has already been accepted.
     </div>
+   </>
 )}
 
 
@@ -523,12 +546,27 @@ export default function Step9({user, research, progress_report, feedbacks_step9,
         </div>
       </li>
     </ul>
-    
   </div>
 ))}
-
 </div>
 
+{
+  (report.status == "accepted" ) ?
+  <>
+    <div className="mt-4 p-4 rounded-xl bg-blue-50 border border-blue-300 text-blue-800 flex items-start space-x-3">
+      <svg className="w-6 h-6 mt-1 text-blue-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
+      </svg>
+      <div>
+        <p className="font-semibold text-blue-700">Actions needed:</p>
+        <p className="text-sm mt-1">Kindly submit a <span className="font-medium underline">hardcopy</span> of the progress report.</p>
+      </div>
+    </div>
+  </>
+  :
+  <>
+  </>
+}
 
 {report.details.length === 0 ? (
                        <>

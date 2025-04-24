@@ -8,6 +8,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime);
 import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
+import TaggingUploader from '../SubForms/TaggingUploader';
 
 export default function Step6({user, research, final_docs}) {
     const notyf = new Notyf();
@@ -194,6 +195,7 @@ export default function Step6({user, research, final_docs}) {
           <tr>
             <th class="px-4 py-3 text-left">Version #</th>
             <th class="px-4 py-3 text-left">File</th>
+            <th class="px-4 py-3 text-left">Uploader</th>
             <th class="px-4 py-3 text-left">Date Created</th>
             <th class="px-4 py-3 text-right">Actions</th>
           </tr>
@@ -203,8 +205,14 @@ export default function Step6({user, research, final_docs}) {
             <tr key={index} class="border-b hover:bg-gray-50">
               <td class="px-4 py-3 text-sm font-medium text-gray-700">V{index + 1}</td>
               <td class="px-4 py-3 text-sm font-medium text-gray-700">{final_doc.file_name}</td>
+              <td class="px-4 py-3 text-sm font-medium text-gray-700">{(final_doc.uploader == null) ? "---" : final_doc.uploader}</td>
               <td class="px-4 py-3 text-xs text-gray-500">{dayjs(final_doc.created_at).format("LLL")}</td>
               <td class="px-4 py-3 text-right">
+
+              <div class="flex justify-end gap-1">
+
+              <TaggingUploader file_id={final_doc.id} research={research} className="max-w-xl cursor-pointer" />
+
                 <button 
                   onClick={() => deleteFile(final_doc.id)}
                   class="text-red-600 hover:text-red-700"
@@ -213,6 +221,7 @@ export default function Step6({user, research, final_docs}) {
                     <path fill="currentColor" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z"/>
                   </svg>
                 </button>
+                </div>
               </td>
             </tr>
           ))}

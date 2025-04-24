@@ -62,6 +62,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/research/extension/date/{id}', [ResearcherController::class, 'research_extension_date'])->name('researcher.extension.date');
     Route::patch('/research/completion/date/{id}', [ResearcherController::class, 'research_completion_date'])->name('researcher.completion.date');
     Route::post('/cre/feedback/tinymce', [ResearcherController::class, 'update_tiny_mce'])->name('cre.tinymce.update');
+    Route::post('/cre/tag/uploader', [ResearcherController::class, 'cre_tagged_uploader'])->name('cre.tagged.uploader');
 });
 
 require __DIR__.'/auth.php';
