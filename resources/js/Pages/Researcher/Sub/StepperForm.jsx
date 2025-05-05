@@ -169,20 +169,94 @@ export default function StepperForm({research, files, user, panels, technical_do
 
 
    <div data-stepper-content-item='{ "index": 3 }'  class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
-     <div>
+  
+    <div>
+    {
+        (user.user_type == "researcher") ?
+          <>
+  <div class="accordion divide-neutral/20 divide-y bg-gray-50 rounded-lg shadow-sm">
+
+  <div class="accordion-item bg-white border-b">
+    <button class="accordion-toggle inline-flex items-center justify-between w-full px-5 py-3 text-left font-semibold text-gray-800 bg-gray-100 rounded-lg transition-all duration-300 ease-in-out" aria-controls="payment-basic-collapse" aria-expanded="true">
+      <span class="icon-[tabler--plus] accordion-item-active:hidden text-gray-500 block"></span>
+      <span class="icon-[tabler--minus] accordion-item-active:block text-gray-500 hidden"></span>
+      <span>Step 3: Instructions & Guidelines</span>
+    </button>
     
-        <div class="mb-4">
+    <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
+      <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
+        <JoditEditor
+          value={findCardByStep(instruction_content, 3)?.content || 'No Instructions Added Yet'}
+          config={{
+            height: 300,
+            resizable: false, // Disable resizing
+            allowResizeX: false, // Disable horizontal resize
+            allowResizeY: false, // Disable vertical resize
+            toolbarSticky: false, // Prevents toolbar from sticking
+            readonly: true,
+            buttons: ["print"], // Toolbar with print button
+            toolbarAdaptive: false, // Prevents adaptive toolbar changes
+          }}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+          </>
+          :
+          <></>
+       } 
+          <div class="mb-4">
         <h1 class="text-3xl font-bold text-gray-900">Technical Review Report</h1>
         <p class="text-gray-600 mt-3">
         A detailed analysis of the technical aspects of the project, including design, implementation, and quality assurance.
       </p>
     </div>
         <Step3 user={user} research={research} panels={panels} contents_mce={contents_mce} contents_mce_tech={contents_mce_tech} technical_docs={technical_docs} feedbacks_step3={feedbacks_step3} feedbacks_step3_notif={feedbacks_step3_notif}/>
-     </div>
+  </div>
    </div>
 
     <div data-stepper-content-item='{ "index": 4 }' class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
       <div>
+      {
+        (user.user_type == "researcher") ?
+          <>
+  <div class="accordion divide-neutral/20 divide-y bg-gray-50 rounded-lg shadow-sm">
+
+  <div class="accordion-item bg-white border-b">
+    <button class="accordion-toggle inline-flex items-center justify-between w-full px-5 py-3 text-left font-semibold text-gray-800 bg-gray-100 rounded-lg transition-all duration-300 ease-in-out" aria-controls="payment-basic-collapse" aria-expanded="true">
+      <span class="icon-[tabler--plus] accordion-item-active:hidden text-gray-500 block"></span>
+      <span class="icon-[tabler--minus] accordion-item-active:block text-gray-500 hidden"></span>
+      <span>Step 4: Instructions & Guidelines</span>
+    </button>
+    
+    <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
+      <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
+        <JoditEditor
+          value={findCardByStep(instruction_content, 4)?.content || 'No Instructions Added Yet'}
+          config={{
+            height: 300,
+            resizable: false, // Disable resizing
+            allowResizeX: false, // Disable horizontal resize
+            allowResizeY: false, // Disable vertical resize
+            toolbarSticky: false, // Prevents toolbar from sticking
+            readonly: true,
+            buttons: ["print"], // Toolbar with print button
+            toolbarAdaptive: false, // Prevents adaptive toolbar changes
+          }}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+          </>
+          :
+          <></>
+       } 
       <div class="mb-4">
         <h1 class="text-3xl font-bold text-gray-900">Uploading Revised Documents</h1>
         <p class="text-gray-600 mt-3">
@@ -197,6 +271,43 @@ export default function StepperForm({research, files, user, panels, technical_do
       (user.user_type != "tpl") ?
       <div data-stepper-content-item='{ "index": 5 }' style={{"display" : "none"}}>
      <div>
+     {
+        (user.user_type == "researcher") ?
+          <>
+  <div class="accordion divide-neutral/20 divide-y bg-gray-50 rounded-lg shadow-sm">
+
+  <div class="accordion-item bg-white border-b">
+    <button class="accordion-toggle inline-flex items-center justify-between w-full px-5 py-3 text-left font-semibold text-gray-800 bg-gray-100 rounded-lg transition-all duration-300 ease-in-out" aria-controls="payment-basic-collapse" aria-expanded="true">
+      <span class="icon-[tabler--plus] accordion-item-active:hidden text-gray-500 block"></span>
+      <span class="icon-[tabler--minus] accordion-item-active:block text-gray-500 hidden"></span>
+      <span>Step 5: Instructions & Guidelines</span>
+    </button>
+    
+    <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
+      <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
+        <JoditEditor
+          value={findCardByStep(instruction_content, 5)?.content || 'No Instructions Added Yet'}
+          config={{
+            height: 300,
+            resizable: false, // Disable resizing
+            allowResizeX: false, // Disable horizontal resize
+            allowResizeY: false, // Disable vertical resize
+            toolbarSticky: false, // Prevents toolbar from sticking
+            readonly: true,
+            buttons: ["print"], // Toolbar with print button
+            toolbarAdaptive: false, // Prevents adaptive toolbar changes
+          }}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+          </>
+          :
+          <></>
+       } 
         <Step5 user={user} research={research} ethics_docs={ethics_docs}/>
      </div>
    </div>
@@ -208,6 +319,43 @@ export default function StepperForm({research, files, user, panels, technical_do
       (user.user_type != "tpl") ?
       <div data-stepper-content-item='{ "index": 6 }' style={{"display" : "none"}}>
       <div>
+      {
+        (user.user_type == "researcher") ?
+          <>
+  <div class="accordion divide-neutral/20 divide-y bg-gray-50 rounded-lg shadow-sm">
+
+  <div class="accordion-item bg-white border-b">
+    <button class="accordion-toggle inline-flex items-center justify-between w-full px-5 py-3 text-left font-semibold text-gray-800 bg-gray-100 rounded-lg transition-all duration-300 ease-in-out" aria-controls="payment-basic-collapse" aria-expanded="true">
+      <span class="icon-[tabler--plus] accordion-item-active:hidden text-gray-500 block"></span>
+      <span class="icon-[tabler--minus] accordion-item-active:block text-gray-500 hidden"></span>
+      <span>Step 6: Instructions & Guidelines</span>
+    </button>
+    
+    <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
+      <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
+        <JoditEditor
+          value={findCardByStep(instruction_content, 6)?.content || 'No Instructions Added Yet'}
+          config={{
+            height: 300,
+            resizable: false, // Disable resizing
+            allowResizeX: false, // Disable horizontal resize
+            allowResizeY: false, // Disable vertical resize
+            toolbarSticky: false, // Prevents toolbar from sticking
+            readonly: true,
+            buttons: ["print"], // Toolbar with print button
+            toolbarAdaptive: false, // Prevents adaptive toolbar changes
+          }}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+          </>
+          :
+          <></>
+       } 
         <Step6 user={user} research={research} budget_docs={budget_docs}/>
      </div>
    </div>
@@ -219,6 +367,43 @@ export default function StepperForm({research, files, user, panels, technical_do
       (user.user_type != "tpl") ?
       <div data-stepper-content-item='{ "index": 7 }' style={{"display" : "none"}}>
       <div>
+      {
+        (user.user_type == "researcher") ?
+          <>
+  <div class="accordion divide-neutral/20 divide-y bg-gray-50 rounded-lg shadow-sm">
+
+  <div class="accordion-item bg-white border-b">
+    <button class="accordion-toggle inline-flex items-center justify-between w-full px-5 py-3 text-left font-semibold text-gray-800 bg-gray-100 rounded-lg transition-all duration-300 ease-in-out" aria-controls="payment-basic-collapse" aria-expanded="true">
+      <span class="icon-[tabler--plus] accordion-item-active:hidden text-gray-500 block"></span>
+      <span class="icon-[tabler--minus] accordion-item-active:block text-gray-500 hidden"></span>
+      <span>Step 7: Instructions & Guidelines</span>
+    </button>
+    
+    <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
+      <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
+        <JoditEditor
+          value={findCardByStep(instruction_content, 7)?.content || 'No Instructions Added Yet'}
+          config={{
+            height: 300,
+            resizable: false, // Disable resizing
+            allowResizeX: false, // Disable horizontal resize
+            allowResizeY: false, // Disable vertical resize
+            toolbarSticky: false, // Prevents toolbar from sticking
+            readonly: true,
+            buttons: ["print"], // Toolbar with print button
+            toolbarAdaptive: false, // Prevents adaptive toolbar changes
+          }}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+          </>
+          :
+          <></>
+       } 
         <Step7 user={user} research={research} urb_approval={urb_approval}/>
      </div>
     </div>
@@ -230,6 +415,43 @@ export default function StepperForm({research, files, user, panels, technical_do
       (user.user_type != "tpl") ?
       <div data-stepper-content-item='{ "index": 8 }' style={{"display" : "none"}}>
       <div>
+      {
+        (user.user_type == "researcher") ?
+          <>
+  <div class="accordion divide-neutral/20 divide-y bg-gray-50 rounded-lg shadow-sm">
+
+  <div class="accordion-item bg-white border-b">
+    <button class="accordion-toggle inline-flex items-center justify-between w-full px-5 py-3 text-left font-semibold text-gray-800 bg-gray-100 rounded-lg transition-all duration-300 ease-in-out" aria-controls="payment-basic-collapse" aria-expanded="true">
+      <span class="icon-[tabler--plus] accordion-item-active:hidden text-gray-500 block"></span>
+      <span class="icon-[tabler--minus] accordion-item-active:block text-gray-500 hidden"></span>
+      <span>Step 8: Instructions & Guidelines</span>
+    </button>
+    
+    <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
+      <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
+        <JoditEditor
+          value={findCardByStep(instruction_content, 8)?.content || 'No Instructions Added Yet'}
+          config={{
+            height: 300,
+            resizable: false, // Disable resizing
+            allowResizeX: false, // Disable horizontal resize
+            allowResizeY: false, // Disable vertical resize
+            toolbarSticky: false, // Prevents toolbar from sticking
+            readonly: true,
+            buttons: ["print"], // Toolbar with print button
+            toolbarAdaptive: false, // Prevents adaptive toolbar changes
+          }}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+          </>
+          :
+          <></>
+       } 
         <Step8 user={user} research={research} moa_docs={moa_docs}/>
      </div>
    </div>
@@ -241,6 +463,43 @@ export default function StepperForm({research, files, user, panels, technical_do
       (user.user_type != "tpl") ?
       <div data-stepper-content-item='{ "index": 9 }' style={{"display" : "none"}} class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
       <div>
+      {
+        (user.user_type == "researcher") ?
+          <>
+  <div class="accordion divide-neutral/20 divide-y bg-gray-50 rounded-lg shadow-sm">
+
+  <div class="accordion-item bg-white border-b">
+    <button class="accordion-toggle inline-flex items-center justify-between w-full px-5 py-3 text-left font-semibold text-gray-800 bg-gray-100 rounded-lg transition-all duration-300 ease-in-out" aria-controls="payment-basic-collapse" aria-expanded="true">
+      <span class="icon-[tabler--plus] accordion-item-active:hidden text-gray-500 block"></span>
+      <span class="icon-[tabler--minus] accordion-item-active:block text-gray-500 hidden"></span>
+      <span>Step 9: Instructions & Guidelines</span>
+    </button>
+    
+    <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
+      <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
+        <JoditEditor
+          value={findCardByStep(instruction_content, 9)?.content || 'No Instructions Added Yet'}
+          config={{
+            height: 300,
+            resizable: false, // Disable resizing
+            allowResizeX: false, // Disable horizontal resize
+            allowResizeY: false, // Disable vertical resize
+            toolbarSticky: false, // Prevents toolbar from sticking
+            readonly: true,
+            buttons: ["print"], // Toolbar with print button
+            toolbarAdaptive: false, // Prevents adaptive toolbar changes
+          }}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+          </>
+          :
+          <></>
+       } 
       <div class="mb-4">
         <h1 class="text-3xl font-bold text-gray-900">Schedule Progress Report</h1>
         <p class="text-gray-600 mt-3">
@@ -259,6 +518,43 @@ export default function StepperForm({research, files, user, panels, technical_do
 
       <div data-stepper-content-item='{ "index": 10 }' style={{"display" : "none"}} class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
       <div>
+      {
+        (user.user_type == "researcher") ?
+          <>
+  <div class="accordion divide-neutral/20 divide-y bg-gray-50 rounded-lg shadow-sm">
+
+  <div class="accordion-item bg-white border-b">
+    <button class="accordion-toggle inline-flex items-center justify-between w-full px-5 py-3 text-left font-semibold text-gray-800 bg-gray-100 rounded-lg transition-all duration-300 ease-in-out" aria-controls="payment-basic-collapse" aria-expanded="true">
+      <span class="icon-[tabler--plus] accordion-item-active:hidden text-gray-500 block"></span>
+      <span class="icon-[tabler--minus] accordion-item-active:block text-gray-500 hidden"></span>
+      <span>Step 10: Instructions & Guidelines</span>
+    </button>
+    
+    <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
+      <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
+        <JoditEditor
+          value={findCardByStep(instruction_content, 10)?.content || 'No Instructions Added Yet'}
+          config={{
+            height: 300,
+            resizable: false, // Disable resizing
+            allowResizeX: false, // Disable horizontal resize
+            allowResizeY: false, // Disable vertical resize
+            toolbarSticky: false, // Prevents toolbar from sticking
+            readonly: true,
+            buttons: ["print"], // Toolbar with print button
+            toolbarAdaptive: false, // Prevents adaptive toolbar changes
+          }}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+          </>
+          :
+          <></>
+       } 
       <div class="mb-4">
         <h1 class="text-3xl font-bold text-gray-900">Terminal Review Endorsement</h1>
         <p class="text-gray-600 mt-3">
@@ -275,6 +571,43 @@ export default function StepperForm({research, files, user, panels, technical_do
       (user.user_type != "tpl") ?
       <div data-stepper-content-item='{ "index": 11 }' style={{"display" : "none"}}>
       <div>
+      {
+        (user.user_type == "researcher") ?
+          <>
+  <div class="accordion divide-neutral/20 divide-y bg-gray-50 rounded-lg shadow-sm">
+
+  <div class="accordion-item bg-white border-b">
+    <button class="accordion-toggle inline-flex items-center justify-between w-full px-5 py-3 text-left font-semibold text-gray-800 bg-gray-100 rounded-lg transition-all duration-300 ease-in-out" aria-controls="payment-basic-collapse" aria-expanded="true">
+      <span class="icon-[tabler--plus] accordion-item-active:hidden text-gray-500 block"></span>
+      <span class="icon-[tabler--minus] accordion-item-active:block text-gray-500 hidden"></span>
+      <span>Step 11: Instructions & Guidelines</span>
+    </button>
+    
+    <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
+      <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
+        <JoditEditor
+          value={findCardByStep(instruction_content, 11)?.content || 'No Instructions Added Yet'}
+          config={{
+            height: 300,
+            resizable: false, // Disable resizing
+            allowResizeX: false, // Disable horizontal resize
+            allowResizeY: false, // Disable vertical resize
+            toolbarSticky: false, // Prevents toolbar from sticking
+            readonly: true,
+            buttons: ["print"], // Toolbar with print button
+            toolbarAdaptive: false, // Prevents adaptive toolbar changes
+          }}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+          </>
+          :
+          <></>
+       } 
         <Step11 user={user} research={research} turnitin_docs={turnitin_docs}/>
      </div>
    </div>
@@ -286,6 +619,43 @@ export default function StepperForm({research, files, user, panels, technical_do
       (user.user_type != "tpl") ?
       <div data-stepper-content-item='{ "index": 12 }' style={{"display" : "none"}}>
       <div>
+      {
+        (user.user_type == "researcher") ?
+          <>
+  <div class="accordion divide-neutral/20 divide-y bg-gray-50 rounded-lg shadow-sm">
+
+  <div class="accordion-item bg-white border-b">
+    <button class="accordion-toggle inline-flex items-center justify-between w-full px-5 py-3 text-left font-semibold text-gray-800 bg-gray-100 rounded-lg transition-all duration-300 ease-in-out" aria-controls="payment-basic-collapse" aria-expanded="true">
+      <span class="icon-[tabler--plus] accordion-item-active:hidden text-gray-500 block"></span>
+      <span class="icon-[tabler--minus] accordion-item-active:block text-gray-500 hidden"></span>
+      <span>Step 12: Instructions & Guidelines</span>
+    </button>
+    
+    <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
+      <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
+        <JoditEditor
+          value={findCardByStep(instruction_content, 12)?.content || 'No Instructions Added Yet'}
+          config={{
+            height: 300,
+            resizable: false, // Disable resizing
+            allowResizeX: false, // Disable horizontal resize
+            allowResizeY: false, // Disable vertical resize
+            toolbarSticky: false, // Prevents toolbar from sticking
+            readonly: true,
+            buttons: ["print"], // Toolbar with print button
+            toolbarAdaptive: false, // Prevents adaptive toolbar changes
+          }}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+          </>
+          :
+          <></>
+       } 
         <Step12 user={user} research={research} final_docs={final_docs}/>
      </div>
    </div>
@@ -298,6 +668,43 @@ export default function StepperForm({research, files, user, panels, technical_do
       (user.user_type != "tpl") ?
       <div data-stepper-content-item='{ "index": 13 }' style={{"display" : "none"}}>
       <div>
+      {
+        (user.user_type == "researcher") ?
+          <>
+  <div class="accordion divide-neutral/20 divide-y bg-gray-50 rounded-lg shadow-sm">
+
+  <div class="accordion-item bg-white border-b">
+    <button class="accordion-toggle inline-flex items-center justify-between w-full px-5 py-3 text-left font-semibold text-gray-800 bg-gray-100 rounded-lg transition-all duration-300 ease-in-out" aria-controls="payment-basic-collapse" aria-expanded="true">
+      <span class="icon-[tabler--plus] accordion-item-active:hidden text-gray-500 block"></span>
+      <span class="icon-[tabler--minus] accordion-item-active:block text-gray-500 hidden"></span>
+      <span>Step 13: Instructions & Guidelines</span>
+    </button>
+    
+    <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
+      <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
+        <JoditEditor
+          value={findCardByStep(instruction_content, 13)?.content || 'No Instructions Added Yet'}
+          config={{
+            height: 300,
+            resizable: false, // Disable resizing
+            allowResizeX: false, // Disable horizontal resize
+            allowResizeY: false, // Disable vertical resize
+            toolbarSticky: false, // Prevents toolbar from sticking
+            readonly: true,
+            buttons: ["print"], // Toolbar with print button
+            toolbarAdaptive: false, // Prevents adaptive toolbar changes
+          }}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+          </>
+          :
+          <></>
+       } 
         <Step13 user={user} research={research} completion_cert_docs={completion_cert_docs}/>
      </div>
    </div>

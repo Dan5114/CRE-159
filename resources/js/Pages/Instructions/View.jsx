@@ -50,7 +50,7 @@ export default function View(props) {
           });
     
       useEffect(() => {
-        const savedContent =  findCardByStep(props.instruction_content, stepNumber).content;
+        const savedContent =  findCardByStep(props.instruction_content, stepNumber)?.content ?? null;
         if (savedContent) {
           setContent(savedContent);
         } 
