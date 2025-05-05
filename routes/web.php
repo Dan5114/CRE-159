@@ -5,6 +5,7 @@ use App\Http\Controllers\ResearcherController;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\RequirementsController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InstructionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +30,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resources([
         'researcher' => ResearcherController::class,
         'requirements' => RequirementsController::class,
-        'panels' => PanelController::class
+        'panels' => PanelController::class,
+        'instructions' => InstructionController::class
     ]);
 
     Route::post('/researcher/file/upload', [ResearcherController::class, 'file_upload_store'])->name('researcher.upload.files');

@@ -84,6 +84,18 @@ const Navbar = () => {
         <></>
        }
 
+{
+        (user.user_type == "cre") ?
+        <>
+             <li><Link  href={route('instructions.index')}
+              active={route().current('instructions.index')}>
+               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="gray" d="M7 2a4 4 0 0 0-4 4v12a4 4 0 0 0 4 4h14V2zm4 3h7v2h-7zM5 18a2 2 0 0 1 2-2h12v4H7a2 2 0 0 1-2-2"/></svg>
+                Instructions</Link></li>
+        </>
+        :
+        <></>
+       }
+
         {/* <li class="dropdown relative inline-flex [--auto-close:inside] [--offset:9] [--placement:bottom-end] max-sm:[--placement:bottom]">
           <button id="dropdown-end" type="button" class="dropdown-toggle dropdown-open:bg-base-content/10 dropdown-open:text-base-content max-sm:px-2" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="gray"><rect width="5" height="18" x="16" y="3" rx="2"/><rect width="5" height="12" x="9.5" y="9" rx="2"/><rect width="5" height="5" x="3" y="16" rx="2"/></g></svg> Reports
