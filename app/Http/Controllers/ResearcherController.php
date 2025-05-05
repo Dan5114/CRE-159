@@ -31,6 +31,8 @@ use App\Models\ConsolidatedFeedbacks;
 use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 use App\Http\Requests\FileUploadRequest;
+use App\Models\Instruction;
+
 
 class ResearcherController extends Controller
 {
@@ -541,6 +543,9 @@ class ResearcherController extends Controller
 
             $contents_mce_terminal = ConsolidatedFeedbacks::where('research_id', $value->id)->where('steps', '10')->where('user_type', 'tpl_lead')->first();
 
+
+            $instruction_content =  Instruction::all();
+
             $step_status = [
                 "step1" => $this->getStepStatus($value->id, "1"),
                 "step2" => $this->getStepStatus($value->id, "2"),
@@ -592,6 +597,7 @@ class ResearcherController extends Controller
             $contents_mce = null;
             $contents_mce_tech = null;
             $contents_mce_terminal = null;
+            $instruction_content = null;
         }
 
         $doc_file = [
@@ -639,7 +645,8 @@ class ResearcherController extends Controller
             'authors' => $author,
             'contents_mce' => $contents_mce,
             'contents_mce_tech' => $contents_mce_tech,
-            'contents_mce_terminal' => $contents_mce_terminal
+            'contents_mce_terminal' => $contents_mce_terminal,
+            'instruction_content' => $instruction_content
         ]);
     }
 

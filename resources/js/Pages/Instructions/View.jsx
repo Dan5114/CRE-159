@@ -12,6 +12,36 @@ dayjs.extend(localizedFormat);
 
 export default function View(props) {
 
+  
+  const stepNumber = parseInt(props.id, 10);
+  const findCardByStep = (instruction_content, step) => {
+    if (!Array.isArray(instruction_content) || instruction_content.length === 0) {
+      console.warn('Invalid or empty instruction_content array.');
+      return null; // Return null if instruction_content is not an array or is empty
+    }
+  
+    if (typeof step !== 'number' || isNaN(step)) {
+      console.warn('Invalid step parameter. It must be a number.');
+      return null; // Return null if the step is not a valid number
+    }
+  
+    const card = instruction_content.find(c => {
+      if (!c.steps) {
+        console.warn('Step data is missing for some entries.');
+        return false; // Skip entries that don't have steps defined
+      }
+  
+      const stepNumber = parseInt(c.steps.replace(/[^\d]/g, '')); // Remove non-numeric characters
+      return stepNumber === step; // Compare with dynamic step parameter
+    });
+  
+    if (!card) {
+      console.warn(`No card found for Step ${step}.`);
+    }
+  
+    return card || null; // Return the found card or null if no match
+  };
+
      const editorRef = useRef(null);
       const [content, setContent] = useState("");
        const { data, setData, post, errors, reset, formState, processing, progress, recentlySuccessful } =
@@ -20,7 +50,7 @@ export default function View(props) {
           });
     
       useEffect(() => {
-        const savedContent = (props) ? props.content : null;
+        const savedContent =  findCardByStep(props.instruction_content, stepNumber).content;
         if (savedContent) {
           setContent(savedContent);
         } 
@@ -57,7 +87,7 @@ export default function View(props) {
       header={
         <div className="flex text-white">
           <h2 className="text-xl text-white font-extrabold leading-none tracking-tight">
-            View
+            View Instructions / Guidelines
           </h2>
         </div>
       }

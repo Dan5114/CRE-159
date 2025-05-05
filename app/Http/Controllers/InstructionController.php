@@ -51,8 +51,11 @@ class InstructionController extends Controller
      */
     public function show(string $id)
     {
+        $instruction_content =  Instruction::all();
+
         return Inertia::render('Instructions/View', [
-            'id' => $id
+            'id' => $id,
+            'instruction_content' => $instruction_content
         ]);
     }
 

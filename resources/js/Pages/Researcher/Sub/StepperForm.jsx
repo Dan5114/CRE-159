@@ -1,6 +1,6 @@
 import Pagination from "@/Components/Pagination";
 import { Link, useForm, usePage, router } from '@inertiajs/react';
-import { useRef, useState } from 'react';
+import { useRef, useState, useMemo } from 'react';
 import EmptyFile from '../File/EmptyFile';
 import Step1 from "../Forms/Step1";
 import Step2 from "../Forms/Step2";
@@ -15,8 +15,40 @@ import Step10 from "../Forms/Step10";
 import Step11 from "../Forms/Step11";
 import Step12 from "../Forms/Step12";
 import Step13 from "../Forms/Step13";
+import JoditEditor from "jodit-react";
 
-export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, tpl_docs, ethics_docs, budget_docs, final_docs, completion_cert_docs, moa_docs, feedbacks_step1, feedbacks_step1_notif, feedbacks_step3, feedbacks_step3_notif, feedbacks_step4, feedbacks_step4_notif,feedbacks_step9, feedbacks_step9_notif, feedbacks_step10, feedbacks_step10_notif, endorsement_status, tech_doc , urb_approval, progress_report, revisions_docs, turnitin_docs, user_panels, contents_mce, contents_mce_tech, contents_mce_terminal}) {
+export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, tpl_docs, ethics_docs, budget_docs, final_docs, completion_cert_docs, moa_docs, feedbacks_step1, feedbacks_step1_notif, feedbacks_step3, feedbacks_step3_notif, feedbacks_step4, feedbacks_step4_notif,feedbacks_step9, feedbacks_step9_notif, feedbacks_step10, feedbacks_step10_notif, endorsement_status, tech_doc , urb_approval, progress_report, revisions_docs, turnitin_docs, user_panels, contents_mce, contents_mce_tech, contents_mce_terminal, instruction_content}) {
+
+
+  const findCardByStep = (instruction_content, step) => {
+    if (!Array.isArray(instruction_content) || instruction_content.length === 0) {
+      console.warn('Invalid or empty instruction_content array.');
+      return null; // Return null if instruction_content is not an array or is empty
+    }
+  
+    if (typeof step !== 'number' || isNaN(step)) {
+      console.warn('Invalid step parameter. It must be a number.');
+      return null; // Return null if the step is not a valid number
+    }
+  
+    const card = instruction_content.find(c => {
+      if (!c.steps) {
+        console.warn('Step data is missing for some entries.');
+        return false; // Skip entries that don't have steps defined
+      }
+  
+      const stepNumber = parseInt(c.steps.replace(/[^\d]/g, '')); // Remove non-numeric characters
+      return stepNumber === step; // Compare with dynamic step parameter
+    });
+  
+    if (!card) {
+      console.warn(`No card found for Step ${step}.`);
+    }
+  
+    return card || null; // Return the found card or null if no match
+  };
+  
+
 
   const getCurrentIndex = (user.user_type != "tpl" ? 1 : 3);
     
@@ -32,6 +64,45 @@ export default function StepperForm({research, files, user, panels, technical_do
   {
     (user.user_type != "tpl") ?
       <div data-stepper-content-item='{ "index": 1 }' class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
+
+       {
+        (user.user_type == "researcher") ?
+          <>
+  <div class="accordion divide-neutral/20 divide-y bg-gray-50 rounded-lg shadow-sm">
+
+  <div class="accordion-item bg-white border-b">
+    <button class="accordion-toggle inline-flex items-center justify-between w-full px-5 py-3 text-left font-semibold text-gray-800 bg-gray-100 rounded-lg transition-all duration-300 ease-in-out" aria-controls="payment-basic-collapse" aria-expanded="true">
+      <span class="icon-[tabler--plus] accordion-item-active:hidden text-gray-500 block"></span>
+      <span class="icon-[tabler--minus] accordion-item-active:block text-gray-500 hidden"></span>
+      <span>Step 1: Instructions & Guidelines</span>
+    </button>
+    
+    <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
+      <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
+        <JoditEditor
+           value={findCardByStep(instruction_content, 1)?.content || 'No Instructions Added Yet'}
+          config={{
+            height: 300,
+            resizable: false, // Disable resizing
+            allowResizeX: false, // Disable horizontal resize
+            allowResizeY: false, // Disable vertical resize
+            toolbarSticky: false, // Prevents toolbar from sticking
+            readonly: true,
+            buttons: ["print"], // Toolbar with print button
+            toolbarAdaptive: false, // Prevents adaptive toolbar changes
+          }}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+          </>
+          :
+          <></>
+       } 
+
       <div>
         <div class="px-4 sm:px-0">
         <h1 class="text-3xl font-bold text-gray-900">Requirements for Application</h1>
@@ -52,6 +123,43 @@ export default function StepperForm({research, files, user, panels, technical_do
     (user.user_type != "tpl") ?
     <div data-stepper-content-item='{ "index": 2 }' class="card rounded-scrollbar max-h-auto p-3">
       <div>
+      {
+        (user.user_type == "researcher") ?
+          <>
+  <div class="accordion divide-neutral/20 divide-y bg-gray-50 rounded-lg shadow-sm">
+
+  <div class="accordion-item bg-white border-b">
+    <button class="accordion-toggle inline-flex items-center justify-between w-full px-5 py-3 text-left font-semibold text-gray-800 bg-gray-100 rounded-lg transition-all duration-300 ease-in-out" aria-controls="payment-basic-collapse" aria-expanded="true">
+      <span class="icon-[tabler--plus] accordion-item-active:hidden text-gray-500 block"></span>
+      <span class="icon-[tabler--minus] accordion-item-active:block text-gray-500 hidden"></span>
+      <span>Step 2: Instructions & Guidelines</span>
+    </button>
+    
+    <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
+      <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
+        <JoditEditor
+          value={findCardByStep(instruction_content, 2)?.content || 'No Instructions Added Yet'}
+          config={{
+            height: 300,
+            resizable: false, // Disable resizing
+            allowResizeX: false, // Disable horizontal resize
+            allowResizeY: false, // Disable vertical resize
+            toolbarSticky: false, // Prevents toolbar from sticking
+            readonly: true,
+            buttons: ["print"], // Toolbar with print button
+            toolbarAdaptive: false, // Prevents adaptive toolbar changes
+          }}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+          </>
+          :
+          <></>
+       } 
         <Step2 user={user} research={research} panels={panels} user_panels={user_panels}/>
       </div>
    </div>
