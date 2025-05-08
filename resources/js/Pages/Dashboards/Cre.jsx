@@ -17,6 +17,7 @@ function Cre({counter, research_counter}) {
     { title: "Turnitin", step: "Step 11", count: counter?.step11.count, description: "Checking for plagiarism and originality.", link: counter?.step11.url },
     { title: "Acceptance of Final Document", step: "Step 12", count: counter?.step12.count, description: "Final approval of completed research.", link: counter?.step13.url },
     { title: "Certificate of Completion", step: "Step 13", count: counter?.step13.count, description: "Issuing certification for completed research.", link: counter?.step13.url },
+    { title: "Releasing of Second Trench", step: "Budget Releasing", count: 0, description: "Releasing of Budget", link: "" },
   ];
 
 
