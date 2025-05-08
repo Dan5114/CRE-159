@@ -133,7 +133,7 @@ export default function View(props) {
 <button
        type="button"
        onClick={saveContent}
-       className="btn btn-primary flex items-center gap-2 mt-2"
+       className="btn btn-primary w-[200px] flex items-center ml-auto gap-2 mt-2"
      >
        <span className="icon-[tabler--file] size-6 align-bottom"></span>
        Save Changes

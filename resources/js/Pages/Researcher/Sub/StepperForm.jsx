@@ -1,7 +1,3 @@
-import Pagination from "@/Components/Pagination";
-import { Link, useForm, usePage, router } from '@inertiajs/react';
-import { useRef, useState, useMemo } from 'react';
-import EmptyFile from '../File/EmptyFile';
 import Step1 from "../Forms/Step1";
 import Step2 from "../Forms/Step2";
 import Step3 from "../Forms/Step3";
@@ -15,41 +11,9 @@ import Step10 from "../Forms/Step10";
 import Step11 from "../Forms/Step11";
 import Step12 from "../Forms/Step12";
 import Step13 from "../Forms/Step13";
-import JoditEditor from "jodit-react";
+import InstructionEditor from './InstructionEditor';
 
 export default function StepperForm({research, files, user, panels, technical_docs, revised_docs, tpl_docs, ethics_docs, budget_docs, final_docs, completion_cert_docs, moa_docs, feedbacks_step1, feedbacks_step1_notif, feedbacks_step3, feedbacks_step3_notif, feedbacks_step4, feedbacks_step4_notif,feedbacks_step9, feedbacks_step9_notif, feedbacks_step10, feedbacks_step10_notif, endorsement_status, tech_doc , urb_approval, progress_report, revisions_docs, turnitin_docs, user_panels, contents_mce, contents_mce_tech, contents_mce_terminal, instruction_content}) {
-
-
-  const findCardByStep = (instruction_content, step) => {
-    if (!Array.isArray(instruction_content) || instruction_content.length === 0) {
-      console.warn('Invalid or empty instruction_content array.');
-      return null; // Return null if instruction_content is not an array or is empty
-    }
-  
-    if (typeof step !== 'number' || isNaN(step)) {
-      console.warn('Invalid step parameter. It must be a number.');
-      return null; // Return null if the step is not a valid number
-    }
-  
-    const card = instruction_content.find(c => {
-      if (!c.steps) {
-        console.warn('Step data is missing for some entries.');
-        return false; // Skip entries that don't have steps defined
-      }
-  
-      const stepNumber = parseInt(c.steps.replace(/[^\d]/g, '')); // Remove non-numeric characters
-      return stepNumber === step; // Compare with dynamic step parameter
-    });
-  
-    if (!card) {
-      console.warn(`No card found for Step ${step}.`);
-    }
-  
-    return card || null; // Return the found card or null if no match
-  };
-  
-
-
   const getCurrentIndex = (user.user_type != "tpl" ? 1 : 3);
     
     const openLinkFile = (url) => {
@@ -79,7 +43,7 @@ export default function StepperForm({research, files, user, panels, technical_do
     
     <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
       <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
-        <JoditEditor
+        {/* <JoditEditor
            value={findCardByStep(instruction_content, 1)?.content || 'No Instructions Added Yet'}
           config={{
             height: 300,
@@ -91,7 +55,8 @@ export default function StepperForm({research, files, user, panels, technical_do
             buttons: ["print"], // Toolbar with print button
             toolbarAdaptive: false, // Prevents adaptive toolbar changes
           }}
-        />
+        /> */}
+         <InstructionEditor instruction_content={instruction_content} step={1} />
       </div>
     </div>
   </div>
@@ -137,19 +102,7 @@ export default function StepperForm({research, files, user, panels, technical_do
     
     <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
       <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
-        <JoditEditor
-          value={findCardByStep(instruction_content, 2)?.content || 'No Instructions Added Yet'}
-          config={{
-            height: 300,
-            resizable: false, // Disable resizing
-            allowResizeX: false, // Disable horizontal resize
-            allowResizeY: false, // Disable vertical resize
-            toolbarSticky: false, // Prevents toolbar from sticking
-            readonly: true,
-            buttons: ["print"], // Toolbar with print button
-            toolbarAdaptive: false, // Prevents adaptive toolbar changes
-          }}
-        />
+      <InstructionEditor instruction_content={instruction_content} step={2} />
       </div>
     </div>
   </div>
@@ -185,19 +138,7 @@ export default function StepperForm({research, files, user, panels, technical_do
     
     <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
       <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
-        <JoditEditor
-          value={findCardByStep(instruction_content, 3)?.content || 'No Instructions Added Yet'}
-          config={{
-            height: 300,
-            resizable: false, // Disable resizing
-            allowResizeX: false, // Disable horizontal resize
-            allowResizeY: false, // Disable vertical resize
-            toolbarSticky: false, // Prevents toolbar from sticking
-            readonly: true,
-            buttons: ["print"], // Toolbar with print button
-            toolbarAdaptive: false, // Prevents adaptive toolbar changes
-          }}
-        />
+      <InstructionEditor instruction_content={instruction_content} step={3} />
       </div>
     </div>
   </div>
@@ -234,19 +175,7 @@ export default function StepperForm({research, files, user, panels, technical_do
     
     <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
       <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
-        <JoditEditor
-          value={findCardByStep(instruction_content, 4)?.content || 'No Instructions Added Yet'}
-          config={{
-            height: 300,
-            resizable: false, // Disable resizing
-            allowResizeX: false, // Disable horizontal resize
-            allowResizeY: false, // Disable vertical resize
-            toolbarSticky: false, // Prevents toolbar from sticking
-            readonly: true,
-            buttons: ["print"], // Toolbar with print button
-            toolbarAdaptive: false, // Prevents adaptive toolbar changes
-          }}
-        />
+      <InstructionEditor instruction_content={instruction_content} step={4} />
       </div>
     </div>
   </div>
@@ -285,19 +214,7 @@ export default function StepperForm({research, files, user, panels, technical_do
     
     <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
       <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
-        <JoditEditor
-          value={findCardByStep(instruction_content, 5)?.content || 'No Instructions Added Yet'}
-          config={{
-            height: 300,
-            resizable: false, // Disable resizing
-            allowResizeX: false, // Disable horizontal resize
-            allowResizeY: false, // Disable vertical resize
-            toolbarSticky: false, // Prevents toolbar from sticking
-            readonly: true,
-            buttons: ["print"], // Toolbar with print button
-            toolbarAdaptive: false, // Prevents adaptive toolbar changes
-          }}
-        />
+      <InstructionEditor instruction_content={instruction_content} step={5} />
       </div>
     </div>
   </div>
@@ -333,19 +250,7 @@ export default function StepperForm({research, files, user, panels, technical_do
     
     <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
       <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
-        <JoditEditor
-          value={findCardByStep(instruction_content, 6)?.content || 'No Instructions Added Yet'}
-          config={{
-            height: 300,
-            resizable: false, // Disable resizing
-            allowResizeX: false, // Disable horizontal resize
-            allowResizeY: false, // Disable vertical resize
-            toolbarSticky: false, // Prevents toolbar from sticking
-            readonly: true,
-            buttons: ["print"], // Toolbar with print button
-            toolbarAdaptive: false, // Prevents adaptive toolbar changes
-          }}
-        />
+      <InstructionEditor instruction_content={instruction_content} step={6} />
       </div>
     </div>
   </div>
@@ -381,19 +286,7 @@ export default function StepperForm({research, files, user, panels, technical_do
     
     <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
       <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
-        <JoditEditor
-          value={findCardByStep(instruction_content, 7)?.content || 'No Instructions Added Yet'}
-          config={{
-            height: 300,
-            resizable: false, // Disable resizing
-            allowResizeX: false, // Disable horizontal resize
-            allowResizeY: false, // Disable vertical resize
-            toolbarSticky: false, // Prevents toolbar from sticking
-            readonly: true,
-            buttons: ["print"], // Toolbar with print button
-            toolbarAdaptive: false, // Prevents adaptive toolbar changes
-          }}
-        />
+      <InstructionEditor instruction_content={instruction_content} step={7} />
       </div>
     </div>
   </div>
@@ -429,19 +322,7 @@ export default function StepperForm({research, files, user, panels, technical_do
     
     <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
       <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
-        <JoditEditor
-          value={findCardByStep(instruction_content, 8)?.content || 'No Instructions Added Yet'}
-          config={{
-            height: 300,
-            resizable: false, // Disable resizing
-            allowResizeX: false, // Disable horizontal resize
-            allowResizeY: false, // Disable vertical resize
-            toolbarSticky: false, // Prevents toolbar from sticking
-            readonly: true,
-            buttons: ["print"], // Toolbar with print button
-            toolbarAdaptive: false, // Prevents adaptive toolbar changes
-          }}
-        />
+      <InstructionEditor instruction_content={instruction_content} step={8} />
       </div>
     </div>
   </div>
@@ -477,19 +358,7 @@ export default function StepperForm({research, files, user, panels, technical_do
     
     <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
       <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
-        <JoditEditor
-          value={findCardByStep(instruction_content, 9)?.content || 'No Instructions Added Yet'}
-          config={{
-            height: 300,
-            resizable: false, // Disable resizing
-            allowResizeX: false, // Disable horizontal resize
-            allowResizeY: false, // Disable vertical resize
-            toolbarSticky: false, // Prevents toolbar from sticking
-            readonly: true,
-            buttons: ["print"], // Toolbar with print button
-            toolbarAdaptive: false, // Prevents adaptive toolbar changes
-          }}
-        />
+      <InstructionEditor instruction_content={instruction_content} step={9} />
       </div>
     </div>
   </div>
@@ -532,19 +401,7 @@ export default function StepperForm({research, files, user, panels, technical_do
     
     <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
       <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
-        <JoditEditor
-          value={findCardByStep(instruction_content, 10)?.content || 'No Instructions Added Yet'}
-          config={{
-            height: 300,
-            resizable: false, // Disable resizing
-            allowResizeX: false, // Disable horizontal resize
-            allowResizeY: false, // Disable vertical resize
-            toolbarSticky: false, // Prevents toolbar from sticking
-            readonly: true,
-            buttons: ["print"], // Toolbar with print button
-            toolbarAdaptive: false, // Prevents adaptive toolbar changes
-          }}
-        />
+      <InstructionEditor instruction_content={instruction_content} step={10} />
       </div>
     </div>
   </div>
@@ -585,19 +442,7 @@ export default function StepperForm({research, files, user, panels, technical_do
     
     <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
       <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
-        <JoditEditor
-          value={findCardByStep(instruction_content, 11)?.content || 'No Instructions Added Yet'}
-          config={{
-            height: 300,
-            resizable: false, // Disable resizing
-            allowResizeX: false, // Disable horizontal resize
-            allowResizeY: false, // Disable vertical resize
-            toolbarSticky: false, // Prevents toolbar from sticking
-            readonly: true,
-            buttons: ["print"], // Toolbar with print button
-            toolbarAdaptive: false, // Prevents adaptive toolbar changes
-          }}
-        />
+      <InstructionEditor instruction_content={instruction_content} step={11} />
       </div>
     </div>
   </div>
@@ -633,19 +478,7 @@ export default function StepperForm({research, files, user, panels, technical_do
     
     <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
       <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
-        <JoditEditor
-          value={findCardByStep(instruction_content, 12)?.content || 'No Instructions Added Yet'}
-          config={{
-            height: 300,
-            resizable: false, // Disable resizing
-            allowResizeX: false, // Disable horizontal resize
-            allowResizeY: false, // Disable vertical resize
-            toolbarSticky: false, // Prevents toolbar from sticking
-            readonly: true,
-            buttons: ["print"], // Toolbar with print button
-            toolbarAdaptive: false, // Prevents adaptive toolbar changes
-          }}
-        />
+      <InstructionEditor instruction_content={instruction_content} step={12} />
       </div>
     </div>
   </div>
@@ -682,19 +515,7 @@ export default function StepperForm({research, files, user, panels, technical_do
     
     <div id="payment-basic-collapse" class="accordion-content w-full overflow-hidden transition-all duration-300 ease-in-out" aria-labelledby="payment-basic" role="region">
       <div class="px-5 py-4 bg-gray-50 rounded-b-lg">
-        <JoditEditor
-          value={findCardByStep(instruction_content, 13)?.content || 'No Instructions Added Yet'}
-          config={{
-            height: 300,
-            resizable: false, // Disable resizing
-            allowResizeX: false, // Disable horizontal resize
-            allowResizeY: false, // Disable vertical resize
-            toolbarSticky: false, // Prevents toolbar from sticking
-            readonly: true,
-            buttons: ["print"], // Toolbar with print button
-            toolbarAdaptive: false, // Prevents adaptive toolbar changes
-          }}
-        />
+      <InstructionEditor instruction_content={instruction_content} step={13} />
       </div>
     </div>
   </div>
