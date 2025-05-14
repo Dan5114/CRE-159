@@ -84,7 +84,7 @@ const TurnitinModal = ({ className = '', file_id, research }) => {
     </select>
   </div>
 
-  <div className="mt-4">
+  {/* <div className="mt-4">
     <label htmlFor="fileUpload" className="block text-sm font-medium text-gray-700">
       Result File
     </label>
@@ -93,7 +93,7 @@ const TurnitinModal = ({ className = '', file_id, research }) => {
       onChange={(e) => setData('document_file', e.target.files[0])}
       className="mt-1 block w-full text-sm text-gray-500"
     />
-  </div>
+  </div> */}
       
                           <div className="mt-6 flex justify-end">
                               <SecondaryButton onClick={closeModal}>

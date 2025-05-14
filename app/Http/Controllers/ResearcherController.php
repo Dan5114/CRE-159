@@ -1096,29 +1096,41 @@ class ResearcherController extends Controller
     public function turnitin_report_upload(Request $request)
     {
         try {
-            if ($request->file('document_file')){
-                $turnitin_file = $request->file('document_file');
-                $fileName_turnitin =  $turnitin_file->getClientOriginalName(); 
-                $filePath_turnitin = 'uploads/' . $turnitin_file->getClientOriginalName();
+            // if ($request->file('document_file')){
+            //     $turnitin_file = $request->file('document_file');
+            //     $fileName_turnitin =  $turnitin_file->getClientOriginalName(); 
+            //     $filePath_turnitin = 'uploads/' . $turnitin_file->getClientOriginalName();
 
+            //     $data = [
+            //         "turnitin_score" => $request->score,
+            //         "turnitin_status" => $request->status,
+            //         "turnitin_file" => $fileName_turnitin,
+            //         "turnitin_path" => $filePath_turnitin
+            //     ];
+            //     $research = ResearchDoc::where('id', $request->file_id)->first();
+            //     $research->update($data);
+            //     Storage::disk('public')->put($filePath_turnitin, file_get_contents($turnitin_file));
+
+            //     $current = Carbon::now();
+            //     $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "11")->first();
+            //     CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Completed"]);
+
+            //     $this->cre_application_status($request->research_id, "12", "Final Document", $current, $end = null, "On Process");
+
+            // }
                 $data = [
                     "turnitin_score" => $request->score,
                     "turnitin_status" => $request->status,
-                    "turnitin_file" => $fileName_turnitin,
-                    "turnitin_path" => $filePath_turnitin
                 ];
                 $research = ResearchDoc::where('id', $request->file_id)->first();
                 $research->update($data);
-                Storage::disk('public')->put($filePath_turnitin, file_get_contents($turnitin_file));
 
                 $current = Carbon::now();
                 $ApplicationStat = CreApplicationStatus::where("research_id", $request->research_id)->where("steps", "11")->first();
                 CreApplicationStatus::where("id", $ApplicationStat->id)->update(["end" => $current, "status" => "Completed"]);
 
                 $this->cre_application_status($request->research_id, "12", "Final Document", $current, $end = null, "On Process");
-
-            }
-            return redirect()->back()->with('message', 'Successfully Uploaded');
+                return redirect()->back()->with('message', 'Successfully Uploaded');
         } catch (Exception $e) {
             Log::debug($e->getMessage());
         }

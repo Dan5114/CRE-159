@@ -110,7 +110,7 @@ export default function Step10({user, research, turnitin_docs}) {
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Date Created</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Score</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Status</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Result</th>
+                {/* <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Result</th> */}
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500"></th>
               </tr>
             </thead>
@@ -127,7 +127,7 @@ export default function Step10({user, research, turnitin_docs}) {
   (turnitin_doc.turnitin_status?.toLowerCase() === "pass") ? "text-green-600" : ""}`}>
   {(turnitin_doc.turnitin_status == null) ? "---" : turnitin_doc.turnitin_status.toUpperCase()}
 </td>
-                                <td class="px-3 py-3 whitespace-nowrap text-sm font-medium">
+                                {/* <td class="px-3 py-3 whitespace-nowrap text-sm font-medium">
                                   <div class="flex gap-1">
                                   {(turnitin_doc.turnitin_status == null) ? "---" :
                                   <>
@@ -137,16 +137,16 @@ export default function Step10({user, research, turnitin_docs}) {
         </span>                                  </>
                                 }
 
-                                  {/* {
+                                  {
                                     (turnitin_doc.turnitin_file != null) ? 
                                     <>
                                      <span class="hover:cursor-pointer text-primary"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-6 4q-.825 0-1.412-.587T4 18v-3h2v3h12v-3h2v3q0 .825-.587 1.413T18 20z"/></svg></span>
                                     </>
                                     :
                                     <></>
-                                  } */}
+                                  }
                                   </div>
-                                </td>
+                                </td> */}
                                 <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
 
                                 <div class="flex justify-start gap-1">
@@ -237,7 +237,7 @@ export default function Step10({user, research, turnitin_docs}) {
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Date Created</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Score</th>
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Status</th>
-                <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Result</th>
+                {/* <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500">Result</th> */}
                 <th scope="col" class="px-3 py-3  text-start text-xs font-bolder uppercase dark:text-neutral-500"></th>
               </tr>
             </thead>
@@ -255,7 +255,7 @@ export default function Step10({user, research, turnitin_docs}) {
   {(turnitin_doc.turnitin_status == null) ? "---" : turnitin_doc.turnitin_status.toUpperCase()}
 </td>
 
-                                <td class="px-3 py-3 whitespace-nowrap text-sm font-medium">
+                                {/* <td class="px-3 py-3 whitespace-nowrap text-sm font-medium">
                                   <div class="flex gap-1">
                                   {(turnitin_doc.turnitin_status == null) ? "---" : ""}
 
@@ -268,7 +268,7 @@ export default function Step10({user, research, turnitin_docs}) {
                                     <></>
                                   }
                                   </div>
-                                </td>
+                                </td> */}
                         <td class="px-3 py-3 whitespace-nowrap text-end text-sm font-medium">
                          <div class="flex justify-start gap-1">
                             <span class="hover:cursor-pointer" onClick={() => deleteFile(turnitin_doc.id)}>

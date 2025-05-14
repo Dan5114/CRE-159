@@ -240,10 +240,14 @@ export default function Step6({user, research, final_docs}) {
       <p class="text-gray-500 text-sm mt-1">Start by uploading a new document.</p>
     </div>
   )}
-
           </div>
-        </>
 
+        <div class="flex justify-end mt-4">
+          <button type="submit" class="flex items-center gap-2 text-sm text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md shadow-md focus:outline-none">
+            <span class="icon-[tabler--check] size-5"></span>Approve by Editor
+          </button>
+        </div>
+        </>
      }
     </>
   )
