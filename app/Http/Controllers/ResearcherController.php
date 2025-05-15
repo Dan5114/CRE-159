@@ -1151,6 +1151,18 @@ class ResearcherController extends Controller
         }
     }
 
+        public function editor_approval(Request $request)
+        {
+            try {
+               $id = $request->research_id;
+               
+               Research::where('id', $id)->update(['approval' => 'Y']);
+               return redirect()->back()->with('message', 'Successfully Approved');
+            } catch (Exception $e) {
+                Log::debug($e->getMessage());
+            }
+        }
+
     public function delete_doc(string $id)
     {
         try {

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->timestamp('date_completed')->nullable();
             $table->timestamp('date_issued')->nullable();
             $table->char('status', length: 100)->default('D');
+            $table->char('approval', length: 100)->default('N');
             $table->timestamps();
         });
     }

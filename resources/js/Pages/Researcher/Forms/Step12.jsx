@@ -61,6 +61,16 @@ export default function Step6({user, research, final_docs}) {
         });
       }
 
+    const handleApprove = () => {
+      if (window.confirm("Are you sure you want to approve?")) {
+        post(route('editor.approval'), {}, {
+          preserveScroll: true,
+          onSuccess: () => notyf.success(page.props.flash.message),
+        });
+      }
+    };
+
+
   return (
     <>
       {
@@ -242,11 +252,35 @@ export default function Step6({user, research, final_docs}) {
   )}
           </div>
 
-        <div class="flex justify-end mt-4">
-          <button type="submit" class="flex items-center gap-2 text-sm text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md shadow-md focus:outline-none">
-            <span class="icon-[tabler--check] size-5"></span>Approve by Editor
+        {research.approval === 'P' ? (
+        <div className="flex justify-end mt-4">
+          <button
+            type="button"
+            onClick={handleApprove}
+            className="flex items-center gap-2 text-sm text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md shadow-md focus:outline-none"
+          >
+            <span className="icon-[tabler--check] size-5"></span>
+            Approve by Editor
           </button>
         </div>
+      ) : (
+                      <div class="bg-green-50 border-l-4 mt-3 border-green-500 p-6 shadow-md rounded-lg">
+                                 <div class="flex items-start">
+            <div class="flex-shrink-0">
+              <svg class="h-6 w-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+            </div>
+            <div class="ml-4 flex-1">
+              <h3 class="text-xl font-semibold text-gray-800">Your Application Has Been Approved!</h3>
+              <p class="mt-2 text-gray-600">Congratulations! Your application has been successfully approved. You can now proceed to the next steps.</p>
+              
+            </div>
+          </div>
+        </div>
+      )}
+
+
         </>
      }
     </>

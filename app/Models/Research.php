@@ -20,7 +20,8 @@ class Research extends Model
         'reference',
         'dept_id',
         'type',
-        'user_id'
+        'user_id',
+        'approval'
     ];
 
     public function app_status(): BelongsTo
