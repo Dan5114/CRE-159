@@ -140,7 +140,6 @@ const exportToExcel = () => {
     resizable: false, // Disable resizing
         allowResizeX: false, // Disable horizontal resize
         allowResizeY: false, // Disable vertical resize
-        toolbarSticky: false, 
     toolbar: [
       "undo", "redo", "|",
       "bold", "italic", "underline", "|",
@@ -172,7 +171,6 @@ Print Form
       resizable: false, // Disable resizing
           allowResizeX: false, // Disable horizontal resize
           allowResizeY: false, // Disable vertical resize
-          toolbarSticky: false, 
       toolbar: [
         "undo", "redo", "|",
         "bold", "italic", "underline", "|",
@@ -194,7 +192,6 @@ Print Form
         resizable: false, // Disable resizing
             allowResizeX: false, // Disable horizontal resize
             allowResizeY: false, // Disable vertical resize
-            toolbarSticky: false, 
         toolbar: [
           "undo", "redo", "|",
           "bold", "italic", "underline", "|",
@@ -202,7 +199,6 @@ Print Form
         ],
         readonly: true,
         buttons: ["bold", "italic", "underline"], // Only show these buttons
-        toolbarSticky: false, // Prevents toolbar from sticking
         toolbarAdaptive: false, // Prevents adaptive toolbar changes
       }}
     />

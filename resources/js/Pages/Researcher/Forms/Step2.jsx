@@ -310,7 +310,6 @@ export default function Step2({user, research, panels, user_panels}) {
                 resizable: false, // Disable resizing
                     allowResizeX: false, // Disable horizontal resize
                     allowResizeY: false, // Disable vertical resize
-                    toolbarSticky: false, 
                 toolbar: [
                   "undo", "redo", "|",
                   "bold", "italic", "underline", "|",
