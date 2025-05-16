@@ -198,7 +198,7 @@ export default function StepperForm({research, files, user, panels, technical_do
 
     {
       (user.user_type != "tpl") ?
-      <div data-stepper-content-item='{ "index": 5 }' style={{"display" : "none"}}>
+      <div data-stepper-content-item='{ "index": 5 }' style={{"display" : "none"}} class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
      <div>
      {
         (user.user_type == "researcher") ?
@@ -234,7 +234,7 @@ export default function StepperForm({research, files, user, panels, technical_do
 
     {
       (user.user_type != "tpl") ?
-      <div data-stepper-content-item='{ "index": 6 }' style={{"display" : "none"}}>
+      <div data-stepper-content-item='{ "index": 6 }' style={{"display" : "none"}} class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
       <div>
       {
         (user.user_type == "researcher") ?
@@ -270,7 +270,7 @@ export default function StepperForm({research, files, user, panels, technical_do
 
     {
       (user.user_type != "tpl") ?
-      <div data-stepper-content-item='{ "index": 7 }' style={{"display" : "none"}}>
+      <div data-stepper-content-item='{ "index": 7 }' style={{"display" : "none"}} class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
       <div>
       {
         (user.user_type == "researcher") ?
@@ -306,7 +306,7 @@ export default function StepperForm({research, files, user, panels, technical_do
 
     {
       (user.user_type != "tpl") ?
-      <div data-stepper-content-item='{ "index": 8 }' style={{"display" : "none"}}>
+      <div data-stepper-content-item='{ "index": 8 }' style={{"display" : "none"}} class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
       <div>
       {
         (user.user_type == "researcher") ?
@@ -426,7 +426,7 @@ export default function StepperForm({research, files, user, panels, technical_do
 
 {
       (user.user_type != "tpl") ?
-      <div data-stepper-content-item='{ "index": 11 }' style={{"display" : "none"}}>
+      <div data-stepper-content-item='{ "index": 11 }' style={{"display" : "none"}} class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
       <div>
       {
         (user.user_type == "researcher") ?
@@ -462,7 +462,7 @@ export default function StepperForm({research, files, user, panels, technical_do
 
 {
       (user.user_type != "tpl") ?
-      <div data-stepper-content-item='{ "index": 12 }' style={{"display" : "none"}}>
+      <div data-stepper-content-item='{ "index": 12 }' style={{"display" : "none"}} class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
       <div>
       {
         (user.user_type == "researcher") ?
@@ -499,7 +499,7 @@ export default function StepperForm({research, files, user, panels, technical_do
 
 {
       (user.user_type != "tpl") ?
-      <div data-stepper-content-item='{ "index": 13 }' style={{"display" : "none"}}>
+      <div data-stepper-content-item='{ "index": 13 }' style={{"display" : "none"}} class="vertical-scrollbar card rounded-scrollbar max-h-auto p-3">
       <div>
       {
         (user.user_type == "researcher") ?
