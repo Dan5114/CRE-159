@@ -257,7 +257,7 @@ export default function Step6({user, research, final_docs}) {
           <button
             type="button"
             onClick={handleApprove}
-            className="flex items-center gap-2 text-sm text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md shadow-md focus:outline-none"
+            className="flex items-center gap-2 text-sm text-white bg-green-600 hover:bg-green-700 px-4 py-2 rounded-md shadow-md focus:outline-none"
           >
             <span className="icon-[tabler--check] size-5"></span>
             Approve by Editor
