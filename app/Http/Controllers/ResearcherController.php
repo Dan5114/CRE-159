@@ -26,12 +26,14 @@ use App\Models\TplEndorsementPaper;
 use App\Models\ResearchMember;
 use App\Models\UrbApproval;
 use App\Models\CreProgressReportHeader;
+use App\Models\ResearchBudgetTranche;
 use App\Models\ProgressReportDetail;
 use App\Models\ConsolidatedFeedbacks;
 use Carbon\Carbon;
 use Illuminate\Validation\ValidationException;
 use App\Http\Requests\FileUploadRequest;
 use App\Models\Instruction;
+use Illuminate\Support\Facades\DB;
 
 
 class ResearcherController extends Controller
@@ -102,7 +104,11 @@ class ResearcherController extends Controller
             ->paginate(8);
         }
         else{
-            $researchs = Research::with(['department', 'author', 'app_status' => function ($query) {
+            $researchs = Research::with(['department', 'author', 
+            'tranche' => function ($query) {
+                $query->orderBy('created_at', 'ASC'); // or any valid field in tbl_research_budget_tranche
+            },
+            'app_status' => function ($query) {
                 $query->orderBy('tbl_cre_application_status.start', 'ASC');
             }])
             ->when($search, function ($query, $search) {
@@ -141,6 +147,11 @@ class ResearcherController extends Controller
                 return $query->whereHas('app_status', function ($q) use ($step) {
                     $q->where('tbl_cre_application_status.steps', $step)
                       ->where('tbl_cre_application_status.status', 'On Process');
+                });
+            })
+            ->when(request()->filled('releasing'), function ($query) {
+                return $query->whereHas('tranche', function ($q) {
+                    $q->where('status', 'For Releasing');
                 });
             })
             ->where('status', '!=', 'D')
@@ -1056,7 +1067,19 @@ class ResearcherController extends Controller
     public function progress_report_accept(Request $request, string $id)
     {
         try {
-            CreProgressReportHeader::where('id', $id)->update(['status' => 'accepted']);
+            DB::beginTransaction();
+
+            // Update progress report status
+            CreProgressReportHeader::where('id', $id)->update([
+                'status' => 'accepted'
+            ]);
+
+            ResearchBudgetTranche::firstOrCreate(
+                ['research_id' => $request->research_id],
+                ['status' => 'For Releasing']
+            );
+
+            DB::commit();
             return redirect()->back()->with('message', 'Successfully update status');
         } catch (Exception $e) {
             Log::debug($e->getMessage());

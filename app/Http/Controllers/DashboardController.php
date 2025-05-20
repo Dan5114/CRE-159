@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Research;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -52,26 +53,43 @@ class DashboardController extends Controller
     public function cre_counters()
     {
         $steps = ["1", "2", "3", "6", "7", "8", "9", "11", "12", "13"];
-        $counts = Research::with('app_status')
-            ->whereHas('app_status', function ($query) use ($steps) {
-                $query->where('status', 'On Process')->whereIn('steps', $steps);
-            })
-            ->join('tbl_cre_application_status', 'tbl_research.id', '=', 'tbl_cre_application_status.research_id')
-            ->where('tbl_cre_application_status.status', 'On Process')
-            ->whereIn('tbl_cre_application_status.steps', $steps)
-            ->selectRaw('tbl_cre_application_status.steps, COUNT(*) as total_count')
-            ->groupBy('tbl_cre_application_status.steps')
-            ->pluck('total_count', 'tbl_cre_application_status.steps');
 
-            return collect($steps)->mapWithKeys(function ($step) use ($counts) {
-                $count = $counts[$step] ?? 0;
-                return [
-                    "step$step" => [
-                        "count" => $count,
-                        "url"   => $count > 0 ? route('researcher.index', ['step' => $step]) : null, // Only add URL if count > 0
-                    ]
-                ];
-            })->toArray();
+        // Step counts (same as before)
+$stepRows = DB::table('tbl_research')
+    ->join('tbl_cre_application_status', 'tbl_research.id', '=', 'tbl_cre_application_status.research_id')
+    ->where('tbl_cre_application_status.status', 'On Process')
+    ->whereIn('tbl_cre_application_status.steps', $steps)
+    ->selectRaw('tbl_cre_application_status.steps, COUNT(*) as total_count')
+    ->groupBy('tbl_cre_application_status.steps')
+    ->get()
+    ->keyBy('steps');
+
+// Releasing count (separate)
+$releasingCount = DB::table('tbl_research_budget_tranche')
+    ->where('status', 'For Releasing')
+    ->distinct('research_id') // Count distinct research entries
+    ->count('research_id');
+
+// Format step data
+$stepData = collect($steps)->mapWithKeys(function ($step) use ($stepRows) {
+    $count = $stepRows[$step]->total_count ?? 0;
+    return [
+        "step$step" => [
+            "count" => $count,
+            "url"   => $count > 0 ? route('researcher.index', ['step' => $step]) : null,
+        ]
+    ];
+});
+
+// Add releasing count as separate entry
+$stepData['releasing'] = [
+    'count' => $releasingCount,
+    'url'   => $releasingCount > 0 ? route('researcher.index', ['releasing' => true]) : null,
+];
+
+// Return final result
+return $stepData->toArray();
+
     }
 
     public function requirements()

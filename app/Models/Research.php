@@ -33,6 +33,11 @@ class Research extends Model
         ]);
     }
 
+    public function tranche()
+    {
+        return $this->hasOne(ResearchBudgetTranche::class, 'research_id');
+    }
+
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
