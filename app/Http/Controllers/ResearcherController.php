@@ -304,6 +304,12 @@ class ResearcherController extends Controller
             ];
             ProgressReportDetail::create($progressdata);
 
+            // FOR BUDGET RELEASING
+            ResearchBudgetTranche::create([
+                'research_id' => $request->research_id,
+                'status' => 'For Releasing'
+            ]);            
+
             return redirect()->back()->with('message', 'Submitted Successfully');
         } catch (Exception $e) {
             Log::debug($e->getMessage());
@@ -1074,10 +1080,10 @@ class ResearcherController extends Controller
                 'status' => 'accepted'
             ]);
 
-            ResearchBudgetTranche::firstOrCreate(
-                ['research_id' => $request->research_id],
-                ['status' => 'For Releasing']
-            );
+            // ResearchBudgetTranche::create(
+            //     ['research_id' => $request->research_id],
+            //     ['status' => 'For Releasing']
+            // );
 
             DB::commit();
             return redirect()->back()->with('message', 'Successfully update status');

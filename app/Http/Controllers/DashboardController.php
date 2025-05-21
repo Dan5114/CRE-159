@@ -55,41 +55,39 @@ class DashboardController extends Controller
         $steps = ["1", "2", "3", "6", "7", "8", "9", "11", "12", "13"];
 
         // Step counts (same as before)
-$stepRows = DB::table('tbl_research')
-    ->join('tbl_cre_application_status', 'tbl_research.id', '=', 'tbl_cre_application_status.research_id')
-    ->where('tbl_cre_application_status.status', 'On Process')
-    ->whereIn('tbl_cre_application_status.steps', $steps)
-    ->selectRaw('tbl_cre_application_status.steps, COUNT(*) as total_count')
-    ->groupBy('tbl_cre_application_status.steps')
-    ->get()
-    ->keyBy('steps');
+        $stepRows = DB::table('tbl_research')
+            ->join('tbl_cre_application_status', 'tbl_research.id', '=', 'tbl_cre_application_status.research_id')
+            ->where('tbl_cre_application_status.status', 'On Process')
+            ->whereIn('tbl_cre_application_status.steps', $steps)
+            ->selectRaw('tbl_cre_application_status.steps, COUNT(*) as total_count')
+            ->groupBy('tbl_cre_application_status.steps')
+            ->get()
+            ->keyBy('steps');
 
-// Releasing count (separate)
-$releasingCount = DB::table('tbl_research_budget_tranche')
-    ->where('status', 'For Releasing')
-    ->distinct('research_id') // Count distinct research entries
-    ->count('research_id');
+        // Releasing count (separate)
+        $releasingCount = DB::table('tbl_research_budget_tranche')
+            ->where('status', 'For Releasing')
+            ->count('research_id');
 
-// Format step data
-$stepData = collect($steps)->mapWithKeys(function ($step) use ($stepRows) {
-    $count = $stepRows[$step]->total_count ?? 0;
-    return [
-        "step$step" => [
-            "count" => $count,
-            "url"   => $count > 0 ? route('researcher.index', ['step' => $step]) : null,
-        ]
-    ];
-});
+        // Format step data
+        $stepData = collect($steps)->mapWithKeys(function ($step) use ($stepRows) {
+            $count = $stepRows[$step]->total_count ?? 0;
+            return [
+                "step$step" => [
+                    "count" => $count,
+                    "url"   => $count > 0 ? route('researcher.index', ['step' => $step]) : null,
+                ]
+            ];
+        });
 
-// Add releasing count as separate entry
-$stepData['releasing'] = [
-    'count' => $releasingCount,
-    'url'   => $releasingCount > 0 ? route('researcher.index', ['releasing' => true]) : null,
-];
+        // Add releasing count as separate entry
+        $stepData['releasing'] = [
+            'count' => $releasingCount,
+            'url'   => $releasingCount > 0 ? route('researcher.index', ['releasing' => true]) : null,
+        ];
 
-// Return final result
-return $stepData->toArray();
-
+        // Return final result
+        return $stepData->toArray();
     }
 
     public function requirements()
