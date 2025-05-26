@@ -307,6 +307,7 @@ class ResearcherController extends Controller
             // FOR BUDGET RELEASING
             ResearchBudgetTranche::create([
                 'research_id' => $request->research_id,
+                'progress_report_id' => $request->id,
                 'status' => 'For Releasing'
             ]);            
 
@@ -562,6 +563,8 @@ class ResearcherController extends Controller
 
 
             $instruction_content =  Instruction::all();
+            $get_rerc_date_submitted = DB::table('research_rero_sched')->where('research_id', $value->id)->first();
+
 
             $step_status = [
                 "step1" => $this->getStepStatus($value->id, "1"),
@@ -615,6 +618,7 @@ class ResearcherController extends Controller
             $contents_mce_tech = null;
             $contents_mce_terminal = null;
             $instruction_content = null;
+            $get_rerc_date_submitted = null;
         }
 
         $doc_file = [
@@ -663,7 +667,8 @@ class ResearcherController extends Controller
             'contents_mce' => $contents_mce,
             'contents_mce_tech' => $contents_mce_tech,
             'contents_mce_terminal' => $contents_mce_terminal,
-            'instruction_content' => $instruction_content
+            'instruction_content' => $instruction_content,
+            'get_rerc_date_submitted' => $get_rerc_date_submitted
         ]);
     }
 

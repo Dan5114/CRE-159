@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tbl_research_budget_tranche', function (Blueprint $table) {
+        Schema::create('research_rero_sched', function (Blueprint $table) {
             $table->id();
             $table->foreignId('research_id');
-            $table->foreignId('progress_report_id');
-            $table->char('status', length: 25)->default('P');
+            $table->timestamp('date_submitted')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tbl_research_budget_tranche');
+        Schema::dropIfExists('research_rero_sched');
     }
 };

@@ -5,7 +5,7 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 dayjs.extend(localizedFormat);
 import DurationDays from "./DurationDays";
 
-export default function StepperForm({research_logs, step_status, user, tech_doc}) {
+export default function StepperForm({research_logs, step_status, user, tech_doc, get_rerc_date_submitted}) {
 
   const status_step1 = step_status.step1;
   const status_step2 = step_status.step2;
@@ -253,8 +253,8 @@ export default function StepperForm({research_logs, step_status, user, tech_doc}
 
  <DurationDays start_date={status_step4?.start} end_date={status_step4?.end} />
 
-
-
+<hr className="mt-2 mb-2"/>
+ <span>RERC Date Submitted : {(get_rerc_date_submitted) ? dayjs(get_rerc_date_submitted.date_submitted).format("LLL") : <span className="text-xs text-red-500">Not Yet</span>}</span>
              </div>
              </div>
     </div>

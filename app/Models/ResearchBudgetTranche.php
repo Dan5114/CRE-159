@@ -10,6 +10,7 @@ class ResearchBudgetTranche extends Model
 
     protected $fillable = [
         'research_id',
+        'progress_report_id',
         'status',
         'created_at',
         'updated_at'

@@ -50,6 +50,7 @@ export default function View(props) {
     const contents_mce_tech = props.contents_mce_tech;
     const contents_mce_terminal = props.contents_mce_terminal;
     const instruction_content = props.instruction_content;
+    const get_rerc_date_submitted = props.get_rerc_date_submitted;
     const user = usePage().props.auth.user;
 
     return (
@@ -77,7 +78,7 @@ export default function View(props) {
                           <h5 class="p-2 rounded-md bg-[#198754] text-xl text-white font-extrabold leading-none tracking-tight md:text-xl dark:text-white">Application and Review Process </h5>
                             <div class="flex items-center justify-between vertical-scrollbar rounded-none rounded-scrollbar card max-h-screen w-full mb-4 p-4">
                            
-                            <Steps research_logs={research_logs} step_status={step_status} user={user} tech_doc={tech_doc} />
+                            <Steps get_rerc_date_submitted={get_rerc_date_submitted} research_logs={research_logs} step_status={step_status} user={user} tech_doc={tech_doc} />
                             </div>
                             
                             </div>
