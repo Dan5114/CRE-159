@@ -125,7 +125,6 @@ export default function View(props) {
                     'undo', 'redo', '|',
                     'hr', 'eraser', 'copyformat', 'fullsize'
                   ],
-                toolbarSticky: false, // Prevents toolbar from sticking
                 toolbarAdaptive: false, // Prevents adaptive toolbar changes
                 }}
                 />
