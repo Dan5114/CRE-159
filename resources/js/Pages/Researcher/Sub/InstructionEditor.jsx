@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Loader2 } from 'lucide-react';
 
 // Simple Error Boundary
@@ -25,6 +25,7 @@ const InstructionEditor = ({ instruction_content, step }) => {
   const [content, setContent] = useState(null);
   const [Editor, setEditor] = useState(null);
   const [loading, setLoading] = useState(true);
+  const editorRef = useRef(null);
 
   useEffect(() => {
     const loadResources = async () => {
@@ -63,6 +64,7 @@ const InstructionEditor = ({ instruction_content, step }) => {
     <ErrorBoundary>
       <div className="mb-4">
         <JoditEditor
+         ref={editorRef}
           value={content}
           config={{
             height: 300,

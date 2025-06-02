@@ -14,6 +14,7 @@ import JoditEditor from "jodit-react";
 
 export default function Step2({user, research, panels, user_panels}) {
     const notyf = new Notyf();
+     const editorRef = useRef(null);
     const { data, setData, post,  delete: destroy, errors, reset, processing, progress, recentlySuccessful } =
     useForm({
       research_id : research.id,
@@ -304,6 +305,7 @@ export default function Step2({user, research, panels, user_panels}) {
             <div className="mt-4">
 
             <JoditEditor
+              ref={editorRef}
               value={selectedContent}
               config={{
                 height: 600,
