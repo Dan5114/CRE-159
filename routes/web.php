@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InstructionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 
 Route::get('/', function () {
@@ -18,6 +19,11 @@ Route::get('/', function () {
     //     'phpVersion' => PHP_VERSION,
     // ]);
     return redirect()->route('login');
+});
+
+Route::get('/clear-optimize', function () {
+    Artisan::call('optimize:clear');
+    return response('Optimize cleared!', 200);
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
