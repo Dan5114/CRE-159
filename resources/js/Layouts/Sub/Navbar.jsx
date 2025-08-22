@@ -11,170 +11,241 @@ const Navbar = () => {
     console.log(user);
   return (
     <>
-    <div class="">
-<nav class="navbar bg-base-100">
+    <div style={{
+        minHeight: '64px',
+        maxHeight: '64px',
+        height: '64px',
+        overflow: 'hidden',
+        border: 'none',
+        outline: 'none',
+        boxShadow: 'none',
+        background: 'white',
+        position: 'relative'
+    }}>
+        <nav style={{
+            zoom: '1',
+            transform: 'scale(1)',
+            transformOrigin: 'top left',
+            width: '100vw',
+            position: 'relative',
+            zIndex: 1000,
+            backgroundColor: 'white',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '0',
+            margin: '0',
+            border: 'none',
+            outline: 'none',
+            boxShadow: 'none',
+            background: 'white',
+            minHeight: '64px',
+            maxHeight: '64px',
+            height: '64px'
+        }}>
 
-    <div class="navbar-start">
-        <div className="flex items-center">
-            <img src="/img/logo.svg" className="rounded-md w-28 text-gray-500 mr-4" alt="logo" />
-            <a class="link text-base-content/90 link-neutral text-xl font-semibold no-underline font-custom" href="#">Research Tracker</a>
-        </div>    
-    </div>
-
-    <div class="navbar-center max-sm:hidden">
-      <ul class="menu menu-horizontal font-extrabold gap-2 p-0 text-base rtl:ml-20">
-      <li><Link  href={route('dashboard')}
-                                    active={route().current('dashboard')}>
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="gray" d="M13 9V3h8v6zM3 13V3h8v10zm10 8V11h8v10zM3 21v-6h8v6z"/></svg>
-                                      Dashboard</Link></li>
-      
-      
-       {
-        (user.user_type == "cre") ?
-        <li class="dropdown relative inline-flex [--auto-close:inside] [--offset:9] [--placement:bottom-end] max-sm:[--placement:bottom]">
-        <button id="dropdown-end" type="button" class="dropdown-toggle dropdown-open:bg-base-content/10 dropdown-open:text-base-content max-sm:px-2" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="gray" d="M8 13h8v-2H8zm0 3h8v-2H8zm0 3h5v-2H8zm-2 3q-.825 0-1.412-.587T4 20V4q0-.825.588-1.412T6 2h8l6 6v12q0 .825-.587 1.413T18 22zm7-13h5l-5-5z"/></svg> CRE
-          <span class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"></span>
-        </button>
-        <ul class="dropdown-menu dropdown-open:opacity-100 hidden" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-end"> 
-          <li><Link href={route('researcher.index')} class="dropdown-item">Research Listings</Link></li>
-        </ul>
-      </li>
-      :
-        (user.user_type == "tpl") ?
-        <li class="dropdown relative inline-flex [--auto-close:inside] [--offset:9] [--placement:bottom-end] max-sm:[--placement:bottom]">
-        <button id="dropdown-tpl" type="button" class="dropdown-toggle dropdown-open:bg-base-content/10 dropdown-open:text-base-content max-sm:px-2" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="gray" d="M12 4a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10c4.42 0 8 1.79 8 4v2H4v-2c0-2.21 3.58-4 8-4"/></svg> TPL
-          <span class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"></span>
-        </button>
-        <ul class="dropdown-menu dropdown-open:opacity-100 hidden" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-tpl"> 
-          <li><Link href={route('researcher.index')} class="dropdown-item">Research Listings</Link></li>
-        </ul>
-      </li>
-        :
-        <li class="dropdown relative inline-flex [--auto-close:inside] [--offset:9] [--placement:bottom-end] max-sm:[--placement:bottom]">
-        <button id="dropdown-researcher" type="button" class="dropdown-toggle dropdown-open:bg-base-content/10 dropdown-open:text-base-content max-sm:px-2" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512"><path fill="gray" d="M149.7 85.6c-1.2 0-2.5 0-3.7.1c-33.9.8-75.5 10.7-127.3 33.7v243.4c60.8-28.8 106.7-37.1 144.2-33.1c13.7 1.4 26.3 4.5 37.9 8.6l-45.1-78.8c-8.6 3.5-17.9 5.5-27.7 5.5c-40.21 0-73-32.8-73-73s32.79-73 73-73c40.2 0 73 32.8 73 73c0 24-11.7 45.3-29.7 58.7l57.3 100c6.2 3.2 12.1 6.7 17.9 10.2v-243c-23.2-17.7-50.2-30-86-32q-5.25-.3-10.8-.3m212 0c-3.7 0-7.4.1-10.9.3c-35.8 2-62.7 14.3-86 32v243c23.9-14.6 50.1-27.7 83.6-31.2c37.5-4 83.5 4.3 144.2 33.1V119.4c-51.7-23-93.3-32.9-127.2-33.7c-1.3 0-2.5-.1-3.7-.1M128 137c-30.48 0-55 24.5-55 55s24.52 55 55 55c30.5 0 55-24.5 55-55s-24.5-55-55-55m2.3 13.9h2.8C109 169.1 98.32 193 99.73 221.1c-26.06-38.8 1.27-69.4 30.57-70.2m13.1 196.5c-32 .3-71.8 9.8-124.7 36v42.5c60.8-28.8 106.7-37.1 144.2-33.1c18.6 2 34.9 6.9 49.8 13.3c-4.7 6.1-9.3 13.3-13.9 21.7h53.3l-36-62.7c-16.6-8.3-34.3-14.6-55.1-16.8c-5.6-.6-11.5-.9-17.6-.9m220.9 0c-4.8.1-9.4.4-13.9.9c-34 3.6-59.6 18-85.6 34.4v.3c-6.1-1.9-12.3-2.3-18.3-1.2l26.3 46H316c-6-8.2-11.8-15.4-17.7-21.6c15-6.5 31.4-11.4 50.1-13.4c37.5-4 83.5 4.3 144.2 33.1v-42.5c-53.1-26.3-93.1-35.9-125.2-36z"/></svg> Researcher
-          <span class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"></span>
-        </button>
-        <ul class="dropdown-menu dropdown-open:opacity-100 hidden" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-researcher">
-        {/* <li><Link href={route('requirements.index')} class="dropdown-item">Requirements</Link></li> */}
-          <li><Link href={route('researcher.create')} class="dropdown-item">New Application</Link></li>
-          <li><Link href={route('researcher.index')} class="dropdown-item">Research Listings</Link></li>
-        </ul>
-      </li> 
-       }
-
-       {
-        (user.user_type == "cre") ?
-        <>
-            <li class="dropdown relative inline-flex [--auto-close:inside] [--offset:9] [--placement:bottom-end] max-sm:[--placement:bottom]">
-          <button id="dropdown-faculty" type="button" class="dropdown-toggle dropdown-open:bg-base-content/10 dropdown-open:text-base-content max-sm:px-2" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
-          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="24" viewBox="0 0 640 512"><path fill="gray" d="M144 0a80 80 0 1 1 0 160a80 80 0 1 1 0-160m368 0a80 80 0 1 1 0 160a80 80 0 1 1 0-160M0 298.7C0 239.8 47.8 192 106.7 192h42.7c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96H21.3C9.6 320 0 310.4 0 298.7M405.3 320h-.7c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7h42.7c58.9 0 106.7 47.8 106.7 106.7c0 11.8-9.6 21.3-21.3 21.3H405.4zM224 224a96 96 0 1 1 192 0a96 96 0 1 1-192 0m-96 261.3c0-73.6 59.7-133.3 133.3-133.3h117.3c73.7 0 133.4 59.7 133.4 133.3c0 14.7-11.9 26.7-26.7 26.7H154.6c-14.7 0-26.7-11.9-26.7-26.7z"/></svg>Faculty
-            <span class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"></span>
-          </button>
-          <ul class="dropdown-menu dropdown-open:opacity-100 hidden" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-faculty">
-            <li><Link href={route('panels.index')} class="dropdown-item">Faculty Listings</Link></li>
-           
-            
-          </ul>
-        </li>
-        </>
-        :
-        <></>
-       }
-
-{
-        (user.user_type == "cre") ?
-        <>
-             <li><Link  href={route('instructions.index')}
-              active={route().current('instructions.index')}>
-               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="gray" d="M7 2a4 4 0 0 0-4 4v12a4 4 0 0 0 4 4h14V2zm4 3h7v2h-7zM5 18a2 2 0 0 1 2-2h12v4H7a2 2 0 0 1-2-2"/></svg>
-                Instructions</Link></li>
-        </>
-        :
-        <></>
-       }
-
-        {/* <li class="dropdown relative inline-flex [--auto-close:inside] [--offset:9] [--placement:bottom-end] max-sm:[--placement:bottom]">
-          <button id="dropdown-reports" type="button" class="dropdown-toggle dropdown-open:bg-base-content/10 dropdown-open:text-base-content max-sm:px-2" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="gray"><rect width="5" height="18" x="16" y="3" rx="2"/><rect width="5" height="12" x="9.5" y="9" rx="2"/><rect width="5" height="5" x="3" y="16" rx="2"/></g></svg> Reports
-            <span class="icon-[tabler--chevron-down] dropdown-open:rotate-180 size-4"></span>
-          </button>
-          <ul class="dropdown-menu dropdown-open:opacity-100 hidden" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-reports">
-            <li><Link href={route('researcher.create')} class="dropdown-item">Document Submission</Link></li>
-           
-            
-          </ul>
-        </li> */}
-      </ul>
-
-
-    </div>
-
-    
-
-
-  <div class="navbar-end flex items-center gap-4">
-
-  <div className="flex items-center space-x-4">
-  <div className="flex justify-between">
-  <div class="text-sm">
-      <span class="text-black-400 text-sm font-mono">Currently Viewing: </span>
-      <span className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm font-semibold">
-              {
-                (UserTypeupperStr == "TPL") ? 
-                "Technical Panel"
-                :
-                UserTypeupperStr
-              }
-            </span>
-    </div>
-            
-          </div>
-         
-        </div>
-
-    <div class="dropdown relative inline-flex [--auto-close:inside] [--offset:8] [--placement:bottom-end]">
-      <button id="dropdown-avatar" type="button" class="dropdown-toggle flex items-center" aria-haspopup="menu" aria-expanded="false" aria-label="Dropdown">
-        <div class="avatar">
-          <div class="size-9.5 rounded-full">
-            <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png" alt="avatar 1" />
-          </div>
-        </div>
-      </button>
-      <ul class="dropdown-menu dropdown-open:opacity-100 hidden min-w-60" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-avatar">
-        <li class="dropdown-header flex gap-2">
-          <div class="avatar">
-            <div class="w-10 rounded-full">
-              <img src="https://cdn.flyonui.com/fy-assets/avatar/avatar-1.png" alt="avatar" />
+        {/* Left Section - Logo and Branding */}
+        <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            paddingLeft: '24px',
+            width: '280px',
+            flexShrink: 0
+        }}>
+            {/* USLS Logo */}
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                marginRight: '20px'
+            }}>
+                <img src="/img/logo.svg" style={{
+                    width: '120px',
+                    height: '48px'
+                }} alt="USLS Logo" />
             </div>
-          </div>
-          <div>
-            <h6 class="text-base-content/90 text-base font-semibold"> {user.name}</h6>
-            <small class="text-base-content/50"> {user.email}</small>
-          </div>
-        </li>
-        <li>
-          <Link class="dropdown-item" href={route('profile.edit')}>
-            <span class="icon-[tabler--user]"></span>
-            Profile
-          </Link>
-        </li>
-       
-        <li class="dropdown-footer gap-2">
-          <Link class="btn btn-error btn-soft btn-block"  method="post"
-                                href={route('logout')}
-                                as="button">
-            <span class="icon-[tabler--logout]"></span>
-            Sign out
-          </Link>
-        </li>
-      </ul>
+
+            {/* Research Tracker Title */}
+            <div style={{
+                display: 'flex',
+                alignItems: 'center'
+            }}>
+                <span style={{
+                    color: '#166534',
+                    fontSize: '18px',
+                    fontWeight: 'bold',
+                    whiteSpace: 'nowrap'
+                }}>Research Tracker</span>
+            </div>
+        </div>
+
+        {/* Center Section - Navigation Items */}
+        <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '40px',
+            padding: '0',
+            margin: '0',
+            flex: '1',
+            justifyContent: 'center'
+        }}>
+            {/* Dashboard */}
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                cursor: 'pointer',
+                width: '100px'
+            }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" style={{display: 'block'}} fill="#374151">
+                    <path d="M13 9V3h8v6zM3 13V3h8v10zm10 8V11h8v10zM3 21v-6h8v6z"/>
+                </svg>
+                <span style={{color: '#374151', fontSize: '14px', fontWeight: 'normal', whiteSpace: 'nowrap'}}>Dashboard</span>
+            </div>
+
+            {/* Researcher with dropdown */}
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                cursor: 'pointer',
+                width: '100px'
+            }}>
+                <svg width="20" height="20" viewBox="0 0 512 512" style={{display: 'block'}} fill="#374151">
+                    <path d="M149.7 85.6c-1.2 0-2.5 0-3.7.1c-33.9.8-75.5 10.7-127.3 33.7v243.4c60.8-28.8 106.7-37.1 144.2-33.1c13.7 1.4 26.3 4.5 37.9 8.6l-45.1-78.8c-8.6 3.5-17.9 5.5-27.7 5.5c-40.21 0-73-32.8-73-73s32.79-73 73-73c40.2 0 73 32.8 73 73c0 24-11.7 45.3-29.7 58.7l57.3 100c6.2 3.2 12.1 6.7 17.9 10.2v-243c-23.2-17.7-50.2-30-86-32q-5.25-.3-10.8-.3m212 0c-3.7 0-7.4.1-10.9.3c-35.8 2-62.7 14.3-86 32v243c23.9-14.6 50.1-27.7 83.6-31.2c37.5-4 83.5 4.3 144.2 33.1V119.4c-51.7-23-93.3-32.9-127.2-33.7c-1.3 0-2.5-.1-3.7-.1M128 137c-30.48 0-55 24.5-55 55s24.52 55 55 55c30.5 0 55-24.5 55-55s-24.5-55-55-55m2.3 13.9h2.8C109 169.1 98.32 193 99.73 221.1c-26.06-38.8 1.27-69.4 30.57-70.2m13.1 196.5c-32 .3-71.8 9.8-124.7 36v42.5c60.8-28.8 106.7-37.1 144.2-33.1c18.6 2 34.9 6.9 49.8 13.3c-4.7 6.1-9.3 13.3-13.9 21.7h53.3l-36-62.7c-16.6-8.3-34.3-14.6-55.1-16.8c-5.6-.6-11.5-.9-17.6-.9m220.9 0c-4.8.1-9.4.4-13.9.9c-34 3.6-59.6 18-85.6 34.4v.3c-6.1-1.9-12.3-2.3-18.3-1.2l26.3 46H316c-6-8.2-11.8-15.4-17.7-21.6c15-6.5 31.4-11.4 50.1-13.4c37.5-4 83.5 4.3 144.2 33.1v-42.5c-53.1-26.3-93.1-35.9-125.2-36z"/>
+                </svg>
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                }}>
+                    <span style={{color: '#374151', fontSize: '14px', fontWeight: 'normal', whiteSpace: 'nowrap'}}>Researcher</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="#374151">
+                        <path d="M7 10l5 5 5-5z"/>
+                    </svg>
+                </div>
+            </div>
+
+            {/* Faculty with dropdown */}
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                cursor: 'pointer',
+                width: '100px'
+            }}>
+                <svg width="20" height="20" viewBox="0 0 640 512" style={{display: 'block'}} fill="#374151">
+                    <path d="M144 0a80 80 0 1 1 0 160a80 80 0 1 1 0-160m368 0a80 80 0 1 1 0 160a80 80 0 1 1 0-160M0 298.7C0 239.8 47.8 192 106.7 192h42.7c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96H21.3C9.6 320 0 310.4 0 298.7M405.3 320h-.7c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7h42.7c58.9 0 106.7 47.8 106.7 106.7c0 11.8-9.6 21.3-21.3 21.3H405.4zM224 224a96 96 0 1 1 192 0a96 96 0 1 1-192 0m-96 261.3c0-73.6 59.7-133.3 133.3-133.3h117.3c73.7 0 133.4 59.7 133.4 133.3c0 14.7-11.9 26.7-26.7 26.7H154.6c-14.7 0-26.7-11.9-26.7-26.7z"/>
+                </svg>
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                }}>
+                    <span style={{color: '#374151', fontSize: '14px', fontWeight: 'normal', whiteSpace: 'nowrap'}}>Faculty</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="#374151">
+                        <path d="M7 10l5 5 5-5z"/>
+                    </svg>
+                </div>
+            </div>
+
+            {/* Instructions */}
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                cursor: 'pointer',
+                width: '100px'
+            }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" style={{display: 'block'}} fill="#374151">
+                    <path d="M7 2a4 4 0 0 0-4 4v12a4 4 0 0 0 4 4h14V2zm4 3h7v2h-7zM5 18a2 2 0 0 1 2-2h12v4H7a2 2 0 0 1-2-2"/>
+                </svg>
+                <span style={{color: '#374151', fontSize: '14px', fontWeight: 'normal', whiteSpace: 'nowrap'}}>Instructions</span>
+            </div>
+
+            {/* Departments */}
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                cursor: 'pointer',
+                width: '100px'
+            }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" style={{display: 'block'}} fill="#374151">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+                <span style={{color: '#374151', fontSize: '14px', fontWeight: 'normal', whiteSpace: 'nowrap'}}>Departments</span>
+            </div>
+
+            {/* Roles */}
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                cursor: 'pointer',
+                width: '100px'
+            }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" style={{display: 'block'}} fill="#374151">
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                </svg>
+                <span style={{color: '#374151', fontSize: '14px', fontWeight: 'normal', whiteSpace: 'nowrap'}}>Roles</span>
+            </div>
+        </div>
+
+        {/* Right Section - User Info and Sign Out */}
+        <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '20px',
+            paddingRight: '24px',
+            width: '200px',
+            justifyContent: 'flex-end',
+            flexShrink: 0
+        }}>
+            {/* User Info */}
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                whiteSpace: 'nowrap'
+            }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="#374151">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+                <span style={{color: '#374151', fontSize: '14px', fontWeight: 'normal', whiteSpace: 'nowrap'}}>Test User</span>
+            </div>
+            
+            {/* Sign Out Button */}
+            <Link
+                href={route('logout')}
+                method="post"
+                as="button"
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '8px 16px',
+                    backgroundColor: '#dc2626',
+                    color: 'white',
+                    borderRadius: '6px',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    textDecoration: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'background-color 0.2s',
+                    whiteSpace: 'nowrap'
+                }}
+            >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                    <polyline points="16,17 21,12 16,7"/>
+                    <line x1="21" y1="12" x2="9" y2="12"/>
+                </svg>
+                <span style={{whiteSpace: 'nowrap'}}>Sign out</span>
+            </Link>
+        </div>
+        </nav>
     </div>
-  </div>
-</nav>
-</div>
     </>
   )
 }
